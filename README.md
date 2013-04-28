@@ -34,7 +34,9 @@ And:
 This registers the package with Laravel and creates an alias called
 `Breadcrumbs`.
 
-### 3. Create `app/breadcrumbs.php`
+## Usage
+
+### 1. Define breadcrumbs in `app/breadcrumbs.php`
 
 Create a file called `app/breadcrumbs.php` to put your breadcrumbs in. This file
 will be loaded automatically.
@@ -71,13 +73,14 @@ Breadcrumbs::register('page', function($breadcrumbs, $page) {
 });
 ```
 
-### 4. Create a view (partial) that renders the breadcrumbs (optional)
+### 2. Create a template that renders the breadcrumbs (optional)
 
-By default, a [Twitter Bootstrap][3]-compatible unordered list will be rendered.
-Alternatively you can uncomment the `Breadcrumbs::setView()` line above and
-create your own view file:
+*This step is optional - by default, a [Twitter Bootstrap][3]-compatible
+unordered list will be rendered.*
 
-e.g. `app/views/_partials/breadcrumbs.blade.php`
+If you want to customise the HTML that is output, uncomment the
+`Breadcrumbs::setView()` line in `app/breadcrumbs.php` above and create your own
+view file (e.g. `app/views/_partials/breadcrumbs.blade.php`) like this:
 
 ```html+php
 @if ($breadcrumbs)
@@ -106,30 +109,28 @@ breadcrumb is an object with the following keys:
 * `first` - `true` for the first breadcrumb, `false` otherwise
 * `last` - `true` for the last breadcrumb, `false` otherwise
 
-### 5. Call them in your view
+### 3. Output the breadcrumbs in your view
 
-Finally, simply call `Breadcrumbs::render()` in the view template for each page,
-passing in the ID of the page and any parameters.
+Finally, call `Breadcrumbs::render()` in the view template for each page,
+passing in the name of the page and any parameters you defined above.
 
-With Blade:
+For example, with Blade:
 
 ```html+php
+{{ Breadcrumbs::render('home') }}
+or
 {{ Breadcrumbs::render('category', $category) }}
 ```
 
-Or you can assign it to a section to be used in the layout:
+Or you can assign them to a section to be used in the layout:
 
 ```html+php
 @section('breadcrumbs', Breadcrumbs::render('category', $category))
 ```
 
-And then in the layout:
+(Then in the layout you would call `@yield('breadcrumbs')`.)
 
-```html+php
-@yield('breadcrumbs')
-```
-
-Or if you are using PHP templates without Blade:
+Or if you aren't using Blade you can use regular PHP instead:
 
 ```html+php
 <?= Breadcrumbs::render('category', $category) ?>
