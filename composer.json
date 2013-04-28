@@ -1,0 +1,26 @@
+{
+    "name": "davejamesmiller/laravel-breadcrumbs",
+    "description": "",
+    "keywords": [
+        "laravel"
+    ],
+    "homepage": "https://github.com/davejamesmiller/laravel-aliases",
+    "authors": [
+        {
+            "name": "Dave James Miller",
+            "email": "dave@davejamesmiller.com",
+            "homepage": "http://davejamesmiller.com/"
+        }
+    ],
+    "license": "MIT License",
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.x"
+    },
+    "autoload": {
+        "psr-0": {
+            "DaveJamesMiller\\Breadcrumbs": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
