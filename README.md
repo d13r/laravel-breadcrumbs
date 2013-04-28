@@ -114,13 +114,13 @@ passing in the ID of the page and any parameters.
 With Blade:
 
 ```html+php
-{{ Breadcrumbs::render('category', $page) }}
+{{ Breadcrumbs::render('category', $category) }}
 ```
 
 Or you can assign it to a section to be used in the layout:
 
 ```html+php
-@section('breadcrumbs', Breadcrumbs::render('category', $page))
+@section('breadcrumbs', Breadcrumbs::render('category', $category))
 ```
 
 And then in the layout:
@@ -132,7 +132,7 @@ And then in the layout:
 Or if you are using PHP templates without Blade:
 
 ```html+php
-<?= Breadcrumbs::render('category', $page) ?>
+<?= Breadcrumbs::render('category', $category) ?>
 ```
 
 ## Defining breadcrumbs
@@ -196,7 +196,7 @@ This is a dynamically generated page pulled from the database:
 
 ```php
 Breadcrumbs::register('page', function($breadcrumbs, $page) {
-    $breadcrumbs->parent('home');
+    $breadcrumbs->parent('blog');
     $breadcrumbs->push($page->title, route('page', $page->id));
 });
 ```
@@ -210,7 +210,7 @@ The `$page` variable would simply be passed in from the view:
 It would be rendered like this:
 
 <pre>
-<a href="#">Home</a> / Page Title
+<a href="#">Home</a> / <a href="#">Blog</a> / Page Title
 </pre>
 
 **Tip:** You can pass multiple parameters if necessary.
@@ -248,7 +248,7 @@ Breadcrumbs::register('category', function($breadcrumbs, $category) {
 Both would be rendered like this:
 
 <pre>
-<a href="#">Home</a> / <a href="#">Parent Category</a> / <a href="#">Category Title</a> / Page Title
+<a href="#">Home</a> / <a href="#">Blog</a> / <a href="#">Grandparent Category</a> / <a href="#">Parent Category</a> / Category Title
 </pre>
 
 ## Advanced usage
@@ -266,13 +266,13 @@ If you need different views in different templates, you can call
 manually:
 
 ```html+php
-@include('_partials/breadcrumbs2', array('breadcrumbs' => Breadcrumbs::generate('category', $page)))
+@include('_partials/breadcrumbs2', array('breadcrumbs' => Breadcrumbs::generate('category', $category)))
 ```
 
 or
 
 ```html+php
-{{ View::make('_partials/breadcrumbs2', array('breadcrumbs' => Breadcrumbs::generate('category', $page))) }}
+{{ View::make('_partials/breadcrumbs2', array('breadcrumbs' => Breadcrumbs::generate('category', $category))) }}
 ```
 
 ## Thanks to
