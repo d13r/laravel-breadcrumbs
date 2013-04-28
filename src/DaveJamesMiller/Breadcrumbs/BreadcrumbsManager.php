@@ -8,7 +8,7 @@ class BreadcrumbsManager {
 
 	protected $environment;
 
-	protected $view = 'breadcrumbs::breadcrumbs';
+	protected $view = 'breadcrumbs::bootstrap';
 
 	public function __construct(ViewEnvironment $environment)
 	{
