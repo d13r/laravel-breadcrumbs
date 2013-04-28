@@ -282,8 +282,14 @@ for a while before Laravel lured me back to PHP.
 ## License
 MIT License. See [LICENSE.txt][5].
 
+## Alternatives
+So far I've only found one other breadcrumb package for Laravel:
+
+* [noherczeg/breadcrumb][6]
+
 [1]: http://four.laravel.com/
 [2]: https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs
 [3]: http://twitter.github.io/bootstrap/components.html#breadcrumbs
 [4]: https://github.com/lassebunk/gretel
 [5]: LICENSE.txt
+[6]: https://github.com/noherczeg/breadcrumb
