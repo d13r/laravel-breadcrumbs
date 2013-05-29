@@ -1,6 +1,6 @@
 {
     "name": "davejamesmiller/laravel-breadcrumbs",
-    "description": "",
+    "description": "A simple Laravel-style way to create breadcrumbs in Laravel 4.",
     "keywords": [
         "laravel"
     ],
