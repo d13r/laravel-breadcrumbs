@@ -25,7 +25,7 @@ class BreadcrumbsManager {
 		$this->view = $view;
 	}
 
-	public function register($name, Callable $callback)
+	public function register($name, $callback)
 	{
 		$this->callbacks[$name] = $callback;
 	}
