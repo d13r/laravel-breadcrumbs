@@ -280,6 +280,9 @@ or
 ### 1.0.0
 * Initial release
 
+### 1.0.1
+* Fix for PHP 5.3 compatibility
+
 ## Thanks to
 This is largely based on the [Gretel][4] plugin for Ruby on Rails, which I used
 for a while before Laravel lured me back to PHP.
