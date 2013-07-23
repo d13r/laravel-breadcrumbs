@@ -10,6 +10,9 @@ class BreadcrumbsManager {
 
 	protected $view = 'breadcrumbs::bootstrap';
 
+	protected $selectedName;
+	protected $selectedArgs;
+
 	public function __construct(ViewEnvironment $environment)
 	{
 		$this->environment = $environment;
@@ -34,6 +37,9 @@ class BreadcrumbsManager {
 	{
 		if (!is_array($args)) $args = array_slice(func_get_args(), 1);
 
+		$this->selectedName = $name;
+		$this->selectedArgs = $args;
+
 		$generator = new BreadcrumbsGenerator($this->callbacks);
 		$generator->call($name, $args);
 		return $generator->toArray();
@@ -46,6 +52,13 @@ class BreadcrumbsManager {
 		$breadcrumbs = $this->generate($name, $args);
 
 		return $this->environment->make($this->view, compact('breadcrumbs'))->render();
+	}
+
+	public function selected($name, $args = array())
+	{
+		if (!is_array($args)) $args = array_slice(func_get_args(), 1);
+
+		return ($this->selectedName == $name && $this->selectedArgs == $args);
 	}
 
 }
