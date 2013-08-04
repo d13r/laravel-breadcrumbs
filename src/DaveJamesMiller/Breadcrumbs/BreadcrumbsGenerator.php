@@ -22,21 +22,27 @@ class BreadcrumbsGenerator {
 		$this->breadcrumbs = $breadcrumbs;
 	}
 
-	public function call($name, $args = array())
+	public function call($name, $args)
 	{
 		if (!isset($this->callbacks[$name])) throw new BreadcrumbsGeneratorException("Invalid breadcrumb: $name");
-
-		if (!is_array($args)) $args = array_slice(func_get_args(), 1);
 
 		array_unshift($args, $this);
 
 		call_user_func_array($this->callbacks[$name], $args);
 	}
 
-	public function parent($name, $args = array())
+	public function parent($name)
 	{
-		if (!is_array($args)) $args = array_slice(func_get_args(), 1);
+		$args = array_slice(func_get_args(), 1);
 
+		$this->parentArray($name, $args);
+	}
+
+	// This does the same as call() but is named differently for clarify.
+	// parent() / parentArray() are used when defining breadcrumbs.
+	// call() is used when outputting breadcrumbs.
+	public function parentArray($name, $args = array())
+	{
 		$this->call($name, $args);
 	}
 

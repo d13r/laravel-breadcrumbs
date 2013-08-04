@@ -33,10 +33,15 @@ class BreadcrumbsManager {
 		$this->callbacks[$name] = $callback;
 	}
 
-	public function generate($name, $args = array())
+	public function generate($name)
 	{
-		if (!is_array($args)) $args = array_slice(func_get_args(), 1);
+		$args = array_slice(func_get_args(), 1);
 
+		return $this->generateArray($name, $args);
+	}
+
+	public function generateArray($name, $args = array())
+	{
 		$this->selectedName = $name;
 		$this->selectedArgs = $args;
 
@@ -45,11 +50,16 @@ class BreadcrumbsManager {
 		return $generator->toArray();
 	}
 
-	public function render($name, $args = array())
+	public function render($name)
 	{
-		if (!is_array($args)) $args = array_slice(func_get_args(), 1);
+		$args = array_slice(func_get_args(), 1);
 
-		$breadcrumbs = $this->generate($name, $args);
+		return $this->renderArray($name, $args);
+	}
+
+	public function renderArray($name, $args = array())
+	{
+		$breadcrumbs = $this->generateArray($name, $args);
 
 		return $this->environment->make($this->view, compact('breadcrumbs'))->render();
 	}

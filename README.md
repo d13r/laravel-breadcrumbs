@@ -300,7 +300,11 @@ or
 * Add `Breadcrumbs::active()` method for highlighting menu items
 
 ### Development (`master` branch)
-* Add Twitter Bootstrap v3 template
+* Add Twitter Bootstrap v3 template (#7)
+* Support for passing arrays into `render()`, `generate()` and `parent()` (#8) (note: not backwards-compatible)
+    * Split `Breadcrumbs::render()` into two methods: `render($name, $arg1, $arg2)` and `renderArray($name, $args)`
+    * Split `Breadcrumbs::generate()` into two methods: `generate($name, $arg1, $arg2)` and `generateArray($name, $args)`
+    * Split `$breadcrumbs->parent()` into two methods: `parent($name, $arg1, $arg2)` and `parentArray($name, $args)`
 
 ### 1.0.1
 * Fix for PHP 5.3 compatibility
