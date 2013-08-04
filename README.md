@@ -298,13 +298,66 @@ or
 {{ View::make('_partials/breadcrumbs2', array('breadcrumbs' => Breadcrumbs::generate('category', $category))) }}
 ```
 
+### Passing arrays into `render()`, `generate()` and `parent()`
+
+In **version 1.x** you can pass an array into each of these methods and it is
+split up into several parameters:
+
+```php
+Breadcrumbs::register('page', function($breadcrumbs, $param1, $param2)
+{
+    $breadcrumbs->parent('somethingElse', array('paramA', 'paramB'))
+    $breadcrumbs->push($param1, $param2);
+});
+
+// Then this:
+Breadcrumbs::render('page', array('param1', 'param2'));
+Breadcrumbs::generate('page', array('param1', 'param2'));
+
+// Is equivalent to this:
+Breadcrumbs::render('page', 'param1', 'param2');
+Breadcrumbs::generate('page', 'param1', 'param2');
+
+// If you want to pass an array as the first parameter you have to do this:
+Breadcrumbs::render('page', array(array('param1A', 'param1B'), 'param2'));
+Breadcrumbs::generate('page', array(array('param1A', 'param1B'), 'param2'));
+```
+
+This means you can't pass an array as the first parameter unless you wrap all
+parameters in another array
+([issue #8](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/8)).
+
+In **version 2.x** (currently in development) this is split into two methods:
+
+```php
+Breadcrumbs::register('page', function($breadcrumbs, $param1, $param2)
+{
+    $breadcrumbs->parent('somethingElse', array('paramA', 'paramB'))
+    $breadcrumbs->push($param1, $param2);
+});
+
+// Now this:
+Breadcrumbs::renderArray('page', array('param1', 'param2'));
+Breadcrumbs::generateArray('page', array('param1', 'param2'));
+
+// Is equivalent to this:
+Breadcrumbs::render('page', 'param1', 'param2');
+Breadcrumbs::generate('page', 'param1', 'param2');
+
+// And this only passes a single parameter (an array) to the callback:
+Breadcrumbs::render('page', array('param1A', 'param1B'));
+Breadcrumbs::generate('page', array('param1A', 'param1B'));
+```
+
+Similarly `generateArray()` and `parentArray()` methods are available.
+
 ## Changelog
 ### Work in progress
 * Add `Breadcrumbs::active()` method for highlighting menu items
 
 ### Development (`master` branch)
 * Add Twitter Bootstrap v3 template ([#7](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/7))
-* Support for passing arrays into `render()`, `generate()` and `parent()` ([#8](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/7)) (note: not backwards-compatible)
+* Support for passing arrays into `render()`, `generate()` and `parent()` ([#8](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/8)) (note: not backwards-compatible)
     * Split `Breadcrumbs::render()` into two methods: `render($name, $arg1, $arg2)` and `renderArray($name, $args)`
     * Split `Breadcrumbs::generate()` into two methods: `generate($name, $arg1, $arg2)` and `generateArray($name, $args)`
     * Split `$breadcrumbs->parent()` into two methods: `parent($name, $arg1, $arg2)` and `parentArray($name, $args)`
