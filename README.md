@@ -1,6 +1,7 @@
 # Laravel Breadcrumbs
 
-A simple Laravel-style way to create breadcrumbs in [Laravel 4][1].
+A simple Laravel-style way to create breadcrumbs in
+[Laravel 4](http://four.laravel.com/).
 
 ## Installation
 
@@ -11,8 +12,9 @@ composer require davejamesmiller/laravel-breadcrumbs dev-master
 
 This will update `composer.json` and install it into the `vendor/` directory.
 
-**Note:** `dev-master` is the latest development version.
-See the [Packagist website][2] for a list of other versions.
+**Note:** `dev-master` is the latest development version. See the
+[Packagist website](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
+for a list of stable versions.
 
 ### 2. Add to `app/config/app.php`
 ```php
@@ -77,13 +79,14 @@ Breadcrumbs::register('page', function($breadcrumbs, $page) {
 
 #### Twitter Bootstrap 2
 
-By default, a [Twitter Bootstrap v2][3]-compatible unordered list will be
-rendered.
+By default, a
+[Twitter Bootstrap v2](http://getbootstrap.com/2.3.2/components.html#breadcrumbs)-compatible
+unordered list will be rendered.
 
 #### Twitter Bootstrap 3
 
-A [Twitter Bootstrap v3][4]-compatible list can be rendered by adding this line
-to `app/breadcrumbs.php`:
+A [Twitter Bootstrap v3](http://getbootstrap.com/components/#breadcrumbs)-compatible
+list can be rendered by adding this line to `app/breadcrumbs.php`:
 
 ```php
 Breadcrumbs::setView('breadcrumbs::bootstrap3');
@@ -300,8 +303,8 @@ or
 * Add `Breadcrumbs::active()` method for highlighting menu items
 
 ### Development (`master` branch)
-* Add Twitter Bootstrap v3 template (#7)
-* Support for passing arrays into `render()`, `generate()` and `parent()` (#8) (note: not backwards-compatible)
+* Add Twitter Bootstrap v3 template ([#7](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/7))
+* Support for passing arrays into `render()`, `generate()` and `parent()` ([#8](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/7)) (note: not backwards-compatible)
     * Split `Breadcrumbs::render()` into two methods: `render($name, $arg1, $arg2)` and `renderArray($name, $args)`
     * Split `Breadcrumbs::generate()` into two methods: `generate($name, $arg1, $arg2)` and `generateArray($name, $args)`
     * Split `$breadcrumbs->parent()` into two methods: `parent($name, $arg1, $arg2)` and `parentArray($name, $args)`
@@ -313,21 +316,13 @@ or
 * Initial release
 
 ## Thanks to
-This is largely based on the [Gretel][5] plugin for Ruby on Rails, which I used
+This is largely based on the [Gretel](https://github.com/lassebunk/gretel) plugin for Ruby on Rails, which I used
 for a while before Laravel lured me back to PHP.
 
 ## License
-MIT License. See [LICENSE.txt][6].
+MIT License. See [LICENSE.txt](LICENSE.txt).
 
 ## Alternatives
 So far I've only found one other breadcrumb package for Laravel:
 
-* [noherczeg/breadcrumb][7]
-
-[1]: http://four.laravel.com/
-[2]: https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs
-[3]: http://getbootstrap.com/2.3.2/components.html#breadcrumbs
-[4]: http://getbootstrap.com/components/#breadcrumbs
-[5]: https://github.com/lassebunk/gretel
-[6]: LICENSE.txt
-[7]: https://github.com/noherczeg/breadcrumb
+* [noherczeg/breadcrumb](https://github.com/noherczeg/breadcrumb)
