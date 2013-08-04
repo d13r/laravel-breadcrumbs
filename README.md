@@ -73,14 +73,26 @@ Breadcrumbs::register('page', function($breadcrumbs, $page) {
 });
 ```
 
-### 2. Create a template that renders the breadcrumbs (optional)
+### 2. Choose/create a template to renders the breadcrumbs
 
-*This step is optional - by default, a [Twitter Bootstrap][3]-compatible
-unordered list will be rendered.*
+#### Twitter Bootstrap 2
 
-If you want to customise the HTML that is output, uncomment the
-`Breadcrumbs::setView()` line in `app/breadcrumbs.php` above and create your own
-view file (e.g. `app/views/_partials/breadcrumbs.blade.php`) like this:
+By default, a [Twitter Bootstrap v2][3]-compatible unordered list will be
+rendered.
+
+#### Twitter Bootstrap 3
+
+A [Twitter Bootstrap v3][4]-compatible list can be rendered by adding this line
+to `app/breadcrumbs.php`:
+
+```php
+Breadcrumbs::setView('breadcrumbs::bootstrap3');
+```
+
+#### Custom template
+
+If you want to customise the HTML, create your own view file (e.g.
+    `app/views/_partials/breadcrumbs.blade.php`) like this:
 
 ```html+php
 @if ($breadcrumbs)
@@ -108,6 +120,13 @@ breadcrumb is an object with the following keys:
 * `url` - The URL you set above
 * `first` - `true` for the first breadcrumb, `false` otherwise
 * `last` - `true` for the last breadcrumb, `false` otherwise
+
+Then add this line to `app/breadcrumbs.php`, adjusting the view name as
+necessary:
+
+```php
+Breadcrumbs::setView('_partials/breadcrumbs');
+```
 
 ### 3. Output the breadcrumbs in your view
 
@@ -277,27 +296,34 @@ or
 ```
 
 ## Changelog
-### 1.0.0
-* Initial release
+### Work in progress
+* Add `Breadcrumbs::active()` method for highlighting menu items
+
+### Development (`master` branch)
+* Add Twitter Bootstrap v3 template
 
 ### 1.0.1
 * Fix for PHP 5.3 compatibility
 
+### 1.0.0
+* Initial release
+
 ## Thanks to
-This is largely based on the [Gretel][4] plugin for Ruby on Rails, which I used
+This is largely based on the [Gretel][5] plugin for Ruby on Rails, which I used
 for a while before Laravel lured me back to PHP.
 
 ## License
-MIT License. See [LICENSE.txt][5].
+MIT License. See [LICENSE.txt][6].
 
 ## Alternatives
 So far I've only found one other breadcrumb package for Laravel:
 
-* [noherczeg/breadcrumb][6]
+* [noherczeg/breadcrumb][7]
 
 [1]: http://four.laravel.com/
 [2]: https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs
-[3]: http://twitter.github.io/bootstrap/components.html#breadcrumbs
-[4]: https://github.com/lassebunk/gretel
-[5]: LICENSE.txt
-[6]: https://github.com/noherczeg/breadcrumb
+[3]: http://getbootstrap.com/2.3.2/components.html#breadcrumbs
+[4]: http://getbootstrap.com/components/#breadcrumbs
+[5]: https://github.com/lassebunk/gretel
+[6]: LICENSE.txt
+[7]: https://github.com/noherczeg/breadcrumb
