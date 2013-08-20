@@ -77,24 +77,37 @@ Breadcrumbs::register('page', function($breadcrumbs, $page) {
 
 ### 2. Choose/create a template to renders the breadcrumbs
 
+You have two options to set the view used by the render method:
+
+- Config option:
+
+You can override the config option `breadcrumbs::view` with the dot notation to whatever view you like.
+
+- Runtime option:
+
+You can set the view at runtime using
+
+```php
+Breadcrumbs::setView('_partials.breadcrumbs');
+```
+
+There are two presets already included in this package:
+
 #### Twitter Bootstrap 2
 
 By default, a
 [Twitter Bootstrap v2](http://getbootstrap.com/2.3.2/components.html#breadcrumbs)-compatible
 unordered list will be rendered.
 
+
 #### Twitter Bootstrap 3
 
 A [Twitter Bootstrap v3](http://getbootstrap.com/components/#breadcrumbs)-compatible
-list can be rendered by adding this line to `app/breadcrumbs.php`:
-
-```php
-Breadcrumbs::setView('breadcrumbs::bootstrap3');
-```
+list can be rendered by using the key `breadcrumbs::bootstrap3`.
 
 #### Custom template
 
-If you want to customise the HTML, create your own view file (e.g.
+If you want to customise the HTML, set the view to the dot notation path to your view (eg. `_partials.breadcrumbs`), and create your own view file (e.g.
     `app/views/_partials/breadcrumbs.blade.php`) like this:
 
 ```html+php
@@ -123,13 +136,6 @@ breadcrumb is an object with the following keys:
 * `url` - The URL you set above
 * `first` - `true` for the first breadcrumb, `false` otherwise
 * `last` - `true` for the last breadcrumb, `false` otherwise
-
-Then add this line to `app/breadcrumbs.php`, adjusting the view name as
-necessary:
-
-```php
-Breadcrumbs::setView('_partials/breadcrumbs');
-```
 
 ### 3. Output the breadcrumbs in your view
 
