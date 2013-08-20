@@ -23,7 +23,11 @@ class BreadcrumbsServiceProvider extends ServiceProvider {
 	{
 		$this->app['breadcrumbs'] = $this->app->share(function($app)
 		{
-			return new BreadcrumbsManager($app['view']);
+			$breadcrumbs = new BreadcrumbsManager($app['view']);
+
+			$breadcrumbs->setView($app['config']['breadcrumbs::view']);
+
+			return $breadcrumbs;
 		});
 	}
 
