@@ -25,7 +25,7 @@ class BreadcrumbsServiceProvider extends ServiceProvider {
 		{
 			$breadcrumbs = new BreadcrumbsManager($app['view']);
 
-			$breadcrumbs->setView($app['config']['breadcrumbs::view']);
+			$breadcrumbs->setView($app['config']['laravel-breadcrumbs::view']);
 
 			return $breadcrumbs;
 		});
@@ -38,7 +38,7 @@ class BreadcrumbsServiceProvider extends ServiceProvider {
 	 */
 	public function boot() {
 		// Register the package so the default view can be loaded
-		$this->package('davejamesmiller/breadcrumbs');
+		$this->package('davejamesmiller/laravel-breadcrumbs');
 
 		// Load the app breadcrumbs if they're in app/breadcrumbs.php
 		if (file_exists($file = $this->app['path'].'/breadcrumbs.php'))
