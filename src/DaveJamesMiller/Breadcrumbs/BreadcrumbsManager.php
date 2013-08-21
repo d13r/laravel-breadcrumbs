@@ -8,7 +8,7 @@ class BreadcrumbsManager {
 
 	protected $environment;
 
-	protected $view = 'breadcrumbs::bootstrap';
+	protected $view;
 
 	protected $selectedName;
 	protected $selectedArgs;
