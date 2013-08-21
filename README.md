@@ -83,12 +83,14 @@ You have two options to set the view used by the render method:
 
 You can override the config option `breadcrumbs::view` with the dot notation to whatever view you like.
 
+(run `php artisan config:publish DaveJamesMiller/laravel-breadcrumbs`)
+
 - Runtime option:
 
 You can set the view at runtime using
 
 ```php
-Breadcrumbs::setView('_partials.breadcrumbs');
+Breadcrumbs::setView('path.to.view');
 ```
 
 There are two presets already included in this package:
@@ -103,7 +105,7 @@ unordered list will be rendered.
 #### Twitter Bootstrap 3
 
 A [Twitter Bootstrap v3](http://getbootstrap.com/components/#breadcrumbs)-compatible
-list can be rendered by using the key `breadcrumbs::bootstrap3`.
+list can be rendered by using the key `laravel-breadcrumbs::bootstrap3`.
 
 #### Custom template
 
