@@ -3,6 +3,10 @@
 A simple Laravel-style way to create breadcrumbs in
 [Laravel 4](http://four.laravel.com/).
 
+***These instructions are for the latest development version, which will become
+version 2.0 and is not backwards compatible. For the stable version please see
+the [1.0 branch](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/1.0).***
+
 ## Installation
 
 ### 1. Install with Composer
@@ -48,7 +52,6 @@ below for an explanation.
 
 ```php
 <?php
-//Breadcrumbs::setView('_partials/breadcrumbs');
 
 Breadcrumbs::register('home', function($breadcrumbs) {
     $breadcrumbs->push('Home', route('home'));
@@ -75,42 +78,39 @@ Breadcrumbs::register('page', function($breadcrumbs, $page) {
 });
 ```
 
-### 2. Choose/create a template to renders the breadcrumbs
+### 2. Choose/create a template to render the breadcrumbs
 
-You have two options to set the view used by the render method:
-
-- Config option:
-
-You can override the config option `breadcrumbs::view` with the dot notation to whatever view you like.
-
-(run `php artisan config:publish DaveJamesMiller/laravel-breadcrumbs`)
-
-- Runtime option:
-
-You can set the view at runtime using
-
-```php
-Breadcrumbs::setView('path.to.view');
-```
-
-There are two presets already included in this package:
-
-#### Twitter Bootstrap 2
-
-By default, a
-[Twitter Bootstrap v2](http://getbootstrap.com/2.3.2/components.html#breadcrumbs)-compatible
+By default a
+[Twitter Bootstrap v3](http://getbootstrap.com/components/#breadcrumbs)-compatible
 unordered list will be rendered.
 
+If you would like to change the template, first you need to generate a config
+file by running this command:
 
-#### Twitter Bootstrap 3
+```bash
+php artisan config:publish davejamesmiller/laravel-breadcrumbs
+```
 
-A [Twitter Bootstrap v3](http://getbootstrap.com/components/#breadcrumbs)-compatible
-list can be rendered by using the key `laravel-breadcrumbs::bootstrap3`.
+Then open `app/config/packages/davejamesmiller/laravel-breadcrumbs/config.php`
+and edit this line:
 
-#### Custom template
+```php
+'view' => 'laravel-breadcrumbs::bootstrap3',
+```
 
-If you want to customise the HTML, set the view to the dot notation path to your view (eg. `_partials.breadcrumbs`), and create your own view file (e.g.
-    `app/views/_partials/breadcrumbs.blade.php`) like this:
+The possible values are:
+
+* `laravel-breadcrumbs::bootstrap3` (Twitter Bootstrap 3)
+* `laravel-breadcrumbs::bootstrap2` (Twitter Bootstrap 2)
+* A path to a custom template, e.g. `_partials.breadcrumbs`
+
+#### Creating a custom template
+
+If you want to customise the HTML, create your own view file (e.g.
+`app/views/_partials/breadcrumbs.blade.php`) and alter the config to point to
+that file (e.g. `_partials.breadcrumbs`).
+
+The view should be similar to this:
 
 ```html+php
 @if ($breadcrumbs)
@@ -144,23 +144,35 @@ breadcrumb is an object with the following keys:
 Finally, call `Breadcrumbs::render()` in the view template for each page,
 passing in the name of the page and any parameters you defined above.
 
-For example, with Blade:
+#### With Blade
 
 ```html+php
 {{ Breadcrumbs::render('home') }}
-or
+```
+
+Or with parameters:
+
+```html+php
 {{ Breadcrumbs::render('category', $category) }}
 ```
 
-Or you can assign them to a section to be used in the layout:
+#### With Blade and @section
+
+In the main page:
 
 ```html+php
+@extends('layout.name')
+
 @section('breadcrumbs', Breadcrumbs::render('category', $category))
 ```
 
-(Then in the layout you would call `@yield('breadcrumbs')`.)
+In the layout:
 
-Or if you aren't using Blade you can use regular PHP instead:
+```html+php
+@yield('breadcrumbs')
+```
+
+#### Pure PHP, without Blade
 
 ```html+php
 <?= Breadcrumbs::render('category', $category) ?>
@@ -292,6 +304,12 @@ Laravel.
 
 ### Switching views dynamically
 
+You can change the view at runtime by calling:
+
+```php
+Breadcrumbs::setView('view.name');
+```
+
 If you need different views in different templates, you can call
 `Breadcrumbs::generate()` to get the `$breadcrumbs` array and then load the view
 manually:
@@ -306,69 +324,81 @@ or
 {{ View::make('_partials/breadcrumbs2', array('breadcrumbs' => Breadcrumbs::generate('category', $category))) }}
 ```
 
+## Upgrading from 1.x to 2.x
+
+There are some backwards-compatibility breaks in version 2:
+
+* The default template was changed from Bootstrap 2 to Bootstrap 3. See the
+  section titled "*2. Choose/create a template to render the breadcrumbs*" above
+  if you need to switch it back.
+* The Bootstrap 2 template name was changed from `breadcrumbs::bootstrap` to
+  `laravel-breadcrumbs::bootstrap2`.
+* If you pass arrays into any of the methods, please read the following section:
+
 ### Passing arrays into `render()`, `generate()` and `parent()`
 
-In **version 1.x** you can pass an array into each of these methods and it is
-split up into several parameters:
+In **version 1.x** you could pass an array into each of these methods and it was
+split up into several parameters. For example:
 
 ```php
+// If this breadcrumb is defined:
 Breadcrumbs::register('page', function($breadcrumbs, $param1, $param2)
 {
-    $breadcrumbs->parent('somethingElse', array('paramA', 'paramB'))
     $breadcrumbs->push($param1, $param2);
 });
 
 // Then this:
 Breadcrumbs::render('page', array('param1', 'param2'));
-Breadcrumbs::generate('page', array('param1', 'param2'));
 
-// Is equivalent to this:
+// Was equivalent to this:
 Breadcrumbs::render('page', 'param1', 'param2');
-Breadcrumbs::generate('page', 'param1', 'param2');
 
-// If you want to pass an array as the first parameter you have to do this:
-Breadcrumbs::render('page', array(array('param1A', 'param1B'), 'param2'));
-Breadcrumbs::generate('page', array(array('param1A', 'param1B'), 'param2'));
+// To pass an array as the first parameter you would have to do this instead:
+Breadcrumbs::render('page', array(array('param1A', 'param1B')));
 ```
 
-This means you can't pass an array as the first parameter unless you wrap all
-parameters in another array
+This means you couldn't pass an array as the first parameter unless you wrapped
+all parameters in another array
 ([issue #8](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/8)).
 
-In **version 2.x** (currently in development) this is split into two methods:
+In **version 2.x** this has been split into two methods:
 
 ```php
 Breadcrumbs::register('page', function($breadcrumbs, $param1, $param2)
 {
-    $breadcrumbs->parent('somethingElse', array('paramA', 'paramB'))
     $breadcrumbs->push($param1, $param2);
 });
 
 // Now this:
 Breadcrumbs::renderArray('page', array('param1', 'param2'));
-Breadcrumbs::generateArray('page', array('param1', 'param2'));
 
 // Is equivalent to this:
 Breadcrumbs::render('page', 'param1', 'param2');
-Breadcrumbs::generate('page', 'param1', 'param2');
 
 // And this only passes a single parameter (an array) to the callback:
 Breadcrumbs::render('page', array('param1A', 'param1B'));
-Breadcrumbs::generate('page', array('param1A', 'param1B'));
 ```
 
-Similarly `generateArray()` and `parentArray()` methods are available.
+Similarly `Breadcrumbs::generateArray()` and `$breadcrumbs->parentArray()`
+methods are available, which take a single array argument. These are primarily
+for internal use - most likely you won't need to call them.
 
 ## Changelog
-### Work in progress
+### WORK IN PROGRESS
 * Add `Breadcrumbs::active()` method for highlighting menu items
 
-### Development (`master` branch)
-* Add Twitter Bootstrap v3 template ([#7](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/7))
-* Support for passing arrays into `render()`, `generate()` and `parent()` ([#8](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/8)) (note: not backwards-compatible)
+### 2.0.0 - UNDER DEVELOPMENT
+* Add Twitter Bootstrap v3 template
+  ([#7](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/7))
+* Twitter Bootstrap v3 is now the default template
+* Support for passing arrays into `render()`, `generate()` and `parent()`
+  ([#8](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/8)) (note: not backwards-compatible)
     * Split `Breadcrumbs::render()` into two methods: `render($name, $arg1, $arg2)` and `renderArray($name, $args)`
     * Split `Breadcrumbs::generate()` into two methods: `generate($name, $arg1, $arg2)` and `generateArray($name, $args)`
     * Split `$breadcrumbs->parent()` into two methods: `parent($name, $arg1, $arg2)` and `parentArray($name, $args)`
+* Set view name in config file instead of in `breadcrumbs.php`
+  ([#10](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/10),
+  [#11](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/11))
 
 ### 1.0.1
 * Fix for PHP 5.3 compatibility
@@ -377,8 +407,12 @@ Similarly `generateArray()` and `parentArray()` methods are available.
 * Initial release
 
 ## Thanks to
-This is largely based on the [Gretel](https://github.com/lassebunk/gretel) plugin for Ruby on Rails, which I used
-for a while before Laravel lured me back to PHP.
+This package is largely based on the
+[Gretel](https://github.com/lassebunk/gretel) plugin for Ruby on Rails, which I
+used for a while before Laravel lured me back to PHP.
+
+### Contributors
+* Stef Horner ([tedslittlerobot](https://github.com/tedslittlerobot))
 
 ## License
 MIT License. See [LICENSE.txt](LICENSE.txt).
