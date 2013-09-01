@@ -1,4 +1,4 @@
-# Laravel Breadcrumbs
+# Laravel Breadcrumbs [![Build Status](https://travis-ci.org/davejamesmiller/laravel-breadcrumbs.png?branch=master)](https://travis-ci.org/davejamesmiller/laravel-breadcrumbs)
 
 A simple Laravel-style way to create breadcrumbs in
 [Laravel 4](http://four.laravel.com/).
@@ -399,6 +399,7 @@ for internal use - most likely you won't need to call them.
 * Set view name in config file instead of in `breadcrumbs.php`
   ([#10](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/10),
   [#11](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/11))
+* Add unit tests
 
 ### 1.0.1
 * Fix for PHP 5.3 compatibility
