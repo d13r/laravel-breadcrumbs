@@ -19,7 +19,8 @@
         "illuminate/view": ">=4.0"
     },
     "require-dev": {
-        "mockery/mockery": "~0.8.0"
+        "mockery/mockery": "~0.8.0",
+        "satooshi/php-coveralls": "~0.6.0"
     },
     "autoload": {
         "psr-0": {

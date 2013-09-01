@@ -5,6 +5,12 @@ php:
   - 5.4
   - 5.3
 
-before_script: composer install --dev
+before_script:
+  - composer install --dev --no-interaction --prefer-source
+  - mkdir -p build/logs
 
-script: phpunit
+script:
+  - phpunit --coverage-clover build/logs/clover.xml
+
+after_script:
+  - php vendor/bin/coveralls
