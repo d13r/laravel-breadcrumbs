@@ -406,6 +406,56 @@ for internal use - most likely you won't need to call them.
 ### 1.0.0
 * Initial release
 
+## Information for developers
+
+### Unit tests
+To run the unit tests, simply [install PHP Unit](http://phpunit.de/manual/current/en/installation.html)
+and run:
+
+```bash
+cd /path/to/laravel-breadcrumbs
+phpunit
+```
+
+### Code coverage in unit tests
+To check code coverage, you will also need [Xdebug](http://xdebug.org/)
+installed. Run:
+
+```bash
+cd /path/to/laravel-breadcrumbs
+php -d xdebug.coverage_enable=On `which phpunit` --coverage-html test-coverage
+```
+
+Then open `test-coverage/index.html` to view the results. However, be aware of
+the [edge cases](http://phpunit.de/manual/current/en/code-coverage-analysis.html#code-coverage-analysis.edge-cases)
+in PHPUnit.
+
+### Developing against a real application
+
+To develop with a real Laravel application, clone the repository into
+`workbench/davejamesmiller/laravel-breadcrumbs/` then run
+`composer install --dev` and it will be used instead of the one in `vendor/`.
+
+```bash
+cd /path/to/repo
+mkdir -p workbench/davejamesmiller
+git clone https://github.com/davejamesmiller/laravel-breadcrumbs.git workbench/davejamesmiller/laravel-breadcrumbs
+cd workbench/davejamesmiller/laravel-breadcrumbs
+composer install --dev
+```
+
+Be aware that some things don't work the same in workbench - e.g.
+`php artisan config:publish davejamesmiller/laravel-breadcrumbs` will always use
+the files in `vendor/` not `workbench/` unless you add the `--path` option.
+
+### Releasing a new version
+* Make sure all tests pass and also check the code coverage report
+* Check the README is up to date
+* Commit all changes
+* Tag the release (`git tag 1.2.3`)
+* Push the code changes (`git push`)
+* Push the tag (`git push --tag`)
+
 ## Thanks to
 This package is largely based on the
 [Gretel](https://github.com/lassebunk/gretel) plugin for Ruby on Rails, which I

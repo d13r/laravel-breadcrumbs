@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
-         bootstrap="vendor/autoload.php"
+         bootstrap="phpunit.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
@@ -10,9 +10,25 @@
          stopOnFailure="false"
          syntaxCheck="false"
 >
+
+    <!-- List of files with tests inside: -->
     <testsuites>
         <testsuite name="Package Test Suite">
             <directory suffix=".php">./tests/</directory>
         </testsuite>
     </testsuites>
+
+    <!-- List of source files for code coverage checker: -->
+    <filter>
+        <!-- TODO: What is the benefit of this? <whitelist processUncoveredFilesFromWhitelist="true"> -->
+        <whitelist>
+            <directory suffix=".php">./src/</directory>
+        </whitelist>
+    </filter>
+
+    <!-- Mockery integration -->
+    <listeners>
+        <listener class="Mockery\Adapter\Phpunit\TestListener"></listener>
+    </listeners>
+
 </phpunit>
