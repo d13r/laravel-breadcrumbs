@@ -332,7 +332,7 @@ or
 There are some backwards-compatibility breaks in version 2:
 
 * The default template was changed from Bootstrap 2 to Bootstrap 3. See the
-  section titled "*2. Choose/create a template to render the breadcrumbs*" above
+  section titled *"2. Choose/create a template to render the breadcrumbs"* above
   if you need to switch it back.
 * The Bootstrap 2 template name was changed from `breadcrumbs::bootstrap` to
   `laravel-breadcrumbs::bootstrap2`.
