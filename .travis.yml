@@ -7,7 +7,6 @@ php:
 
 before_script:
   - composer install --dev --no-interaction --prefer-source
-  - mkdir -p build/logs
 
 script:
   - phpunit --coverage-clover build/logs/clover.xml
