@@ -457,8 +457,9 @@ the files in `vendor/` not `workbench/` unless you add the `--path` option.
 * Make sure all tests pass and also check the code coverage report
 * Check the README is up to date
 * Commit all changes
-* Tag the release (`git tag 1.2.3`)
 * Push the code changes (`git push`)
+* Double-check the [Travis CI results](https://travis-ci.org/davejamesmiller/laravel-breadcrumbs)
+* Tag the release (`git tag 1.2.3`)
 * Push the tag (`git push --tag`)
 
 ## Thanks to
