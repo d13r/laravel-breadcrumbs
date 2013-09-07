@@ -5,7 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/davejamesmiller/laravel-breadcrumbs/badge.png)](https://coveralls.io/r/davejamesmiller/laravel-breadcrumbs)
 
 A simple Laravel-style way to create breadcrumbs in
-[Laravel 4](http://four.laravel.com/).
+[Laravel 4](http://laravel.com/).
 
 ***These instructions are for the latest development version, which will become
 version 2.0 and is not backwards compatible. For the stable version please see
