@@ -1,9 +1,7 @@
 <?php
 namespace DaveJamesMiller\Breadcrumbs;
 
-class BreadcrumbsGeneratorException extends \Exception {}
-
-class BreadcrumbsGenerator
+class Generator
 {
     protected $callbacks = array();
     protected $breadcrumbs = array();
@@ -26,7 +24,7 @@ class BreadcrumbsGenerator
     public function call($name, $args)
     {
         if (!isset($this->callbacks[$name]))
-            throw new BreadcrumbsGeneratorException("Invalid breadcrumb: $name");
+            throw new Exception("Invalid breadcrumb: $name");
 
         array_unshift($args, $this);
 

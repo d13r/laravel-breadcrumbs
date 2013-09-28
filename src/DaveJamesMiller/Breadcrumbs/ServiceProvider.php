@@ -1,9 +1,9 @@
 <?php
 namespace DaveJamesMiller\Breadcrumbs;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
-class BreadcrumbsServiceProvider extends ServiceProvider
+class ServiceProvider extends BaseServiceProvider
 {
     /**
      * Get the services provided by the provider.
@@ -24,7 +24,7 @@ class BreadcrumbsServiceProvider extends ServiceProvider
     {
         $this->app['breadcrumbs'] = $this->app->share(function($app)
         {
-            $breadcrumbs = new BreadcrumbsManager($app['view']);
+            $breadcrumbs = new Manager($app['view']);
 
             $breadcrumbs->setView($app['config']['laravel-breadcrumbs::view']);
 

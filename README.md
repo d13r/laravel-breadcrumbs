@@ -28,7 +28,7 @@ for a list of stable versions.
 ```php
     'providers' => array(
         // ...
-        'DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider',
+        'DaveJamesMiller\Breadcrumbs\ServiceProvider',
     ),
 ```
 
@@ -37,7 +37,7 @@ And:
 ```php
     'aliases' => array(
         // ...
-        'Breadcrumbs'     => 'DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs',
+        'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
     ),
 ```
 
@@ -332,9 +332,13 @@ or
 
 There are some backwards-compatibility breaks in version 2:
 
+* In `app/config/app.php` change `DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider` to `DaveJamesMiller\Breadcrumbs\ServiceProvider`
+* In `app/config/app.php` change `DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs` to `DaveJamesMiller\Breadcrumbs\Facade`
 * The default template was changed from Bootstrap 2 to Bootstrap 3. See the
   section titled *"2. Choose/create a template to render the breadcrumbs"* above
   if you need to switch it back.
+* The view namespace was changed from `breadcrumbs` to `laravel-breadcrumbs` to
+  match the Composer project name.
 * The Bootstrap 2 template name was changed from `breadcrumbs::bootstrap` to
   `laravel-breadcrumbs::bootstrap2`.
 * If you pass arrays into any of the methods, please read the following section:
@@ -403,6 +407,7 @@ for internal use - most likely you won't need to call them.
 * Set view name in config file instead of in `breadcrumbs.php`
   ([#10](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/10),
   [#11](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/11))
+* Simplify class names ([#15](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/15))
 * Add unit tests
 
 ### 1.0.1

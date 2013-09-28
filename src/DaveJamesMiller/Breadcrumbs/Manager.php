@@ -3,7 +3,7 @@ namespace DaveJamesMiller\Breadcrumbs;
 
 use Illuminate\View\Environment as ViewEnvironment;
 
-class BreadcrumbsManager
+class Manager
 {
     protected $callbacks = array();
 
@@ -46,7 +46,7 @@ class BreadcrumbsManager
         $this->selectedName = $name;
         $this->selectedArgs = $args;
 
-        $generator = new BreadcrumbsGenerator($this->callbacks);
+        $generator = new Generator($this->callbacks);
         $generator->call($name, $args);
         return $generator->toArray();
     }

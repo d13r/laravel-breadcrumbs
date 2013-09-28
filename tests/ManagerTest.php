@@ -1,5 +1,5 @@
 <?php
-use DaveJamesMiller\Breadcrumbs\BreadcrumbsManager;
+use DaveJamesMiller\Breadcrumbs;
 use Mockery as m;
 
 class ManagerTest extends PHPUnit_Framework_TestCase
@@ -7,7 +7,7 @@ class ManagerTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->environment = m::mock('Illuminate\View\Environment');
-        $this->manager = new BreadcrumbsManager($this->environment);
+        $this->manager = new Breadcrumbs\Manager($this->environment);
     }
 
     public function testSetView()
