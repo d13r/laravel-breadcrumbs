@@ -392,9 +392,6 @@ methods are available, which take a single array argument. These are primarily
 for internal use - most likely you won't need to call them.
 
 ## Changelog
-### WORK IN PROGRESS
-* Add `Breadcrumbs::active()` method for highlighting menu items
-
 ### 2.0.0 - UNDER DEVELOPMENT
 * Add Twitter Bootstrap v3 template
   ([#7](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/7))
