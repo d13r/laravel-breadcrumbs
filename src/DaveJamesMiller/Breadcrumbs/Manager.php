@@ -11,9 +11,6 @@ class Manager
 
     protected $view;
 
-    protected $selectedName;
-    protected $selectedArgs;
-
     public function __construct(ViewEnvironment $environment)
     {
         $this->environment = $environment;
@@ -43,9 +40,6 @@ class Manager
 
     public function generateArray($name, $args = array())
     {
-        $this->selectedName = $name;
-        $this->selectedArgs = $args;
-
         $generator = new Generator($this->callbacks);
         $generator->call($name, $args);
         return $generator->toArray();
@@ -63,13 +57,5 @@ class Manager
         $breadcrumbs = $this->generateArray($name, $args);
 
         return $this->environment->make($this->view, compact('breadcrumbs'))->render();
-    }
-
-    public function selected($name, $args = array())
-    {
-        if (!is_array($args))
-            $args = array_slice(func_get_args(), 1);
-
-        return ($this->selectedName == $name && $this->selectedArgs == $args);
     }
 }
