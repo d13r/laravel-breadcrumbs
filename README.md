@@ -7,22 +7,17 @@
 A simple Laravel-style way to create breadcrumbs in
 [Laravel 4](http://laravel.com/).
 
-***These instructions are for the latest development version, which will become
-version 2.0 and is not backwards compatible. For the stable version please see
-the [1.0 branch](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/1.0).***
-
 ## Installation
 
 ### 1. Install with Composer
 ```bash
-composer require davejamesmiller/laravel-breadcrumbs dev-master
+composer require davejamesmiller/laravel-breadcrumbs ~2.0.0
 ```
 
 This will update `composer.json` and install it into the `vendor/` directory.
 
-**Note:** `dev-master` is the latest development version. See the
-[Packagist website](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
-for a list of stable versions.
+(See the [Packagist website](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
+for a list of available version numbers and development releases.)
 
 ### 2. Add to `app/config/app.php`
 ```php
@@ -392,7 +387,7 @@ methods are available, which take a single array argument. These are primarily
 for internal use - most likely you won't need to call them.
 
 ## Changelog
-### 2.0.0 - UNDER DEVELOPMENT
+### 2.0.0
 * Add Twitter Bootstrap v3 template
   ([#7](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/7))
 * Twitter Bootstrap v3 is now the default template
