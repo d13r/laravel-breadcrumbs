@@ -11,7 +11,7 @@ A simple Laravel-style way to create breadcrumbs in
 
 ### 1. Install with Composer
 ```bash
-composer require davejamesmiller/laravel-breadcrumbs ~2.0.0
+composer require davejamesmiller/laravel-breadcrumbs ~2.1.0
 ```
 
 This will update `composer.json` and install it into the `vendor/` directory.
@@ -397,6 +397,9 @@ methods are available, which take a single array argument. These are primarily
 for internal use - most likely you won't need to call them.
 
 ## Changelog
+### 2.1.0
+* Add support for non-linked breadcrumbs to the Twitter Bootstrap templates
+
 ### 2.0.0
 * Add Twitter Bootstrap v3 template
   ([#7](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/7))
