@@ -38,7 +38,7 @@ class Generator
         $this->parentArray($name, $args);
     }
 
-    // This does the same as call() but is named differently for clarify.
+    // This does the same as call() but is named differently for clarity.
     // parent() / parentArray() are used when defining breadcrumbs.
     // call() is used when outputting breadcrumbs.
     public function parentArray($name, $args = array())
