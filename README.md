@@ -290,6 +290,21 @@ Both would be rendered like this:
 
 ## Advanced usage
 
+### Breadcrumbs with no URL
+
+The second parameter to `push()` is optional, so if you want a breadcrumb with
+no URL you can do so:
+
+```php
+$breadcrumbs->push('Sample');
+```
+
+The `$breadcrumb->url` value will be `null`.
+
+The default Twitter Bootstrap templates provided render this with a CSS class of
+"active", the same as the last breadcrumb, because otherwise they default to
+black text not grey which doesn't look right.
+
 ### Defining breadcrumbs in a different file
 
 If you don't want to use `app/breadcrumbs.php`, you can define them in
