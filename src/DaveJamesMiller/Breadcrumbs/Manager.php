@@ -1,6 +1,7 @@
 <?php
 namespace DaveJamesMiller\Breadcrumbs;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\Environment as ViewEnvironment;
 
 class Manager
@@ -45,8 +46,12 @@ class Manager
         return $generator->toArray();
     }
 
-    public function render($name)
+    public function render($name = null)
     {
+        if (is_null($name)) {
+            $name = Route::currentRouteName();
+        }
+
         $args = array_slice(func_get_args(), 1);
 
         return $this->renderArray($name, $args);
