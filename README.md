@@ -139,7 +139,12 @@ Finally, call `Breadcrumbs::render()` in the view template for each page,
 passing in the name of the page and any parameters you defined above.
 
 #### With Blade
+If breadcrumb name is not specified, Laravel will use name registered for current route:
+```html+php
+{{ Breadcrumbs::render() }} // e.g. 'user.edit' for URL http://localhost/user/edit/1
+```
 
+Or render required view:
 ```html+php
 {{ Breadcrumbs::render('home') }}
 ```
