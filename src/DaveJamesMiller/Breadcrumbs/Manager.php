@@ -48,13 +48,14 @@ class Manager
 
     public function render($name = null)
     {
-        if (is_null($name)) {
-            $name = Route::currentRouteName();
+        if (! is_null($name)) {
+            $args = array_slice(func_get_args(), 1);
+            return $this->renderArray($name, $args);
         }
 
-        $args = array_slice(func_get_args(), 1);
+        $route = Route::getCurrentRoute();
 
-        return $this->renderArray($name, $args);
+        return $this->renderArray($route->getName(), $route->parameters());
     }
 
     public function renderArray($name, $args = array())
