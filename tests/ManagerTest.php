@@ -27,10 +27,10 @@ class ManagerTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($this->manager->exists('sample'));
         $this->assertFalse($this->manager->exists('invalid'));
 
-        $this->router->shouldReceive('currentRouteName')->once()->withNoArgs()->andReturn('sample');
+        $this->manager->setCurrentRoute('sample');
         $this->assertTrue($this->manager->exists());
 
-        $this->router->shouldReceive('currentRouteName')->once()->withNoArgs()->andReturn('invalid');
+        $this->manager->setCurrentRoute('invalid');
         $this->assertFalse($this->manager->exists());
     }
 }

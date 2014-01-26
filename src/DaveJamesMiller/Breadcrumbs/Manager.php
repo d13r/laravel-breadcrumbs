@@ -12,6 +12,8 @@ class Manager
     protected $callbacks = array();
     protected $view;
 
+    protected $currentRoute;
+
     public function __construct(ViewEnvironment $environment, Router $router)
     {
         $this->environment = $environment;
@@ -49,8 +51,13 @@ class Manager
 
     public function exists($name = null)
     {
-        if (is_null($name))
-            $name = $this->router->currentRouteName();
+        if (is_null($name)) {
+            try {
+                list($name) = $this->currentRoute();
+            } catch (Exception $e) {
+                return false;
+            }
+        }
 
         return isset($this->callbacks[$name]);
     }
@@ -89,8 +96,44 @@ class Manager
 
     protected function renderCurrent()
     {
+        list($name, $parameters) = $this->currentRoute();
+
+        return $this->renderArray($name, $parameters);
+    }
+
+    protected function currentRoute()
+    {
+        if ($this->currentRoute)
+            return $this->currentRoute;
+
         $route = $this->router->current();
 
-        return $this->renderArray($route->getName(), $route->parameters());
+        $name = $route->getName();
+
+        if (is_null($name)) {
+            $uri = head($route->methods()).' '.$route->uri();
+            throw new Exception("The current route ($uri) is not named - please check routes.php for an \"as\" parameter");
+        }
+
+        $args = $route->parameters();
+
+        return $this->currentRoute = array($name, $route->parameters());
+    }
+
+    public function setCurrentRoute($name)
+    {
+        $args = array_slice(func_get_args(), 1);
+
+        $this->setCurrentRouteArray($name, $args);
+    }
+
+    public function setCurrentRouteArray($name, $args = array())
+    {
+        $this->currentRoute = array($name, $args);
+    }
+
+    public function clearCurrentRoute()
+    {
+        $this->currentRoute = null;
     }
 }
