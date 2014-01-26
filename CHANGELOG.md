@@ -1,5 +1,7 @@
 # Changelog for Laravel Breadcrumbs
 
+Uses [Semantic Versioning](http://semver.org/).
+
 ### 2.2.0
 
 * Add `Breadcrumbs::exists()`, `renderIfExists()`, `renderArrayIfExists()`
