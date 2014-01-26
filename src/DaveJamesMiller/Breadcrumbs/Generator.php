@@ -24,7 +24,7 @@ class Generator
     public function call($name, $args)
     {
         if (!isset($this->callbacks[$name]))
-            throw new Exception("Invalid breadcrumb: $name");
+            throw new Exception("Breadcrumb not found for \"{$name}\" name.");
 
         array_unshift($args, $this);
 
