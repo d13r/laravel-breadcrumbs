@@ -1,20 +1,21 @@
 <?php
 namespace DaveJamesMiller\Breadcrumbs;
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Router;
 use Illuminate\View\Environment as ViewEnvironment;
 
 class Manager
 {
-    protected $callbacks = array();
-
     protected $environment;
+    protected $router;
 
+    protected $callbacks = array();
     protected $view;
 
-    public function __construct(ViewEnvironment $environment)
+    public function __construct(ViewEnvironment $environment, Router $router)
     {
         $this->environment = $environment;
+        $this->router = $router;
     }
 
     public function getView()
@@ -53,7 +54,7 @@ class Manager
             return $this->renderArray($name, $args);
         }
 
-        $route = Route::current();
+        $route = $this->router->current();
 
         return $this->renderArray($route->getName(), $route->parameters());
     }

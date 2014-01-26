@@ -31,7 +31,7 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->app['breadcrumbs'] = $this->app->share(function($app)
         {
-            $breadcrumbs = new Manager($app['view']);
+            $breadcrumbs = new Manager($app['view'], $app['router']);
 
             $breadcrumbs->setView($app['config']['laravel-breadcrumbs::view']);
 

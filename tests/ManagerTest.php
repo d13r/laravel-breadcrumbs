@@ -7,7 +7,8 @@ class ManagerTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->environment = m::mock('Illuminate\View\Environment');
-        $this->manager = new Breadcrumbs\Manager($this->environment);
+        $this->router = m::mock('Illuminate\Routing\Router');
+        $this->manager = new Breadcrumbs\Manager($this->environment, $this->router);
     }
 
     public function testSetView()

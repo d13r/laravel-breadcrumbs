@@ -7,7 +7,8 @@ class IntegrationTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->environment = m::mock('Illuminate\View\Environment');
-        $this->manager = new Breadcrumbs\Manager($this->environment);
+        $this->router = m::mock('Illuminate\Routing\Router');
+        $this->manager = new Breadcrumbs\Manager($this->environment, $this->router);
 
         $this->manager->register('home', function($breadcrumbs) {
             $breadcrumbs->push('Home', '/');
