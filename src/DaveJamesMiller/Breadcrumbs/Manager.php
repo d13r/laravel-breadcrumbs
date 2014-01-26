@@ -47,6 +47,14 @@ class Manager
         return $generator->toArray();
     }
 
+    public function exists($name = null)
+    {
+        if (is_null($name))
+            $name = $this->router->currentRouteName();
+
+        return isset($this->callbacks[$name]);
+    }
+
     public function render($name = null)
     {
         if (is_null($name))

@@ -9,6 +9,8 @@ class ManagerTest extends PHPUnit_Framework_TestCase
         $this->environment = m::mock('Illuminate\View\Environment');
         $this->router = m::mock('Illuminate\Routing\Router');
         $this->manager = new Breadcrumbs\Manager($this->environment, $this->router);
+
+        $this->manager->register('sample', function() {});
     }
 
     public function testSetView()
@@ -18,5 +20,17 @@ class ManagerTest extends PHPUnit_Framework_TestCase
         $this->manager->setView($view);
 
         $this->assertSame($view, $this->manager->getView());
+    }
+
+    public function testExists()
+    {
+        $this->assertTrue($this->manager->exists('sample'));
+        $this->assertFalse($this->manager->exists('invalid'));
+
+        $this->router->shouldReceive('currentRouteName')->once()->withNoArgs()->andReturn('sample');
+        $this->assertTrue($this->manager->exists());
+
+        $this->router->shouldReceive('currentRouteName')->once()->withNoArgs()->andReturn('invalid');
+        $this->assertFalse($this->manager->exists());
     }
 }
