@@ -5,7 +5,7 @@ started. Then simply open a
 [pull request](https://github.com/davejamesmiller/laravel-breadcrumbs/pulls) on
 GitHub.
 
-If you want to submit a new features, I suggest opening an
+If you want to submit a new feature, I suggest opening an
 [issue](https://github.com/davejamesmiller/laravel-breadcrumbs/issues) to
 discuss the idea first, to make sure it will be accepted.
 
