@@ -49,14 +49,11 @@ class Manager
 
     public function render($name = null)
     {
-        if (! is_null($name)) {
-            $args = array_slice(func_get_args(), 1);
-            return $this->renderArray($name, $args);
-        }
+        if (is_null($name))
+            return $this->renderCurrent();
 
-        $route = $this->router->current();
-
-        return $this->renderArray($route->getName(), $route->parameters());
+        $args = array_slice(func_get_args(), 1);
+        return $this->renderArray($name, $args);
     }
 
     public function renderArray($name, $args = array())
@@ -64,5 +61,12 @@ class Manager
         $breadcrumbs = $this->generateArray($name, $args);
 
         return $this->environment->make($this->view, compact('breadcrumbs'))->render();
+    }
+
+    public function renderCurrent()
+    {
+        $route = $this->router->current();
+
+        return $this->renderArray($route->getName(), $route->parameters());
     }
 }
