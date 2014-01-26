@@ -87,7 +87,7 @@ class Manager
             return '';
     }
 
-    public function renderCurrent()
+    protected function renderCurrent()
     {
         $route = $this->router->current();
 
