@@ -450,7 +450,7 @@ boolean.
     * `$breadcrumb->first` (boolean)
     * `$breadcrumb->last` (boolean)
 
-# Changelog
+## Changelog
 
 See the [CHANGELOG](CHANGELOG.md) for a list of changes and upgrade instructions.
 
