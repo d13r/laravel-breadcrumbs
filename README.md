@@ -10,8 +10,9 @@ A simple Laravel-style way to create breadcrumbs in
 ## Installation
 
 ### 1. Install with Composer
+
 ```bash
-composer require davejamesmiller/laravel-breadcrumbs ~2.1.0
+composer require davejamesmiller/laravel-breadcrumbs ~2.2.0
 ```
 
 This will update `composer.json` and install it into the `vendor/` directory.
@@ -20,6 +21,7 @@ This will update `composer.json` and install it into the `vendor/` directory.
 for a list of available version numbers and development releases.)
 
 ### 2. Add to `app/config/app.php`
+
 ```php
     'providers' => array(
         // ...
@@ -135,27 +137,36 @@ breadcrumb is an object with the following keys:
 
 ### 3. Output the breadcrumbs in your view
 
-Finally, call `Breadcrumbs::render()` in the view template for each page,
-passing in the name of the page and any parameters you defined above.
-
 #### With Blade
-If breadcrumb name is not specified, Laravel will use name registered for current route:
-```html+php
-{{ Breadcrumbs::render() }} // e.g. 'user.edit' for URL http://localhost/user/edit/1
-```
 
-Or render required view:
+Finally, call `Breadcrumbs::render()` in the view template for each page. You
+can either pass the name of the breadcrumb to use (and parameters if needed):
+
 ```html+php
 {{ Breadcrumbs::render('home') }}
-```
-
-Or with parameters:
-
-```html+php
 {{ Breadcrumbs::render('category', $category) }}
 ```
 
-#### With Blade and @section
+Or you can avoid the need to do this for every page by naming your breadcrumbs
+the same as your routes. For example, if you have this in `routes.php`:
+
+```
+Route::model('category', 'Category');
+Route::get('/', ['uses' => 'HomeController@index', 'as' => 'home']);
+Route::get('/category/{category}', ['uses' => 'CategoryController@show', 'as' => 'category']);
+```
+
+And in the layout you have this:
+
+```html+php
+{{ Breadcrumbs::render() }}
+```
+
+Then on the homepage it will be the same as calling `Breadcrumbs::render('home')`
+and on the category page it will be the same as calling
+`Breadcrumbs::render('category', $category)`.
+
+#### With Blade layouts and @section
 
 In the main page:
 
@@ -175,6 +186,12 @@ In the layout:
 
 ```html+php
 <?= Breadcrumbs::render('category', $category) ?>
+```
+
+Or the long syntax if you prefer:
+
+```html+php
+<?php echo Breadcrumbs::render('category', $category) ?>
 ```
 
 ## Defining breadcrumbs
@@ -338,157 +355,135 @@ or
 {{ View::make('_partials/breadcrumbs2', array('breadcrumbs' => Breadcrumbs::generate('category', $category))) }}
 ```
 
-## Upgrading from 1.x to 2.x
+### Overriding the "current" route
 
-There are some backwards-compatibility breaks in version 2:
+If you call `Breadcrumbs::render()` or `Breadcrumbs::generate()` with no
+parameters, it will use the current route name and parameters, as returned by
+Laravel's `Route::current()` method, by default.
 
-* In `app/config/app.php` change `DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider` to `DaveJamesMiller\Breadcrumbs\ServiceProvider`
-* In `app/config/app.php` change `DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs` to `DaveJamesMiller\Breadcrumbs\Facade`
-* The default template was changed from Bootstrap 2 to Bootstrap 3. See the
-  section titled *"2. Choose/create a template to render the breadcrumbs"* above
-  if you need to switch it back.
-* The view namespace was changed from `breadcrumbs` to `laravel-breadcrumbs` to
-  match the Composer project name.
-* The Bootstrap 2 template name was changed from `breadcrumbs::bootstrap` to
-  `laravel-breadcrumbs::bootstrap2`.
-* If you pass arrays into any of the methods, please read the following section:
+You can override this by calling
+`Breadcrumbs::setCurrentRoute($name, $param1, $param2...)` or
+`Breadcrumbs::setCurrentRouteArray($name, $params)`.
 
-### Passing arrays into `render()`, `generate()` and `parent()`
+### Passing an array of parameters
 
-In **version 1.x** you could pass an array into each of these methods and it was
-split up into several parameters. For example:
+If the breadcrumb requires multiple parameters, you would normally pass them
+like this:
 
-```php
-// If this breadcrumb is defined:
-Breadcrumbs::register('page', function($breadcrumbs, $param1, $param2)
-{
-    $breadcrumbs->push($param1, $param2);
-});
-
-// Then this:
-Breadcrumbs::render('page', array('param1', 'param2'));
-
-// Was equivalent to this:
-Breadcrumbs::render('page', 'param1', 'param2');
-
-// To pass an array as the first parameter you would have to do this instead:
-Breadcrumbs::render('page', array(array('param1A', 'param1B')));
+```
+Breadcrumbs::render('name', $param1, $param2, $param3);
+Breadcrumbs::generate('name', $param1, $param2, $param3);
+$breacrumbs->parent('name', $param1, $param2, $param3);
 ```
 
-This means you couldn't pass an array as the first parameter unless you wrapped
-all parameters in another array
-([issue #8](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/8)).
+If you want to pass an array of parameters instead you can use these methods:
 
-In **version 2.x** this has been split into two methods:
-
-```php
-Breadcrumbs::register('page', function($breadcrumbs, $param1, $param2)
-{
-    $breadcrumbs->push($param1, $param2);
-});
-
-// Now this:
-Breadcrumbs::renderArray('page', array('param1', 'param2'));
-
-// Is equivalent to this:
-Breadcrumbs::render('page', 'param1', 'param2');
-
-// And this only passes a single parameter (an array) to the callback:
-Breadcrumbs::render('page', array('param1A', 'param1B'));
+```
+Breadcrumbs::renderArray('name', $params);
+Breadcrumbs::generateArray('name', $params);
+$breacrumbs->parentArray('name', $params);
 ```
 
-Similarly `Breadcrumbs::generateArray()` and `$breadcrumbs->parentArray()`
-methods are available, which take a single array argument. These are primarily
-for internal use - most likely you won't need to call them.
+### Checking if a breadcrumb exists
 
-## Changelog
-### 2.1.0
-* Add support for non-linked breadcrumbs to the Twitter Bootstrap templates
+By default an exception will be thrown if the breadcrumb doesn't exist, so you
+know to add it. If you want suppress this you can call the following methods
+instead:
 
-### 2.0.0
-* Add Twitter Bootstrap v3 template
-  ([#7](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/7))
-* Twitter Bootstrap v3 is now the default template
-* Support for passing arrays into `render()`, `generate()` and `parent()`
-  ([#8](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/8)) (note: not backwards-compatible)
-    * Split `Breadcrumbs::render()` into two methods: `render($name, $arg1, $arg2)` and `renderArray($name, $args)`
-    * Split `Breadcrumbs::generate()` into two methods: `generate($name, $arg1, $arg2)` and `generateArray($name, $args)`
-    * Split `$breadcrumbs->parent()` into two methods: `parent($name, $arg1, $arg2)` and `parentArray($name, $args)`
-* Set view name in config file instead of in `breadcrumbs.php`
-  ([#10](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/10),
-  [#11](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/11))
-* Simplify class names ([#15](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/15))
-* Add unit tests
+* `Breadcrumbs::renderIfExists()` (returns an empty string)
+* `Breadcrumbs::renderArrayIfExists()` (returns an empty string)
+* `Breadcrumbs::generateIfExists()` (returns an empty array)
+* `Breadcrumbs::generateArrayIfExists()` (returns an empty array)
 
-### 1.0.1
-* Fix for PHP 5.3 compatibility
+Alternatively you can call `Breadcrumbs::exists('name')`, which returns a
+boolean.
 
-### 1.0.0
-* Initial release
+## API Reference
 
-## Information for developers
+### Facade
 
-### Unit tests
-To run the unit tests, simply [install PHP Unit](http://phpunit.de/manual/current/en/installation.html)
-and run:
+* `Breadcrumbs::register($name, $callback)`
+* `Breadcrumbs::exists()` (returns boolean)
+* `Breadcrumbs::exists($name)` (returns boolean)
+* `Breadcrumbs::generate()` (returns array)
+* `Breadcrumbs::generate($name)` (returns array)
+* `Breadcrumbs::generate($name, $param1, ...)` (returns array)
+* `Breadcrumbs::generateArray($name, $params)` (returns array)
+* `Breadcrumbs::generateIfExists()` (returns array)
+* `Breadcrumbs::generateIfExists($name)` (returns array)
+* `Breadcrumbs::generateIfExists($name, $param1, ...)` (returns array)
+* `Breadcrumbs::generateArrayIfExists($name, $params)` (returns array)
+* `Breadcrumbs::render()` (returns string)
+* `Breadcrumbs::render($name)` (returns string)
+* `Breadcrumbs::render($name, $param1, ...)` (returns string)
+* `Breadcrumbs::renderArray($name, $params)` (returns string)
+* `Breadcrumbs::renderIfExists()` (returns string)
+* `Breadcrumbs::renderIfExists($name)` (returns string)
+* `Breadcrumbs::renderIfExists($name, $param1, ...)` (returns string)
+* `Breadcrumbs::renderArrayIfExists($name, $params)` (returns string)
+* `Breadcrumbs::setCurrentRoute($name)`
+* `Breadcrumbs::setCurrentRoute($name, $param1, ...)`
+* `Breadcrumbs::setCurrentRouteArray($name, $params)`
+* `Breadcrumbs::clearCurrentRoute()`
+* `Breadcrumbs::setView($view)`
+* `Breadcrumbs::getView()` (returns string)
 
-```bash
-cd /path/to/laravel-breadcrumbs
-phpunit
-```
+### Defining breadcrumbs (inside the callback)
 
-### Code coverage in unit tests
-To check code coverage, you will also need [Xdebug](http://xdebug.org/)
-installed. Run:
+* `$breadcrumbs->push($title)`
+* `$breadcrumbs->push($title, $url)`
+* `$breadcrumbs->parent($name)`
+* `$breadcrumbs->parent($name, $param1, ...)`
+* `$breadcrumbs->parentArray($name, $params)`
 
-```bash
-cd /path/to/laravel-breadcrumbs
-php -d xdebug.coverage_enable=On `which phpunit` --coverage-html test-coverage
-```
+### Outputting the breadcrumbs (in the view)
 
-Then open `test-coverage/index.html` to view the results. However, be aware of
-the [edge cases](http://phpunit.de/manual/current/en/code-coverage-analysis.html#code-coverage-analysis.edge-cases)
-in PHPUnit.
+* `$breadcrumbs` (array), contains:
+    * `$breadcrumb->title` (string)
+    * `$breadcrumb->url` (string or null)
+    * `$breadcrumb->first` (boolean)
+    * `$breadcrumb->last` (boolean)
 
-### Developing against a real application
+# Changelog
 
-To develop with a real Laravel application, clone the repository into
-`workbench/davejamesmiller/laravel-breadcrumbs/` then run
-`composer install --dev` and it will be used instead of the one in `vendor/`.
+See the [CHANGELOG](CHANGELOG.md) for a list of changes and upgrade instructions.
 
-```bash
-cd /path/to/repo
-mkdir -p workbench/davejamesmiller
-git clone https://github.com/davejamesmiller/laravel-breadcrumbs.git workbench/davejamesmiller/laravel-breadcrumbs
-cd workbench/davejamesmiller/laravel-breadcrumbs
-composer install --dev
-```
+## If you need help
 
-Be aware that some things don't work the same in workbench - e.g.
-`php artisan config:publish davejamesmiller/laravel-breadcrumbs` will always use
-the files in `vendor/` not `workbench/` unless you add the `--path` option.
+Please submit all issues, help requests and feature requests using [GitHub
+issues](https://github.com/davejamesmiller/laravel-breadcrumbs/issues) and I
+will try to help you.
 
-### Releasing a new version
-* Make sure all tests pass and also check the code coverage report
-* Check the README is up to date
-* Commit all changes
-* Push the code changes (`git push`)
-* Double-check the [Travis CI results](https://travis-ci.org/davejamesmiller/laravel-breadcrumbs)
-* Tag the release (`git tag 1.2.3`)
-* Push the tag (`git push --tag`)
+Please try to isolate the problem as much as possible, and give as much detail
+as you can to help track down the problem (version number, PHP version, steps to
+reproduce, etc.).
+
+Please also let me know if you have any suggestions for improving the
+documentation - especially if anything is unclear to you and could be explained
+better.
+
+## Contributing
+
+See the [CONTRIBUTING](CONTRIBUTING.md) file for details of how to contribute to
+Laravel Breadcrumbs.
 
 ## Thanks to
+
 This package is largely based on the
 [Gretel](https://github.com/lassebunk/gretel) plugin for Ruby on Rails, which I
-used for a while before Laravel lured me back to PHP.
+used for a while before discovering Laravel.
 
 ### Contributors
+
+* Andrej Badin ([Andreyco](https://github.com/Andreyco))
 * Stef Horner ([tedslittlerobot](https://github.com/tedslittlerobot))
 
 ## License
+
 MIT License. See [LICENSE.txt](LICENSE.txt).
 
 ## Alternatives
+
 So far I've only found one other breadcrumb package for Laravel:
 
 * [noherczeg/breadcrumb](https://github.com/noherczeg/breadcrumb)
