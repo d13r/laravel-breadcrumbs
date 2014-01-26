@@ -64,11 +64,27 @@ class Manager
         return $this->renderArray($name, $args);
     }
 
+    public function renderIfExists($name = null)
+    {
+        if ($this->exists($name))
+            return call_user_func_array(array($this, 'render'), func_get_args());
+        else
+            return '';
+    }
+
     public function renderArray($name, $args = array())
     {
         $breadcrumbs = $this->generateArray($name, $args);
 
         return $this->environment->make($this->view, compact('breadcrumbs'))->render();
+    }
+
+    public function renderArrayIfExists($name = null)
+    {
+        if ($this->exists($name))
+            return call_user_func_array(array($this, 'renderArray'), func_get_args());
+        else
+            return '';
     }
 
     public function renderCurrent()
