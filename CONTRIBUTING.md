@@ -24,6 +24,32 @@ rm -rf vendor/davejamesmiller/laravel-breadcrumbs
 composer install --prefer-source
 ```
 
+## Using your fork in a project
+
+If you have forked the package (e.g. to fix a bug or add a feature), you may
+want to use that version in your project until the changes are merged and
+released. To do that, simply update the `composer.json` in your main project as
+follows:
+
+```json
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/YOUR_USERNAME/laravel-breadcrumbs.git"
+        }
+    ],
+
+    "require": {
+        "davejamesmiller/laravel-breadcrumbs": "dev-YOUR_BRANCH"
+    }
+}
+```
+
+Replace `YOUR_USERNAME` with your GitHub username and `YOUR_BRANCH` with the
+branch name (e.g. `master`). This tells Composer to use your repository instead
+of the default one.
+
 ## Unit tests
 
 To run the unit tests, simply [install PHP Unit](http://phpunit.de/manual/current/en/installation.html)
