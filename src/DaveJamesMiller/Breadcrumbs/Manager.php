@@ -35,6 +35,19 @@ class Manager
         $this->callbacks[$name] = $callback;
     }
 
+    public function exists($name = null)
+    {
+        if (is_null($name)) {
+            try {
+                list($name) = $this->currentRoute();
+            } catch (Exception $e) {
+                return false;
+            }
+        }
+
+        return isset($this->callbacks[$name]);
+    }
+
     public function generate($name)
     {
         $args = array_slice(func_get_args(), 1);
@@ -49,17 +62,20 @@ class Manager
         return $generator->toArray();
     }
 
-    public function exists($name = null)
+    public function generateIfExists($name)
     {
-        if (is_null($name)) {
-            try {
-                list($name) = $this->currentRoute();
-            } catch (Exception $e) {
-                return false;
-            }
-        }
+        if ($this->exists($name))
+            return call_user_func_array(array($this, 'generate'), func_get_args());
+        else
+            return array();
+    }
 
-        return isset($this->callbacks[$name]);
+    public function generateArrayIfExists($name, $args = array())
+    {
+        if ($this->exists($name))
+            return call_user_func_array(array($this, 'generateArray'), func_get_args());
+        else
+            return array();
     }
 
     public function render($name = null)
@@ -96,9 +112,9 @@ class Manager
 
     protected function renderCurrent()
     {
-        list($name, $parameters) = $this->currentRoute();
+        list($name, $args) = $this->currentRoute();
 
-        return $this->renderArray($name, $parameters);
+        return $this->renderArray($name, $args);
     }
 
     protected function currentRoute()
