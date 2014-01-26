@@ -166,6 +166,12 @@ Then on the homepage it will be the same as calling `Breadcrumbs::render('home')
 and on the category page it will be the same as calling
 `Breadcrumbs::render('category', $category)`.
 
+The key here is the `'as'` parameter must match the breadcrumb name. The
+parameters passed to the breadcrumbs callback will be the same as the ones
+Laravel passes to the controller (see the [Route
+parameters](http://laravel.com/docs/routing#route-parameters) section of the
+Laravel documentation).
+
 #### With Blade layouts and @section
 
 In the main page:
