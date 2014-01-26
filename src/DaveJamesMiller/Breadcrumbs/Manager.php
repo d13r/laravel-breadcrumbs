@@ -50,15 +50,15 @@ class Manager
 
     public function generate($name)
     {
-        $args = array_slice(func_get_args(), 1);
+        $params = array_slice(func_get_args(), 1);
 
-        return $this->generateArray($name, $args);
+        return $this->generateArray($name, $params);
     }
 
-    public function generateArray($name, $args = array())
+    public function generateArray($name, $params = array())
     {
         $generator = new Generator($this->callbacks);
-        $generator->call($name, $args);
+        $generator->call($name, $params);
         return $generator->toArray();
     }
 
@@ -70,7 +70,7 @@ class Manager
             return array();
     }
 
-    public function generateArrayIfExists($name, $args = array())
+    public function generateArrayIfExists($name, $params = array())
     {
         if ($this->exists($name))
             return call_user_func_array(array($this, 'generateArray'), func_get_args());
@@ -83,8 +83,8 @@ class Manager
         if (is_null($name))
             return $this->renderCurrent();
 
-        $args = array_slice(func_get_args(), 1);
-        return $this->renderArray($name, $args);
+        $params = array_slice(func_get_args(), 1);
+        return $this->renderArray($name, $params);
     }
 
     public function renderIfExists($name = null)
@@ -95,9 +95,9 @@ class Manager
             return '';
     }
 
-    public function renderArray($name, $args = array())
+    public function renderArray($name, $params = array())
     {
-        $breadcrumbs = $this->generateArray($name, $args);
+        $breadcrumbs = $this->generateArray($name, $params);
 
         return $this->environment->make($this->view, compact('breadcrumbs'))->render();
     }
@@ -112,9 +112,9 @@ class Manager
 
     protected function renderCurrent()
     {
-        list($name, $args) = $this->currentRoute();
+        list($name, $params) = $this->currentRoute();
 
-        return $this->renderArray($name, $args);
+        return $this->renderArray($name, $params);
     }
 
     protected function currentRoute()
@@ -131,21 +131,21 @@ class Manager
             throw new Exception("The current route ($uri) is not named - please check routes.php for an \"as\" parameter");
         }
 
-        $args = $route->parameters();
+        $params = $route->parameters();
 
         return $this->currentRoute = array($name, $route->parameters());
     }
 
     public function setCurrentRoute($name)
     {
-        $args = array_slice(func_get_args(), 1);
+        $params = array_slice(func_get_args(), 1);
 
-        $this->setCurrentRouteArray($name, $args);
+        $this->setCurrentRouteArray($name, $params);
     }
 
-    public function setCurrentRouteArray($name, $args = array())
+    public function setCurrentRouteArray($name, $params = array())
     {
-        $this->currentRoute = array($name, $args);
+        $this->currentRoute = array($name, $params);
     }
 
     public function clearCurrentRoute()
