@@ -53,7 +53,7 @@ class Manager
             return $this->renderArray($name, $args);
         }
 
-        $route = Route::getCurrentRoute();
+        $route = Route::current();
 
         return $this->renderArray($route->getName(), $route->parameters());
     }
