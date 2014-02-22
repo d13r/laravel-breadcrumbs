@@ -379,7 +379,7 @@ like this:
 ```
 Breadcrumbs::render('name', $param1, $param2, $param3);
 Breadcrumbs::generate('name', $param1, $param2, $param3);
-$breacrumbs->parent('name', $param1, $param2, $param3);
+$breadcrumbs->parent('name', $param1, $param2, $param3);
 ```
 
 If you want to pass an array of parameters instead you can use these methods:
@@ -387,7 +387,7 @@ If you want to pass an array of parameters instead you can use these methods:
 ```
 Breadcrumbs::renderArray('name', $params);
 Breadcrumbs::generateArray('name', $params);
-$breacrumbs->parentArray('name', $params);
+$breadcrumbs->parentArray('name', $params);
 ```
 
 ### Checking if a breadcrumb exists
