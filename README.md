@@ -481,8 +481,8 @@ used for a while before discovering Laravel.
 
 ### Contributors
 
-* Andrej Badin ([Andreyco](https://github.com/Andreyco))
-* Stef Horner ([tedslittlerobot](https://github.com/tedslittlerobot))
+* Andrej Badin ([Andreyco](https://github.com/Andreyco)) - [#24](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/24)
+* Stef Horner ([tedslittlerobot](https://github.com/tedslittlerobot)) - [#11](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/11)
 
 ## License
 
