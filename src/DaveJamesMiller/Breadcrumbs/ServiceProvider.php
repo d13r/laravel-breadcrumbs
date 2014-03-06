@@ -33,7 +33,7 @@ class ServiceProvider extends BaseServiceProvider
         {
             $breadcrumbs = new Manager($app['view'], $app['router']);
 
-            $breadcrumbs->setView($app['config']['laravel-breadcrumbs::view']);
+            $breadcrumbs->setView($app['config']['packages/davejamesmiller/laravel-breadcrumbs/config.view']);
 
             return $breadcrumbs;
         });
