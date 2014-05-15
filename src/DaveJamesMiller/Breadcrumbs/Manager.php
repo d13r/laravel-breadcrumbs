@@ -2,11 +2,11 @@
 namespace DaveJamesMiller\Breadcrumbs;
 
 use Illuminate\Routing\Router;
-use Illuminate\View\Environment as ViewEnvironment;
+use Illuminate\View\Factory as ViewFactory;
 
 class Manager
 {
-    protected $environment;
+    protected $factory;
     protected $router;
 
     protected $callbacks = array();
@@ -14,9 +14,9 @@ class Manager
 
     protected $currentRoute;
 
-    public function __construct(ViewEnvironment $environment, Router $router)
+    public function __construct(ViewFactory $factory, Router $router)
     {
-        $this->environment = $environment;
+        $this->factory = $factory;
         $this->router = $router;
     }
 
@@ -99,7 +99,7 @@ class Manager
     {
         $breadcrumbs = $this->generateArray($name, $params);
 
-        return $this->environment->make($this->view, compact('breadcrumbs'))->render();
+        return $this->factory->make($this->view, compact('breadcrumbs'))->render();
     }
 
     public function renderArrayIfExists($name = null)
