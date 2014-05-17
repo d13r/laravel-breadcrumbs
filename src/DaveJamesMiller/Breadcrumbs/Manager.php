@@ -1,12 +1,12 @@
 <?php
 namespace DaveJamesMiller\Breadcrumbs;
 
+use InvalidArgumentException;
 use Illuminate\Routing\Router;
-use Illuminate\View\Environment as ViewEnvironment;
 
 class Manager
 {
-    protected $environment;
+    protected $factory;
     protected $router;
 
     protected $callbacks = array();
@@ -14,9 +14,14 @@ class Manager
 
     protected $currentRoute;
 
-    public function __construct(ViewEnvironment $environment, Router $router)
+    public function __construct($factory, Router $router)
     {
-        $this->environment = $environment;
+        if (! $factory instanceof \Illuminate\View\Factory && ! $factory instanceof \Illuminate\View\Environment)
+        {
+            throw new InvalidArgumentException('$factory must be an instance of either \Illuminate\View\Factory or \Illuminate\View\Environment');
+        }
+
+        $this->factory = $factory;
         $this->router = $router;
     }
 
@@ -99,7 +104,7 @@ class Manager
     {
         $breadcrumbs = $this->generateArray($name, $params);
 
-        return $this->environment->make($this->view, compact('breadcrumbs'))->render();
+        return $this->factory->make($this->view, compact('breadcrumbs'))->render();
     }
 
     public function renderArrayIfExists($name = null)

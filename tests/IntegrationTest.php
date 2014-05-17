@@ -6,9 +6,17 @@ class IntegrationTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->environment = m::mock('Illuminate\View\Environment');
+        if (class_exists('Illuminate\\View\\Factory'))
+        {
+            $this->factory = m::mock('Illuminate\View\Factory');
+        }
+        else
+        {
+            $this->factory = m::mock('Illuminate\View\Environment');
+        }
+
         $this->router = m::mock('Illuminate\Routing\Router');
-        $this->manager = new Breadcrumbs\Manager($this->environment, $this->router);
+        $this->manager = new Breadcrumbs\Manager($this->factory, $this->router);
 
         $this->manager->register('home', function($breadcrumbs) {
             $breadcrumbs->push('Home', '/');
@@ -99,7 +107,7 @@ class IntegrationTest extends PHPUnit_Framework_TestCase
         // Make sure the view is created with the correct parameters
         $breadcrumbs = $this->manager->generate('home');
         $vars = array('breadcrumbs' => $breadcrumbs);
-        $this->environment->shouldReceive('make')->once()->with($viewName, $vars)->andReturn($view);
+        $this->factory->shouldReceive('make')->once()->with($viewName, $vars)->andReturn($view);
 
         // Make sure the HTML rendered by the view is returned by the manager
         $this->assertSame($html, $this->manager->render('home'));
