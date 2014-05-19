@@ -24,6 +24,9 @@ rm -rf vendor/davejamesmiller/laravel-breadcrumbs
 composer install --prefer-source
 ```
 
+There is a [test app](https://github.com/davejamesmiller/laravel-breadcrumbs-test)
+available to simplify testing against multiple versions of Laravel.
+
 ## Using your fork in a project
 
 If you have forked the package (e.g. to fix a bug or add a feature), you may
