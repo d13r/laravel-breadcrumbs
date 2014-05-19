@@ -147,8 +147,9 @@ can either pass the name of the breadcrumb to use (and parameters if needed):
 {{ Breadcrumbs::render('category', $category) }}
 ```
 
-Or you can avoid the need to do this for every page by naming your breadcrumbs
-the same as your routes. For example, if you have this in `routes.php`:
+Or in Laravel 4.1+ you can avoid the need to do this for every page by naming
+your breadcrumbs the same as your routes. For example, if you have this in
+`routes.php`:
 
 ```
 Route::model('category', 'Category');
