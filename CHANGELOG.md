@@ -2,6 +2,12 @@
 
 Uses [Semantic Versioning](http://semver.org/).
 
+### 2.2.1
+
+* Laravel 4.2 support
+  ([#21](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/21),
+  [#28](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/28))
+
 ### 2.2.0
 
 * Add `Breadcrumbs::exists()`, `renderIfExists()`, `renderArrayIfExists()`
