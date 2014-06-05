@@ -455,33 +455,32 @@ boolean.
 
 See the [CHANGELOG](CHANGELOG.md) for a list of changes and upgrade instructions.
 
-## If you need help
+## Issues & Pull Requests
 
-Please submit issues, help requests and feature requests using [GitHub
+**Important:** Don't be afraid to go into the Laravel Breadcrumbs code and use
+`var_dump()` (or `print_r()`) to see what's happening and fix your own problems!
+A pull request or detailed bug report is much more likely to get attention than
+a vague error report. Also make sure you read the documentation carefully.
+
+Please submit issues and pull requests using [GitHub
 issues](https://github.com/davejamesmiller/laravel-breadcrumbs/issues).
 
-If you have a problem, please try to isolate the cause and give as much detail
-as you can. Don't be afraid to go into the Laravel Breadcrumbs code and use
-`var_dump()` (or `print_r()`) to see what's happening. Please include the
-following in any bug report:
+Bug reports should include the following:
 
-* Laravel Breadcrumbs version
+* The complete error message, including file & line numbers
+* Steps to reproduce the problem
+* Laravel Breadcrumbs version (should be the latest version)
 * Laravel version
 * PHP version
-* The complete error message
-* Steps to reproduce
+* The `providers` and `aliases` sections of `app/config/app.php` (Note: **not the Encryption Key section** which should be kept private) - in case there's a conflict with another package
 
-You may need to include copies of:
+You may also need to include copies of:
 
 * `app/breadcrumbs.php`
-* `app/config/app.php` (the `providers` and `aliases` sections in particular - **remove the Encryption Key section**)
 * `app/config/packages/davejamesmiller/laravel-breadcrumbs/config.php` (if used)
 * The view or layout that outputs the breadcrumbs
 * The custom breadcrumbs template (if applicable)
 * Any other relevant files
-
-If you don't include clear steps to reproduce the problem (that demonstrate a
-problem with Laravel Breadcrumbs) I won't be able to debug it for you!
 
 If you have any suggestions for improving the documentation - especially if
 anything is unclear to you and could be explained better - please let me know.
