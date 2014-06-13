@@ -12,7 +12,7 @@ A simple Laravel-style way to create breadcrumbs in
 ### 1. Install with Composer
 
 ```bash
-composer require davejamesmiller/laravel-breadcrumbs ~2.2.1
+composer require davejamesmiller/laravel-breadcrumbs "~2.2.1"
 ```
 
 This will update `composer.json` and install it into the `vendor/` directory.
