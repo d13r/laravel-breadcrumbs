@@ -52,9 +52,7 @@ make the following changes:
 
 * In `app/config/app.php` change `DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider` to `DaveJamesMiller\Breadcrumbs\ServiceProvider`
 * In `app/config/app.php` change `DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs` to `DaveJamesMiller\Breadcrumbs\Facade`
-* The default template was changed from Bootstrap 2 to Bootstrap 3. See the
-  section titled *"2. Choose/create a template to render the breadcrumbs"* above
-  if you need to switch it back.
+* The default template was changed from Bootstrap 2 to Bootstrap 3. See the [README section](README.md#2-choosecreate-a-template-to-render-the-breadcrumbs) titled *"2. Choose/create a template to render the breadcrumbs"* if you need to switch it back.
 
 The following internal changes will not affect most people but if you have any
 problems please be aware of the following:
