@@ -459,8 +459,9 @@ See the [CHANGELOG](CHANGELOG.md) for a list of changes and upgrade instructions
 
 **Important:** Don't be afraid to go into the Laravel Breadcrumbs code and use
 `var_dump()` (or `print_r()`) to see what's happening and fix your own problems!
-A pull request or detailed bug report is much more likely to get attention than
-a vague error report. Also make sure you read the documentation carefully.
+A [pull request](CONTRIBUTING.md) or detailed bug report is much more likely to
+get attention than a vague error report. Also make sure you read the documentation
+carefully.
 
 Please submit issues and pull requests using [GitHub
 issues](https://github.com/davejamesmiller/laravel-breadcrumbs/issues).
