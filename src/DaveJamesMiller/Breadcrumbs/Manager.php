@@ -135,10 +135,12 @@ class Manager
 			$name = '';
 		    $params = '';
 	    }
-	    else {
+	    else
+        {
 		    $name = $route->getName();
 
-		    if (is_null($name)) {
+		    if (is_null($name))
+            {
 			    $uri = head($route->methods()).' '.$route->uri();
 			    throw new Exception("The current route ($uri) is not named - please check routes.php for an \"as\" parameter");
 		    }
