@@ -130,23 +130,20 @@ class Manager
 
         $route = $this->router->current();
 
-	    if(is_null($route))
-	    {
-			$name = '';
-		    $params = '';
-	    }
-	    else
+        if (is_null($route))
         {
-		    $name = $route->getName();
+            return $this->currentRoute = array($name = '', $params = array());
+        }
 
-		    if (is_null($name))
-            {
-			    $uri = head($route->methods()).' '.$route->uri();
-			    throw new Exception("The current route ($uri) is not named - please check routes.php for an \"as\" parameter");
-		    }
+        $name = $route->getName();
 
-		    $params = $route->parameters();
-	    }
+        if (is_null($name))
+        {
+            $uri = head($route->methods()) . ' ' . $route->uri();
+            throw new Exception("The current route ($uri) is not named - please check routes.php for an \"as\" parameter");
+        }
+
+        $params = $route->parameters();
 
         return $this->currentRoute = array($name, $params);
     }
