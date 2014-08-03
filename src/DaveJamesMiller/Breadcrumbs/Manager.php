@@ -42,7 +42,8 @@ class Manager
 
     public function exists($name = null)
     {
-        if (is_null($name)) {
+        if (is_null($name))
+        {
             try {
                 list($name) = $this->currentRoute();
             } catch (Exception $e) {
@@ -129,16 +130,22 @@ class Manager
 
         $route = $this->router->current();
 
+        if (is_null($route))
+        {
+            return $this->currentRoute = array($name = '', $params = array());
+        }
+
         $name = $route->getName();
 
-        if (is_null($name)) {
-            $uri = head($route->methods()).' '.$route->uri();
+        if (is_null($name))
+        {
+            $uri = head($route->methods()) . ' ' . $route->uri();
             throw new Exception("The current route ($uri) is not named - please check routes.php for an \"as\" parameter");
         }
 
         $params = $route->parameters();
 
-        return $this->currentRoute = array($name, $route->parameters());
+        return $this->currentRoute = array($name, $params);
     }
 
     public function setCurrentRoute($name)
