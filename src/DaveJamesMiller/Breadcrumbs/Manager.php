@@ -16,8 +16,7 @@ class Manager
 
     public function __construct($factory, Router $router)
     {
-        if (! $factory instanceof \Illuminate\View\Factory && ! $factory instanceof \Illuminate\View\Environment)
-        {
+        if (! $factory instanceof \Illuminate\View\Factory && ! $factory instanceof \Illuminate\View\Environment) {
             throw new InvalidArgumentException('$factory must be an instance of either \Illuminate\View\Factory or \Illuminate\View\Environment');
         }
 
@@ -42,8 +41,7 @@ class Manager
 
     public function exists($name = null)
     {
-        if (is_null($name))
-        {
+        if (is_null($name)) {
             try {
                 list($name) = $this->currentRoute();
             } catch (Exception $e) {
@@ -131,14 +129,11 @@ class Manager
         $route = $this->router->current();
 
         if (is_null($route))
-        {
-            return $this->currentRoute = array($name = '', $params = array());
-        }
+            return $this->currentRoute = array('', array());
 
         $name = $route->getName();
 
-        if (is_null($name))
-        {
+        if (is_null($name)) {
             $uri = head($route->methods()) . ' ' . $route->uri();
             throw new Exception("The current route ($uri) is not named - please check routes.php for an \"as\" parameter");
         }
