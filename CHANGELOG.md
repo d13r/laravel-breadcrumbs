@@ -2,6 +2,12 @@
 
 Uses [Semantic Versioning](http://semver.org/).
 
+### 2.2.2
+
+* Support for Laravel's `App::missing()` method when using automatic route detection
+  ([#40](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/40),
+  [#41](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/41))
+
 ### 2.2.1
 
 * Laravel 4.2 support
