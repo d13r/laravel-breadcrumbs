@@ -52,10 +52,12 @@ class Manager
         return isset($this->callbacks[$name]);
     }
 
-    public function generate($name)
+    public function generate($name = null)
     {
-        $params = array_slice(func_get_args(), 1);
+        if (is_null($name))
+            return $this->generateCurrent();
 
+        $params = array_slice(func_get_args(), 1);
         return $this->generateArray($name, $params);
     }
 
@@ -112,6 +114,13 @@ class Manager
             return call_user_func_array(array($this, 'renderArray'), func_get_args());
         else
             return '';
+    }
+
+    protected function generateCurrent()
+    {
+        list($name, $params) = $this->currentRoute();
+
+        return $this->generateArray($name, $params);
     }
 
     protected function renderCurrent()
