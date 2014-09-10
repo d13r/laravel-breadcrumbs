@@ -2,6 +2,11 @@
 
 Uses [Semantic Versioning](http://semver.org/).
 
+### 2.2.3
+
+* Fix `Breadcrumbs::generate()` with no parameters so it uses the current route,
+  as `Breadcrumbs::render()` does.
+
 ### 2.2.2
 
 * Support for Laravel's `App::missing()` method when using automatic route detection
