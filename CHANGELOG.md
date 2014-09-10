@@ -4,75 +4,75 @@ Uses [Semantic Versioning](http://semver.org/).
 
 ### 2.2.3
 
-* Fix `Breadcrumbs::generate()` with no parameters so it uses the current route,
+- Fix `Breadcrumbs::generate()` with no parameters so it uses the current route,
   as `Breadcrumbs::render()` does.
 
 ### 2.2.2
 
-* Support for Laravel's `App::missing()` method when using automatic route detection
+- Support for Laravel's `App::missing()` method when using automatic route detection
   ([#40](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/40),
   [#41](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/41))
 
 ### 2.2.1
 
-* Laravel 4.2 support
+- Laravel 4.2 support
   ([#21](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/21),
   [#28](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/28))
 
 ### 2.2.0
 
-* Add `Breadcrumbs::exists()`, `renderIfExists()`, `renderArrayIfExists()`
-* Use the current route name & parameters by default so you don't have to
+- Add `Breadcrumbs::exists()`, `renderIfExists()`, `renderArrayIfExists()`
+- Use the current route name & parameters by default so you don't have to
   specify them in the view (as long as you use consistent names)
 
 ### 2.1.0
 
-* Add support for non-linked breadcrumbs to the Twitter Bootstrap templates
+- Add support for non-linked breadcrumbs to the Twitter Bootstrap templates
 
 ### 2.0.0
 
-* Add Twitter Bootstrap v3 template
+- Add Twitter Bootstrap v3 template
   ([#7](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/7))
-* Twitter Bootstrap v3 is now the default template
-* Support for passing arrays into `render()`, `generate()` and `parent()`
+- Twitter Bootstrap v3 is now the default template
+- Support for passing arrays into `render()`, `generate()` and `parent()`
   ([#8](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/8)) (note: not backwards-compatible)
-    * Split `Breadcrumbs::render()` into two methods: `render($name, $arg1, $arg2)` and `renderArray($name, $params)`
-    * Split `Breadcrumbs::generate()` into two methods: `generate($name, $arg1, $arg2)` and `generateArray($name, $params)`
-    * Split `$breadcrumbs->parent()` into two methods: `parent($name, $arg1, $arg2)` and `parentArray($name, $params)`
-* Set view name in config file instead of in `breadcrumbs.php`
+    - Split `Breadcrumbs::render()` into two methods: `render($name, $arg1, $arg2)` and `renderArray($name, $params)`
+    - Split `Breadcrumbs::generate()` into two methods: `generate($name, $arg1, $arg2)` and `generateArray($name, $params)`
+    - Split `$breadcrumbs->parent()` into two methods: `parent($name, $arg1, $arg2)` and `parentArray($name, $params)`
+- Set view name in config file instead of in `breadcrumbs.php`
   ([#10](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/10),
   [#11](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/11))
-* Simplify class names ([#15](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/15))
-* Add unit tests
+- Simplify class names ([#15](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/15))
+- Add unit tests
 
 *Please see "Upgrading from 1.x to 2.x" below for details of the changes
 required when upgrading from version 1.*
 
 ### 1.0.1
 
-* Fix for PHP 5.3 compatibility
+- Fix for PHP 5.3 compatibility
 
 ### 1.0.0
 
-* Initial release
+- Initial release
 
 ## Upgrading from 1.x to 2.x
 
 There are some backwards-compatibility breaks in version 2 so you will need to
 make the following changes:
 
-* In `app/config/app.php` change `DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider` to `DaveJamesMiller\Breadcrumbs\ServiceProvider`
-* In `app/config/app.php` change `DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs` to `DaveJamesMiller\Breadcrumbs\Facade`
-* The default template was changed from Bootstrap 2 to Bootstrap 3. See the [README section](README.md#2-choosecreate-a-template-to-render-the-breadcrumbs) titled *"2. Choose/create a template to render the breadcrumbs"* if you need to switch it back.
+- In `app/config/app.php` change `DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider` to `DaveJamesMiller\Breadcrumbs\ServiceProvider`
+- In `app/config/app.php` change `DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs` to `DaveJamesMiller\Breadcrumbs\Facade`
+- The default template was changed from Bootstrap 2 to Bootstrap 3. See the [README section](README.md#2-choosecreate-a-template-to-render-the-breadcrumbs) titled *"2. Choose/create a template to render the breadcrumbs"* if you need to switch it back.
 
 The following internal changes will not affect most people but if you have any
 problems please be aware of the following:
 
-* The view namespace was changed from `breadcrumbs` to `laravel-breadcrumbs` to
+- The view namespace was changed from `breadcrumbs` to `laravel-breadcrumbs` to
   match the Composer project name.
-* The Bootstrap 2 template name was changed from `breadcrumbs::bootstrap` to
+- The Bootstrap 2 template name was changed from `breadcrumbs::bootstrap` to
   `laravel-breadcrumbs::bootstrap2`.
-* If you pass arrays into any of the methods, please read the following section:
+- If you pass arrays into any of the methods, please read the following section:
 
 ### Passing arrays into `render()`, `generate()` and `parent()`
 
