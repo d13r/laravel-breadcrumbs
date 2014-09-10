@@ -110,8 +110,6 @@ The possible values are:
 If you want to customise the HTML, create your own view file (e.g.
 `app/views/_partials/breadcrumbs.blade.php`) like this:
 
-The view should be similar to this:
-
 ```html+php
 @if ($breadcrumbs)
     <ul class="breadcrumb">
