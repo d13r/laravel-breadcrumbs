@@ -50,7 +50,7 @@ class ServiceProvider extends BaseServiceProvider
         $this->package('davejamesmiller/laravel-breadcrumbs');
 
         // Load the app breadcrumbs if they're in app/breadcrumbs.php
-        if (file_exists($file = $this->app['path'].'/breadcrumbs.php'))
+        if (file_exists($file = $this->app['path'].'/Http/breadcrumbs.php'))
             require $file;
     }
 }
