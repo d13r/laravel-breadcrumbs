@@ -1,8 +1,8 @@
 <?php
 namespace DaveJamesMiller\Breadcrumbs;
 
-use InvalidArgumentException;
 use Illuminate\Routing\Router;
+use Illuminate\View\Factory as ViewFactory;
 
 class Manager
 {
@@ -14,12 +14,8 @@ class Manager
 
     protected $currentRoute;
 
-    public function __construct($factory, Router $router)
+    public function __construct(ViewFactory $factory, Router $router)
     {
-        if (! $factory instanceof \Illuminate\View\Factory && ! $factory instanceof \Illuminate\View\Environment) {
-            throw new InvalidArgumentException('$factory must be an instance of either \Illuminate\View\Factory or \Illuminate\View\Environment');
-        }
-
         $this->factory = $factory;
         $this->router = $router;
     }
@@ -52,12 +48,10 @@ class Manager
         return isset($this->callbacks[$name]);
     }
 
-    public function generate($name = null)
+    public function generate($name)
     {
-        if (is_null($name))
-            return $this->generateCurrent();
-
         $params = array_slice(func_get_args(), 1);
+
         return $this->generateArray($name, $params);
     }
 
@@ -116,13 +110,6 @@ class Manager
             return '';
     }
 
-    protected function generateCurrent()
-    {
-        list($name, $params) = $this->currentRoute();
-
-        return $this->generateArray($name, $params);
-    }
-
     protected function renderCurrent()
     {
         list($name, $params) = $this->currentRoute();
@@ -137,19 +124,16 @@ class Manager
 
         $route = $this->router->current();
 
-        if (is_null($route))
-            return $this->currentRoute = array('', array());
-
         $name = $route->getName();
 
         if (is_null($name)) {
-            $uri = head($route->methods()) . ' ' . $route->uri();
+            $uri = head($route->methods()).' '.$route->uri();
             throw new Exception("The current route ($uri) is not named - please check routes.php for an \"as\" parameter");
         }
 
         $params = $route->parameters();
 
-        return $this->currentRoute = array($name, $params);
+        return $this->currentRoute = array($name, $route->parameters());
     }
 
     public function setCurrentRoute($name)
