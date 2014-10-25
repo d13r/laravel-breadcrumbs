@@ -46,15 +46,15 @@ class Generator
         $this->call($name, $params);
     }
 
-    public function push($title, $url = null)
+    public function push($title, $url = null, array $data = array())
     {
-        $this->breadcrumbs[] = (object) array(
+        $this->breadcrumbs[] = (object) array_merge($data, array(
             'title' => $title,
             'url' => $url,
             // These will be altered later where necessary:
             'first' => false,
             'last' => false,
-        );
+        ));
     }
 
     public function toArray()
