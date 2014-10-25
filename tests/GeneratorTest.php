@@ -47,6 +47,7 @@ class GeneratorTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame('Home', $breadcrumbs[0]->title);
         $this->assertSame('/', $breadcrumbs[0]->url);
+        $this->assertSame(array(), $breadcrumbs[0]->options);
     }
 
     public function testPushWithoutUrl()
@@ -59,6 +60,20 @@ class GeneratorTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame('Home', $breadcrumbs[0]->title);
         $this->assertNull($breadcrumbs[0]->url);
+    }
+
+    public function testPushWithOptions()
+    {
+        $options = array(
+            'foo' => 'bar',
+            'baz' => 'qux',
+        );
+
+        $generator = new Generator(array());
+        $generator->push('Home', '/', $options);
+        $breadcrumbs = $generator->get();
+
+        $this->assertSame($options, $breadcrumbs[0]->options);
     }
 
     public function testToArray()
