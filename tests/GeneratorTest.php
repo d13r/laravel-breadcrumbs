@@ -61,6 +61,23 @@ class GeneratorTest extends PHPUnit_Framework_TestCase
         $this->assertNull($breadcrumbs[0]->url);
     }
 
+    public function testPushWithData()
+    {
+        $data = array(
+            'foo' => 'bar',
+            'baz' => 'qux',
+            'title' => 'should not be overwritten by custom data',
+        );
+
+        $generator = new Generator(array());
+        $generator->push('Home', '/', $data);
+        $breadcrumbs = $generator->get();
+
+        $this->assertSame('bar', $breadcrumbs[0]->foo);
+        $this->assertSame('qux', $breadcrumbs[0]->baz);
+        $this->assertSame('Home', $breadcrumbs[0]->title);
+    }
+
     public function testToArray()
     {
         $generator = new Generator(array());
