@@ -46,11 +46,12 @@ class Generator
         $this->call($name, $params);
     }
 
-    public function push($title, $url = null)
+    public function push($title, $url = null, array $options = array())
     {
         $this->breadcrumbs[] = (object) array(
             'title' => $title,
             'url' => $url,
+            'options' => $options,
             // These will be altered later where necessary:
             'first' => false,
             'last' => false,

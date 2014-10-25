@@ -337,6 +337,25 @@ The default Twitter Bootstrap templates provided render this with a CSS class of
 "active", the same as the last breadcrumb, because otherwise they default to
 black text not grey which doesn't look right.
 
+### Breadcrumbs with custom data
+
+The `push()` method accepts an optional third parameter, `$options` - an array
+of data to be passed to the breadcrumb, which you can later use in your custom
+template. For example, if you wanted each breadcrumb to have an icon, you could
+do:
+
+```php
+$breadcrumbs->push('Home', '/', array('icon' => '/images/icons/home.png'));
+```
+
+The `$options` array will be added to the breadcrumb as an `options` property,
+so you would access the icon as `$breadcrumb->options['icon']` in your template,
+like this:
+
+```
+<li><a href="{{{ $breadcrumb->url }}}"><img src="{{{ $breadcrumb->options['icon'] }}}">{{{ $breadcrumb->title }}}</a></li>
+```
+
 ### Defining breadcrumbs in a different file
 
 If you don't want to use `app/breadcrumbs.php`, you can define them in
