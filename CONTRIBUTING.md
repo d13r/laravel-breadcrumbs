@@ -1,13 +1,18 @@
 # Contributing to Laravel Breadcrumbs
 
+To submit an improvement to the documentation, simply
+[edit the file using GitHub](https://github.com/davejamesmiller/laravel-breadcrumbs/edit/master/README.md).
+This will automatically be turned into a pull request.
+
 If you want to submit a bug fix, the information below may help you to get
-started. Then simply open a
+started. Make your changes in a new branch, then simply open a
 [pull request](https://github.com/davejamesmiller/laravel-breadcrumbs/pulls) on
 GitHub.
 
-If you want to submit a new feature, I suggest opening an
+If you want to submit a new feature, you may want to open an
 [issue](https://github.com/davejamesmiller/laravel-breadcrumbs/issues) to
-discuss the idea first, to make sure it will be accepted.
+discuss the idea first, to make sure it will be accepted. (Or you can go ahead
+and develop it first if you prefer!)
 
 ## Developing against a real application
 

@@ -12,7 +12,7 @@ A simple Laravel-style way to create breadcrumbs in
 ### 1. Install with Composer
 
 ```bash
-composer require davejamesmiller/laravel-breadcrumbs:~2.2.2
+composer require davejamesmiller/laravel-breadcrumbs:~2.3.0
 ```
 
 This will update `composer.json` and install it into the `vendor/` directory.
@@ -20,22 +20,22 @@ This will update `composer.json` and install it into the `vendor/` directory.
 (See the [Packagist website](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
 for a list of available version numbers and development releases.)
 
-### 2. Add to `app/config/app.php`
+### 2. Add to `config/app.php`
 
 ```php
-    'providers' => array(
+    'providers' => [
         // ...
         'DaveJamesMiller\Breadcrumbs\ServiceProvider',
-    ),
+    ],
 ```
 
 And:
 
 ```php
-    'aliases' => array(
+    'aliases' => [
         // ...
         'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
-    ),
+    ],
 ```
 
 This registers the package with Laravel and creates an alias called
@@ -43,10 +43,10 @@ This registers the package with Laravel and creates an alias called
 
 ## Usage
 
-### 1. Define breadcrumbs in `app/breadcrumbs.php`
+### 1. Define breadcrumbs in `app/Http/breadcrumbs.php`
 
-Create a file called `app/breadcrumbs.php` to put your breadcrumbs in. This file
-will be loaded automatically.
+Create a file called `app/Http/breadcrumbs.php` (`app/breadcrumbs.php` in
+Laravel 4.x) to put your breadcrumbs in. This file will be loaded automatically.
 
 It should look something like this - see the *Defining breadcrumbs* section
 below for an explanation.
@@ -92,7 +92,7 @@ file by running this command:
 php artisan config:publish davejamesmiller/laravel-breadcrumbs
 ```
 
-Then open `app/config/packages/davejamesmiller/laravel-breadcrumbs/config.php`
+Then open `config/packages/davejamesmiller/laravel-breadcrumbs/config.php`
 and edit this line:
 
 ```php
@@ -101,9 +101,9 @@ and edit this line:
 
 The possible values are:
 
-* `laravel-breadcrumbs::bootstrap3` (Twitter Bootstrap 3)
-* `laravel-breadcrumbs::bootstrap2` (Twitter Bootstrap 2)
-* A path to a custom template, e.g. `_partials.breadcrumbs`
+- `laravel-breadcrumbs::bootstrap3` (Twitter Bootstrap 3)
+- `laravel-breadcrumbs::bootstrap2` (Twitter Bootstrap 2)
+- A path to a custom template, e.g. `_partials.breadcrumbs`
 
 #### Creating a custom template
 
@@ -127,10 +127,10 @@ If you want to customise the HTML, create your own view file (e.g.
 As you can see above it will receive an array called `$breadcrumbs`. Each
 breadcrumb is an object with the following keys:
 
-* `title` - The title you set above
-* `url` - The URL you set above
-* `first` - `true` for the first breadcrumb, `false` otherwise
-* `last` - `true` for the last breadcrumb, `false` otherwise
+- `title` - The title you set above
+- `url` - The URL you set above
+- `first` - `true` for the first breadcrumb, `false` otherwise
+- `last` - `true` for the last breadcrumb, `false` otherwise
 
 Then update your config file with the custom view name, e.g.:
 
@@ -230,11 +230,11 @@ closure.
 For generating the URL, you can use any of the standard Laravel URL-generation
 methods, including:
 
-* `url('path/to/route')` (`URL::to()`)
-* `secure_url('path/to/route')`
-* `route('routename')` (`URL::route()`)
-* `action('controller@action')` (`URL::action()`)
-* Or just pass a string URL (`'http://www.example.com/'`)
+- `url('path/to/route')` (`URL::to()`)
+- `secure_url('path/to/route')`
+- `route('routename')` (`URL::route()`)
+- `action('controller@action')` (`URL::action()`)
+- Or just pass a string URL (`'http://www.example.com/'`)
 
 This example would be rendered like this:
 
@@ -337,33 +337,35 @@ The default Twitter Bootstrap templates provided render this with a CSS class of
 "active", the same as the last breadcrumb, because otherwise they default to
 black text not grey which doesn't look right.
 
+*Note: Support for this was added to the Twitter Bootstrap templates in 2.1.0. Before this you would need to create a custom template.*
+
 ### Breadcrumbs with custom data
 
+*Added in 2.3.0.*
+
 The `push()` method accepts an optional third parameter, `$data` - an array of
-arbitrary data to be passed to the breadcrumb, which you can later use in your
-custom template. For example, if you wanted each breadcrumb to have an icon, you
-could do:
+arbitrary data to be passed to the breadcrumb, which you can use in your custom
+template. For example, if you wanted each breadcrumb to have an icon, you could
+do:
 
 ```php
-$breadcrumbs->push('Home', '/', array('icon' => '/images/icons/home.png'));
+$breadcrumbs->push('Home', '/', ['icon' => 'home.png']);
 ```
 
 The `$data` array's entries will be merged into the breadcrumb as properties, so
 you would access the icon as `$breadcrumb->icon` in your template, like this:
 
 ```html+php
-<li><a href="{{{ $breadcrumb->url }}}"><img src="{{{ $breadcrumb->icon }}}">{{{ $breadcrumb->title }}}</a></li>
+<li><a href="{{{ $breadcrumb->url }}}"><img src="/images/icons/{{{ $breadcrumb->icon }}}">{{{ $breadcrumb->title }}}</a></li>
 ```
 
-Some default properties are added to the breadcrumb by the package, so to avoid
-running into problems, do not use the following keys in your data array, as they
-will be overwritten: `title`, `url`, `first`, `last`.
+Do not use the following keys in your data array, as they will be overwritten:
+`title`, `url`, `first`, `last`.
 
 ### Defining breadcrumbs in a different file
 
-If you don't want to use `app/breadcrumbs.php`, you can define them in
-`routes.php`, `start/global.php`, or any other file as long as it's loaded by
-Laravel.
+If you don't want to use `app/Http/breadcrumbs.php`, you can define them in
+`app/Http/routes.php` or any other file as long as it's loaded by Laravel.
 
 ### Switching views dynamically
 
@@ -378,13 +380,13 @@ If you need different views in different templates, you can call
 manually:
 
 ```html+php
-@include('_partials/breadcrumbs2', array('breadcrumbs' => Breadcrumbs::generate('category', $category)))
+@include('_partials/breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)])
 ```
 
 or
 
 ```html+php
-{{ View::make('_partials/breadcrumbs2', array('breadcrumbs' => Breadcrumbs::generate('category', $category))) }}
+{{ View::make('_partials/breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)]) }}
 ```
 
 ### Overriding the "current" route
@@ -398,6 +400,8 @@ You can override this by calling
 `Breadcrumbs::setCurrentRouteArray($name, $params)`.
 
 ### Passing an array of parameters
+
+*Added in 2.0.0.*
 
 If the breadcrumb requires multiple parameters, you would normally pass them
 like this:
@@ -418,14 +422,16 @@ $breadcrumbs->parentArray('name', $params);
 
 ### Checking if a breadcrumb exists
 
+*Added in 2.2.0.*
+
 By default an exception will be thrown if the breadcrumb doesn't exist, so you
 know to add it. If you want suppress this you can call the following methods
 instead:
 
-* `Breadcrumbs::renderIfExists()` (returns an empty string)
-* `Breadcrumbs::renderArrayIfExists()` (returns an empty string)
-* `Breadcrumbs::generateIfExists()` (returns an empty array)
-* `Breadcrumbs::generateArrayIfExists()` (returns an empty array)
+- `Breadcrumbs::renderIfExists()` (returns an empty string)
+- `Breadcrumbs::renderArrayIfExists()` (returns an empty string)
+- `Breadcrumbs::generateIfExists()` (returns an empty array)
+- `Breadcrumbs::generateArrayIfExists()` (returns an empty array)
 
 Alternatively you can call `Breadcrumbs::exists('name')`, which returns a
 boolean.
@@ -434,47 +440,49 @@ boolean.
 
 ### Facade
 
-* `Breadcrumbs::register($name, $callback)`
-* `Breadcrumbs::exists()` (returns boolean)
-* `Breadcrumbs::exists($name)` (returns boolean)
-* `Breadcrumbs::generate()` (returns array)
-* `Breadcrumbs::generate($name)` (returns array)
-* `Breadcrumbs::generate($name, $param1, ...)` (returns array)
-* `Breadcrumbs::generateArray($name, $params)` (returns array)
-* `Breadcrumbs::generateIfExists()` (returns array)
-* `Breadcrumbs::generateIfExists($name)` (returns array)
-* `Breadcrumbs::generateIfExists($name, $param1, ...)` (returns array)
-* `Breadcrumbs::generateArrayIfExists($name, $params)` (returns array)
-* `Breadcrumbs::render()` (returns string)
-* `Breadcrumbs::render($name)` (returns string)
-* `Breadcrumbs::render($name, $param1, ...)` (returns string)
-* `Breadcrumbs::renderArray($name, $params)` (returns string)
-* `Breadcrumbs::renderIfExists()` (returns string)
-* `Breadcrumbs::renderIfExists($name)` (returns string)
-* `Breadcrumbs::renderIfExists($name, $param1, ...)` (returns string)
-* `Breadcrumbs::renderArrayIfExists($name, $params)` (returns string)
-* `Breadcrumbs::setCurrentRoute($name)`
-* `Breadcrumbs::setCurrentRoute($name, $param1, ...)`
-* `Breadcrumbs::setCurrentRouteArray($name, $params)`
-* `Breadcrumbs::clearCurrentRoute()`
-* `Breadcrumbs::setView($view)`
-* `Breadcrumbs::getView()` (returns string)
+- `Breadcrumbs::register($name, $callback)`
+- `Breadcrumbs::exists()` (returns boolean) (*Added in 2.2.0*)
+- `Breadcrumbs::exists($name)` (returns boolean) (*Added in 2.2.0*)
+- `Breadcrumbs::generate()` (returns array) (*Added in 2.2.3*)
+- `Breadcrumbs::generate($name)` (returns array)
+- `Breadcrumbs::generate($name, $param1, ...)` (returns array)
+- `Breadcrumbs::generateArray($name, $params)` (returns array) (*Added in 2.0.0*)
+- `Breadcrumbs::generateIfExists()` (returns array) (*Added in 2.2.0*)
+- `Breadcrumbs::generateIfExists($name)` (returns array) (*Added in 2.2.0*)
+- `Breadcrumbs::generateIfExists($name, $param1, ...)` (returns array) (*Added in 2.2.0*)
+- `Breadcrumbs::generateArrayIfExists($name, $params)` (returns array) (*Added in 2.2.0*)
+- `Breadcrumbs::render()` (returns string) (*Added in 2.2.0*)
+- `Breadcrumbs::render($name)` (returns string)
+- `Breadcrumbs::render($name, $param1, ...)` (returns string)
+- `Breadcrumbs::renderArray($name, $params)` (returns string) (*Added in 2.0.0*)
+- `Breadcrumbs::renderIfExists()` (returns string) (*Added in 2.2.0*)
+- `Breadcrumbs::renderIfExists($name)` (returns string) (*Added in 2.2.0*)
+- `Breadcrumbs::renderIfExists($name, $param1, ...)` (returns string) (*Added in 2.2.0*)
+- `Breadcrumbs::renderArrayIfExists($name, $params)` (returns string) (*Added in 2.2.0*)
+- `Breadcrumbs::setCurrentRoute($name)`
+- `Breadcrumbs::setCurrentRoute($name, $param1, ...)`
+- `Breadcrumbs::setCurrentRouteArray($name, $params)` (*Added in 2.0.0*)
+- `Breadcrumbs::clearCurrentRoute()`
+- `Breadcrumbs::setView($view)`
+- `Breadcrumbs::getView()` (returns string)
 
 ### Defining breadcrumbs (inside the callback)
 
-* `$breadcrumbs->push($title)`
-* `$breadcrumbs->push($title, $url)`
-* `$breadcrumbs->parent($name)`
-* `$breadcrumbs->parent($name, $param1, ...)`
-* `$breadcrumbs->parentArray($name, $params)`
+- `$breadcrumbs->push($title)`
+- `$breadcrumbs->push($title, $url)`
+- `$breadcrumbs->push($title, $url, $data)` (*Added in 2.3.0*)
+- `$breadcrumbs->parent($name)`
+- `$breadcrumbs->parent($name, $param1, ...)`
+- `$breadcrumbs->parentArray($name, $params)` (*Added in 2.0.0*)
 
 ### Outputting the breadcrumbs (in the view)
 
-* `$breadcrumbs` (array), contains:
+- `$breadcrumbs` (array), contains:
     * `$breadcrumb->title` (string)
     * `$breadcrumb->url` (string or null)
     * `$breadcrumb->first` (boolean)
     * `$breadcrumb->last` (boolean)
+    * `$breadcrumb->custom_attribute_name` (mixed - any custom data attributes you specified)
 
 ## Changelog
 
@@ -493,20 +501,20 @@ issues](https://github.com/davejamesmiller/laravel-breadcrumbs/issues).
 
 Bug reports should include the following:
 
-* The complete error message, including file & line numbers
-* Steps to reproduce the problem
-* Laravel Breadcrumbs version (should be the latest version)
-* Laravel version
-* PHP version
-* The `providers` and `aliases` sections of `app/config/app.php` (Note: **not the Encryption Key section** which should be kept private) - in case there's a conflict with another package
+- The complete error message, including file & line numbers
+- Steps to reproduce the problem
+- Laravel Breadcrumbs version (should be the latest version)
+- Laravel version
+- PHP version
+- The `providers` and `aliases` sections of `config/app.php` (Note: **not the Encryption Key section** which should be kept private) - in case there's a conflict with another package
 
 You may also need to include copies of:
 
-* `app/breadcrumbs.php`
-* `app/config/packages/davejamesmiller/laravel-breadcrumbs/config.php` (if used)
-* The view or layout that outputs the breadcrumbs
-* The custom breadcrumbs template (if applicable)
-* Any other relevant files
+- `app/Http/breadcrumbs.php` (`app/breadcrumbs.php` in Laravel 4.x)
+- `config/packages/davejamesmiller/laravel-breadcrumbs/config.php` (if used)
+- The view or layout that outputs the breadcrumbs
+- The custom breadcrumbs template (if applicable)
+- Any other relevant files
 
 If you have any suggestions for improving the documentation - especially if
 anything is unclear to you and could be explained better - please let me know.
@@ -524,14 +532,16 @@ used for a while before discovering Laravel.
 
 ### Contributors
 
-* Ricky Wiens ([rickywiens](https://github.com/rickywiens)) -
-  [#41](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/41)
-* Boris Glumpler ([shabushabu](https://github.com/shabushabu)) -
-  [#28](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/28)
-* Andrej Badin ([Andreyco](https://github.com/Andreyco)) -
-  [#24](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/24)
-* Stef Horner ([tedslittlerobot](https://github.com/tedslittlerobot)) -
-  [#11](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/11)
+- Miloš Levačić ([levacic](https://github.com/levacic)) -
+  [#56](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/56 "Add ability to pass custom data into breadcrumbs")
+- Ricky Wiens ([rickywiens](https://github.com/rickywiens)) -
+  [#41](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/41 "Allow missing routes (App::missing())")
+- Boris Glumpler ([shabushabu](https://github.com/shabushabu)) -
+  [#28](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/28 "Added support for Laravel 4.2")
+- Andrej Badin ([Andreyco](https://github.com/Andreyco)) -
+  [#24](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/24 "Let Breadcrumbs auto guess breadcrumb name")
+- Stef Horner ([tedslittlerobot](https://github.com/tedslittlerobot)) -
+  [#11](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/11 "Allows setting of a config view through config options rather than runtime settings.")
 
 ## License
 
@@ -541,4 +551,4 @@ MIT License. See [LICENSE.txt](LICENSE.txt).
 
 So far I've only found one other breadcrumb package for Laravel:
 
-* [noherczeg/breadcrumb](https://github.com/noherczeg/breadcrumb)
+- [noherczeg/breadcrumb](https://github.com/noherczeg/breadcrumb)
