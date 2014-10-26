@@ -146,6 +146,11 @@ Finally, call `Breadcrumbs::render()` in the view template for each page. You
 can either pass the name of the breadcrumb to use (and parameters if needed):
 
 ```html+php
+<!-- Laravel 5 -->
+{!! Breadcrumbs::render('home') !!}
+{!! Breadcrumbs::render('category', $category) !!}
+
+<!-- Laravel 4 -->
 {{ Breadcrumbs::render('home') }}
 {{ Breadcrumbs::render('category', $category) }}
 ```
@@ -163,6 +168,10 @@ Route::get('/category/{category}', ['uses' => 'CategoryController@show', 'as' =>
 And in the layout you have this:
 
 ```html+php
+<!-- Laravel 5 -->
+{!! Breadcrumbs::render() !!}
+
+<!-- Laravel 4 -->
 {{ Breadcrumbs::render() }}
 ```
 
@@ -273,6 +282,10 @@ Breadcrumbs::register('page', function($breadcrumbs, $page) {
 The `$page` variable would simply be passed in from the view:
 
 ```html+php
+<!-- Laravel 5 -->
+{!! Breadcrumbs::render('page', $page) !!}
+
+<!-- Laravel 4 -->
 {{ Breadcrumbs::render('page', $page) }}
 ```
 
@@ -386,6 +399,10 @@ manually:
 or
 
 ```html+php
+<!-- Laravel 5 -->
+{!! View::make('_partials/breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)]) !!}
+
+<!-- Laravel 4 -->
 {{ View::make('_partials/breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)]) }}
 ```
 
