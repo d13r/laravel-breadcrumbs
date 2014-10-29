@@ -90,7 +90,11 @@ If you would like to change the template, first you need to generate a config
 file by running this command:
 
 ```bash
+# Laravel 5
 php artisan publish:config davejamesmiller/laravel-breadcrumbs
+
+# Laravel 4
+php artisan config:publish davejamesmiller/laravel-breadcrumbs
 ```
 
 Then open `config/packages/davejamesmiller/laravel-breadcrumbs/config.php`
