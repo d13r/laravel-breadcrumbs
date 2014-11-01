@@ -79,6 +79,7 @@ Then open `test-coverage/index.html` to view the results. However, be aware of t
 - Check the README is up to date, including the version number
 - Check the CHANGELOG is up to date
 - Commit all changes
+- Merge into `master` (`git checkout master; git merge develop`)
 - Push the code changes (`git push`)
 - Double-check the [Travis CI results](https://travis-ci.org/davejamesmiller/laravel-breadcrumbs)
 - Tag the release (`git tag 1.2.3`)
