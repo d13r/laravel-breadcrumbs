@@ -76,7 +76,7 @@ Then open `test-coverage/index.html` to view the results. However, be aware of t
 *This is a reference for me:*
 
 - Make sure all tests pass and also check the code coverage report
-- Check the README is up to date, including the version number
+- Check the README is up to date
 - Check the CHANGELOG is up to date
 - Commit all changes
 - Merge into `master` (`git checkout master; git merge develop`)
