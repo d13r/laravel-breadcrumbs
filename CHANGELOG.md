@@ -4,11 +4,11 @@ Uses [Semantic Versioning](http://semver.org/).
 
 ### 2.3.0
 
-- Add Laravel 5 support
+- ~~Add Laravel 5 support
   ([#49](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/49 "Doesn't work with Laravel 5.0"),
   [#50](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/50 "Added laravel 5 support"),
   [#53](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/53 "Check path for Laravel 5"),
-  [#54](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/54 "Laravel 5 support"))
+  [#54](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/54 "Laravel 5 support"))~~ (Broken again since [3a0afc2](https://github.com/laravel/framework/commit/3a0afc20f25ad3bed640ff1a14957f972d123cf7)!)
 - Add `$data` parameter to `$breadcrumb->push()` to allow for arbitrary data.
   ([#34](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/34 "How to add icon to breadcrumbs?"),
   [#35](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/35 "Add arbitrary data to breadcrumbs"),
