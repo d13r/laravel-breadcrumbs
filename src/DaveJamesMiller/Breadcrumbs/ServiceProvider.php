@@ -35,7 +35,7 @@ class ServiceProvider extends BaseServiceProvider
 
 			$viewPath = __DIR__ . '/../../views/';
 
-			$this->loadViewsFrom('breadcrumbs', $viewPath);
+			$this->loadViewsFrom($viewPath, 'breadcrumbs');
 
 			$breadcrumbs->setView($app['config']['breadcrumbs.view']);
 
@@ -51,7 +51,7 @@ class ServiceProvider extends BaseServiceProvider
 	public function boot()
 	{
 		$configPath = __DIR__ . '/../../config/breadcrumbs.php';
-		$this->mergeConfigFrom('breadcrumbs', $configPath);
+		$this->mergeConfigFrom($configPath, 'breadcrumbs');
 		$this->publishes([
 			$configPath => config_path('vendor/breadcrumbs.php')
 		]);
