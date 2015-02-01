@@ -17,7 +17,7 @@ cd /path/to/repo
 rm -rf vendor/davejamesmiller/laravel-breadcrumbs
 composer install --prefer-source
 cd vendor/davejamesmiller/laravel-breadcrumbs
-git checkout develop
+git checkout -t origin/develop
 git checkout -b YOUR_BRANCH
 # Make changes and commit them
 git remote add YOUR_USERNAME git@github.com:YOUR_USERNAME/laravel-breadcrumbs
