@@ -1,4 +1,4 @@
-# Laravel Breadcrumbs 2 (for Laravel 4.x)
+# Laravel Breadcrumbs
 [![Latest Stable Version](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/v/stable.png)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
 [![Total Downloads](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/downloads.png)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
 [![Build Status](https://travis-ci.org/davejamesmiller/laravel-breadcrumbs.png?branch=master)](https://travis-ci.org/davejamesmiller/laravel-breadcrumbs)
@@ -6,14 +6,16 @@
 [![MIT License](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/license.svg)](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/LICENSE.txt)
 
 A simple Laravel-style way to create breadcrumbs in
-[Laravel 4](http://laravel.com/).
+[Laravel 4+](http://laravel.com/).
+
+**Note: Not currently working in Laravel 5 development version - see issue [#62](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/62) for updates.**
 
 ## Installation
 
 ### 1. Install with Composer
 
 ```bash
-composer require davejamesmiller/laravel-breadcrumbs:2.*
+composer require davejamesmiller/laravel-breadcrumbs
 ```
 
 This will update `composer.json` and install it into the `vendor/` directory.
@@ -21,22 +23,22 @@ This will update `composer.json` and install it into the `vendor/` directory.
 (See the [Packagist website](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
 for a list of available version numbers and development releases.)
 
-### 2. Add to `app/config/app.php`
+### 2. Add to `config/app.php`
 
 ```php
-    'providers' => array(
+    'providers' => [
         // ...
         'DaveJamesMiller\Breadcrumbs\ServiceProvider',
-    ),
+    ],
 ```
 
 And:
 
 ```php
-    'aliases' => array(
+    'aliases' => [
         // ...
         'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
-    ),
+    ],
 ```
 
 This registers the package with Laravel and creates an alias called
@@ -44,10 +46,10 @@ This registers the package with Laravel and creates an alias called
 
 ## Usage
 
-### 1. Define breadcrumbs in `app/breadcrumbs.php`
+### 1. Define breadcrumbs in `app/Http/breadcrumbs.php`
 
-Create a file called `app/breadcrumbs.php` to put your breadcrumbs in. This file
-will be loaded automatically.
+Create a file called `app/Http/breadcrumbs.php` (`app/breadcrumbs.php` in
+Laravel 4.x) to put your breadcrumbs in. This file will be loaded automatically.
 
 It should look something like this - see the *Defining breadcrumbs* section
 below for an explanation.
@@ -90,10 +92,14 @@ If you would like to change the template, first you need to generate a config
 file by running this command:
 
 ```bash
+# Laravel 5
+php artisan publish:config davejamesmiller/laravel-breadcrumbs
+
+# Laravel 4
 php artisan config:publish davejamesmiller/laravel-breadcrumbs
 ```
 
-Then open `app/config/packages/davejamesmiller/laravel-breadcrumbs/config.php`
+Then open `config/packages/davejamesmiller/laravel-breadcrumbs/config.php`
 and edit this line:
 
 ```php
@@ -147,6 +153,11 @@ Finally, call `Breadcrumbs::render()` in the view template for each page. You
 can either pass the name of the breadcrumb to use (and parameters if needed):
 
 ```html+php
+<!-- Laravel 5 -->
+{!! Breadcrumbs::render('home') !!}
+{!! Breadcrumbs::render('category', $category) !!}
+
+<!-- Laravel 4 -->
 {{ Breadcrumbs::render('home') }}
 {{ Breadcrumbs::render('category', $category) }}
 ```
@@ -164,6 +175,10 @@ Route::get('/category/{category}', ['uses' => 'CategoryController@show', 'as' =>
 And in the layout you have this:
 
 ```html+php
+<!-- Laravel 5 -->
+{!! Breadcrumbs::render() !!}
+
+<!-- Laravel 4 -->
 {{ Breadcrumbs::render() }}
 ```
 
@@ -274,6 +289,10 @@ Breadcrumbs::register('page', function($breadcrumbs, $page) {
 The `$page` variable would simply be passed in from the view:
 
 ```html+php
+<!-- Laravel 5 -->
+{!! Breadcrumbs::render('page', $page) !!}
+
+<!-- Laravel 4 -->
 {{ Breadcrumbs::render('page', $page) }}
 ```
 
@@ -365,9 +384,8 @@ Do not use the following keys in your data array, as they will be overwritten:
 
 ### Defining breadcrumbs in a different file
 
-If you don't want to use `app/breadcrumbs.php`, you can define them in
-`routes.php`, `start/global.php`, or any other file as long as it's loaded by
-Laravel.
+If you don't want to use `app/Http/breadcrumbs.php`, you can define them in
+`app/Http/routes.php` or any other file as long as it's loaded by Laravel.
 
 ### Switching views dynamically
 
@@ -382,13 +400,17 @@ If you need different views in different templates, you can call
 manually:
 
 ```html+php
-@include('_partials/breadcrumbs2', array('breadcrumbs' => Breadcrumbs::generate('category', $category)))
+@include('_partials/breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)])
 ```
 
 or
 
 ```html+php
-{{ View::make('_partials/breadcrumbs2', array('breadcrumbs' => Breadcrumbs::generate('category', $category))) }}
+<!-- Laravel 5 -->
+{!! View::make('_partials/breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)]) !!}
+
+<!-- Laravel 4 -->
+{{ View::make('_partials/breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)]) }}
 ```
 
 ### Overriding the "current" route
@@ -508,12 +530,12 @@ Bug reports should include the following:
 - Laravel Breadcrumbs version (should be the latest version)
 - Laravel version
 - PHP version
-- The `providers` and `aliases` sections of `app/config/app.php` (Note: **not the Encryption Key section** which should be kept private) - in case there's a conflict with another package
+- The `providers` and `aliases` sections of `config/app.php` (Note: **not the Encryption Key section** which should be kept private) - in case there's a conflict with another package
 
 You may also need to include copies of:
 
-- `app/breadcrumbs.php`
-- `app/config/packages/davejamesmiller/laravel-breadcrumbs/config.php` (if used)
+- `app/Http/breadcrumbs.php` (`app/breadcrumbs.php` in Laravel 4.x)
+- `config/packages/davejamesmiller/laravel-breadcrumbs/config.php` (if used)
 - The view or layout that outputs the breadcrumbs
 - The custom breadcrumbs template (if applicable)
 - Any other relevant files
