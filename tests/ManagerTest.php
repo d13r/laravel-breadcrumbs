@@ -1,40 +1,42 @@
 <?php
+
 use DaveJamesMiller\Breadcrumbs;
 use Mockery as m;
 
-class ManagerTest extends PHPUnit_Framework_TestCase
-{
-    public function setUp()
-    {
-        if (class_exists('Illuminate\View\Factory'))
-            $this->factory = m::mock('Illuminate\View\Factory');
-        else
-            $this->factory = m::mock('Illuminate\View\Environment');
+class ManagerTest extends PHPUnit_Framework_TestCase {
 
-        $this->router = m::mock('Illuminate\Routing\Router');
-        $this->manager = new Breadcrumbs\Manager($this->factory, $this->router);
+	public function setUp()
+	{
+		if (class_exists('Illuminate\View\Factory'))
+			$this->factory = m::mock('Illuminate\View\Factory');
+		else
+			$this->factory = m::mock('Illuminate\View\Environment');
 
-        $this->manager->register('sample', function() {});
-    }
+		$this->router = m::mock('Illuminate\Routing\Router');
+		$this->manager = new Breadcrumbs\Manager($this->factory, $this->router);
 
-    public function testSetView()
-    {
-        $view = 'my.sample.view';
+		$this->manager->register('sample', function() {});
+	}
 
-        $this->manager->setView($view);
+	public function testSetView()
+	{
+		$view = 'my.sample.view';
 
-        $this->assertSame($view, $this->manager->getView());
-    }
+		$this->manager->setView($view);
 
-    public function testExists()
-    {
-        $this->assertTrue($this->manager->exists('sample'));
-        $this->assertFalse($this->manager->exists('invalid'));
+		$this->assertSame($view, $this->manager->getView());
+	}
 
-        $this->manager->setCurrentRoute('sample');
-        $this->assertTrue($this->manager->exists());
+	public function testExists()
+	{
+		$this->assertTrue($this->manager->exists('sample'));
+		$this->assertFalse($this->manager->exists('invalid'));
 
-        $this->manager->setCurrentRoute('invalid');
-        $this->assertFalse($this->manager->exists());
-    }
+		$this->manager->setCurrentRoute('sample');
+		$this->assertTrue($this->manager->exists());
+
+		$this->manager->setCurrentRoute('invalid');
+		$this->assertFalse($this->manager->exists());
+	}
+
 }

@@ -1,73 +1,72 @@
-<?php
-namespace DaveJamesMiller\Breadcrumbs;
+<?php namespace DaveJamesMiller\Breadcrumbs;
 
-class Generator
-{
-    protected $callbacks = array();
-    protected $breadcrumbs = array();
+class Generator {
 
-    public function __construct(array $callbacks)
-    {
-        $this->callbacks = $callbacks;
-    }
+	protected $callbacks = array();
+	protected $breadcrumbs = array();
 
-    public function get()
-    {
-        return $this->breadcrumbs;
-    }
+	public function __construct(array $callbacks)
+	{
+		$this->callbacks = $callbacks;
+	}
 
-    public function set(array $breadcrumbs)
-    {
-        $this->breadcrumbs = $breadcrumbs;
-    }
+	public function get()
+	{
+		return $this->breadcrumbs;
+	}
 
-    public function call($name, $params)
-    {
-        if (!isset($this->callbacks[$name]))
-            throw new Exception("Breadcrumb not found with name \"{$name}\"");
+	public function set(array $breadcrumbs)
+	{
+		$this->breadcrumbs = $breadcrumbs;
+	}
 
-        array_unshift($params, $this);
+	public function call($name, $params)
+	{
+		if (!isset($this->callbacks[$name]))
+			throw new Exception("Breadcrumb not found with name \"{$name}\"");
 
-        call_user_func_array($this->callbacks[$name], $params);
-    }
+		array_unshift($params, $this);
 
-    public function parent($name)
-    {
-        $params = array_slice(func_get_args(), 1);
+		call_user_func_array($this->callbacks[$name], $params);
+	}
 
-        $this->parentArray($name, $params);
-    }
+	public function parent($name)
+	{
+		$params = array_slice(func_get_args(), 1);
 
-    // This does the same as call() but is named differently for clarity.
-    // parent() / parentArray() are used when defining breadcrumbs.
-    // call() is used when outputting breadcrumbs.
-    public function parentArray($name, $params = array())
-    {
-        $this->call($name, $params);
-    }
+		$this->parentArray($name, $params);
+	}
 
-    public function push($title, $url = null, array $data = array())
-    {
-        $this->breadcrumbs[] = (object) array_merge($data, array(
-            'title' => $title,
-            'url' => $url,
-            // These will be altered later where necessary:
-            'first' => false,
-            'last' => false,
-        ));
-    }
+	// This does the same as call() but is named differently for clarity.
+	// parent() / parentArray() are used when defining breadcrumbs.
+	// call() is used when outputting breadcrumbs.
+	public function parentArray($name, $params = array())
+	{
+		$this->call($name, $params);
+	}
 
-    public function toArray()
-    {
-        $breadcrumbs = $this->breadcrumbs;
+	public function push($title, $url = null, array $data = array())
+	{
+		$this->breadcrumbs[] = (object) array_merge($data, array(
+			'title' => $title,
+			'url' => $url,
+			// These will be altered later where necessary:
+			'first' => false,
+			'last' => false,
+		));
+	}
 
-        // Add first & last indicators
-        if ($breadcrumbs) {
-            $breadcrumbs[0]->first = true;
-            $breadcrumbs[count($breadcrumbs) - 1]->last = true;
-        }
+	public function toArray()
+	{
+		$breadcrumbs = $this->breadcrumbs;
 
-        return $breadcrumbs;
-    }
+		// Add first & last indicators
+		if ($breadcrumbs) {
+			$breadcrumbs[0]->first = true;
+			$breadcrumbs[count($breadcrumbs) - 1]->last = true;
+		}
+
+		return $breadcrumbs;
+	}
 
 }

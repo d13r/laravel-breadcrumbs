@@ -1,5 +1,5 @@
 <?php
 
 return array(
-    'view' => 'laravel-breadcrumbs::bootstrap3',
+	'view' => 'laravel-breadcrumbs::bootstrap3',
 );

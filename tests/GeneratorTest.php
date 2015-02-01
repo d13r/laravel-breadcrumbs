@@ -1,99 +1,101 @@
 <?php
+
 use DaveJamesMiller\Breadcrumbs\Generator;
 use Mockery as m;
 
-class GeneratorTest extends PHPUnit_Framework_TestCase
-{
-    public function testGetSet()
-    {
-        $generator = new Generator(array());
-        $breadcrumbs = array(123);
+class GeneratorTest extends PHPUnit_Framework_TestCase {
 
-        // Note: This is not recommended - I can't actually remember why I
-        // included a set method like this. But for BC I won't delete it.
-        $generator->set($breadcrumbs);
+	public function testGetSet()
+	{
+		$generator = new Generator(array());
+		$breadcrumbs = array(123);
 
-        $this->assertSame($breadcrumbs, $generator->get());
-    }
+		// Note: This is not recommended - I can't actually remember why I
+		// included a set method like this. But for BC I won't delete it.
+		$generator->set($breadcrumbs);
 
-    public function testParent()
-    {
-        // Can't find a simple way to test that a closure is called, so make a
-        // mock object instead and pass an array as the callback
-        $mock = m::mock();
+		$this->assertSame($breadcrumbs, $generator->get());
+	}
 
-        $callbacks = array(
-            'sample' => array($mock, 'callback'),
-        );
+	public function testParent()
+	{
+		// Can't find a simple way to test that a closure is called, so make a
+		// mock object instead and pass an array as the callback
+		$mock = m::mock();
 
-        $generator = new Generator($callbacks);
+		$callbacks = array(
+			'sample' => array($mock, 'callback'),
+		);
 
-        $mock->shouldReceive('callback')
-            ->with($generator, 1, 2)
-            ->times(3);
+		$generator = new Generator($callbacks);
 
-        $generator->parent('sample', 1, 2);
-        $generator->parentArray('sample', array(1, 2));
-        $generator->call('sample', array(1, 2));
-    }
+		$mock->shouldReceive('callback')
+			->with($generator, 1, 2)
+			->times(3);
 
-    public function testPush()
-    {
-        $generator = new Generator(array());
-        $generator->push('Home', '/');
-        $breadcrumbs = $generator->get();
+		$generator->parent('sample', 1, 2);
+		$generator->parentArray('sample', array(1, 2));
+		$generator->call('sample', array(1, 2));
+	}
 
-        $this->assertCount(1, $breadcrumbs);
+	public function testPush()
+	{
+		$generator = new Generator(array());
+		$generator->push('Home', '/');
+		$breadcrumbs = $generator->get();
 
-        $this->assertSame('Home', $breadcrumbs[0]->title);
-        $this->assertSame('/', $breadcrumbs[0]->url);
-    }
+		$this->assertCount(1, $breadcrumbs);
 
-    public function testPushWithoutUrl()
-    {
-        $generator = new Generator(array());
-        $generator->push('Home');
-        $breadcrumbs = $generator->get();
+		$this->assertSame('Home', $breadcrumbs[0]->title);
+		$this->assertSame('/', $breadcrumbs[0]->url);
+	}
 
-        $this->assertCount(1, $breadcrumbs);
+	public function testPushWithoutUrl()
+	{
+		$generator = new Generator(array());
+		$generator->push('Home');
+		$breadcrumbs = $generator->get();
 
-        $this->assertSame('Home', $breadcrumbs[0]->title);
-        $this->assertNull($breadcrumbs[0]->url);
-    }
+		$this->assertCount(1, $breadcrumbs);
 
-    public function testPushWithData()
-    {
-        $data = array(
-            'foo' => 'bar',
-            'baz' => 'qux',
-            'title' => 'should not be overwritten by custom data',
-        );
+		$this->assertSame('Home', $breadcrumbs[0]->title);
+		$this->assertNull($breadcrumbs[0]->url);
+	}
 
-        $generator = new Generator(array());
-        $generator->push('Home', '/', $data);
-        $breadcrumbs = $generator->get();
+	public function testPushWithData()
+	{
+		$data = array(
+			'foo' => 'bar',
+			'baz' => 'qux',
+			'title' => 'should not be overwritten by custom data',
+		);
 
-        $this->assertSame('bar', $breadcrumbs[0]->foo);
-        $this->assertSame('qux', $breadcrumbs[0]->baz);
-        $this->assertSame('Home', $breadcrumbs[0]->title);
-    }
+		$generator = new Generator(array());
+		$generator->push('Home', '/', $data);
+		$breadcrumbs = $generator->get();
 
-    public function testToArray()
-    {
-        $generator = new Generator(array());
-        $generator->push('Home', '/');
-        $generator->push('Home', '/');
-        $generator->push('Home', '/');
-        $breadcrumbs = $generator->toArray();
+		$this->assertSame('bar', $breadcrumbs[0]->foo);
+		$this->assertSame('qux', $breadcrumbs[0]->baz);
+		$this->assertSame('Home', $breadcrumbs[0]->title);
+	}
 
-        $this->assertCount(3, $breadcrumbs);
+	public function testToArray()
+	{
+		$generator = new Generator(array());
+		$generator->push('Home', '/');
+		$generator->push('Home', '/');
+		$generator->push('Home', '/');
+		$breadcrumbs = $generator->toArray();
 
-        $this->assertTrue($breadcrumbs[0]->first);
-        $this->assertFalse($breadcrumbs[1]->first);
-        $this->assertFalse($breadcrumbs[2]->first);
+		$this->assertCount(3, $breadcrumbs);
 
-        $this->assertFalse($breadcrumbs[0]->last);
-        $this->assertFalse($breadcrumbs[1]->last);
-        $this->assertTrue($breadcrumbs[2]->last);
-    }
+		$this->assertTrue($breadcrumbs[0]->first);
+		$this->assertFalse($breadcrumbs[1]->first);
+		$this->assertFalse($breadcrumbs[2]->first);
+
+		$this->assertFalse($breadcrumbs[0]->last);
+		$this->assertFalse($breadcrumbs[1]->last);
+		$this->assertTrue($breadcrumbs[2]->last);
+	}
+
 }

@@ -32,16 +32,16 @@ If you have forked the package (e.g. to fix a bug or add a feature), you may wan
 
 ```json
 {
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/YOUR_USERNAME/laravel-breadcrumbs.git"
-        }
-    ],
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/YOUR_USERNAME/laravel-breadcrumbs.git"
+		}
+	],
 
-    "require": {
-        "davejamesmiller/laravel-breadcrumbs": "dev-YOUR_BRANCH"
-    }
+	"require": {
+		"davejamesmiller/laravel-breadcrumbs": "dev-YOUR_BRANCH"
+	}
 }
 ```
 

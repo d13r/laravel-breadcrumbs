@@ -55,9 +55,9 @@ Uses [Semantic Versioning](http://semver.org/).
 - Support for passing arrays into `render()`, `generate()` and `parent()`
   ([#8](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/8 "How to use 2nd argument of the callback function (of Breadcrumb::register)?"))
   (**not backwards-compatible**)
-    - Split `Breadcrumbs::render()` into two methods: `render($name, $arg1, $arg2)` and `renderArray($name, $params)`
-    - Split `Breadcrumbs::generate()` into two methods: `generate($name, $arg1, $arg2)` and `generateArray($name, $params)`
-    - Split `$breadcrumbs->parent()` into two methods: `parent($name, $arg1, $arg2)` and `parentArray($name, $params)`
+	- Split `Breadcrumbs::render()` into two methods: `render($name, $arg1, $arg2)` and `renderArray($name, $params)`
+	- Split `Breadcrumbs::generate()` into two methods: `generate($name, $arg1, $arg2)` and `generateArray($name, $params)`
+	- Split `$breadcrumbs->parent()` into two methods: `parent($name, $arg1, $arg2)` and `parentArray($name, $params)`
 - Set view name in config file instead of in `breadcrumbs.php`
   ([#10](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/10 "[PROPOSAL] Set the default view in a config file, rather than in application code"),
   [#11](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/11 "Allows setting of a config view through config options rather than runtime settings."))
@@ -103,7 +103,7 @@ split up into several parameters. For example:
 // If this breadcrumb is defined:
 Breadcrumbs::register('page', function($breadcrumbs, $param1, $param2)
 {
-    $breadcrumbs->push($param1, $param2);
+	$breadcrumbs->push($param1, $param2);
 });
 
 // Then this:
@@ -125,7 +125,7 @@ In **version 2.x** this has been split into two methods:
 ```php
 Breadcrumbs::register('page', function($breadcrumbs, $param1, $param2)
 {
-    $breadcrumbs->push($param1, $param2);
+	$breadcrumbs->push($param1, $param2);
 });
 
 // Now this:

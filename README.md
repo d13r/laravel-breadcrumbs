@@ -26,19 +26,19 @@ for a list of available version numbers and development releases.)
 ### 2. Add to `config/app.php`
 
 ```php
-    'providers' => [
-        // ...
-        'DaveJamesMiller\Breadcrumbs\ServiceProvider',
-    ],
+	'providers' => [
+		// ...
+		'DaveJamesMiller\Breadcrumbs\ServiceProvider',
+	],
 ```
 
 And:
 
 ```php
-    'aliases' => [
-        // ...
-        'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
-    ],
+	'aliases' => [
+		// ...
+		'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
+	],
 ```
 
 This registers the package with Laravel and creates an alias called
@@ -58,27 +58,27 @@ below for an explanation.
 <?php
 
 Breadcrumbs::register('home', function($breadcrumbs) {
-    $breadcrumbs->push('Home', route('home'));
+	$breadcrumbs->push('Home', route('home'));
 });
 
 Breadcrumbs::register('blog', function($breadcrumbs) {
-    $breadcrumbs->parent('home');
-    $breadcrumbs->push('Blog', route('blog'));
+	$breadcrumbs->parent('home');
+	$breadcrumbs->push('Blog', route('blog'));
 });
 
 Breadcrumbs::register('category', function($breadcrumbs, $category) {
-    $breadcrumbs->parent('blog');
+	$breadcrumbs->parent('blog');
 
-    foreach ($category->ancestors as $ancestor) {
-        $breadcrumbs->push($ancestor->title, route('category', $ancestor->id));
-    }
+	foreach ($category->ancestors as $ancestor) {
+		$breadcrumbs->push($ancestor->title, route('category', $ancestor->id));
+	}
 
-    $breadcrumbs->push($category->title, route('category', $category->id));
+	$breadcrumbs->push($category->title, route('category', $category->id));
 });
 
 Breadcrumbs::register('page', function($breadcrumbs, $page) {
-    $breadcrumbs->parent('category', $page->category);
-    $breadcrumbs->push($page->title, route('page', $page->id));
+	$breadcrumbs->parent('category', $page->category);
+	$breadcrumbs->push($page->title, route('page', $page->id));
 });
 ```
 
@@ -119,15 +119,15 @@ If you want to customise the HTML, create your own view file (e.g.
 
 ```html+php
 @if ($breadcrumbs)
-    <ul class="breadcrumb">
-        @foreach ($breadcrumbs as $breadcrumb)
-            @if (!$breadcrumb->last)
-                <li><a href="{{{ $breadcrumb->url }}}">{{{ $breadcrumb->title }}}</a></li>
-            @else
-                <li class="active">{{{ $breadcrumb->title }}}</li>
-            @endif
-        @endforeach
-    </ul>
+	<ul class="breadcrumb">
+		@foreach ($breadcrumbs as $breadcrumb)
+			@if (!$breadcrumb->last)
+				<li><a href="{{{ $breadcrumb->url }}}">{{{ $breadcrumb->title }}}</a></li>
+			@else
+				<li class="active">{{{ $breadcrumb->title }}}</li>
+			@endif
+		@endforeach
+	</ul>
 @endif
 ```
 
@@ -236,7 +236,7 @@ look something like this:
 
 ```php
 Breadcrumbs::register('home', function($breadcrumbs) {
-    $breadcrumbs->push('Home', route('home'));
+	$breadcrumbs->push('Home', route('home'));
 });
 ```
 
@@ -264,8 +264,8 @@ This is another static page, but this has a parent link before it:
 
 ```php
 Breadcrumbs::register('blog', function($breadcrumbs) {
-    $breadcrumbs->parent('home');
-    $breadcrumbs->push('Blog', route('blog'));
+	$breadcrumbs->parent('home');
+	$breadcrumbs->push('Blog', route('blog'));
 });
 ```
 
@@ -281,8 +281,8 @@ This is a dynamically generated page pulled from the database:
 
 ```php
 Breadcrumbs::register('page', function($breadcrumbs, $page) {
-    $breadcrumbs->parent('blog');
-    $breadcrumbs->push($page->title, route('page', $page->id));
+	$breadcrumbs->parent('blog');
+	$breadcrumbs->push($page->title, route('page', $page->id));
 });
 ```
 
@@ -311,13 +311,13 @@ call `$breadcrumbs->push()` multiple times:
 
 ```php
 Breadcrumbs::register('category', function($breadcrumbs, $category) {
-    $breadcrumbs->parent('blog');
+	$breadcrumbs->parent('blog');
 
-    foreach ($category->ancestors as $ancestor) {
-        $breadcrumbs->push($ancestor->title, route('category', $ancestor->id));
-    }
+	foreach ($category->ancestors as $ancestor) {
+		$breadcrumbs->push($ancestor->title, route('category', $ancestor->id));
+	}
 
-    $breadcrumbs->push($category->title, route('category', $category->id));
+	$breadcrumbs->push($category->title, route('category', $category->id));
 });
 ```
 
@@ -325,12 +325,12 @@ Alternatively you could make a recursive function such as this:
 
 ```php
 Breadcrumbs::register('category', function($breadcrumbs, $category) {
-    if ($category->parent)
-        $breadcrumbs->parent('category', $category->parent);
-    else
-        $breadcrumbs->parent('blog');
+	if ($category->parent)
+		$breadcrumbs->parent('category', $category->parent);
+	else
+		$breadcrumbs->parent('blog');
 
-    $breadcrumbs->push($category->title, route('category', $category->slug));
+	$breadcrumbs->push($category->title, route('category', $category->slug));
 });
 ```
 
@@ -502,11 +502,11 @@ boolean.
 ### Outputting the breadcrumbs (in the view)
 
 - `$breadcrumbs` (array), contains:
-    * `$breadcrumb->title` (string)
-    * `$breadcrumb->url` (string or null)
-    * `$breadcrumb->first` (boolean)
-    * `$breadcrumb->last` (boolean)
-    * `$breadcrumb->custom_attribute_name` (mixed - any custom data attributes you specified)
+	* `$breadcrumb->title` (string)
+	* `$breadcrumb->url` (string or null)
+	* `$breadcrumb->first` (boolean)
+	* `$breadcrumb->last` (boolean)
+	* `$breadcrumb->custom_attribute_name` (mixed - any custom data attributes you specified)
 
 ## Changelog
 
