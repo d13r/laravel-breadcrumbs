@@ -2,8 +2,8 @@
 
 class Generator {
 
-	protected $callbacks = array();
-	protected $breadcrumbs = array();
+	protected $callbacks = [];
+	protected $breadcrumbs = [];
 
 	public function __construct(array $callbacks)
 	{
@@ -40,20 +40,20 @@ class Generator {
 	// This does the same as call() but is named differently for clarity.
 	// parent() / parentArray() are used when defining breadcrumbs.
 	// call() is used when outputting breadcrumbs.
-	public function parentArray($name, $params = array())
+	public function parentArray($name, $params = [])
 	{
 		$this->call($name, $params);
 	}
 
-	public function push($title, $url = null, array $data = array())
+	public function push($title, $url = null, array $data = [])
 	{
-		$this->breadcrumbs[] = (object) array_merge($data, array(
+		$this->breadcrumbs[] = (object) array_merge($data, [
 			'title' => $title,
 			'url' => $url,
 			// These will be altered later where necessary:
 			'first' => false,
 			'last' => false,
-		));
+		]);
 	}
 
 	public function toArray()

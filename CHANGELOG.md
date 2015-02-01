@@ -107,13 +107,13 @@ Breadcrumbs::register('page', function($breadcrumbs, $param1, $param2)
 });
 
 // Then this:
-Breadcrumbs::render('page', array('param1', 'param2'));
+Breadcrumbs::render('page', ['param1', 'param2']);
 
 // Was equivalent to this:
 Breadcrumbs::render('page', 'param1', 'param2');
 
 // To pass an array as the first parameter you would have to do this instead:
-Breadcrumbs::render('page', array(array('param1A', 'param1B')));
+Breadcrumbs::render('page', [['param1A', 'param1B']]);
 ```
 
 This means you couldn't pass an array as the first parameter unless you wrapped
@@ -129,13 +129,13 @@ Breadcrumbs::register('page', function($breadcrumbs, $param1, $param2)
 });
 
 // Now this:
-Breadcrumbs::renderArray('page', array('param1', 'param2'));
+Breadcrumbs::renderArray('page', ['param1', 'param2']);
 
 // Is equivalent to this:
 Breadcrumbs::render('page', 'param1', 'param2');
 
 // And this only passes a single parameter (an array) to the callback:
-Breadcrumbs::render('page', array('param1A', 'param1B'));
+Breadcrumbs::render('page', ['param1A', 'param1B']);
 ```
 
 Similarly `Breadcrumbs::generateArray()` and `$breadcrumbs->parentArray()`

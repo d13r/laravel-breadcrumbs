@@ -7,8 +7,8 @@ class GeneratorTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetSet()
 	{
-		$generator = new Generator(array());
-		$breadcrumbs = array(123);
+		$generator = new Generator([]);
+		$breadcrumbs = [123];
 
 		// Note: This is not recommended - I can't actually remember why I
 		// included a set method like this. But for BC I won't delete it.
@@ -23,9 +23,9 @@ class GeneratorTest extends PHPUnit_Framework_TestCase {
 		// mock object instead and pass an array as the callback
 		$mock = m::mock();
 
-		$callbacks = array(
-			'sample' => array($mock, 'callback'),
-		);
+		$callbacks = [
+			'sample' => [$mock, 'callback'],
+		];
 
 		$generator = new Generator($callbacks);
 
@@ -34,13 +34,13 @@ class GeneratorTest extends PHPUnit_Framework_TestCase {
 			->times(3);
 
 		$generator->parent('sample', 1, 2);
-		$generator->parentArray('sample', array(1, 2));
-		$generator->call('sample', array(1, 2));
+		$generator->parentArray('sample', [1, 2]);
+		$generator->call('sample', [1, 2]);
 	}
 
 	public function testPush()
 	{
-		$generator = new Generator(array());
+		$generator = new Generator([]);
 		$generator->push('Home', '/');
 		$breadcrumbs = $generator->get();
 
@@ -52,7 +52,7 @@ class GeneratorTest extends PHPUnit_Framework_TestCase {
 
 	public function testPushWithoutUrl()
 	{
-		$generator = new Generator(array());
+		$generator = new Generator([]);
 		$generator->push('Home');
 		$breadcrumbs = $generator->get();
 
@@ -64,13 +64,13 @@ class GeneratorTest extends PHPUnit_Framework_TestCase {
 
 	public function testPushWithData()
 	{
-		$data = array(
+		$data = [
 			'foo' => 'bar',
 			'baz' => 'qux',
 			'title' => 'should not be overwritten by custom data',
-		);
+		];
 
-		$generator = new Generator(array());
+		$generator = new Generator([]);
 		$generator->push('Home', '/', $data);
 		$breadcrumbs = $generator->get();
 
@@ -81,7 +81,7 @@ class GeneratorTest extends PHPUnit_Framework_TestCase {
 
 	public function testToArray()
 	{
-		$generator = new Generator(array());
+		$generator = new Generator([]);
 		$generator->push('Home', '/');
 		$generator->push('Home', '/');
 		$generator->push('Home', '/');

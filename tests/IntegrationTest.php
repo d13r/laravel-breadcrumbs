@@ -65,10 +65,10 @@ class IntegrationTest extends PHPUnit_Framework_TestCase {
 
 	public function testGeneratePost()
 	{
-		$post = (object) array(
+		$post = (object) [
 			'id' => 123,
 			'title' => 'Sample Post',
-		);
+		];
 
 		$breadcrumbs = $this->manager->generate('post', $post);
 
@@ -103,7 +103,7 @@ class IntegrationTest extends PHPUnit_Framework_TestCase {
 
 		// Make sure the view is created with the correct parameters
 		$breadcrumbs = $this->manager->generate('home');
-		$vars = array('breadcrumbs' => $breadcrumbs);
+		$vars = ['breadcrumbs' => $breadcrumbs];
 		$this->factory->shouldReceive('make')->once()->with($viewName, $vars)->andReturn($view);
 
 		// Make sure the HTML rendered by the view is returned by the manager

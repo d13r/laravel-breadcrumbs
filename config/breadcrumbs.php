@@ -1,5 +1,7 @@
 <?php
 
-return array(
+return [
+
 	'view' => 'breadcrumbs::bootstrap3',
-);
+
+];

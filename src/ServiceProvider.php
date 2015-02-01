@@ -18,7 +18,7 @@ class ServiceProvider extends BaseServiceProvider {
 	 */
 	public function provides()
 	{
-		return array('breadcrumbs');
+		return ['breadcrumbs'];
 	}
 
 	/**

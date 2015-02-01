@@ -8,7 +8,7 @@ class Manager {
 	protected $factory;
 	protected $router;
 
-	protected $callbacks = array();
+	protected $callbacks = [];
 	protected $view;
 
 	protected $currentRoute;
@@ -60,7 +60,7 @@ class Manager {
 		return $this->generateArray($name, $params);
 	}
 
-	public function generateArray($name, $params = array())
+	public function generateArray($name, $params = [])
 	{
 		$generator = new Generator($this->callbacks);
 		$generator->call($name, $params);
@@ -70,17 +70,17 @@ class Manager {
 	public function generateIfExists($name)
 	{
 		if ($this->exists($name))
-			return call_user_func_array(array($this, 'generate'), func_get_args());
+			return call_user_func_array([$this, 'generate'], func_get_args());
 		else
-			return array();
+			return [];
 	}
 
-	public function generateArrayIfExists($name, $params = array())
+	public function generateArrayIfExists($name, $params = [])
 	{
 		if ($this->exists($name))
-			return call_user_func_array(array($this, 'generateArray'), func_get_args());
+			return call_user_func_array([$this, 'generateArray'], func_get_args());
 		else
-			return array();
+			return [];
 	}
 
 	public function render($name = null)
@@ -95,12 +95,12 @@ class Manager {
 	public function renderIfExists($name = null)
 	{
 		if ($this->exists($name))
-			return call_user_func_array(array($this, 'render'), func_get_args());
+			return call_user_func_array([$this, 'render'], func_get_args());
 		else
 			return '';
 	}
 
-	public function renderArray($name, $params = array())
+	public function renderArray($name, $params = [])
 	{
 		$breadcrumbs = $this->generateArray($name, $params);
 
@@ -110,7 +110,7 @@ class Manager {
 	public function renderArrayIfExists($name = null)
 	{
 		if ($this->exists($name))
-			return call_user_func_array(array($this, 'renderArray'), func_get_args());
+			return call_user_func_array([$this, 'renderArray'], func_get_args());
 		else
 			return '';
 	}
@@ -137,7 +137,7 @@ class Manager {
 		$route = $this->router->current();
 
 		if (is_null($route))
-			return $this->currentRoute = array('', array());
+			return $this->currentRoute = ['', []];
 
 		$name = $route->getName();
 
@@ -148,7 +148,7 @@ class Manager {
 
 		$params = $route->parameters();
 
-		return $this->currentRoute = array($name, $params);
+		return $this->currentRoute = [$name, $params];
 	}
 
 	public function setCurrentRoute($name)
@@ -158,9 +158,9 @@ class Manager {
 		$this->setCurrentRouteArray($name, $params);
 	}
 
-	public function setCurrentRouteArray($name, $params = array())
+	public function setCurrentRouteArray($name, $params = [])
 	{
-		$this->currentRoute = array($name, $params);
+		$this->currentRoute = [$name, $params];
 	}
 
 	public function clearCurrentRoute()
