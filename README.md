@@ -529,8 +529,12 @@ This package is largely based on the
 [Gretel](https://github.com/lassebunk/gretel) plugin for Ruby on Rails, which I
 used for a while before discovering Laravel.
 
+And of course it would be nothing without [Laravel](http://laravel.com/) itself!
+
 ### Contributors
 
+- Christian Thomas ([christian-thomas](https://github.com/christian-thomas)) -
+  [#62](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/62#issuecomment-71724019 "Laravel 5 - BadMethodCallException in ServiceProvider.php line 111: Call to undefined method [package]")
 - Miloš Levačić ([levacic](https://github.com/levacic)) -
   [#56](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/56 "Add ability to pass custom data into breadcrumbs")
 - Ricky Wiens ([rickywiens](https://github.com/rickywiens)) -
