@@ -22,7 +22,7 @@
 	<!-- List of source files for code coverage checker: -->
 	<filter>
 		<whitelist processUncoveredFilesFromWhitelist="true">
-			<directory suffix=".php">src/DaveJamesMiller/Breadcrumbs</directory>
+			<directory suffix=".php">src/</directory>
 		</whitelist>
 	</filter>
 
