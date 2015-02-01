@@ -20,7 +20,7 @@ cd vendor/davejamesmiller/laravel-breadcrumbs
 git checkout develop
 git checkout -b YOUR_BRANCH
 # Make changes and commit them
-git remote add YOUR_USERNAME git@github.com:my-username/laravel-breadcrumbs
+git remote add YOUR_USERNAME git@github.com:YOUR_USERNAME/laravel-breadcrumbs
 git push -u YOUR_USERNAME YOUR_BRANCH
 ```
 
