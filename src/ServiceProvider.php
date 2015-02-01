@@ -32,7 +32,7 @@ class ServiceProvider extends BaseServiceProvider {
 		{
 			$breadcrumbs = new Manager($app['view'], $app['router']);
 
-			$viewPath = __DIR__ . '/../../views/';
+			$viewPath = __DIR__ . '/../views/';
 
 			$this->loadViewsFrom($viewPath, 'breadcrumbs');
 
@@ -49,7 +49,7 @@ class ServiceProvider extends BaseServiceProvider {
 	 */
 	public function boot()
 	{
-		$configPath = __DIR__ . '/../../config/breadcrumbs.php';
+		$configPath = __DIR__ . '/../config/breadcrumbs.php';
 		$this->mergeConfigFrom($configPath, 'breadcrumbs');
 		$this->publishes([
 			$configPath => config_path('vendor/breadcrumbs.php')
