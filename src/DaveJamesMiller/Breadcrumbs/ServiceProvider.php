@@ -1,10 +1,9 @@
-<?php
-namespace DaveJamesMiller\Breadcrumbs;
+<?php namespace DaveJamesMiller\Breadcrumbs;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
-class ServiceProvider extends BaseServiceProvider
-{
+class ServiceProvider extends BaseServiceProvider {
+
 	/**
 	 * Indicates if loading of the provider is deferred.
 	 *
@@ -33,7 +32,11 @@ class ServiceProvider extends BaseServiceProvider
 		{
 			$breadcrumbs = new Manager($app['view'], $app['router']);
 
-			$breadcrumbs->setView($app['config']['laravel-breadcrumbs::view']);
+			$viewPath = __DIR__ . '/../../views/';
+
+			$this->loadViewsFrom($viewPath, 'breadcrumbs');
+
+			$breadcrumbs->setView($app['config']['breadcrumbs.view']);
 
 			return $breadcrumbs;
 		});
@@ -46,15 +49,22 @@ class ServiceProvider extends BaseServiceProvider
 	 */
 	public function boot()
 	{
-		// Register the package so the default view can be loaded
-		$this->package('davejamesmiller/laravel-breadcrumbs');
+		$configPath = __DIR__ . '/../../config/breadcrumbs.php';
+		$this->mergeConfigFrom($configPath, 'breadcrumbs');
+		$this->publishes([
+			$configPath => config_path('vendor/breadcrumbs.php')
+		]);
 
 		// Load the app breadcrumbs if they're in app/Http/breadcrumbs.php (Laravel 5.x)
 		if (file_exists($file = $this->app['path'].'/Http/breadcrumbs.php'))
+		{
 			require $file;
-
+		}
 		// Load the app breadcrumbs if they're in app/breadcrumbs.php (Laravel 4.x)
 		elseif (file_exists($file = $this->app['path'].'/breadcrumbs.php'))
+		{
 			require $file;
+		}
 	}
+
 }
