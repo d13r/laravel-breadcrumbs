@@ -35,6 +35,7 @@ class ServiceProvider extends BaseServiceProvider {
 			$viewPath = __DIR__ . '/../views/';
 
 			$this->loadViewsFrom($viewPath, 'breadcrumbs');
+			$this->loadViewsFrom($viewPath, 'laravel-breadcrumbs'); // Backwards-compatibility with 2.x
 
 			$breadcrumbs->setView($app['config']['breadcrumbs.view']);
 
