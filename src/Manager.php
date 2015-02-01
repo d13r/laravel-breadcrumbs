@@ -2,6 +2,7 @@
 
 use InvalidArgumentException;
 use Illuminate\Routing\Router;
+use Illuminate\View\Factory as ViewFactory;
 
 class Manager {
 
@@ -13,12 +14,8 @@ class Manager {
 
 	protected $currentRoute;
 
-	public function __construct($factory, Router $router)
+	public function __construct(ViewFactory $factory, Router $router)
 	{
-		if (! $factory instanceof \Illuminate\View\Factory && ! $factory instanceof \Illuminate\View\Environment) {
-			throw new InvalidArgumentException('$factory must be an instance of either \Illuminate\View\Factory or \Illuminate\View\Environment');
-		}
-
 		$this->factory = $factory;
 		$this->router = $router;
 	}

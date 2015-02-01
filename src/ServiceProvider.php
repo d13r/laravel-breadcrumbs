@@ -57,13 +57,8 @@ class ServiceProvider extends BaseServiceProvider {
 			$configFile => config_path('breadcrumbs.php')
 		]);
 
-		// Load the app breadcrumbs if they're in app/Http/breadcrumbs.php (Laravel 5.x)
+		// Load the app breadcrumbs if they're in app/Http/breadcrumbs.php
 		if (file_exists($file = $this->app['path'].'/Http/breadcrumbs.php'))
-		{
-			require $file;
-		}
-		// Load the app breadcrumbs if they're in app/breadcrumbs.php (Laravel 4.x)
-		elseif (file_exists($file = $this->app['path'].'/breadcrumbs.php'))
 		{
 			require $file;
 		}

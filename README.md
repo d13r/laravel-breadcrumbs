@@ -6,9 +6,7 @@
 [![MIT License](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/license.svg)](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/LICENSE.txt)
 
 A simple Laravel-style way to create breadcrumbs in
-[Laravel 4+](http://laravel.com/).
-
-**Note: Not currently working in Laravel 5 development version - see issue [#62](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/62) for updates.**
+[Laravel 5](http://laravel.com/).
 
 ## Installation
 
@@ -48,8 +46,8 @@ This registers the package with Laravel and creates an alias called
 
 ### 1. Define breadcrumbs in `app/Http/breadcrumbs.php`
 
-Create a file called `app/Http/breadcrumbs.php` (`app/breadcrumbs.php` in
-Laravel 4.x) to put your breadcrumbs in. This file will be loaded automatically.
+Create a file called `app/Http/breadcrumbs.php`. This file will be loaded
+automatically.
 
 It should look something like this - see the *Defining breadcrumbs* section
 below for an explanation.
@@ -92,24 +90,19 @@ If you would like to change the template, first you need to generate a config
 file by running this command:
 
 ```bash
-# Laravel 5
-php artisan publish:config davejamesmiller/laravel-breadcrumbs
-
-# Laravel 4
-php artisan config:publish davejamesmiller/laravel-breadcrumbs
+php artisan vendor:publish
 ```
 
-Then open `config/packages/davejamesmiller/laravel-breadcrumbs/config.php`
-and edit this line:
+Then open `config/breadcrumbs.php` and edit this line:
 
 ```php
-'view' => 'laravel-breadcrumbs::bootstrap3',
+'view' => 'breadcrumbs::bootstrap3',
 ```
 
 The possible values are:
 
-- `laravel-breadcrumbs::bootstrap3` (Twitter Bootstrap 3)
-- `laravel-breadcrumbs::bootstrap2` (Twitter Bootstrap 2)
+- `breadcrumbs::bootstrap3` (Twitter Bootstrap 3)
+- `breadcrumbs::bootstrap2` (Twitter Bootstrap 2)
 - A path to a custom template, e.g. `_partials.breadcrumbs`
 
 #### Creating a custom template
@@ -153,18 +146,12 @@ Finally, call `Breadcrumbs::render()` in the view template for each page. You
 can either pass the name of the breadcrumb to use (and parameters if needed):
 
 ```html+php
-<!-- Laravel 5 -->
 {!! Breadcrumbs::render('home') !!}
 {!! Breadcrumbs::render('category', $category) !!}
-
-<!-- Laravel 4 -->
-{{ Breadcrumbs::render('home') }}
-{{ Breadcrumbs::render('category', $category) }}
 ```
 
-Or in Laravel 4.1+ you can avoid the need to do this for every page by naming
-your breadcrumbs the same as your routes. For example, if you have this in
-`routes.php`:
+Or you can avoid the need to do this for every page by naming your breadcrumbs
+the same as your routes. For example, if you have this in `routes.php`:
 
 ```
 Route::model('category', 'Category');
@@ -175,11 +162,7 @@ Route::get('/category/{category}', ['uses' => 'CategoryController@show', 'as' =>
 And in the layout you have this:
 
 ```html+php
-<!-- Laravel 5 -->
 {!! Breadcrumbs::render() !!}
-
-<!-- Laravel 4 -->
-{{ Breadcrumbs::render() }}
 ```
 
 Then on the homepage it will be the same as calling `Breadcrumbs::render('home')`
@@ -289,11 +272,7 @@ Breadcrumbs::register('page', function($breadcrumbs, $page) {
 The `$page` variable would simply be passed in from the view:
 
 ```html+php
-<!-- Laravel 5 -->
 {!! Breadcrumbs::render('page', $page) !!}
-
-<!-- Laravel 4 -->
-{{ Breadcrumbs::render('page', $page) }}
 ```
 
 It would be rendered like this:
@@ -406,11 +385,7 @@ manually:
 or
 
 ```html+php
-<!-- Laravel 5 -->
 {!! View::make('_partials/breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)]) !!}
-
-<!-- Laravel 4 -->
-{{ View::make('_partials/breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)]) }}
 ```
 
 ### Overriding the "current" route
@@ -534,7 +509,7 @@ Bug reports should include the following:
 
 You may also need to include copies of:
 
-- `app/Http/breadcrumbs.php` (`app/breadcrumbs.php` in Laravel 4.x)
+- `app/Http/breadcrumbs.php`
 - `config/packages/davejamesmiller/laravel-breadcrumbs/config.php` (if used)
 - The view or layout that outputs the breadcrumbs
 - The custom breadcrumbs template (if applicable)

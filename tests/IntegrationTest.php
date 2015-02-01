@@ -7,12 +7,8 @@ class IntegrationTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp()
 	{
-		if (class_exists('Illuminate\View\Factory'))
-			$this->factory = m::mock('Illuminate\View\Factory');
-		else
-			$this->factory = m::mock('Illuminate\View\Environment');
-
-		$this->router = m::mock('Illuminate\Routing\Router');
+		$this->factory = m::mock('Illuminate\View\Factory');
+		$this->router  = m::mock('Illuminate\Routing\Router');
 		$this->manager = new Breadcrumbs\Manager($this->factory, $this->router);
 
 		$this->manager->register('home', function($breadcrumbs) {
