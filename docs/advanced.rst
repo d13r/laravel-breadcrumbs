@@ -1,0 +1,125 @@
+################################################################################
+ Advanced Usage
+################################################################################
+
+.. only:: html
+
+    .. contents::
+        :local:
+
+
+================================================================================
+ Breadcrumbs with no URL
+================================================================================
+
+The second parameter to ``push()`` is optional, so if you want a breadcrumb with no URL you can do so:
+
+.. code-block:: php
+
+    $breadcrumbs->push('Sample');
+
+The ``$breadcrumb->url`` value will be ``null``.
+
+The default Twitter Bootstrap templates provided render this with a CSS class of "active", the same as the last breadcrumb, because otherwise they default to black text not grey which doesn't look right.
+
+*Note: Support for this was added to the Twitter Bootstrap templates in 2.1.0. Before this you would need to create a custom template.*
+
+
+================================================================================
+ Breadcrumbs with custom data
+================================================================================
+
+*Added in 2.3.0.*
+
+The ``push()`` method accepts an optional third parameter, ``$data`` - an array of arbitrary data to be passed to the breadcrumb, which you can use in your custom template. For example, if you wanted each breadcrumb to have an icon, you could do:
+
+.. code-block:: php
+
+    $breadcrumbs->push('Home', '/', ['icon' => 'home.png']);
+
+The ``$data`` array's entries will be merged into the breadcrumb as properties, so you would access the icon as ``$breadcrumb->icon`` in your template, like this:
+
+.. code-block:: html+php
+
+    <li><a href="{{{ $breadcrumb->url }}}">
+        <img src="/images/icons/{{{ $breadcrumb->icon }}}">
+        {{{ $breadcrumb->title }}}
+    </a></li>
+
+Do not use the following keys in your data array, as they will be overwritten: ``title``, ``url``, ``first``, ``last``.
+
+
+================================================================================
+ Defining breadcrumbs in a different file
+================================================================================
+
+If you don't want to use ``app/Http/breadcrumbs.php``, you can define them in ``app/Http/routes.php`` or any other file as long as it's loaded by Laravel.
+
+
+================================================================================
+ Switching views dynamically
+================================================================================
+
+You can change the view at runtime by calling:
+
+.. code-block:: php
+
+    Breadcrumbs::setView('view.name');
+
+If you need different views in different templates, you can call ``Breadcrumbs::generate()`` to get the ``$breadcrumbs`` array and then load the view manually:
+
+.. code-block:: html+php
+
+    @include('_partials/breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)])
+
+or:
+
+.. code-block:: html+php
+
+    {!! view('_partials/breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)]) !!}
+
+
+================================================================================
+ Overriding the "current" route
+================================================================================
+
+If you call ``Breadcrumbs::render()`` or ``Breadcrumbs::generate()`` with no parameters, it will use the current route name and parameters, as returned by Laravel's ``Route::current()`` method, by default. You can override this by calling ``Breadcrumbs::setCurrentRoute($name, $param1`, $param2...)`` or ``Breadcrumbs::setCurrentRouteArray($name, $params)``.
+
+
+================================================================================
+ Passing an array of parameters
+================================================================================
+
+*Added in 2.0.0.*
+
+If the breadcrumb requires multiple parameters, you would normally pass them like this:
+
+.. code-block:: php
+
+    Breadcrumbs::render('name', $param1, $param2, $param3);
+    Breadcrumbs::generate('name', $param1, $param2, $param3);
+    $breadcrumbs->parent('name', $param1, $param2, $param3);
+
+If you want to pass an array of parameters instead you can use these methods:
+
+.. code-block:: php
+
+    Breadcrumbs::renderArray('name', $params);
+    Breadcrumbs::generateArray('name', $params);
+    $breadcrumbs->parentArray('name', $params);
+
+
+================================================================================
+ Checking if a breadcrumb exists
+================================================================================
+
+*Added in 2.2.0.*
+
+By default an exception will be thrown if the breadcrumb doesn't exist, so you know to add it. If you want suppress this you can call the following methods instead:
+
+- ``Breadcrumbs::renderIfExists()`` (returns an empty string)
+- ``Breadcrumbs::renderArrayIfExists()`` (returns an empty string)
+- ``Breadcrumbs::generateIfExists()`` (returns an empty array)
+- ``Breadcrumbs::generateArrayIfExists()`` (returns an empty array)
+
+Alternatively you can call ``Breadcrumbs::exists('name')``, which returns a boolean.

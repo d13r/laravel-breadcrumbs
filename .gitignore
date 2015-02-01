@@ -1,5 +1,17 @@
-/test-coverage
+# PHP packages
 /vendor
 composer.phar
 composer.lock
+
+# Node modules (for Grunt)
+/node_modules/
+
+# Compiled documentation (run `grunt docs` for HTML; `grunt pdfdocs` for PDF)
+/docs-html/
+/docs-pdf/
+
+# Test coverage output
+/test-coverage/
+
+# Operating system files
 .DS_Store

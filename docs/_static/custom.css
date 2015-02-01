@@ -1,0 +1,23 @@
+/* Make sections stand out more */
+h2 {
+    border-top: 1px solid #e1e4e5;
+    padding-top: 24px;
+}
+
+h1 + .section > h2:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+/* Changelog styles */
+.changelog-date {
+    font-size: 70%;
+}
+
+.changelog-future {
+    color: #b65a5a;
+}
+
+.strikethrough {
+    text-decoration: line-through;
+}
