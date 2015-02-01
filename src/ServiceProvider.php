@@ -49,10 +49,12 @@ class ServiceProvider extends BaseServiceProvider {
 	 */
 	public function boot()
 	{
-		$configPath = __DIR__ . '/../config/breadcrumbs.php';
-		$this->mergeConfigFrom($configPath, 'breadcrumbs');
+		$configFile = __DIR__ . '/../config/breadcrumbs.php';
+
+		$this->mergeConfigFrom($configFile, 'breadcrumbs');
+
 		$this->publishes([
-			$configPath => config_path('vendor/breadcrumbs.php')
+			$configFile => config_path('breadcrumbs.php')
 		]);
 
 		// Load the app breadcrumbs if they're in app/Http/breadcrumbs.php (Laravel 5.x)
