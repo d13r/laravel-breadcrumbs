@@ -8,6 +8,7 @@ php:
   - hhvm
 
 before_script:
+  - composer self-update # https://github.com/phpspec/prophecy/issues/149
   - composer install --dev --no-interaction --prefer-source
 
 script:
