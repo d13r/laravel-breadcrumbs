@@ -5,18 +5,6 @@ use Mockery as m;
 
 class GeneratorTest extends PHPUnit_Framework_TestCase {
 
-	public function testGetSet()
-	{
-		$generator = new Generator([]);
-		$breadcrumbs = [123];
-
-		// Note: This is not recommended - I can't actually remember why I
-		// included a set method like this. But for BC I won't delete it.
-		$generator->set($breadcrumbs);
-
-		$this->assertSame($breadcrumbs, $generator->get());
-	}
-
 	public function testParent()
 	{
 		// Can't find a simple way to test that a closure is called, so make a
@@ -42,7 +30,7 @@ class GeneratorTest extends PHPUnit_Framework_TestCase {
 	{
 		$generator = new Generator([]);
 		$generator->push('Home', '/');
-		$breadcrumbs = $generator->get();
+		$breadcrumbs = $generator->toArray();
 
 		$this->assertCount(1, $breadcrumbs);
 
@@ -54,7 +42,7 @@ class GeneratorTest extends PHPUnit_Framework_TestCase {
 	{
 		$generator = new Generator([]);
 		$generator->push('Home');
-		$breadcrumbs = $generator->get();
+		$breadcrumbs = $generator->toArray();
 
 		$this->assertCount(1, $breadcrumbs);
 
@@ -72,14 +60,14 @@ class GeneratorTest extends PHPUnit_Framework_TestCase {
 
 		$generator = new Generator([]);
 		$generator->push('Home', '/', $data);
-		$breadcrumbs = $generator->get();
+		$breadcrumbs = $generator->toArray();
 
 		$this->assertSame('bar', $breadcrumbs[0]->foo);
 		$this->assertSame('qux', $breadcrumbs[0]->baz);
 		$this->assertSame('Home', $breadcrumbs[0]->title);
 	}
 
-	public function testToArray()
+	public function testFirstLast()
 	{
 		$generator = new Generator([]);
 		$generator->push('Home', '/');

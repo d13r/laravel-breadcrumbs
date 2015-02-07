@@ -10,16 +10,6 @@ class Generator {
 		$this->callbacks = $callbacks;
 	}
 
-	public function get()
-	{
-		return $this->breadcrumbs;
-	}
-
-	public function set(array $breadcrumbs)
-	{
-		$this->breadcrumbs = $breadcrumbs;
-	}
-
 	public function call($name, $params)
 	{
 		if (!isset($this->callbacks[$name]))
