@@ -27,7 +27,6 @@ A simple Laravel-style way to create breadcrumbs in `Laravel 5 <http://laravel.c
     routing
     advanced
     reference
-    support
     contributing
     changelog
     thanks

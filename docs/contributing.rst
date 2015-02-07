@@ -27,10 +27,10 @@ If you've already got it installed, delete it from the ``vendor/`` directory and
     $ rm -rf vendor/davejamesmiller/laravel-breadcrumbs
     $ composer install --prefer-source
     $ cd vendor/davejamesmiller/laravel-breadcrumbs
-    $ git checkout develop
+    $ git checkout -t origin/develop
     $ git checkout -b YOUR_BRANCH
     # Make changes and commit them
-    $ git remote add YOUR_USERNAME git@github.com:my-username/laravel-breadcrumbs
+    $ git remote add YOUR_USERNAME git@github.com:YOUR_USERNAME/laravel-breadcrumbs
     $ git push -u YOUR_USERNAME YOUR_BRANCH
 
 There is also a `test app <https://github.com/davejamesmiller/laravel-breadcrumbs-test>`_ available to simplify testing against multiple versions of Laravel.
