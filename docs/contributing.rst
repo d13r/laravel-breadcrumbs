@@ -2,9 +2,9 @@
  Contributing
 ################################################################################
 
-If you want to submit a bug fix, the information below may help you to get started. Make your changes in a new branch, based on the ``develop`` branch, then simply open a `pull request <https://github.com/davejamesmiller/laravel-breadcrumbs/pulls>`_ on GitHub.
+If you want to submit a **bug fix**, the information below may help you to get started. Make your changes in a new branch, based on the ``develop`` branch, then simply open a `pull request <https://github.com/davejamesmiller/laravel-breadcrumbs/pulls>`_ on GitHub.
 
-If you want to submit a new feature, you may want to open an `issue <https://github.com/davejamesmiller/laravel-breadcrumbs/issues>`_ to discuss the idea first, to make sure it will be accepted. (Or you can go ahead and develop it first if you prefer!)
+If you want to submit a **new feature**, it's usually best to open an `issue <https://github.com/davejamesmiller/laravel-breadcrumbs/issues>`_ to discuss the idea first -- to make sure it will be accepted before spending too much time on it. (Of course you can go ahead and develop it first if you prefer!) Please be sure to update the documentation as well.
 
 .. only:: html
 
