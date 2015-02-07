@@ -7,7 +7,9 @@
 
 A simple Laravel-style way to create breadcrumbs in [Laravel 5](http://laravel.com/).
 
-**[Documentation >>](http://awe.alberon.co.uk/)**
+**[Documentation >>](http://laravel-breadcrumbs.davejamesmiller.com/)**
+
+[Support & Contribution Guidelines](CONTRIBUTING.rst)
 
 [MIT License](docs/license.rst)
 
