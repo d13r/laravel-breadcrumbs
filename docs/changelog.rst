@@ -21,6 +21,7 @@ Laravel Breadcrumbs uses `Semantic Versioning <http://semver.org/>`_.
 
 - Add Laravel 5 support (`#62`_)
 - Change view namespace from ``laravel-breadcrumbs::`` to ``breadcrumbs::``
+- Change Bootstrap 3 template from ``<ul>`` to ``<ol>`` to match the `documentation <http://getbootstrap.com/components/#breadcrumbs>`_
 - Move documentation from GitHub (Markdown) to `Read The Docs <https://readthedocs.org/>`_ (reStructuredText/`Sphinx <http://sphinx-doc.org/>`_)
 - Switch from PSR-0 to PSR-4 file naming
 
