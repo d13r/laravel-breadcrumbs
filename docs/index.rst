@@ -3,6 +3,7 @@
 ################################################################################
 
 .. Link to the online documentation
+
 .. only:: local and html
 
     .. admonition:: Local Documentation
@@ -12,6 +13,7 @@
 
 
 .. Introduction
+
 A simple Laravel-style way to create breadcrumbs in `Laravel 5 <http://laravel.com/>`_.
 
 
