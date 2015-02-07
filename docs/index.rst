@@ -11,20 +11,26 @@
         `Read the documentation online >> <http://laravel-breadcrumbs.davejamesmiller.com/>`_
 
 
-.. Table of contents
-.. toctree::
-    :maxdepth: 2
+.. Introduction
+A simple Laravel-style way to create breadcrumbs in `Laravel 5 <http://laravel.com/>`_.
 
-    installation
-    usage
+
+================================================================================
+ Table of Contents
+================================================================================
+
+.. toctree::
+    start
     defining
+    templates
+    output
+    routing
     advanced
     reference
     support
-    changelog
     contributing
+    changelog
     thanks
-    alternatives
     license
     » GitHub <https://github.com/davejamesmiller/laravel-breadcrumbs>
     » Packagist <https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs>

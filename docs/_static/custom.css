@@ -16,6 +16,9 @@ h1 + .section > h2:first-child {
 
 .changelog-future {
     color: #b65a5a;
+    font-size: 70%;
+    font-style: italic;
+    font-weight: bold;
 }
 
 .strikethrough {

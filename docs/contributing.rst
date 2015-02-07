@@ -2,21 +2,18 @@
  Contributing
 ################################################################################
 
+If you want to submit a bug fix, the information below may help you to get started. Make your changes in a new branch, based on the ``develop`` branch, then simply open a `pull request <https://github.com/davejamesmiller/laravel-breadcrumbs/pulls>`_ on GitHub.
+
+If you want to submit a new feature, you may want to open an `issue <https://github.com/davejamesmiller/laravel-breadcrumbs/issues>`_ to discuss the idea first, to make sure it will be accepted. (Or you can go ahead and develop it first if you prefer!)
+
 .. only:: html
 
     .. contents::
         :local:
 
 
-To submit an improvement to the documentation, simply click the link at the top of the page to edit the file on GitHub. This will automatically be turned into a pull request.
-
-If you want to submit a bug fix, the information below may help you to get started. Make your changes in a new branch, based on the ``develop`` branch, then simply open a `pull request <https://github.com/davejamesmiller/laravel-breadcrumbs/pulls>`_ on GitHub.
-
-If you want to submit a new feature, you may want to open an `issue <https://github.com/davejamesmiller/laravel-breadcrumbs/issues>`_ to discuss the idea first, to make sure it will be accepted. (Or you can go ahead and develop it first if you prefer!)
-
-
 ================================================================================
- Developing against a real application
+ Developing inside a real application
 ================================================================================
 
 The easiest way to develop Laravel Breadcrumbs alongside a real Laravel application is to set it up as normal, but tell Composer to install from source with the ``--prefer-source`` flag.
@@ -80,9 +77,9 @@ To run the unit tests, simply `install PHP Unit <http://phpunit.de/manual/curren
 (Note: The unit tests are not 100% complete yet, and the code will probably need some refactoring to make it easier to test.)
 
 
-================================================================================
- Code coverage in unit tests
-================================================================================
+----------------------------------------
+ Code coverage
+----------------------------------------
 
 To check code coverage, you will also need `Xdebug <http://xdebug.org/>`_ installed. Run:
 
@@ -95,6 +92,8 @@ To check code coverage, you will also need `Xdebug <http://xdebug.org/>`_ instal
 Then open ``test-coverage/index.html`` to view the results. However, be aware of the `edge cases <http://phpunit.de/manual/current/en/code-coverage-analysis.html#code-coverage-analysis.edge-cases>`_ in PHPUnit.
 
 
+.. _contributing-documentation:
+
 ================================================================================
  Documentation
 ================================================================================
@@ -105,9 +104,9 @@ To submit a documentation change, simply `edit the appropriate file on GitHub <h
 
 .. warning::
 
-    Not all markup is supported by GitHub -- e.g. ``:ref:`` and ``:doc:`` -- so the preview may not be exactly what appears in the online documentation. Don't let that put you off making changes, but if you're making substantial changes it would be better to clone the repository and :ref:`test it offline <documentation-build>` first.
+    Not all markup is supported by GitHub -- e.g. ``:ref:`` and ``:doc:`` -- so the preview may not be exactly what appears in the online documentation.
 
-For more comprehensive documentation changes you may prefer to install Sphinx and build the docs locally.
+For more comprehensive documentation changes you may be better installing Sphinx so you can test the docs locally:
 
 
 ----------------------------------------
@@ -181,17 +180,3 @@ The following code styles are used for headings::
 
     Heading 3 (full stops)
     ......................
-
-
-================================================================================
- Releasing a new version
-================================================================================
-
-*This is a reference for me:*
-
-- Ensure the documentation is up to date, particularly the :doc:`changelog`
-- Merge into ``master`` (``git checkout master; git merge develop``)
-- Push the code changes (``git push``)
-- Double-check the `Travis CI results <https://travis-ci.org/davejamesmiller/laravel-breadcrumbs>`_
-- Tag the release (``git tag 1.2.3``)
-- Push the tag (``git push --tag``)

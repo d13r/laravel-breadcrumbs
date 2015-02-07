@@ -16,14 +16,27 @@ Laravel Breadcrumbs uses `Semantic Versioning <http://semver.org/>`_.
 
 
 ================================================================================
- :future:`Upcoming 3.0.0 release`
+ v3.0.0_ :future:`(Unreleased)`
 ================================================================================
 
 - Add Laravel 5 support (`#62`_)
-- Remove Laravel 4 support (use the `2.x branch`_ instead)
-- Remove PHP 5.3 support
-- Switch to PSR-4
 - Change view namespace from ``laravel-breadcrumbs::`` to ``breadcrumbs::``
+- Move documentation from GitHub (Markdown) to `Read The Docs <https://readthedocs.org/>`_ (reStructuredText/`Sphinx <http://sphinx-doc.org/>`_)
+- Switch from PSR-0 to PSR-4 file naming
+
+
+----------------------------------------
+ Upgrading from 2.x to 3.x
+----------------------------------------
+
+- Upgrade to Laravel 5
+- Move ``app/breadcrumbs.php`` to ``app/Http/breadcrumbs.php``
+- Move ``app/config/packages/davejamesmiller/laravel-breadcrumbs/config.php`` to ``config/breadcrumbs.php``
+- **Optional:** In the config file, replace ``laravel-breadcrumbs::`` with ``breadcrumbs::`` (both will work)
+
+.. note::
+
+    Laravel 4 and PHP 5.3 are no longer supported -- please continue to use the `2.x branch`_ if you use them.
 
 .. _v3.0.0: https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.0.0
 .. _#62: https://github.com/davejamesmiller/laravel-breadcrumbs/issues/62
@@ -126,8 +139,6 @@ Laravel Breadcrumbs uses `Semantic Versioning <http://semver.org/>`_.
 ----------------------------------------
  Upgrading from 1.x to 2.x
 ----------------------------------------
-
-There are some backwards-compatibility breaks in version 2 so you will need to make the following changes:
 
 - In ``app/config/app.php`` change ``DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider`` to ``DaveJamesMiller\Breadcrumbs\ServiceProvider``
 - In ``app/config/app.php`` change ``DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs`` to ``DaveJamesMiller\Breadcrumbs\Facade``

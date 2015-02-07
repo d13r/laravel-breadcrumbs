@@ -8,6 +8,8 @@
         :local:
 
 
+.. _no-url:
+
 ================================================================================
  Breadcrumbs with no URL
 ================================================================================
@@ -25,8 +27,10 @@ The default Twitter Bootstrap templates provided render this with a CSS class of
 *Note: Support for this was added to the Twitter Bootstrap templates in 2.1.0. Before this you would need to create a custom template.*
 
 
+.. _custom-data:
+
 ================================================================================
- Breadcrumbs with custom data
+ Custom data
 ================================================================================
 
 *Added in 2.3.0.*
@@ -56,6 +60,8 @@ Do not use the following keys in your data array, as they will be overwritten: `
 If you don't want to use ``app/Http/breadcrumbs.php``, you can define them in ``app/Http/routes.php`` or any other file as long as it's loaded by Laravel.
 
 
+.. _switching-views:
+
 ================================================================================
  Switching views dynamically
 ================================================================================
@@ -66,25 +72,25 @@ You can change the view at runtime by calling:
 
     Breadcrumbs::setView('view.name');
 
-If you need different views in different templates, you can call ``Breadcrumbs::generate()`` to get the ``$breadcrumbs`` array and then load the view manually:
+Or you can call ``Breadcrumbs::generate()`` and then load the view manually:
 
 .. code-block:: html+php
 
     @include('_partials/breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)])
 
-or:
 
-.. code-block:: html+php
-
-    {!! view('_partials/breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)]) !!}
-
+.. _current-route:
 
 ================================================================================
  Overriding the "current" route
 ================================================================================
 
-If you call ``Breadcrumbs::render()`` or ``Breadcrumbs::generate()`` with no parameters, it will use the current route name and parameters, as returned by Laravel's ``Route::current()`` method, by default. You can override this by calling ``Breadcrumbs::setCurrentRoute($name, $param1`, $param2...)`` or ``Breadcrumbs::setCurrentRouteArray($name, $params)``.
+If you call ``Breadcrumbs::render()`` or ``Breadcrumbs::generate()`` with no parameters, it will use the current route name and parameters by default (as returned by Laravel's ``Route::current()`` method).
 
+You can override this by calling ``Breadcrumbs::setCurrentRoute($name, $param1, $param2...)`` or ``Breadcrumbs::setCurrentRouteArray($name, $params)``.
+
+
+.. _array-parameters:
 
 ================================================================================
  Passing an array of parameters
@@ -108,6 +114,8 @@ If you want to pass an array of parameters instead you can use these methods:
     Breadcrumbs::generateArray('name', $params);
     $breadcrumbs->parentArray('name', $params);
 
+
+.. _exists:
 
 ================================================================================
  Checking if a breadcrumb exists
