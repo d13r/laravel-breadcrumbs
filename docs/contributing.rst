@@ -96,6 +96,94 @@ Then open ``test-coverage/index.html`` to view the results. However, be aware of
 
 
 ================================================================================
+ Documentation
+================================================================================
+
+Documentation is in ``docs/``. It is written in `reStructuredText <http://docutils.sourceforge.net/rst.html>`_ and converted to HTML and PDF formats by `Sphinx <http://sphinx-doc.org/>`_.
+
+To submit a documentation change, simply `edit the appropriate file on GitHub <https://github.com/alberon/awe/tree/master/docs>`_. (There's an "Edit on GitHub" link in the top-right corner of each page.)
+
+.. warning::
+
+    Not all markup is supported by GitHub -- e.g. ``:ref:`` and ``:doc:`` -- so the preview may not be exactly what appears in the online documentation. Don't let that put you off making changes, but if you're making substantial changes it would be better to clone the repository and :ref:`test it offline <documentation-build>` first.
+
+For more comprehensive documentation changes you may prefer to install Sphinx and build the docs locally.
+
+
+----------------------------------------
+ Installing Sphinx
+----------------------------------------
+
+You will need `Python <https://www.python.org/>`_ and `pip <https://pypi.python.org/pypi/pip>`_ to install `Sphinx <http://sphinx-doc.org/>`_, the documentation generator. To install them (on Debian Wheezy or similar), you can run the following:
+
+.. code-block:: bash
+
+    $ sudo apt-get install python python-pip
+    $ sudo pip install sphinx sphinx-autobuild sphinx_rtd_theme
+
+To build the PDF documentation, you will also need LaTeX installed:
+
+.. code-block:: bash
+
+    $ sudo apt-get install texlive texlive-latex-extra
+
+
+----------------------------------------
+ Building documentation
+----------------------------------------
+
+To build the HTML docs (``docs-html/index.html``):
+
+.. code-block:: bash
+
+    $ ./build-html-docs.sh
+
+This will build the docs and run a HTML server on port 8000 that will automatically rebuild the docs and reload the page whenever you modify a file.
+
+To build the PDF docs (``docs-pdf/laravel-breadcrumbs.pdf``):
+
+.. code-block:: bash
+
+    $ ./build-pdf-docs.sh
+
+
+----------------------------------------
+ Sphinx markup reference
+----------------------------------------
+
+I found the following documents useful when writing the documentation:
+
+- `reStructuredText quick reference <http://docutils.sourceforge.net/docs/user/rst/quickref.html>`_
+- `Admonitions list <http://docutils.sourceforge.net/docs/ref/rst/directives.html#admonitions>`_ (``note::``, ``warning::``, etc.)
+- `Code examples markups <http://sphinx-doc.org/markup/code.html>`_ (``code-block::``, ``highlight::``)
+- `Other paragraph-level markup <http://sphinx-doc.org/markup/para.html>`_ (``versionadded::``, ``deprecated::``, etc.)
+- `Inline markup <http://sphinx-doc.org/markup/inline.html>`_ (``:ref:``, ``:doc:``, etc.)
+- `Table of contents <http://sphinx-doc.org/markup/toctree.html>`_ (``toctree::``)
+
+
+----------------------------------------
+ Heading styles
+----------------------------------------
+
+The following code styles are used for headings::
+
+    ################################################################################
+     Page title (80 hashes)
+    ################################################################################
+
+    ================================================================================
+     Section title (80 equals signs)
+    ================================================================================
+
+    ----------------------------------------
+     Heading 2 (40 hypens)
+    ----------------------------------------
+
+    Heading 3 (full stops)
+    ......................
+
+
+================================================================================
  Releasing a new version
 ================================================================================
 

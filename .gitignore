@@ -3,9 +3,6 @@
 composer.phar
 composer.lock
 
-# Node modules (for Grunt)
-/node_modules/
-
 # Compiled documentation (run `grunt docs` for HTML; `grunt pdfdocs` for PDF)
 /docs-html/
 /docs-pdf/
