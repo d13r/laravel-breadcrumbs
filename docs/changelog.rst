@@ -23,7 +23,11 @@ Laravel Breadcrumbs uses `Semantic Versioning <http://semver.org/>`_.
 - Change view namespace from ``laravel-breadcrumbs::`` to ``breadcrumbs::``
 - Change Bootstrap 3 template from ``<ul>`` to ``<ol>`` to match the `documentation <http://getbootstrap.com/components/#breadcrumbs>`_
 - Move documentation from GitHub (Markdown) to `Read The Docs <https://readthedocs.org/>`_ (reStructuredText/`Sphinx <http://sphinx-doc.org/>`_)
+- Remove `get()` and `set()` methods from Generator class (they were never used nor documented)
 - Switch from PSR-0 to PSR-4 file naming
+
+.. _v3.0.0: https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.0.0
+.. _#62: https://github.com/davejamesmiller/laravel-breadcrumbs/issues/62
 
 
 ----------------------------------------
@@ -37,11 +41,7 @@ Laravel Breadcrumbs uses `Semantic Versioning <http://semver.org/>`_.
 
 .. note::
 
-    Laravel 4 and PHP 5.3 are no longer supported -- please continue to use the `2.x branch`_ if you use them.
-
-.. _v3.0.0: https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.0.0
-.. _#62: https://github.com/davejamesmiller/laravel-breadcrumbs/issues/62
-.. _2.x branch: https://github.com/davejamesmiller/laravel-breadcrumbs/tree/2.x
+    Laravel 4 and PHP 5.3 are no longer supported -- please continue to use the `2.x branch <https://github.com/davejamesmiller/laravel-breadcrumbs/tree/2.x>`_ if you use them.
 
 
 ================================================================================
