@@ -20,6 +20,11 @@ abstract class TestCase extends Orchestra\Testbench\TestCase {
 	{
 		parent::setUp();
 
+		$this->loadServiceProvider();
+	}
+
+	protected function loadServiceProvider()
+	{
 		// Need to trigger register() to test the views
 		$this->app->make('breadcrumbs');
 	}

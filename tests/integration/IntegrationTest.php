@@ -10,7 +10,6 @@ class IntegrationTest extends TestCase {
 			$breadcrumbs->push('Home', '/');
 		});
 
-
 		Breadcrumbs::register('category', function($breadcrumbs, $category) {
 			$breadcrumbs->parent('home');
 			$breadcrumbs->push($category->title, '/category/' . $category->id);
