@@ -2,14 +2,16 @@
 <phpunit
 	backupGlobals="false"
 	backupStaticAttributes="false"
+	beStrictAboutOutputDuringTests="true"
+	beStrictAboutTestsThatDoNotTestAnything="true"
 	bootstrap="phpunit.php"
+	checkForUnintentionallyCoveredCode="true"
 	colors="true"
 	convertErrorsToExceptions="true"
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
 	processIsolation="false"
 	stopOnFailure="false"
-	strict="true"
 	syntaxCheck="false"
 	verbose="true"
 >
