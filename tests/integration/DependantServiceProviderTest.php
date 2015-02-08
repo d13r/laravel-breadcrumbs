@@ -1,12 +1,12 @@
 <?php
 
-class CustomServiceProviderTest extends TestCase {
+class DependantServiceProviderTest extends TestCase {
 
 	protected function getPackageProviders()
 	{
 		return [
 			'DaveJamesMiller\Breadcrumbs\ServiceProvider',
-			'CustomServiceProvider',
+			'DependantServiceProvider',
 		];
 	}
 
@@ -18,12 +18,12 @@ class CustomServiceProviderTest extends TestCase {
 	public function testRender()
 	{
 		$html = Breadcrumbs::render('home');
-		$this->assertXmlStringEqualsXmlFile(__DIR__ . '/../fixtures/CustomServiceProvider.html', $html);
+		$this->assertXmlStringEqualsXmlFile(__DIR__ . '/../fixtures/DependantServiceProvider.html', $html);
 	}
 
 }
 
-class CustomServiceProvider extends Illuminate\Support\ServiceProvider {
+class DependantServiceProvider extends Illuminate\Support\ServiceProvider {
 
 	public function register()
 	{

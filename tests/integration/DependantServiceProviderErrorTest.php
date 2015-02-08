@@ -1,12 +1,12 @@
 <?php
 
-class CustomServiceProviderErrorTest extends TestCase {
+class DependantServiceProviderErrorTest extends TestCase {
 
 	protected function getPackageProviders()
 	{
 		return [
 			// These are in the wrong order
-			'CustomServiceProviderError',
+			'DependantServiceProviderError',
 			'DaveJamesMiller\Breadcrumbs\ServiceProvider',
 		];
 	}
@@ -27,7 +27,7 @@ class CustomServiceProviderErrorTest extends TestCase {
 
 }
 
-class CustomServiceProviderError extends Illuminate\Support\ServiceProvider {
+class DependantServiceProviderError extends Illuminate\Support\ServiceProvider {
 
 	public function register()
 	{

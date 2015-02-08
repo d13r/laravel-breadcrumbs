@@ -11,7 +11,7 @@ class ServiceProvider extends BaseServiceProvider {
 	 */
 	// Can't enable this because there appears to be a bug in Laravel where a
 	// non-deferred service provider can't use a deferred one because the boot
-	// method is not called - see CustomServiceProviderTest.
+	// method is not called - see DependantServiceProviderTest.
 	// protected $defer = true;
 
 	/**
