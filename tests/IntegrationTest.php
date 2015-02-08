@@ -1,8 +1,5 @@
 <?php
 
-use DaveJamesMiller\Breadcrumbs;
-use Mockery as m;
-
 class IntegrationTest extends TestCase {
 
 	public function setUp()
