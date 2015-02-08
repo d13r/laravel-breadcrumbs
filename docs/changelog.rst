@@ -23,10 +23,16 @@ Laravel Breadcrumbs uses `Semantic Versioning <http://semver.org/>`_.
 - Change view namespace from ``laravel-breadcrumbs::`` to ``breadcrumbs::``
 - Change Bootstrap 3 template from ``<ul>`` to ``<ol>`` to match the `documentation <http://getbootstrap.com/components/#breadcrumbs>`_
 - Move documentation from GitHub (Markdown) to `Read The Docs <https://readthedocs.org/>`_ (reStructuredText/`Sphinx <http://sphinx-doc.org/>`_)
-- Remove `get()` and `set()` methods from Generator class (they were never used nor documented)
+- Greatly improve unit & integration tests (largely thanks to `Testbench <https://github.com/orchestral/testbench>`_)
+- Fix issue that prevented non-deferred service providers referencing Breadcrumbs (#39_) by making Breadcrumbs non-deferred also
+- Rename ``generateArrayIfExists()`` to ``generateIfExistsArray()``
+- Rename ``renderArrayIfExists()`` to ``renderIfExistsArray()``
+- Remove ``$breadcrumbs->get()`` and ``$breadcrumbs->set()`` methods from Generator class (they were never used nor documented)
+- Remove ``Breadcrumbs::getView()``
 - Switch from PSR-0 to PSR-4 file naming
 
 .. _v3.0.0: https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.0.0
+.. _#39: https://github.com/davejamesmiller/laravel-breadcrumbs/issues/39
 .. _#62: https://github.com/davejamesmiller/laravel-breadcrumbs/issues/62
 
 
@@ -36,8 +42,13 @@ Laravel Breadcrumbs uses `Semantic Versioning <http://semver.org/>`_.
 
 - Upgrade to Laravel 5
 - Move ``app/breadcrumbs.php`` to ``app/Http/breadcrumbs.php``
-- Move ``app/config/packages/davejamesmiller/laravel-breadcrumbs/config.php`` to ``config/breadcrumbs.php``
-- **Optional:** In the config file, replace ``laravel-breadcrumbs::`` with ``breadcrumbs::`` (both will work)
+- Move ``app/config/packages/davejamesmiller/laravel-breadcrumbs/config.php`` to ``config/breadcrumbs.php`` (if used)
+
+The following changes are optional because there are shims in place:
+
+- In the config file, replace ``laravel-breadcrumbs::`` with ``breadcrumbs::``
+- Replace ``Breadcrumbs::generateArrayIfExists()`` with ``Breadcrumbs::generateIfExistsArray()``
+- Replace ``Breadcrumbs::renderArrayIfExists()`` with ``Breadcrumbs::renderIfExistsArray()``
 
 .. note::
 
