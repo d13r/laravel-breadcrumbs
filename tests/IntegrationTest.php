@@ -9,24 +9,22 @@ class IntegrationTest extends TestCase {
 	{
 		parent::setUp();
 
-		$this->factory = m::mock('Illuminate\View\Factory');
-		$this->router  = m::mock('Illuminate\Routing\Router');
-		$this->manager = new Breadcrumbs\Manager($this->factory, $this->router);
+		$this->breadcrumbs = $this->app['breadcrumbs'];
 
-		$this->manager->register('home', function($breadcrumbs) {
+		$this->breadcrumbs->register('home', function($breadcrumbs) {
 			$breadcrumbs->push('Home', '/');
 		});
 
-		$this->manager->register('home', function($breadcrumbs) {
+		$this->breadcrumbs->register('home', function($breadcrumbs) {
 			$breadcrumbs->push('Home', '/');
 		});
 
-		$this->manager->register('blog', function($breadcrumbs) {
+		$this->breadcrumbs->register('blog', function($breadcrumbs) {
 			$breadcrumbs->parent('home');
 			$breadcrumbs->push('Blog', '/blog');
 		});
 
-		$this->manager->register('post', function($breadcrumbs, $post) {
+		$this->breadcrumbs->register('post', function($breadcrumbs, $post) {
 			$breadcrumbs->parent('blog');
 			$breadcrumbs->push($post->title, '/blog/' . $post->id);
 		});
@@ -34,7 +32,7 @@ class IntegrationTest extends TestCase {
 
 	public function testGenerateHome()
 	{
-		$breadcrumbs = $this->manager->generate('home');
+		$breadcrumbs = $this->breadcrumbs->generate('home');
 
 		$this->assertCount(1, $breadcrumbs);
 
@@ -46,7 +44,7 @@ class IntegrationTest extends TestCase {
 
 	public function testGenerateBlog()
 	{
-		$breadcrumbs = $this->manager->generate('blog');
+		$breadcrumbs = $this->breadcrumbs->generate('blog');
 
 		$this->assertCount(2, $breadcrumbs);
 
@@ -64,11 +62,11 @@ class IntegrationTest extends TestCase {
 	public function testGeneratePost()
 	{
 		$post = (object) [
-			'id' => 123,
+			'id'    => 123,
 			'title' => 'Sample Post',
 		];
 
-		$breadcrumbs = $this->manager->generate('post', $post);
+		$breadcrumbs = $this->breadcrumbs->generate('post', $post);
 
 		$this->assertCount(3, $breadcrumbs);
 
@@ -88,24 +86,15 @@ class IntegrationTest extends TestCase {
 		$this->assertTrue($breadcrumbs[2]->last);
 	}
 
-	public function testRender()
+	public function testRenderPost()
 	{
-		// Set a custom view to make sure that view is used
-		$viewName = 'my.sample.view';
-		$this->manager->setView($viewName);
+		$post = (object) [
+			'id'    => 123,
+			'title' => 'Sample Post',
+		];
 
-		// Create a mock view which should be used to render the HTML
-		$html = 'some html';
-		$view = m::mock('Illuminate\View\View');
-		$view->shouldReceive('render')->once()->withNoArgs()->andReturn($html);
-
-		// Make sure the view is created with the correct parameters
-		$breadcrumbs = $this->manager->generate('home');
-		$vars = ['breadcrumbs' => $breadcrumbs];
-		$this->factory->shouldReceive('make')->once()->with($viewName, $vars)->andReturn($view);
-
-		// Make sure the HTML rendered by the view is returned by the manager
-		$this->assertSame($html, $this->manager->render('home'));
+		$html = $this->breadcrumbs->render('post', $post);
+		$this->assertXmlStringEqualsXmlFile(__DIR__ . '/fixtures/integration.html', $html);
 	}
 
 }
