@@ -15,8 +15,13 @@
 Laravel Breadcrumbs uses `Semantic Versioning <http://semver.org/>`_.
 
 
+.. ================================================================================
+..  v3.0.1_ :future:`(Unreleased)`
+.. ================================================================================
+
+
 ================================================================================
- v3.0.0_ :future:`(Unreleased)`
+ v3.0.0_ :date:`(8 Feb 2015)`
 ================================================================================
 
 - Add Laravel 5 support (`#62`_)
@@ -24,7 +29,7 @@ Laravel Breadcrumbs uses `Semantic Versioning <http://semver.org/>`_.
 - Change Bootstrap 3 template from ``<ul>`` to ``<ol>`` to match the `documentation <http://getbootstrap.com/components/#breadcrumbs>`_
 - Move documentation from GitHub (Markdown) to `Read The Docs <https://readthedocs.org/>`_ (reStructuredText/`Sphinx <http://sphinx-doc.org/>`_)
 - Greatly improve unit & integration tests (largely thanks to `Testbench <https://github.com/orchestral/testbench>`_)
-- Fix issue that prevented non-deferred service providers referencing Breadcrumbs (#39_) by making Breadcrumbs non-deferred also
+- Fix issue that prevented non-deferred service providers referencing Breadcrumbs (`#39`_) by making Breadcrumbs non-deferred also
 - Rename ``generateArrayIfExists()`` to ``generateIfExistsArray()``
 - Rename ``renderArrayIfExists()`` to ``renderIfExistsArray()``
 - Remove ``$breadcrumbs->get()`` and ``$breadcrumbs->set()`` methods from Generator class (they were never used nor documented)
@@ -40,19 +45,28 @@ Laravel Breadcrumbs uses `Semantic Versioning <http://semver.org/>`_.
  Upgrading from 2.x to 3.x
 ----------------------------------------
 
-- Upgrade to Laravel 5
+- `Upgrade to Laravel 5 <http://laravel.com/docs/5.0/upgrade#upgrade-5.0>`_
 - Move ``app/breadcrumbs.php`` to ``app/Http/breadcrumbs.php``
 - Move ``app/config/packages/davejamesmiller/laravel-breadcrumbs/config.php`` to ``config/breadcrumbs.php`` (if used)
 
 The following changes are optional because there are shims in place:
 
 - In the config file, replace ``laravel-breadcrumbs::`` with ``breadcrumbs::``
-- Replace ``Breadcrumbs::generateArrayIfExists()`` with ``Breadcrumbs::generateIfExistsArray()``
-- Replace ``Breadcrumbs::renderArrayIfExists()`` with ``Breadcrumbs::renderIfExistsArray()``
+- Replace any calls to ``Breadcrumbs::generateArrayIfExists()`` with ``Breadcrumbs::generateIfExistsArray()``
+- Replace any calls to ``Breadcrumbs::renderArrayIfExists()`` with ``Breadcrumbs::renderIfExistsArray()``
 
 .. note::
 
     Laravel 4 and PHP 5.3 are no longer supported -- please continue to use the `2.x branch <https://github.com/davejamesmiller/laravel-breadcrumbs/tree/2.x>`_ if you use them.
+
+
+================================================================================
+ v2.3.1_ :date:`(8 Feb 2015)`
+================================================================================
+
+- Fix issue that prevented non-deferred service providers referencing Breadcrumbs (`#39`_) by making Breadcrumbs non-deferred also (backported from 3.0.0)
+
+.. _v2.3.1: https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.0.0
 
 
 ================================================================================
