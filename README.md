@@ -1,9 +1,10 @@
 # Laravel Breadcrumbs 3
 [![Latest Stable Version](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/v/stable.png)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
-[![Total Downloads](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/downloads.png)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
-[![Build Status](https://travis-ci.org/davejamesmiller/laravel-breadcrumbs.png?branch=master)](https://travis-ci.org/davejamesmiller/laravel-breadcrumbs)
-[![Coverage Status](https://coveralls.io/repos/davejamesmiller/laravel-breadcrumbs/badge.png)](https://coveralls.io/r/davejamesmiller/laravel-breadcrumbs)
-[![MIT License](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/license.svg)](docs/license.rst)
+[![Total Downloads](https://img.shields.io/packagist/dt/davejamesmiller/laravel-breadcrumbs.svg?style=flat)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
+[![Reference Status](https://www.versioneye.com/php/davejamesmiller:laravel-breadcrumbs/reference_badge.svg?style=flat)](https://www.versioneye.com/php/davejamesmiller:laravel-breadcrumbs/references)<br>
+[![Build Status](https://img.shields.io/travis/davejamesmiller/laravel-breadcrumbs/master.svg?style=flat)](https://travis-ci.org/davejamesmiller/laravel-breadcrumbs)
+[![Coverage Status](https://img.shields.io/coveralls/davejamesmiller/laravel-breadcrumbs.png)](https://coveralls.io/r/davejamesmiller/laravel-breadcrumbs)
+[![Dependency Status](https://www.versioneye.com/php/davejamesmiller:laravel-breadcrumbs/badge.svg)](https://www.versioneye.com/php/davejamesmiller:laravel-breadcrumbs)
 
 A simple Laravel-style way to create breadcrumbs in [Laravel 5](http://laravel.com/).
 
