@@ -3,10 +3,12 @@
 use DaveJamesMiller\Breadcrumbs;
 use Mockery as m;
 
-class IntegrationTest extends PHPUnit_Framework_TestCase {
+class IntegrationTest extends TestCase {
 
 	public function setUp()
 	{
+		parent::setUp();
+
 		$this->factory = m::mock('Illuminate\View\Factory');
 		$this->router  = m::mock('Illuminate\Routing\Router');
 		$this->manager = new Breadcrumbs\Manager($this->factory, $this->router);

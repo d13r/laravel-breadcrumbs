@@ -3,23 +3,17 @@
 use DaveJamesMiller\Breadcrumbs\Generator;
 use Mockery as m;
 
-class GeneratorTest extends PHPUnit_Framework_TestCase {
+class GeneratorTest extends TestCase {
 
 	public function testParent()
 	{
 		// Can't find a simple way to test that a closure is called, so make a
 		// mock object instead and pass an array as the callback
-		$mock = m::mock();
+		$generator = new Generator([
+			'sample' => [$mock = m::mock(), 'callback'],
+		]);
 
-		$callbacks = [
-			'sample' => [$mock, 'callback'],
-		];
-
-		$generator = new Generator($callbacks);
-
-		$mock->shouldReceive('callback')
-			->with($generator, 1, 2)
-			->times(3);
+		$mock->shouldReceive('callback')->with($generator, 1, 2)->times(3);
 
 		$generator->parent('sample', 1, 2);
 		$generator->parentArray('sample', [1, 2]);

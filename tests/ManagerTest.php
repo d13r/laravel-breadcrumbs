@@ -1,15 +1,17 @@
 <?php
 
-use DaveJamesMiller\Breadcrumbs;
+use DaveJamesMiller\Breadcrumbs\Manager;
 use Mockery as m;
 
-class ManagerTest extends PHPUnit_Framework_TestCase {
+class ManagerTest extends TestCase {
 
 	public function setUp()
 	{
+		parent::setUp();
+
 		$this->factory = m::mock('Illuminate\View\Factory');
 		$this->router  = m::mock('Illuminate\Routing\Router');
-		$this->manager = new Breadcrumbs\Manager($this->factory, $this->router);
+		$this->manager = new Manager($this->factory, $this->router);
 
 		$this->manager->register('sample', function() {});
 	}

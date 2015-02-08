@@ -12,14 +12,14 @@
 	syntaxCheck="false"
 >
 
-	<!-- List of files with tests inside: -->
+	<!-- List of files with tests inside -->
 	<testsuites>
 		<testsuite name="Package Test Suite">
-			<directory suffix=".php">tests</directory>
+			<directory suffix=".php">tests/</directory>
 		</testsuite>
 	</testsuites>
 
-	<!-- List of source files for code coverage checker: -->
+	<!-- List of source files for code coverage checker -->
 	<filter>
 		<whitelist processUncoveredFilesFromWhitelist="true">
 			<directory suffix=".php">src/</directory>
