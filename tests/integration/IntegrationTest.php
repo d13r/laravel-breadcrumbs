@@ -91,7 +91,7 @@ class IntegrationTest extends TestCase {
 		];
 
 		$html = $this->breadcrumbs->render('post', $post);
-		$this->assertXmlStringEqualsXmlFile(__DIR__ . '/fixtures/integration.html', $html);
+		$this->assertXmlStringEqualsXmlFile(__DIR__ . '/../fixtures/integration.html', $html);
 	}
 
 }

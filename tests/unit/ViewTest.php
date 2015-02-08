@@ -37,13 +37,13 @@ class ViewTest extends TestCase {
 	public function testBootstrap2()
 	{
 		$html = View::make('breadcrumbs::bootstrap2', ['breadcrumbs' => $this->breadcrumbs])->render();
-		$this->assertXmlStringEqualsXmlFile(__DIR__ . '/fixtures/bootstrap2.html', $html);
+		$this->assertXmlStringEqualsXmlFile(__DIR__ . '/../fixtures/bootstrap2.html', $html);
 	}
 
 	public function testBootstrap3()
 	{
 		$html = View::make('breadcrumbs::bootstrap3', ['breadcrumbs' => $this->breadcrumbs])->render();
-		$this->assertXmlStringEqualsXmlFile(__DIR__ . '/fixtures/bootstrap3.html', $html);
+		$this->assertXmlStringEqualsXmlFile(__DIR__ . '/../fixtures/bootstrap3.html', $html);
 	}
 
 }
