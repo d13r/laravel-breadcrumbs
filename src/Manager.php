@@ -107,7 +107,7 @@ class Manager {
 			$params = array_slice(func_get_args(), 1);
 
 		if (!$this->exists($name))
-			return [];
+			return '';
 
 		$breadcrumbs = $this->generator->generate($this->callbacks, $name, $params);
 
@@ -117,7 +117,7 @@ class Manager {
 	public function renderIfExistsArray($name, $params = [])
 	{
 		if (!$this->exists($name))
-			return [];
+			return '';
 
 		$breadcrumbs = $this->generator->generate($this->callbacks, $name, $params);
 

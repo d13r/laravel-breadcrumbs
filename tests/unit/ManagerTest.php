@@ -222,7 +222,7 @@ class ManagerTest extends TestCase {
         $this->generator->shouldReceive('generate')->never();
         $this->view->shouldReceive('render')->never();
 
-        $this->assertSame([], $this->manager->renderIfExists());
+        $this->assertSame('', $this->manager->renderIfExists());
     }
 
     // Breadcrumbs::renderIfExists($name) -> array
@@ -241,7 +241,7 @@ class ManagerTest extends TestCase {
         $this->generator->shouldReceive('generate')->never();
         $this->view->shouldReceive('render')->never();
 
-        $this->assertSame([], $this->manager->renderIfExists('sample'));
+        $this->assertSame('', $this->manager->renderIfExists('sample'));
     }
 
     // Breadcrumbs::renderIfExists($name, $param1, ...) -> array
@@ -260,7 +260,7 @@ class ManagerTest extends TestCase {
         $this->generator->shouldReceive('generate')->never();
         $this->view->shouldReceive('render')->never();
 
-        $this->assertSame([], $this->manager->renderIfExists('sample', 1, 'blah'));
+        $this->assertSame('', $this->manager->renderIfExists('sample', 1, 'blah'));
     }
 
     // Breadcrumbs::renderArrayIfExists($name, $params) -> array
@@ -279,7 +279,7 @@ class ManagerTest extends TestCase {
         $this->generator->shouldReceive('generate')->never();
         $this->view->shouldReceive('render')->never();
 
-        $this->assertSame([], $this->manager->renderArrayIfExists('sample', [1, 'blah']));
+        $this->assertSame('', $this->manager->renderArrayIfExists('sample', [1, 'blah']));
     }
 
 	// Breadcrumbs::setCurrentRoute($name)
