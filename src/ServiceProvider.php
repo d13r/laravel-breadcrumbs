@@ -61,6 +61,12 @@ class ServiceProvider extends BaseServiceProvider {
 			$configFile => config_path('breadcrumbs.php')
 		]);
 
+		$this->registerBreadcrumbs();
+	}
+
+	// This method can be overridden in a child class
+	public function registerBreadcrumbs()
+	{
 		// Load the app breadcrumbs if they're in app/Http/breadcrumbs.php
 		if (file_exists($file = $this->app['path'].'/Http/breadcrumbs.php'))
 		{
