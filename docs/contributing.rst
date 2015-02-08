@@ -68,13 +68,13 @@ Replace ``YOUR_USERNAME`` with your GitHub username and ``YOUR_BRANCH`` with the
  Unit tests
 ================================================================================
 
-To run the unit tests, simply `install PHP Unit <http://phpunit.de/manual/current/en/installation.html>`_ and run:
+To run the unit tests, simply run:
 
 .. code-block:: bash
 
     $ cd /path/to/laravel-breadcrumbs
-    $ composer update --dev
-    $ phpunit
+    $ composer update
+    $ ./test.sh
 
 (Note: The unit tests are not 100% complete yet, and the code will probably need some refactoring to make it easier to test.)
 
@@ -87,11 +87,9 @@ To check code coverage, you will also need `Xdebug <http://xdebug.org/>`_ instal
 
 .. code-block:: bash
 
-    $ cd /path/to/laravel-breadcrumbs
-    $ composer update --dev
-    $ php -d xdebug.coverage_enable=On `which phpunit` --coverage-html test-coverage
+    $ ./test-coverage.sh
 
-Then open ``test-coverage/index.html`` to view the results. However, be aware of the `edge cases <http://phpunit.de/manual/current/en/code-coverage-analysis.html#code-coverage-analysis.edge-cases>`_ in PHPUnit.
+Then open ``test-coverage/index.html`` to view the results. (However, be aware of the `edge cases <https://phpunit.de/manual/current/en/code-coverage-analysis.html#code-coverage-analysis.edge-cases>`_ in PHPUnit that can make it not-quite-accurate.)
 
 
 .. _contributing-documentation:
