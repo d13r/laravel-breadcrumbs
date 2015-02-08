@@ -9,8 +9,8 @@ class ManagerTest extends TestCase {
 	{
 		parent::setUp();
 
-		$this->factory = m::mock('Illuminate\View\Factory');
-		$this->router  = m::mock('Illuminate\Routing\Router');
+		$this->factory = m::mock('Illuminate\Contracts\View\Factory');
+		$this->router  = m::mock('Illuminate\Contracts\Routing\Registrar');
 		$this->manager = new Manager($this->factory, $this->router);
 
 		$this->manager->register('sample', function() {});

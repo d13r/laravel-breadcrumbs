@@ -1,8 +1,7 @@
 <?php namespace DaveJamesMiller\Breadcrumbs;
 
-use InvalidArgumentException;
-use Illuminate\Routing\Router;
-use Illuminate\View\Factory as ViewFactory;
+use Illuminate\Contracts\Routing\Registrar as Router;
+use Illuminate\Contracts\View\Factory as ViewFactory;
 
 class Manager {
 
