@@ -9,7 +9,9 @@
 	convertWarningsToExceptions="true"
 	processIsolation="false"
 	stopOnFailure="false"
+	strict="true"
 	syntaxCheck="false"
+	verbose="true"
 >
 
 	<!-- List of files with tests inside -->
@@ -26,10 +28,5 @@
 			<directory suffix=".php">src/</directory>
 		</whitelist>
 	</filter>
-
-	<!-- Mockery integration -->
-	<listeners>
-		<listener class="Mockery\Adapter\Phpunit\TestListener"></listener>
-	</listeners>
 
 </phpunit>

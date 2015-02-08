@@ -16,30 +16,29 @@
  Method                                                    Returns     Added in    Docs
 ========================================================  ==========  ==========  ============================
  ``Breadcrumbs::register($name, $callback)``               *(none)*    1.0.0       :doc:`Defining <defining>`
- ``Breadcrumbs::exists()``                                 boolean     2.2.0       :ref:`Exists <exists>`
+ ``Breadcrumbs::exists()``                                 boolean     2.2.0       :doc:`Route-bound <routing>`
  ``Breadcrumbs::exists($name)``                            boolean     2.2.0       :ref:`Exists <exists>`
- ``Breadcrumbs::generate()``                               array       2.2.3       :ref:`Switching views <switching-views>`
+ ``Breadcrumbs::generate()``                               array       2.2.3       :doc:`Route-bound <routing>`
  ``Breadcrumbs::generate($name)``                          array       1.0.0       :ref:`Switching views <switching-views>`
  ``Breadcrumbs::generate($name, $param1, ...)``            array       1.0.0       :ref:`Switching views <switching-views>`
  ``Breadcrumbs::generateArray($name, $params)``            array       2.0.0       :ref:`Array params <array-parameters>`
- ``Breadcrumbs::generateIfExists()``                       array       2.2.0       :ref:`Exists <exists>`
+ ``Breadcrumbs::generateIfExists()``                       array       2.2.0       :doc:`Route-bound <routing>`
  ``Breadcrumbs::generateIfExists($name)``                  array       2.2.0       :ref:`Exists <exists>`
  ``Breadcrumbs::generateIfExists($name, $param1, ...)``    array       2.2.0       :ref:`Exists <exists>`
- ``Breadcrumbs::generateArrayIfExists($name, $params)``    array       2.2.0       :ref:`Exists <exists>`
- ``Breadcrumbs::render()``                                 string      2.2.0       :doc:`Output <output>`
+ ``Breadcrumbs::generateIfExistsArray($name, $params)``    array       3.0.0       :ref:`Exists <exists>`
+ ``Breadcrumbs::render()``                                 string      2.2.0       :doc:`Route-bound <routing>`
  ``Breadcrumbs::render($name)``                            string      1.0.0       :doc:`Output <output>`
  ``Breadcrumbs::render($name, $param1, ...)``              string      1.0.0       :doc:`Output <output>`
  ``Breadcrumbs::renderArray($name, $params)``              string      2.0.0       :ref:`Array params <array-parameters>`
- ``Breadcrumbs::renderIfExists()``                         string      2.2.0       :ref:`Exists <exists>`
+ ``Breadcrumbs::renderIfExists()``                         string      2.2.0       :doc:`Route-bound <routing>`
  ``Breadcrumbs::renderIfExists($name)``                    string      2.2.0       :ref:`Exists <exists>`
  ``Breadcrumbs::renderIfExists($name, $param1, ...)``      string      2.2.0       :ref:`Exists <exists>`
- ``Breadcrumbs::renderArrayIfExists($name, $params)``      string      2.2.0       :ref:`Exists <exists>`
+ ``Breadcrumbs::renderIfExistsArray($name, $params)``      string      3.0.0       :ref:`Exists <exists>`
  ``Breadcrumbs::setCurrentRoute($name)``                   *(none)*    2.2.0       :ref:`Current route <current-route>`
  ``Breadcrumbs::setCurrentRoute($name, $param1, ...)``     *(none)*    2.2.0       :ref:`Current route <current-route>`
  ``Breadcrumbs::setCurrentRouteArray($name, $params)``     *(none)*    2.2.0       :ref:`Current route <current-route>`
  ``Breadcrumbs::clearCurrentRoute()``                      *(none)*    2.2.0
  ``Breadcrumbs::setView($view)``                           *(none)*    1.0.0       :ref:`Switching views <switching-views>`
- ``Breadcrumbs::getView()``                                string      1.0.0
 ========================================================  ==========  ==========  ============================
 
 `Source <https://github.com/davejamesmiller/laravel-breadcrumbs/blob/develop/src/Manager.php>`__

@@ -24,4 +24,11 @@ abstract class TestCase extends Orchestra\Testbench\TestCase {
 		$this->app->make('breadcrumbs');
 	}
 
+	public function tearDown()
+	{
+		$this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
+
+		Mockery::close();
+	}
+
 }

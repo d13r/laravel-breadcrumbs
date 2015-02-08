@@ -2,15 +2,19 @@
 
 class Generator {
 
-	protected $callbacks = [];
 	protected $breadcrumbs = [];
+	protected $callbacks   = [];
 
-	public function __construct(array $callbacks)
+	public function generate(array $callbacks, $name, $params)
 	{
-		$this->callbacks = $callbacks;
+		$this->breadcrumbs = [];
+		$this->callbacks   = $callbacks;
+
+		$this->call($name, $params);
+		return $this->toArray();
 	}
 
-	public function call($name, $params)
+	protected function call($name, $params)
 	{
 		if (!isset($this->callbacks[$name]))
 			throw new Exception("Breadcrumb not found with name \"{$name}\"");
@@ -24,12 +28,9 @@ class Generator {
 	{
 		$params = array_slice(func_get_args(), 1);
 
-		$this->parentArray($name, $params);
+		$this->call($name, $params);
 	}
 
-	// This does the same as call() but is named differently for clarity.
-	// parent() / parentArray() are used when defining breadcrumbs.
-	// call() is used when outputting breadcrumbs.
 	public function parentArray($name, $params = [])
 	{
 		$this->call($name, $params);

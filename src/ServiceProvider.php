@@ -30,7 +30,7 @@ class ServiceProvider extends BaseServiceProvider {
 	{
 		$this->app['breadcrumbs'] = $this->app->share(function($app)
 		{
-			$breadcrumbs = new Manager($app['view'], $app['router']);
+			$breadcrumbs = $this->app->make('DaveJamesMiller\Breadcrumbs\Manager');
 
 			$viewPath = __DIR__ . '/../views/';
 

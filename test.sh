@@ -2,4 +2,4 @@
 set -eu
 cd $(dirname $0)
 
-vendor/bin/phpunit
+vendor/bin/phpunit "$@"

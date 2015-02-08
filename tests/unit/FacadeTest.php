@@ -4,8 +4,8 @@ class FacadeTest extends TestCase {
 
 	public function testFacade()
 	{
-		$this->assertSame(Breadcrumbs::getFacadeRoot(), $this->app['breadcrumbs']);
+		$this->assertInstanceOf('DaveJamesMiller\Breadcrumbs\Manager', Breadcrumbs::getFacadeRoot());
+		$this->assertSame($this->app['breadcrumbs'], Breadcrumbs::getFacadeRoot());
 	}
-
 
 }

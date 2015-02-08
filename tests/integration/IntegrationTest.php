@@ -6,64 +6,34 @@ class IntegrationTest extends TestCase {
 	{
 		parent::setUp();
 
-		$this->breadcrumbs = $this->app['breadcrumbs'];
-
-		$this->breadcrumbs->register('home', function($breadcrumbs) {
+		Breadcrumbs::register('home', function($breadcrumbs) {
 			$breadcrumbs->push('Home', '/');
 		});
 
-		$this->breadcrumbs->register('home', function($breadcrumbs) {
-			$breadcrumbs->push('Home', '/');
-		});
 
-		$this->breadcrumbs->register('blog', function($breadcrumbs) {
+		Breadcrumbs::register('category', function($breadcrumbs, $category) {
 			$breadcrumbs->parent('home');
-			$breadcrumbs->push('Blog', '/blog');
+			$breadcrumbs->push($category->title, '/category/' . $category->id);
 		});
 
-		$this->breadcrumbs->register('post', function($breadcrumbs, $post) {
-			$breadcrumbs->parent('blog');
+		Breadcrumbs::register('post', function($breadcrumbs, $post) {
+			$breadcrumbs->parent('category', $post->category);
 			$breadcrumbs->push($post->title, '/blog/' . $post->id);
 		});
-	}
 
-	public function testGenerateHome()
-	{
-		$breadcrumbs = $this->breadcrumbs->generate('home');
-
-		$this->assertCount(1, $breadcrumbs);
-
-		$this->assertSame('Home', $breadcrumbs[0]->title);
-		$this->assertSame('/', $breadcrumbs[0]->url);
-		$this->assertTrue($breadcrumbs[0]->first);
-		$this->assertTrue($breadcrumbs[0]->last);
-	}
-
-	public function testGenerateBlog()
-	{
-		$breadcrumbs = $this->breadcrumbs->generate('blog');
-
-		$this->assertCount(2, $breadcrumbs);
-
-		$this->assertSame('Home', $breadcrumbs[0]->title);
-		$this->assertSame('/', $breadcrumbs[0]->url);
-		$this->assertTrue($breadcrumbs[0]->first);
-		$this->assertFalse($breadcrumbs[0]->last);
-
-		$this->assertSame('Blog', $breadcrumbs[1]->title);
-		$this->assertSame('/blog', $breadcrumbs[1]->url);
-		$this->assertFalse($breadcrumbs[1]->first);
-		$this->assertTrue($breadcrumbs[1]->last);
-	}
-
-	public function testGeneratePost()
-	{
-		$post = (object) [
-			'id'    => 123,
-			'title' => 'Sample Post',
+		$this->post = (object) [
+			'id'       => 123,
+			'title'    => 'Sample Post',
+			'category' => (object) [
+				'id'    => 456,
+				'title' => 'Sample Category',
+			],
 		];
+	}
 
-		$breadcrumbs = $this->breadcrumbs->generate('post', $post);
+	public function testGenerate()
+	{
+		$breadcrumbs = Breadcrumbs::generate('post', $this->post);
 
 		$this->assertCount(3, $breadcrumbs);
 
@@ -72,8 +42,8 @@ class IntegrationTest extends TestCase {
 		$this->assertTrue($breadcrumbs[0]->first);
 		$this->assertFalse($breadcrumbs[0]->last);
 
-		$this->assertSame('Blog', $breadcrumbs[1]->title);
-		$this->assertSame('/blog', $breadcrumbs[1]->url);
+		$this->assertSame('Sample Category', $breadcrumbs[1]->title);
+		$this->assertSame('/category/456', $breadcrumbs[1]->url);
 		$this->assertFalse($breadcrumbs[1]->first);
 		$this->assertFalse($breadcrumbs[1]->last);
 
@@ -83,14 +53,9 @@ class IntegrationTest extends TestCase {
 		$this->assertTrue($breadcrumbs[2]->last);
 	}
 
-	public function testRenderPost()
+	public function testRender()
 	{
-		$post = (object) [
-			'id'    => 123,
-			'title' => 'Sample Post',
-		];
-
-		$html = $this->breadcrumbs->render('post', $post);
+		$html = Breadcrumbs::render('post', $this->post);
 		$this->assertXmlStringEqualsXmlFile(__DIR__ . '/../fixtures/integration.html', $html);
 	}
 
