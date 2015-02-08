@@ -2,6 +2,11 @@
 
 Uses [Semantic Versioning](http://semver.org/).
 
+### 2.3.1
+
+- Fix issue that prevented non-deferred service providers referencing Breadcrumbs by making Breadcrumbs non-deferred also (backported from 3.0.0)
+  ([#39](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/39 "Illegal offset type in isset or empty"))
+
 ### 2.3.0
 
 - ~~Add Laravel 5 support
