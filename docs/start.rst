@@ -106,7 +106,7 @@ See the :doc:`defining` section for more details.
  3. Choose a template
 ================================================================================
 
-By default a `Bootstrap <http://getbootstrap.com/components/#breadcrumbs>`_-compatible unordered list will be rendered, so if you're using Bootstrap 3 you can skip this step.
+By default a `Bootstrap <http://getbootstrap.com/components/#breadcrumbs>`_-compatible ordered list will be rendered, so if you're using Bootstrap 3 you can skip this step.
 
 First initialise the config file by running this command:
 
