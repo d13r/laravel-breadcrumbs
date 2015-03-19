@@ -19,6 +19,8 @@ class Manager {
 
 	public function register($name, $callback)
 	{
+		if (isset($this->callbacks[$name]))
+			throw new Exception("Entry name \"{$name}\" has already been assigned.");
 		$this->callbacks[$name] = $callback;
 	}
 
