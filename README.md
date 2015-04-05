@@ -10,9 +10,13 @@ A simple Laravel-style way to create breadcrumbs in [Laravel 5](http://laravel.c
 
 **[Documentation >>](http://laravel-breadcrumbs.davejamesmiller.com/)**
 
-[Support & Contribution Guidelines](CONTRIBUTING.rst)
-
 [MIT License](docs/license.rst)
+
+--------------------------------------------------------------------------------
+
+**Not working?** Before opening a support request, please read this and make sure you include the information requested:
+
+[Support & Contribution Guidelines](CONTRIBUTING.rst)
 
 --------------------------------------------------------------------------------
 
