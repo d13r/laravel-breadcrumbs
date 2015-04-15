@@ -78,6 +78,19 @@ class GeneratorTest extends PHPUnit_Framework_TestCase
         $this->assertSame('Home', $breadcrumbs[0]->title);
     }
 
+		public function testUnshift()
+		{
+			$generator = new Generator(array());
+			$generator->push('Second', 'foo');
+			$generator->unshift('Home', '/');
+			$breadcrumbs = $generator->get();
+
+			$this->assertCount(2, $breadcrumbs);
+
+			$this->assertSame('Home', $breadcrumbs[0]->title);
+			$this->assertSame('/', $breadcrumbs[0]->url);
+		}
+
     public function testToArray()
     {
         $generator = new Generator(array());
