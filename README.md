@@ -8,6 +8,14 @@
 A simple Laravel-style way to create breadcrumbs in
 [Laravel 4](http://laravel.com/).
 
+--------------------------------------------------------------------------------
+
+**Not working?** Before opening a support request, please read this and make sure you include the information requested (adjusting the paths as necessary for Laravel 4):
+
+[Support & Contribution Guidelines](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/CONTRIBUTING.rst)
+
+--------------------------------------------------------------------------------
+
 ## Installation
 
 ### 1. Install with Composer
