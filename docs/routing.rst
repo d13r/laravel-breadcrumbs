@@ -174,22 +174,16 @@ For more details see `RESTful Resource Controllers <http://laravel.com/docs/cont
  Implicit controllers
 ================================================================================
 
-Laravel doesn't appear to support named routes in implicit controllers (tested on Laravel 5.0.2), so you will not be able to use them with route-bound breadcrumbs. For example:
+To use implicit controllers, you must specify names for each route. For example:
 
 .. code-block:: php
 
     // app/Http/routes.php
-    Route::controller('users', 'UserController');
+    Route::controller('auth', 'Auth\AuthController', [
+        'getRegister' => 'auth.register',
+        'getLogin'    => 'auth.login',
+    ]);
 
-.. code-block:: bash
-
-    $ php artisan route:list
-    +----------+-----------------------------------------+-----------+------------------------------+
-    | Method   | URI                                     | Name      | Action                       |
-    +----------+-----------------------------------------+-----------+------------------------------+
-    | GET|HEAD | users                                   |           | UserController@getIndex      |
-    | GET|HEAD | users/index/{one?}/{two?}/{three?}...   |           | UserController@getIndex      |
-    | POST     | users/profile/{one?}/{two?}/{three?}... |           | UserController@postProfile   |
-    +----------+-----------------------------------------+-----------+------------------------------+
+(You don't need to provide route names for actions that redirect and never display a view - e.g. most POST views.)
 
 For more details see `Implicit Controllers <http://laravel.com/docs/controllers#implicit-controllers>`_ in the Laravel documentation.
