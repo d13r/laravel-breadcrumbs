@@ -30,7 +30,7 @@ For generating the URL, you can use any of the standard Laravel URL-generation m
 
 - ``url('path/to/route')`` (``URL::to()``)
 - ``secure_url('path/to/route')``
-- ``route('routename')`` (``URL::route()``)
+- ``route('routename')`` or ``route('routename', 'param')`` or ``route('routename', ['param1', 'param2'])`` (``URL::route()``)
 - ``action('controller@action')`` (``URL::action()``)
 - Or just pass a string URL (``'http://www.example.com/'``)
 
