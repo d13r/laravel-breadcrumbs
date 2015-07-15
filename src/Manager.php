@@ -37,6 +37,20 @@ class Manager {
 		return isset($this->callbacks[$name]);
 	}
 
+
+	public function get($name = null)
+	{
+		if (is_null($name)) {
+			try {
+				list($name) = $this->currentRoute->get();
+			} catch (Exception $e) {
+				return null;
+			}
+		}
+
+		return $this->callbacks[$name];
+	}
+
 	public function generate($name = null)
 	{
 		if (is_null($name))
