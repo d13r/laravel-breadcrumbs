@@ -51,6 +51,7 @@ All support requests / bug reports should be submitted using `GitHub issues <htt
 - Laravel version
 - PHP version
 - Copies of the following files (you can use `Gist <https://gist.github.com/>`_ if they're very long):
+
   - ``app/Http/breadcrumbs.php``
   - ``config/breadcrumbs.php`` (if used)
   - The view and/or layout files
