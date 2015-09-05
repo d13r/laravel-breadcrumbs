@@ -50,17 +50,15 @@ All support requests / bug reports should be submitted using `GitHub issues <htt
 - Laravel Breadcrumbs version
 - Laravel version
 - PHP version
+- Copies of the following files (you can use `Gist <https://gist.github.com/>`_ if they're very long):
+    - ``app/Http/breadcrumbs.php``
+    - ``config/breadcrumbs.php`` (if used)
+    - The view and/or layout files
+    - The custom breadcrumbs template (if applicable)
+    - ``config/app.php`` (Note: **not the Encryption Key section** which should be kept private) -- in case there's a conflict with another package
+    - Any other relevant files
 
-You should also include copies of the following:
-
-- ``app/Http/breadcrumbs.php``
-- ``config/breadcrumbs.php`` (if used)
-- The view or layout that outputs the breadcrumbs
-- The custom breadcrumbs template (if applicable)
-- The full ``providers`` and ``aliases`` sections of ``config/app.php`` (Note: **not the Encryption Key section** which should be kept private) -- in case there's a conflict with another package
-- Any other relevant files
-
-**Note:** Don't be afraid to go into the Laravel Breadcrumbs code and use ``var_dump()`` (or ``dd()`` or ``print_r()``) to see what's happening and try to fix your own problems! A pull request or detailed bug report is much more likely to get attention than a vague error report. Also make sure you read the `documentation <http://laravel-breadcrumbs.davejamesmiller.com/en/latest/>`_ carefully.
+Before you do - please don't be afraid to go into the Laravel Breadcrumbs code and use ``var_dump()`` (or ``dd()`` or ``print_r()``) to see what's happening and try to fix your own problems! A pull request or detailed bug report is much more likely to get attention than a vague error report. Also make sure you read the `documentation <http://laravel-breadcrumbs.davejamesmiller.com/en/latest/>`_ carefully.
 
 ================================================================================
  Feature Requests / Pull Requests
