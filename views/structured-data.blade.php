@@ -1,7 +1,7 @@
 @if ($breadcrumbs)
-    <ul>
+    <ol class="breadcrumb">
         @foreach ($breadcrumbs as $i => $breadcrumb)
-            <li id="breadcrumbs__item-{{$i}}" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"
+            <li id="breadcrumb-item-{{$i}}" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"
                 @if(!$breadcrumb->last)
                     itemref="breadcrumbs__item-{{$i + 1}}"
                 @endif
@@ -11,12 +11,12 @@
                 @endif
 
                 @if($breadcrumb->last)
-                    class="breadcrumbs__selected"
+                    class="active"
                 @endif
             >
                 <a href="{{$breadcrumb->url}}" itemprop="url">
                     <span itemprop="title">{{$breadcrumb->title}}</span>
                 </a>
         @endforeach
-    </ul>
+    </ol>
 @endif
