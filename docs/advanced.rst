@@ -141,8 +141,8 @@ If you want to pass an array of parameters instead you can use these methods:
 By default an exception will be thrown if the breadcrumb doesn't exist, so you know to add it. If you want suppress this you can call the following methods instead:
 
 - ``Breadcrumbs::renderIfExists()`` (returns an empty string)
-- ``Breadcrumbs::renderArrayIfExists()`` (returns an empty string)
+- ``Breadcrumbs::renderIfExistsArray()`` (returns an empty string) (was ``renderArrayIfExists`` before 3.0.0)
 - ``Breadcrumbs::generateIfExists()`` (returns an empty array)
-- ``Breadcrumbs::generateArrayIfExists()`` (returns an empty array)
+- ``Breadcrumbs::generateIfExistsArray()`` (returns an empty array) (was ``generateArrayIfExists`` before 3.0.0)
 
 Alternatively you can call ``Breadcrumbs::exists('name')``, which returns a boolean.
