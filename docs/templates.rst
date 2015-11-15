@@ -41,11 +41,11 @@ The view will receive an array called ``$breadcrumbs``.
 
 Each breadcrumb is an object with the following keys:
 
-- ``title`` - The title you set above
-- ``url`` - The URL you set above
+- ``title`` - The breadcrumb title (see :doc:`defining`)
+- ``url`` - The breadcrumb URL (see :doc:`defining`), or ``null`` if none was given
 - ``first`` - ``true`` for the first breadcrumb (top level), ``false`` otherwise
 - ``last`` - ``true`` for the last breadcrumb (current page), ``false`` otherwise
-- Additional keys for each item in ``$data`` (see :ref:`custom-data`)
+- Plus additional keys for each item in ``$data`` (see :ref:`custom-data`)
 
 
 ================================================================================
@@ -56,4 +56,5 @@ Then update your config file (``config/breadcrumbs.php``) with the custom view n
 
 .. code-block:: php
 
+    // resources/views/_partials/breadcrumbs.blade.php
     'view' => '_partials/breadcrumbs',
