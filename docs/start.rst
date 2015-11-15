@@ -40,7 +40,7 @@ Add the service provider to ``providers``:
 
     'providers' => [
         // ...
-        'DaveJamesMiller\Breadcrumbs\ServiceProvider',
+        DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
     ],
 
 And add the facade to ``aliases``:
@@ -49,7 +49,7 @@ And add the facade to ``aliases``:
 
     'aliases' => [
         // ...
-        'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
+        'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
     ],
 
 
