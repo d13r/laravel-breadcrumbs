@@ -59,6 +59,21 @@ Do not use the following keys in your data array, as they will be overwritten: `
 
 If you don't want to use ``app/Http/breadcrumbs.php``, you can define them in ``app/Http/routes.php`` or any other file as long as it's loaded by Laravel.
 
+If you are creating your own package, simply load them from your service provider's ``boot()`` method:
+
+.. code-block:: php
+
+    class MyServiceProvider extends ServiceProvider
+    {
+        public function register() {}
+
+        public function boot()
+        {
+            if (class_exists('Breadcrumbs'))
+                require __DIR__ . '/breadcrumbs.php';
+        }
+    }
+
 
 .. _switching-views:
 
