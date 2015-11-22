@@ -71,7 +71,7 @@ Any feature requests / pull requests should include details of what you are tryi
 If you want to submit a **bug fix**, please make your changes in a new branch, then open a `pull request <https://github.com/davejamesmiller/laravel-breadcrumbs/pulls>`_. (The `Contributing page of the docs <http://laravel-breadcrumbs.davejamesmiller.com/en/latest/contributing.html>`_ may help you to get started if you've not done this before.)
 
 .. This text is also in docs/contributing.rst
-If you want to submit a **new feature**, it's usually best to open an `issue <https://github.com/davejamesmiller/laravel-breadcrumbs/issues>`_ to discuss the idea first -- to make sure it will be accepted before spending too much time on it. (Of course you can go ahead and develop it first if you prefer!) Please be sure to update the documentation as well.
+If you want to submit a **new feature**, it's usually best to open an `issue <https://github.com/davejamesmiller/laravel-breadcrumbs/issues>`_ to discuss the idea first -- to make sure it will be accepted before spending too much time on it. (Of course you can go ahead and develop it first if you prefer!) Please be sure to include unit tests and update the documentation as well.
 
 If you have any suggestions for improving the **documentation** -- especially if anything is unclear to you and could be explained better -- please let me know. (Or just edit it yourself and make a pull request.)
 
