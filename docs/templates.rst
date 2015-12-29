@@ -20,9 +20,9 @@ To customise the HTML, create your own view file (e.g. ``resources/views/_partia
         <ul class="breadcrumb">
             @foreach ($breadcrumbs as $breadcrumb)
                 @if (!$breadcrumb->last)
-                    <li><a href="{{{ $breadcrumb->url }}}">{{{ $breadcrumb->title }}}</a></li>
+                    <li><a href="{{ $breadcrumb->url }}">{{ $breadcrumb->title }}</a></li>
                 @else
-                    <li class="active">{{{ $breadcrumb->title }}}</li>
+                    <li class="active">{{ $breadcrumb->title }}</li>
                 @endif
             @endforeach
         </ul>
