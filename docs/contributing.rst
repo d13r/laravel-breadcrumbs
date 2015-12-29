@@ -2,11 +2,13 @@
  Contributing
 ################################################################################
 
-.. This text is also in ../CONTRIBUTING.rst
+.. NOTE: This text is also in ../README.rst
 
-If you want to submit a **bug fix**, make your changes in a new branch, based on the ``develop`` branch, then simply open a `pull request <https://github.com/davejamesmiller/laravel-breadcrumbs/pulls>`_ on GitHub. (The information below may help you to get started if you've not done this before.)
+If you want to submit a **bug fix**, please make your changes in a new branch, then open a `pull request <https://github.com/davejamesmiller/laravel-breadcrumbs/pulls>`_. (The `Contributing page of the docs <http://laravel-breadcrumbs.davejamesmiller.com/en/latest/contributing.html>`_ may help you to get started if you've not done this before.)
 
-If you want to submit a **new feature**, it's usually best to open an `issue <https://github.com/davejamesmiller/laravel-breadcrumbs/issues>`_ to discuss the idea first -- to make sure it will be accepted before spending too much time on it. (Of course you can go ahead and develop it first if you prefer!) Please be sure to update the documentation as well.
+If you want to submit a **new feature**, it's usually best to open an `issue <https://github.com/davejamesmiller/laravel-breadcrumbs/issues>`_ to discuss the idea first -- to make sure it will be accepted before spending too much time on it. (Of course you can go ahead and develop it first if you prefer!) Please be sure to include unit tests and update the documentation as well.
+
+If you have any suggestions for improving the **documentation** -- especially if anything is unclear to you and could be explained better -- please let me know. (Or just edit it yourself and make a pull request.)
 
 .. only:: html
 
@@ -28,7 +30,7 @@ If you've already got it installed, delete it from the ``vendor/`` directory and
     $ rm -rf vendor/davejamesmiller/laravel-breadcrumbs
     $ composer install --prefer-source
     $ cd vendor/davejamesmiller/laravel-breadcrumbs
-    $ git checkout -t origin/develop
+    $ git checkout -t origin/master
     $ git checkout -b YOUR_BRANCH
     # Make changes and commit them
     $ git remote add YOUR_USERNAME git@github.com:YOUR_USERNAME/laravel-breadcrumbs
