@@ -45,9 +45,9 @@ The ``$data`` array's entries will be merged into the breadcrumb as properties, 
 
 .. code-block:: html+php
 
-    <li><a href="{{{ $breadcrumb->url }}}">
-        <img src="/images/icons/{{{ $breadcrumb->icon }}}">
-        {{{ $breadcrumb->title }}}
+    <li><a href="{{ $breadcrumb->url }}">
+        <img src="/images/icons/{{ $breadcrumb->icon }}">
+        {{ $breadcrumb->title }}
     </a></li>
 
 Do not use the following keys in your data array, as they will be overwritten: ``title``, ``url``, ``first``, ``last``.
