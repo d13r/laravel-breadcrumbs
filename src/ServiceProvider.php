@@ -67,8 +67,18 @@ class ServiceProvider extends BaseServiceProvider {
 	// This method can be overridden in a child class
 	public function registerBreadcrumbs()
 	{
+        // Load the app breadcrumbs
+        if (file_exists($file = app()['config']['breadcrumbs.file']))
+        {
+            require $file;
+        }
+		// Load the app breadcrumbs if they're in routes/breadcrumbs.php (Laravel 5.3 structure)
+		else if (file_exists($file = base_path('routes/breadcrumbs.php')))
+		{
+			require $file;
+		}
 		// Load the app breadcrumbs if they're in app/Http/breadcrumbs.php
-		if (file_exists($file = $this->app['path'].'/Http/breadcrumbs.php'))
+		else if (file_exists($file = $this->app['path'].'/Http/breadcrumbs.php'))
 		{
 			require $file;
 		}
