@@ -1,11 +1,33 @@
 <?php namespace DaveJamesMiller\Breadcrumbs;
 
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Container\Container as ContainerContract;
+use Illuminate\Support\Str;
+use UnexpectedValueException;
+
 class Generator {
 
 	protected $breadcrumbs = [];
 	protected $callbacks   = [];
 
-	public function generate(array $callbacks, $name, $params)
+    /**
+     * The IoC container instance.
+     *
+     * @var \Illuminate\Contracts\Container\Container
+     */
+    protected $container;
+
+    /**
+     * Generator constructor.
+     *
+     * @param  \Illuminate\Contracts\Container\Container|null  $container
+     */
+    public function __construct(ContainerContract $container = null)
+    {
+        $this->container = $container ?: new Container;
+    }
+
+    public function generate(array $callbacks, $name, $params)
 	{
 		$this->breadcrumbs = [];
 		$this->callbacks   = $callbacks;
@@ -21,7 +43,10 @@ class Generator {
 
 		array_unshift($params, $this);
 
-		call_user_func_array($this->callbacks[$name], $params);
+        call_user_func_array(
+            $this->createClassCallable($this->callbacks[$name], $this->container),
+            $params
+        );
 	}
 
 	public function parent($name)
@@ -59,5 +84,45 @@ class Generator {
 
 		return $breadcrumbs;
 	}
+
+    /**
+     * @param mixed $callback
+     * @param ContainerContract $container
+     *
+     * @return array
+     */
+    protected function createClassCallable($callback, $container)
+    {
+        if(is_callable($callback)) {
+            return $callback;
+        }
+
+        if( ! is_string($callback)) {
+            throw new UnexpectedValueException(sprintf(
+                'Invalid breadcrumbs callback: [%s]', $callback
+            ));
+        }
+
+        if( ! Str::contains($callback, '@')) {
+            $callback .= '@__invoke';
+        }
+
+        list($class, $method) = $this->parseClassCallable($callback);
+
+        if( ! method_exists($class, $method)) {
+            throw new UnexpectedValueException(sprintf(
+                'Invalid breadcrumbs callback: [%s]', $callback
+            ));
+        }
+
+        return [$container->make($class), $method];
+    }
+
+    protected function parseClassCallable($callback)
+    {
+        $segments = explode('@', $callback);
+
+        return [$segments[0], count($segments) == 2 ? $segments[1] : null];
+    }
 
 }
