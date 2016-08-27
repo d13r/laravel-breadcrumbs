@@ -25,7 +25,7 @@ class GeneratorTest extends TestCase {
 	public function testClassCallbacks()
 	{
         $breadcrumbs = $this->generator->generate([
-			'sample' => ExampleAction::class.'@sample',
+			'sample' => 'ExampleAction@sample',
 		], 'sample', []);
 
         $this->assertCount(1, $breadcrumbs);
@@ -34,7 +34,7 @@ class GeneratorTest extends TestCase {
 	public function testClassInvokeCallbacks()
 	{
         $breadcrumbs = $this->generator->generate([
-			'sample' => ExampleAction::class,
+			'sample' => 'ExampleAction',
 		], 'sample', []);
 
         $this->assertCount(2, $breadcrumbs);
@@ -46,7 +46,22 @@ class GeneratorTest extends TestCase {
 
 	    try {
             $this->generator->generate([
-                'sample' => ExampleAction::class.'@fail',
+                'sample' => 'ExampleAction@fail',
+            ], 'sample', []);
+        } catch (Exception $e) {
+            $isError = true;
+        }
+
+        $this->assertTrue($isError);
+	}
+
+	public function testClassCallbacks_wrongParamenter()
+	{
+	    $isError = false;
+
+	    try {
+            $this->generator->generate([
+                'sample' => 1234,
             ], 'sample', []);
         } catch (Exception $e) {
             $isError = true;
