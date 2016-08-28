@@ -8,7 +8,6 @@ php:
   - hhvm
 
 install:
-  - composer self-update # https://github.com/phpspec/prophecy/issues/149
   - travis_retry composer install --no-interaction --prefer-source
 
 script:
