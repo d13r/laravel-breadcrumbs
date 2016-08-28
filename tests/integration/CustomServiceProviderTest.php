@@ -2,10 +2,10 @@
 
 class CustomServiceProviderTest extends TestCase {
 
-	protected function getPackageProviders()
+	protected function getPackageProviders($app)
 	{
 		return [
-			'CustomServiceProvider',
+			CustomServiceProvider::class,
 		];
 	}
 

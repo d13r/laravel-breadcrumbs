@@ -2,17 +2,17 @@
 
 abstract class TestCase extends Orchestra\Testbench\TestCase {
 
-	protected function getPackageProviders()
+	protected function getPackageProviders($app)
 	{
 		return [
-			'DaveJamesMiller\Breadcrumbs\ServiceProvider',
+			DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
 		];
 	}
 
-	protected function getPackageAliases()
+	protected function getPackageAliases($app)
 	{
 		return [
-			'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade'
+			'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class
 		];
 	}
 

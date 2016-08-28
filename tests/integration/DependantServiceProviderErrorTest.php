@@ -2,12 +2,12 @@
 
 class DependantServiceProviderErrorTest extends TestCase {
 
-	protected function getPackageProviders()
+	protected function getPackageProviders($app)
 	{
 		return [
 			// These are in the wrong order
-			'DependantServiceProviderError',
-			'DaveJamesMiller\Breadcrumbs\ServiceProvider',
+			DependantServiceProviderError::class,
+			DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
 		];
 	}
 
