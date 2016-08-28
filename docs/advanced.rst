@@ -57,7 +57,23 @@ Do not use the following keys in your data array, as they will be overwritten: `
  Defining breadcrumbs in a different file
 ================================================================================
 
-If you don't want to use ``app/Http/breadcrumbs.php``, you can define them in ``app/Http/routes.php`` or any other file as long as it's loaded by Laravel.
+If you don't want to use ``routes/breadcrumbs.php`` (or ``app/Http/breadcrumbs.php`` in Laravel 5.2 and below), you can create a custom service provider to use instead of ``DaveJamesMiller\Breadcrumbs\ServiceProvider`` and override the ``registerBreadcrumbs()`` method:
+
+.. code-block:: php
+
+    <?php
+
+    namespace App\Providers;
+
+    use DaveJamesMiller\Breadcrumbs\ServiceProvider;
+
+    class BreadcrumbsServiceProvider extends ServiceProvider
+    {
+        public function registerBreadcrumbs()
+        {
+            require base_path('path/to/breadcrumbs.php');
+        }
+    }
 
 If you are creating your own package, simply load them from your service provider's ``boot()`` method:
 

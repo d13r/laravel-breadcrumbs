@@ -11,12 +11,12 @@ Laravel Breadcrumbs:
 Laravel: 
 PHP: 
 
-**Copy of `app/Http/breadcrumbs.php`**
+**Copy of `routes/breadcrumbs.php` (or `app/Http/breadcrumbs.php`)**
 ```php
 
 ```
 
-**Copy of `app/Http/routes.php`**
+**Copy of `routes/web.php` (or `app/Http/routes.php`)**
 ```php
 
 ```

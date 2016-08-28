@@ -54,7 +54,7 @@ All support requests / bug reports should be submitted using `GitHub issues <htt
 - PHP version
 - Copies of the following files (you can use `Gist <https://gist.github.com/>`_ if they're very long):
 
-  - ``app/Http/breadcrumbs.php``
+  - ``routes/breadcrumbs.php`` or ``app/Http/breadcrumbs.php``
   - ``config/breadcrumbs.php`` (if used)
   - The view and/or layout files
   - The custom breadcrumbs template (if applicable)

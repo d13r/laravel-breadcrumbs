@@ -18,7 +18,7 @@ In normal usage you must call ``Breadcrumbs::render($name, $params...)`` to rend
  Name your routes
 ----------------------------------------
 
-Make sure each of your routes has a name (``'as'`` parameter). For example (``app/Http/routes.php``):
+Make sure each of your routes has a name (``'as'`` parameter). For example (``routes/web.php``):
 
 .. code-block:: php
 
@@ -28,14 +28,14 @@ Make sure each of your routes has a name (``'as'`` parameter). For example (``ap
     // Home > [Page]
     Route::get('/page/{id}', ['as' => 'page', 'uses' => 'PageController@show']);
 
-For more details see `Named Routes <http://laravel.com/docs/routing#named-routes>`_ in the Laravel documentation.
+For more details see `Named Routes <https://www.laravel.com/docs/5.3/routing#named-routes>`_ in the Laravel documentation.
 
 
 ----------------------------------------
  Name your breadcrumbs to match
 ----------------------------------------
 
-For each route, create a breadcrumb with the same name. For example (``app/Http/routes.php``):
+For each route, create a breadcrumb with the same name. For example (``routes/breadcrumbs.php``):
 
 .. code-block:: php
 
@@ -80,14 +80,15 @@ Laravel Breadcrumbs uses the same model binding as the controller. For example:
 
 .. code-block:: php
 
-    // app/Http/routes.php
+    // routes/web.php
     Route::model('page', 'Page');
     Route::get('/page/{page}', ['uses' => 'PageController@show', 'as' => 'page']);
 
 .. code-block:: php
 
     // app/Http/Controllers/PageController.php
-    class PageController extends Controller {
+    class PageController extends Controller
+    {
         public function show($page)
         {
             return view('page/show', ['page' => $page]);
@@ -96,7 +97,7 @@ Laravel Breadcrumbs uses the same model binding as the controller. For example:
 
 .. code-block:: php
 
-    // app/Http/breadcrumbs.php
+    // routes/breadcrumbs.php
     Breadcrumbs::register('page', function($breadcrumbs, $page)
     {
         $breadcrumbs->parent('home');
@@ -105,7 +106,7 @@ Laravel Breadcrumbs uses the same model binding as the controller. For example:
 
 This makes your code less verbose and more efficient by only loading the page from the database once.
 
-For more details see `Route Model Binding <http://laravel.com/docs/routing#route-model-binding>`_ in the Laravel documentation.
+For more details see `Route Model Binding <https://www.laravel.com/docs/5.3/routing#route-model-binding>`_ in the Laravel documentation.
 
 
 ================================================================================
@@ -116,7 +117,7 @@ Laravel automatically creates route names for resourceful controllers, e.g. ``ph
 
 .. code-block:: php
 
-    // app/Http/routes.php
+    // routes/web.php
     Route::resource('photo', 'PhotoController');
 
 .. code-block:: bash
@@ -137,7 +138,7 @@ Laravel automatically creates route names for resourceful controllers, e.g. ``ph
 
 .. code-block:: php
 
-    // app/Http/breadcrumbs.php
+    // routes/breadcrumbs.php
 
     // Photos
     Breadcrumbs::register('photo.index', function($breadcrumbs)
@@ -167,7 +168,7 @@ Laravel automatically creates route names for resourceful controllers, e.g. ``ph
         $breadcrumbs->push('Edit Photo', route('photo.edit', $photo->id));
     });
 
-For more details see `RESTful Resource Controllers <http://laravel.com/docs/controllers#restful-resource-controllers>`_ in the Laravel documentation.
+For more details see `Resource Controllers <https://www.laravel.com/docs/5.3/controllers#resource-controllers>`_ in the Laravel documentation.
 
 
 ================================================================================
@@ -178,7 +179,7 @@ To use implicit controllers, you must specify names for each route. For example:
 
 .. code-block:: php
 
-    // app/Http/routes.php
+    // routes/web.php
     Route::controller('auth', 'Auth\AuthController', [
         'getRegister' => 'auth.register',
         'getLogin'    => 'auth.login',
@@ -186,4 +187,4 @@ To use implicit controllers, you must specify names for each route. For example:
 
 (You don't need to provide route names for actions that redirect and never display a view - e.g. most POST views.)
 
-For more details see `Implicit Controllers <http://laravel.com/docs/controllers#implicit-controllers>`_ in the Laravel documentation.
+For more details see `Implicit Controllers <https://www.laravel.com/docs/5.1/controllers#implicit-controllers>`_ in the Laravel documentation.

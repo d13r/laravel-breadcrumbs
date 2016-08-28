@@ -57,7 +57,7 @@ And add the facade to ``aliases``:
  2. Define your breadcrumbs
 ================================================================================
 
-Create a file called ``app/Http/breadcrumbs.php`` that looks like this:
+Create a file called ``routes/breadcrumbs.php`` that looks like this:
 
 .. code-block:: php
 

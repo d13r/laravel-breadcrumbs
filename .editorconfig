@@ -10,6 +10,9 @@ indent_style = tab
 insert_final_newline = true
 trim_trailing_whitespace = true
 
+[ISSUE_TEMPLATE.md]
+trim_trailing_whitespace = false
+
 [*.yml]
 indent_size = 2
 indent_style = space

@@ -21,6 +21,24 @@ Laravel Breadcrumbs uses `Semantic Versioning <http://semver.org/>`_.
 
 
 ================================================================================
+ v3.0.1_ :date:`(28 Aug 2016)`
+================================================================================
+
+
+- Laravel 5.3 support
+
+.. _v3.0.1: https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.0.1
+
+
+----------------------------------------
+ Upgrading from Laravel 5.2 to 5.3
+----------------------------------------
+
+- Upgrade Laravel Breadcrumbs to 3.0.1 (or above)
+- Move ``app/Http/breadcrumbs.php`` to ``routes/breadcrumbs.php`` (optional but recommended)
+
+
+================================================================================
  v3.0.0_ :date:`(8 Feb 2015)`
 ================================================================================
 
