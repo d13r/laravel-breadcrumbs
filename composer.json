@@ -20,7 +20,7 @@
 	},
 	"require-dev": {
 		"mockery/mockery": "0.9.*",
-		"orchestra/testbench": "3.3.*",
+		"orchestra/testbench": "3.2.*|3.3.*",
 		"phpunit/phpunit": "4.*",
 		"satooshi/php-coveralls": "0.6.*"
 	},
