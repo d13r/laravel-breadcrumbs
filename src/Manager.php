@@ -15,7 +15,18 @@ class Manager {
 		$this->generator    = $generator;
 		$this->currentRoute = $currentRoute;
 		$this->view         = $view;
-	}
+    }
+
+    public function registerFromRoutes(RouteCollection $routes) {
+        foreach ($routes as $route) {
+            $name = array_get($route, 'name');
+            $breadcrumbs = array_get($route, 'breadcrumb');
+
+            if($name && $breadcrumbs) {
+                $this->register($name, $breadcrumbs);
+            }
+        }
+    }
 
 	public function register($name, $callback)
 	{

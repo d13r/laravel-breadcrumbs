@@ -18,13 +18,22 @@ class Generator {
     protected $container;
 
     /**
+     * Namespace
+     *
+     * @var String
+     */
+    protected $namespace;
+
+    /**
      * Generator constructor.
      *
-     * @param  \Illuminate\Contracts\Container\Container|null  $container
+     * @param  \Illuminate\Contracts\Container\Container|null $container
+     * @param String $namespace
      */
-    public function __construct(ContainerContract $container = null)
+    public function __construct(ContainerContract $container = null, $namespace)
     {
         $this->container = $container ?: new Container;
+        $this->namespace = $namespace;
     }
 
     public function generate(array $callbacks, $name, $params)
@@ -41,12 +50,9 @@ class Generator {
 		if (!isset($this->callbacks[$name]))
 			throw new Exception("Breadcrumb not found with name \"{$name}\"");
 
-		array_unshift($params, $this);
+        list($function, $param_arr) = $this->createClassCallable($this->callbacks[$name], $this->container, $params);
 
-        call_user_func_array(
-            $this->createClassCallable($this->callbacks[$name], $this->container),
-            $params
-        );
+        call_user_func_array($function, $param_arr);
 	}
 
 	public function parent($name)
@@ -88,13 +94,16 @@ class Generator {
     /**
      * @param mixed $callback
      * @param ContainerContract $container
+     * @param array $param_arr
      *
      * @return array
      */
-    protected function createClassCallable($callback, $container)
+    protected function createClassCallable($callback, $container, $param_arr)
     {
+        array_unshift($param_arr, $this);
+
         if(is_callable($callback)) {
-            return $callback;
+            return [$callback, $param_arr];
         }
 
         if( ! is_string($callback)) {
@@ -115,14 +124,27 @@ class Generator {
             ));
         }
 
-        return [$container->make($class), $method];
+        $parameters = [];
+
+        if(is_subclass_of($class, 'DaveJamesMiller\Breadcrumbs\Breadcrumbs')) {
+            array_shift($param_arr);
+
+            $parameters = [$this];
+        }
+
+        return [[$container->make($class, $parameters), $method], $param_arr];
     }
 
     protected function parseClassCallable($callback)
     {
         $segments = explode('@', $callback);
+        $class = $segments[0];
 
-        return [$segments[0], count($segments) == 2 ? $segments[1] : null];
+        if (!empty($this->namespace) && !starts_with($class, '\\')) {
+            $class = str_finish($this->namespace, '\\') . $class;
+        }
+
+        return [$class, count($segments) == 2 ? $segments[1] : null];
     }
 
 }

@@ -9,7 +9,7 @@ class GeneratorTest extends TestCase {
 	{
 		parent::setUp();
 
-		$this->generator = new Generator;
+		$this->generator = new Generator(null, null);
 	}
 
 	public function testCallbacks()

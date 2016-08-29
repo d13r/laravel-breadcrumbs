@@ -1,5 +1,6 @@
 <?php namespace DaveJamesMiller\Breadcrumbs;
 
+use Illuminate\Container\Container;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider {
@@ -31,6 +32,10 @@ class ServiceProvider extends BaseServiceProvider {
 	 */
 	public function register()
 	{
+	    $this->app->bind('DaveJamesMiller\Breadcrumbs\Generator', function ($app) {
+	        return new Generator(new Container(), $app['config']['breadcrumbs.namespace']);
+        });
+
 		$this->app['breadcrumbs'] = $this->app->share(function($app)
 		{
 			$breadcrumbs = $this->app->make('DaveJamesMiller\Breadcrumbs\Manager');
@@ -62,6 +67,7 @@ class ServiceProvider extends BaseServiceProvider {
 		]);
 
 		$this->registerBreadcrumbs();
+		$this->registerRoutesBreadcrumbs();
 	}
 
 	// This method can be overridden in a child class
@@ -73,5 +79,12 @@ class ServiceProvider extends BaseServiceProvider {
 			require $file;
 		}
 	}
+
+    private function registerRoutesBreadcrumbs()
+    {
+        $routes = new RouteCollection($this->app['router']->getRoutes());
+
+        $this->app['breadcrumbs']->registerFromRoutes($routes);
+    }
 
 }
