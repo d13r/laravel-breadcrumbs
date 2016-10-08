@@ -1,7 +1,7 @@
 ################################################################################
- Support & Contribution Guidelines
+ THIS PACKAGE IS NO LONGER MAINTAINED
 ################################################################################
 
-.. This file is for GitHub (https://github.com/blog/1184-contributing-guidelines)
+Your issue will not be answered / Your PR will not be merged.
 
-Before submitting a support request, bug report, feature request or pull request, please take a moment to read the instructions in the `README <README.rst#documentation>`_ file. Thank you.
+Please see the `README <README.rst>`_ for details.
