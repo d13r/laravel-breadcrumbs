@@ -4,12 +4,12 @@
 	"keywords": [
 		"laravel"
 	],
-	"homepage": "http://laravel-breadcrumbs.davejamesmiller.com",
+	"homepage": "https://laravel-breadcrumbs.readthedocs.io/",
 	"authors": [
 		{
 			"name": "Dave James Miller",
 			"email": "dave@davejamesmiller.com",
-			"homepage": "http://davejamesmiller.com/"
+			"homepage": "https://davejamesmiller.com/"
 		}
 	],
 	"license": "MIT License",
