@@ -22,7 +22,7 @@ A simple Laravel-style way to create breadcrumbs in `Laravel 5 <http://laravel.c
 
 I originally built Laravel Breadcrumbs in May 2013 when I was just learning Laravel (Laravel 4 was still in beta at the time). I decided to release it as a package mostly just to learn how packages worked in more detail.
 
-Over time it became reasonably popular (381k installs, 757 stars, Page 1 of `Packalyst Most Popular <http://packalyst.com/packages>`_), and people started opening issues requesting support and additional features. I've always tried to be helpful and provide support, and for the last 18 months I have been planning to dedicate some time to merging all the open pull requests, implementing the feature requests and updating/rewriting the documentatio... But finally I realised I no longer have the motivation needed for it.
+Over time it became reasonably popular (381k installs, 757 stars, Page 1 of `Packalyst Most Popular <http://packalyst.com/packages>`_), and people started opening issues requesting support and additional features. I've always tried to be helpful and provide support, and for the last 18 months I have been planning to dedicate some time to merging all the open pull requests, implementing the feature requests and updating/rewriting the documentation... But finally I realised I no longer have the motivation needed for it.
 
 So rather than quietly abandoning it and leaving users wondering what happened, I've decided to officially announce that the package is no longer maintained.
 
@@ -61,7 +61,7 @@ Thanks to the people who opened these PRs. I'm sorry I won't be able to merge th
 - Microdata in templates - `Option 1 <https://github.com/davejamesmiller/laravel-breadcrumbs/pull/83/files>`_, `Option 2 <https://github.com/davejamesmiller/laravel-breadcrumbs/pull/124>`_
 - `Bootstrap 4 template <https://github.com/davejamesmiller/laravel-breadcrumbs/issues/128>`_
 - `Support for class-based breadcrumbs (alternative to closures) <https://github.com/davejamesmiller/laravel-breadcrumbs/pull/129>`_
-- `Make breadcrumbs location configuration <https://github.com/davejamesmiller/laravel-breadcrumbs/pull/130>`_
+- `Make breadcrumbs location configurable <https://github.com/davejamesmiller/laravel-breadcrumbs/pull/130>`_
 - `Materialize and Foundation 6 templates <https://github.com/davejamesmiller/laravel-breadcrumbs/pull/131>`_
 
 **Open Requests**
