@@ -34,7 +34,7 @@ Laravel Breadcrumbs is released under the `MIT License <https://laravel-breadcru
 
 The `documentation <https://laravel-breadcrumbs.readthedocs.io/en/latest/contributing.html>`_ includes some instructions that may help if you haven't done that before.
 
-I'm not planning to hand over control of this repo to anyone else (as it is in my name), but if anyone decides to create a fork that they are willing to support and maintain, please `email me <mailto:dave@davejamesmiller.com>`_ and I'll add a link to this page.
+I'm not planning to hand over control of this repo to anyone else (as it is in my name), but if anyone decides to create a fork that they are willing to support and maintain, please `email me <mailto:dave@davejamesmiller.com>`_ and I'll add a link to this page. You can also use [issue #137](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/137) to discuss it among yourselves.
 
 If you do commit to supporting your fork, you should be aware that writing code to solve your own problems is the easy bit - the tricky bits include:
 
