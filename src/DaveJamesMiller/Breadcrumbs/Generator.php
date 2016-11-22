@@ -57,6 +57,17 @@ class Generator
         ));
     }
 
+    public function unshift($title, $url = null, array $data = array())
+    {
+        array_unshift($this->breadcrumbs, (object) array_merge($data, array(
+          'title' => $title,
+          'url' => $url,
+          // These will be altered later where necessary:
+          'first' => false,
+          'last' => false,
+        )));
+    }
+
     public function toArray()
     {
         $breadcrumbs = $this->breadcrumbs;
