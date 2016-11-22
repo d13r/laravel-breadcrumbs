@@ -9,7 +9,7 @@ class GeneratorTest extends TestCase {
 	{
 		parent::setUp();
 
-		$this->generator = new Generator;
+		$this->generator = new Generator(null, null);
 	}
 
 	public function testCallbacks()
@@ -20,6 +20,54 @@ class GeneratorTest extends TestCase {
 				$this->assertSame($this->generator, $breadcrumbs);
 			},
 		], 'sample', []);
+	}
+
+	public function testClassCallbacks()
+	{
+        $breadcrumbs = $this->generator->generate([
+			'sample' => 'ExampleAction@sample',
+		], 'sample', []);
+
+        $this->assertCount(1, $breadcrumbs);
+	}
+
+	public function testClassInvokeCallbacks()
+	{
+        $breadcrumbs = $this->generator->generate([
+			'sample' => 'ExampleAction',
+		], 'sample', []);
+
+        $this->assertCount(2, $breadcrumbs);
+	}
+
+	public function testClassCallbacks_error()
+	{
+	    $isError = false;
+
+	    try {
+            $this->generator->generate([
+                'sample' => 'ExampleAction@fail',
+            ], 'sample', []);
+        } catch (Exception $e) {
+            $isError = true;
+        }
+
+        $this->assertTrue($isError);
+	}
+
+	public function testClassCallbacks_wrongParamenter()
+	{
+	    $isError = false;
+
+	    try {
+            $this->generator->generate([
+                'sample' => 1234,
+            ], 'sample', []);
+        } catch (Exception $e) {
+            $isError = true;
+        }
+
+        $this->assertTrue($isError);
 	}
 
 	public function testCallbackParameters()
@@ -186,4 +234,18 @@ class GeneratorTest extends TestCase {
 		$this->assertTrue($breadcrumbs[2]->last, '$breadcrumbs[2]->last');
 	}
 
+}
+
+class ExampleAction {
+
+    public function sample(Generator $generator)
+    {
+        $generator->push('Level 1');
+    }
+
+    public function __invoke(Generator $generator)
+    {
+        $generator->push('Level 1');
+        $generator->push('Level 2');
+    }
 }
