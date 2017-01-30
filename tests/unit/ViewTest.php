@@ -48,4 +48,10 @@ class ViewTest extends TestCase {
 		$this->assertXmlStringEqualsXmlFile(__DIR__ . '/../fixtures/bootstrap3.html', $html);
 	}
 
+	public function testBootstrap3Microdata()
+	{
+		$html = $this->view->render('breadcrumbs::bootstrap3-microdata', $this->breadcrumbs);
+		$this->assertXmlStringEqualsXmlFile(__DIR__ . '/../fixtures/bootstrap3-microdata.html', $html);
+	}
+
 }
