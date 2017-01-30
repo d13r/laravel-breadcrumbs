@@ -5,6 +5,7 @@ class Manager {
 	protected $currentRoute;
 	protected $generator;
 	protected $view;
+	protected $getter = null;
 
 	protected $callbacks = [];
 	protected $viewName;
@@ -35,6 +36,19 @@ class Manager {
 		}
 
 		return isset($this->callbacks[$name]);
+	}
+
+
+	public function get($name = null)
+	{
+		if ($this->getter == null)
+			$this->getter = new Getter();
+		if (is_null($name))
+			list($name, $params) = $this->currentRoute->get();
+		else
+			$params = array_slice(func_get_args(), 1);
+
+		return $this->getter->get($this->callbacks[$name], $params);
 	}
 
 	public function generate($name = null)
