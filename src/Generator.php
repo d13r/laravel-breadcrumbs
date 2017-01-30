@@ -1,5 +1,7 @@
 <?php namespace DaveJamesMiller\Breadcrumbs;
 
+use Illuminate\Support\HtmlString;
+
 class Generator {
 
 	protected $breadcrumbs = [];
@@ -45,6 +47,11 @@ class Generator {
 			'first' => false,
 			'last' => false,
 		]);
+	}
+	
+	public function pushHtml($title, $url = null, array $data = [])
+	{
+		return $this->push(new HtmlString($title), $url, $data);
 	}
 
 	public function toArray()
