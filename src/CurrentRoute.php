@@ -21,8 +21,14 @@ class CurrentRoute {
 
 		if (is_null($route))
 			return ['', []];
-
-		$name = $route->getName();
+			
+		$actions = $route->getAction();
+		
+		if(isset($actions['breadcrumbs'])) {
+			$name = $actions['breadcrumbs'];
+		} else {
+			$name = $route->getName();
+		}
 
 		if (is_null($name)) {
 			$uri = head($route->methods()) . ' /' . $route->uri();
