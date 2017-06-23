@@ -11,12 +11,12 @@ A simple Laravel-style way to create breadcrumbs in [Laravel](https://laravel.co
  Compatibility Chart
 --------------------------------------------------------------------------------
 
-| Laravel   | Laravel Breadcrumbs                                                    |
-|-----------|------------------------------------------------------------------------|
-| 5.4       | 3.0.2                                                                  |
-| 5.3       | 3.0.1                                                                  |
-| 5.0 – 5.2 | 3.0.0                                                                  |
-| 4.x       | [2.3](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/2.x) |
+| Laravel Breadcrumbs                                                    | Laravel   | PHP  |
+|------------------------------------------------------------------------|-----------|------|
+| 3.0.2+                                                                 | 5.0 – 5.4 | 5.4+ |
+| 3.0.1                                                                  | 5.0 – 5.3 | 5.4+ |
+| 3.0.0                                                                  | 5.0 – 5.2 | 5.4+ |
+| [2.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/2.x) | 4.0 – 4.2 | 5.3+ |
 
 
  Getting Started
@@ -849,7 +849,7 @@ Then open `test-coverage/index.html` to view the results. (However, be aware of 
 - Move documentation from GitHub (Markdown) to [Read The Docs](https://readthedocs.org/) (reStructuredText/[Sphinx](http://sphinx-doc.org/))
 - Greatly improve unit & integration tests (largely thanks to [Testbench](https://github.com/orchestral/testbench))
 - Fix issue that prevented non-deferred service providers referencing Breadcrumbs by making Breadcrumbs non-deferred also
-  ([#39](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/39 "Illegal offset type in isset or empty"))
+  ([#39](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/39))
 - Rename `generateArrayIfExists()` to `generateIfExistsArray()`
 - Rename `renderArrayIfExists()` to `renderIfExistsArray()`
 - Remove `$breadcrumbs->get()` and `$breadcrumbs->set()` methods from Generator class (they were never used nor documented)
