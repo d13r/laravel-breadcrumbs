@@ -1,7 +1,3 @@
-.. warning::
-
-    Laravel Breadcrumbs is no longer maintained. Please see the `README <https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/README.rst>`_ for more details.
-
 ################################################################################
  Advanced Usage
 ################################################################################
