@@ -10,24 +10,7 @@
    :alt: Total Downloads
    :target: https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs
 
-.. |references| image:: https://www.versioneye.com/php/davejamesmiller:laravel-breadcrumbs/reference_badge.svg?style=flat
-   :alt: Reference Status
-   :target: https://www.versioneye.com/php/davejamesmiller:laravel-breadcrumbs/references
-
-.. |build| image:: https://img.shields.io/travis/davejamesmiller/laravel-breadcrumbs/master.svg?style=flat
-   :alt: Build Status
-   :target: https://travis-ci.org/davejamesmiller/laravel-breadcrumbs
-
-.. |coverage| image:: https://img.shields.io/coveralls/davejamesmiller/laravel-breadcrumbs.png
-   :alt: Coverage Status
-   :target: https://coveralls.io/r/davejamesmiller/laravel-breadcrumbs
-
-.. |dependencies| image:: https://www.versioneye.com/php/davejamesmiller:laravel-breadcrumbs/badge.svg
-   :alt: Dependency Status
-   :target: https://www.versioneye.com/php/davejamesmiller:laravel-breadcrumbs
-
-|stable| |downloads| |references|
-|build| |coverage| |dependencies|
+|stable| |downloads|
 
 A simple Laravel-style way to create breadcrumbs in `Laravel 5 <http://laravel.com/>`_.
 
