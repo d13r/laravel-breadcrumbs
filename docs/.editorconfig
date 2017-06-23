@@ -1,6 +1,0 @@
-# 4 space indents in ReST because that's what we want for most code examples
-# and if we use tabs it defaults to 8 (and isn't easy to change)
-# http://stackoverflow.com/questions/1686837
-[*]
-indent_size = 4
-indent_style = space
