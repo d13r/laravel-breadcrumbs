@@ -796,23 +796,23 @@ The following changes are optional because there are shims in place:
  Technical Support
 --------------------------------------------------------------------------------
 
-Sorry, no technical support is available – try [Stack Overflow](https://stackoverflow.com/search?q=laravel+breadcrumbs) if you can't get it working in your application.
+Sorry, **I don't offer free technical support** for my open source packages. If you can't get Laravel Breadcrumbs working in your application, I suggest you try posting a question on [Stack Overflow](https://stackoverflow.com/search?q=laravel+breadcrumbs). For paid support / consultancy please [email me](https://davejamesmiller.com/contact).
 
 
  Bug Reports
 --------------------------------------------------------------------------------
 
-**I don't guarantee to fix any bugs.** Don't be afraid to go into the Laravel Breadcrumbs code (`vendor/davejamesmiller/laravel-breadcrumbs/src/`) and use `var_dump()` (or `dd()` or `print_r()`) to see what's happening and fix your own problems!
+Please note this is free software so **I don't guarantee to fix any bugs** – I will investigate if/when I have the time and motivation to do so. Don't be afraid to go into the Laravel Breadcrumbs code (`vendor/davejamesmiller/laravel-breadcrumbs/src/`), use `var_dump()` to see what's happening and fix your own problems! For paid support / consultancy please [email me](https://davejamesmiller.com/contact).
 
 
  Contributing
 --------------------------------------------------------------------------------
 
-**Bug fixs:** Please add a failing unit test, fix it and open a [pull request](https://github.com/davejamesmiller/laravel-breadcrumbs/pulls).
+**Bug fixes:** Please fix it and open a [pull request](https://github.com/davejamesmiller/laravel-breadcrumbs/pulls). Bonus points if you add a unit test to make sure it doesn't happen again!
 
-**New features:** Please open an [issue](https://github.com/davejamesmiller/laravel-breadcrumbs/issues) to discuss the idea first. Only high value features with a clear use case and well-considered API will be accepted. Any new features must be documented and include unit tests.
+**New features:** Only high value features with a clear use case and well-considered API will be accepted. They must be documented and include unit tests. I suggest you open an [issue](https://github.com/davejamesmiller/laravel-breadcrumbs/issues) to discuss the idea first.
 
-**Documentation:** Please [edit this file](https://github.com/davejamesmiller/laravel-breadcrumbs/edit/master/README.md) and make a pull request.
+**Documentation:** If you think the documentation can be improved in any way, please do [edit this file](https://github.com/davejamesmiller/laravel-breadcrumbs/edit/master/README.md) and make a pull request.
 
 
 ### Developing inside a real application
@@ -839,6 +839,27 @@ git push -u YOUR_USERNAME YOUR_BRANCH
 Alternatively there is a [test app](https://github.com/davejamesmiller/laravel-breadcrumbs-test) that you can use.
 
 
+### Unit tests
+
+To run the unit tests, simply run:
+
+```bash
+cd /path/to/laravel-breadcrumbs
+composer update
+scripts/test.sh
+```
+
+#### Code coverage
+
+To check code coverage, you will also need [Xdebug](https://xdebug.org/) installed. Run:
+
+```bash
+scripts/test-coverage.sh
+```
+
+Then open `test-coverage/index.html` to view the results. Be aware of the [edge cases](https://phpunit.de/manual/current/en/code-coverage-analysis.html#code-coverage-analysis.edge-cases) in PHPUnit that can make it not-quite-accurate.
+
+
 ### Using your fork in a project
 
 To use your own fork in a project, update the `composer.json` in your main project as follows:
@@ -858,28 +879,6 @@ To use your own fork in a project, update the `composer.json` in your main proje
 ```
 
 Replace `YOUR_USERNAME` with your GitHub username and `YOUR_BRANCH` with the branch name (e.g. `develop`). This tells Composer to use your repository instead of the default one.
-
-
-### Unit tests
-
-To run the unit tests, simply run:
-
-```bash
-cd /path/to/laravel-breadcrumbs
-composer update
-scripts/test.sh
-```
-
-
-#### Code coverage
-
-To check code coverage, you will also need [Xdebug](https://xdebug.org/) installed. Run:
-
-```bash
-scripts/test-coverage.sh
-```
-
-Then open `test-coverage/index.html` to view the results. Be aware of the [edge cases](https://phpunit.de/manual/current/en/code-coverage-analysis.html#code-coverage-analysis.edge-cases) in PHPUnit that can make it not-quite-accurate.
 
 
  License
