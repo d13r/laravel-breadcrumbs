@@ -714,6 +714,12 @@ Breadcrumbs::register('name', function($breadcrumbs, $page) {
 *Laravel Breadcrumbs uses [Semantic Versioning](http://semver.org/).*
 
 
+### [v4.0.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.0.0) (TBC)
+
+- Laravel 5.5 support (dropped 5.4 and below)
+- Add [package auto-discovery](https://laravel-news.com/package-auto-discovery)
+
+
 ### [v3.0.3](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.0.3) (24 Jun 2017)
 
 - Fix exception when using `renderIfExists()` (and related methods) with an unnamed route
