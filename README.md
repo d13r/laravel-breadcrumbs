@@ -467,7 +467,7 @@ Laravel automatically creates route names for resourceful controllers, e.g. `pho
 Route::resource('photo', 'PhotoController');
 ```
 
-```bash
+```
 $ php artisan route:list
 +--------+----------+--------------------+---------------+-------------------------+------------+
 | Domain | Method   | URI                | Name          | Action                  | Middleware |
