@@ -1,10 +1,10 @@
 {
 	"name": "davejamesmiller/laravel-breadcrumbs",
-	"description": "A simple Laravel-style way to create breadcrumbs in Laravel.",
+	"description": "A simple Laravel-style way to create breadcrumbs.",
 	"keywords": [
 		"laravel"
 	],
-	"homepage": "https://laravel-breadcrumbs.readthedocs.io/",
+	"homepage": "https://github.com/davejamesmiller/laravel-breadcrumbs",
 	"authors": [
 		{
 			"name": "Dave James Miller",

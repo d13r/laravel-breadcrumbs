@@ -7,7 +7,7 @@
 [![Latest Unstable Version](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/v/unstable?format=flat-square)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
 [![License](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/license?format=flat-square)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
 
-A simple Laravel-style way to create breadcrumbs in [Laravel](https://laravel.com/).
+A simple [Laravel](https://laravel.com/)-style way to create breadcrumbs.
 
 
  Table of Contents
