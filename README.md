@@ -1,8 +1,8 @@
  Laravel Breadcrumbs
 ================================================================================
 
-[![Latest Stable Version](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/v/stable.png?format=flat-square)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
-[![Total Downloads](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/downloads.png?format=flat-square)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
+[![Latest Stable Version](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/v/stable?format=flat-square)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
+[![Total Downloads](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/downloads?format=flat-square)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
 [![Monthly Downloads](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/d/monthly?format=flat-square)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
 [![Latest Unstable Version](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/v/unstable?format=flat-square)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
 [![License](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/license?format=flat-square)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
