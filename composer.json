@@ -14,18 +14,30 @@
 	],
 	"license": "MIT License",
 	"require": {
-		"php": ">=5.4.0",
-		"illuminate/support": "5.*",
-		"illuminate/view": "5.*"
+		"php": ">=7.0.0",
+		"illuminate/support": ">=5.5",
+		"illuminate/view": ">=5.5"
 	},
 	"require-dev": {
 		"mockery/mockery": "0.9.*",
-		"orchestra/testbench": "3.2.*|3.3.*",
-		"phpunit/phpunit": "4.*"
+		"orchestra/testbench": "3.5.*",
+		"phpunit/phpunit": "6.*"
 	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
 			"DaveJamesMiller\\Breadcrumbs\\": "src/"
+		}
+	},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"DaveJamesMiller\\Breadcrumbs\\ServiceProvider"
+			],
+			"aliases": {
+				"Breadcrumbs": "DaveJamesMiller\\Breadcrumbs\\Facade"
+			}
 		}
 	}
 }

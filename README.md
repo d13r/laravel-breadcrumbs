@@ -33,7 +33,8 @@ A simple [Laravel](https://laravel.com/)-style way to create breadcrumbs.
 
 | Laravel Breadcrumbs                                                    | Laravel   | PHP  |
 |------------------------------------------------------------------------|-----------|------|
-| 3.0.2+                                                                 | 5.0 – 5.4 | 5.4+ |
+| 4.0.0                                                                  | 5.5       | 7.0+ |
+| 3.0.2 – 3.0.3                                                          | 5.0 – 5.4 | 5.4+ |
 | 3.0.1                                                                  | 5.0 – 5.3 | 5.4+ |
 | 3.0.0                                                                  | 5.0 – 5.2 | 5.4+ |
 | [2.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/2.x) | 4.0 – 4.2 | 5.3+ |
@@ -44,8 +45,6 @@ A simple [Laravel](https://laravel.com/)-style way to create breadcrumbs.
 
 ### 1. Install Laravel Breadcrumbs
 
-#### Install with Composer
-
 Run this at the command line:
 
 ```bash
@@ -54,26 +53,6 @@ composer require davejamesmiller/laravel-breadcrumbs
 
 This will both update `composer.json` and install the package into the `vendor/` directory.
 
-
-#### Add to `config/app.php`
-
-Add the service provider to `providers`:
-
-```php
-'providers' => [
-    // ...
-    DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
-],
-```
-
-And add the facade to `aliases`:
-
-```php
-'aliases' => [
-    // ...
-    'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
-],
-```
 
 ### 2. Define your breadcrumbs
 
