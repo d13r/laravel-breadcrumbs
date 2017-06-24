@@ -21,9 +21,10 @@ A simple Laravel-style way to create breadcrumbs in [Laravel](https://laravel.co
 - [Route-Bound Breadcrumbs](#route-bound-breadcrumbs)
 - [Advanced Usage](#advanced-usage)
 - [API Reference](#api-reference)
-- [Support Requests / Bug Reports](#support-requests--bug-reports)
-- [Contributing](#contributing)
 - [Changelog](#changelog)
+- [Technical Support](#technical-support)
+- [Bug Reports](#bug-reports)
+- [Contributing](#contributing)
 - [License](#license)
 
 
@@ -728,109 +729,6 @@ Breadcrumbs::register('name', function($breadcrumbs, $page) {
 | `$breadcrumb->custom_attribute_name` | mixed         | 2.3.0    |
 
 
- Support Requests / Bug Reports
---------------------------------------------------------------------------------
-
-All support requests / bug reports should be submitted using [GitHub issues](https://github.com/davejamesmiller/laravel-breadcrumbs/issues), and **must** include the following:
-
-- The complete error message, including file & line numbers
-- Steps to reproduce the problem
-- Laravel Breadcrumbs version
-- Laravel version
-- PHP version
-- Copies of the following files (you can use [Gist](https://gist.github.com/) if they're very long):
-
-  - `routes/breadcrumbs.php` or `app/Http/breadcrumbs.php`
-  - `config/breadcrumbs.php` (if used)
-  - The view and/or layout files
-  - The custom breadcrumbs template (if applicable)
-  - `config/app.php`
-  - Any other relevant files
-
-Before you do – please don't be afraid to go into the Laravel Breadcrumbs code (`vendor/davejamesmiller/laravel-breadcrumbs/src/`) and use `var_dump()` (or `dd()` or `print_r()`) to see what's happening and try to fix your own problems! A pull request or detailed bug report is much more likely to get attention than a vague error report. Also make sure you read the documentation carefully.
-
-
- Contributing
---------------------------------------------------------------------------------
-
-If you want to submit a **bug fix**, please make your changes in a new branch, then open a [pull request](https://github.com/davejamesmiller/laravel-breadcrumbs/pulls).
-
-If you want to submit a **new feature**, it's best to open an [issue](https://github.com/davejamesmiller/laravel-breadcrumbs/issues) to discuss the idea first – to make sure it will be accepted before spending too much time on it. (Of course you can go ahead and develop it first if you prefer!) Please be sure to include unit tests and update the documentation as well.
-
-If you have any suggestions for improving the **documentation** – especially if anything is unclear to you and could be explained better – please [edit it](https://github.com/davejamesmiller/laravel-breadcrumbs/edit/master/README.md) and make a pull request.
-
-
-### Developing inside a real application
-
-The easiest way to develop Laravel Breadcrumbs alongside a real Laravel application is to set it up as normal, but tell Composer to install from source with the `--prefer-source` flag.
-
-If you've already got it installed, delete it from the `vendor/` directory and re-install from source:
-
-```bash
-cd /path/to/repo
-rm -rf vendor/davejamesmiller/laravel-breadcrumbs
-composer install --prefer-source
-```
-
-Then:
-
-```bash
-cd vendor/davejamesmiller/laravel-breadcrumbs
-git checkout -t origin/master
-git checkout -b YOUR_BRANCH
-# Make changes and commit them
-git remote add YOUR_USERNAME git@github.com:YOUR_USERNAME/laravel-breadcrumbs
-git push -u YOUR_USERNAME YOUR_BRANCH
-```
-
-Alternatively there is a [test app](https://github.com/davejamesmiller/laravel-breadcrumbs-test) available.
-
-
-### Using your fork in a project
-
-If you have forked the package (e.g. to fix a bug or add a feature), you may want to use that version in your project until the changes are merged and released. To do that, simply update the `composer.json` in your main project as follows:
-
-```json
-{
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/YOUR_USERNAME/laravel-breadcrumbs.git"
-        }
-    ],
-    "require": {
-        "davejamesmiller/laravel-breadcrumbs": "dev-YOUR_BRANCH"
-    }
-}
-```
-
-Replace `YOUR_USERNAME` with your GitHub username and `YOUR_BRANCH` with the branch name (e.g. `develop`). This tells Composer to use your repository instead of the default one.
-
-
-### Unit tests
-
-To run the unit tests, simply run:
-
-```bash
-cd /path/to/laravel-breadcrumbs
-composer update
-./test.sh
-```
-
-(Note: The unit tests are not 100% complete yet, and the code will probably need some refactoring to make it easier to test.)
-
-
-#### Code coverage
-
-To check code coverage, you will also need [Xdebug](https://xdebug.org/) installed. Run:
-
-```bash
-./test-coverage.sh
-```
-
-Then open `test-coverage/index.html` to view the results. (However, be aware of the [edge cases](https://phpunit.de/manual/current/en/code-coverage-analysis.html#code-coverage-analysis.edge-cases) in PHPUnit that can make it not-quite-accurate.)
-
-
  Changelog
 --------------------------------------------------------------------------------
 
@@ -895,12 +793,101 @@ The following changes are optional because there are shims in place:
 [Changelog for 2.x and below](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/2.x/CHANGELOG.md)
 
 
+ Technical Support
+--------------------------------------------------------------------------------
+
+Sorry, no technical support is available – try [Stack Overflow](https://stackoverflow.com/search?q=laravel+breadcrumbs) if you can't get it working in your application.
+
+
+ Bug Reports
+--------------------------------------------------------------------------------
+
+**I don't guarantee to fix any bugs.** Don't be afraid to go into the Laravel Breadcrumbs code (`vendor/davejamesmiller/laravel-breadcrumbs/src/`) and use `var_dump()` (or `dd()` or `print_r()`) to see what's happening and fix your own problems!
+
+
+ Contributing
+--------------------------------------------------------------------------------
+
+**Bug fixs:** Please add a failing unit test, fix it and open a [pull request](https://github.com/davejamesmiller/laravel-breadcrumbs/pulls).
+
+**New features:** Please open an [issue](https://github.com/davejamesmiller/laravel-breadcrumbs/issues) to discuss the idea first. Only high value features with a clear use case and well-considered API will be accepted. Any new features must be documented and include unit tests.
+
+**Documentation:** Please [edit this file](https://github.com/davejamesmiller/laravel-breadcrumbs/edit/master/README.md) and make a pull request.
+
+
+### Developing inside a real application
+
+The easiest way to work on Laravel Breadcrumbs inside a real Laravel application is to tell Composer to install from source (Git) using the `--prefer-source` flag:
+
+```bash
+cd /path/to/repo
+rm -rf vendor/davejamesmiller/laravel-breadcrumbs
+composer install --prefer-source
+```
+
+Then:
+
+```bash
+cd vendor/davejamesmiller/laravel-breadcrumbs
+git checkout -t origin/master
+git checkout -b YOUR_BRANCH
+# Make changes and commit them
+git remote add YOUR_USERNAME git@github.com:YOUR_USERNAME/laravel-breadcrumbs
+git push -u YOUR_USERNAME YOUR_BRANCH
+```
+
+Alternatively there is a [test app](https://github.com/davejamesmiller/laravel-breadcrumbs-test) that you can use.
+
+
+### Using your fork in a project
+
+To use your own fork in a project, update the `composer.json` in your main project as follows:
+
+```json
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/YOUR_USERNAME/laravel-breadcrumbs.git"
+        }
+    ],
+    "require": {
+        "davejamesmiller/laravel-breadcrumbs": "dev-YOUR_BRANCH"
+    }
+}
+```
+
+Replace `YOUR_USERNAME` with your GitHub username and `YOUR_BRANCH` with the branch name (e.g. `develop`). This tells Composer to use your repository instead of the default one.
+
+
+### Unit tests
+
+To run the unit tests, simply run:
+
+```bash
+cd /path/to/laravel-breadcrumbs
+composer update
+scripts/test.sh
+```
+
+
+#### Code coverage
+
+To check code coverage, you will also need [Xdebug](https://xdebug.org/) installed. Run:
+
+```bash
+scripts/test-coverage.sh
+```
+
+Then open `test-coverage/index.html` to view the results. Be aware of the [edge cases](https://phpunit.de/manual/current/en/code-coverage-analysis.html#code-coverage-analysis.edge-cases) in PHPUnit that can make it not-quite-accurate.
+
+
  License
 --------------------------------------------------------------------------------
 
 *[MIT License](https://choosealicense.com/licenses/mit/)*
 
-**Copyright © 2013-2015 Dave James Miller**
+**Copyright © 2013-2017 Dave James Miller**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
