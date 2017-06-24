@@ -373,14 +373,14 @@ In normal usage you must call `Breadcrumbs::render($name, $params...)` to render
 
 #### Name your routes
 
-Make sure each of your routes has a name (`'as'` parameter). For example (`routes/web.php`):
+Make sure each of your routes has a name. For example (`routes/web.php`):
 
 ```php
 // Home
-Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+Route::get('/', 'HomeController@index')->name('home');
 
 // Home > [Page]
-Route::get('/page/{id}', ['as' => 'page', 'uses' => 'PageController@show']);
+Route::get('/page/{id}', 'PageController@show')->name('page');
 ```
 
 For more details see [Named Routes](https://laravel.com/docs/5.3/routing#named-routes) in the Laravel documentation.
