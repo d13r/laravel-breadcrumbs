@@ -1,63 +1,66 @@
-<?php namespace DaveJamesMiller\Breadcrumbs;
+<?php
 
-class Generator {
+namespace DaveJamesMiller\Breadcrumbs;
 
-	protected $breadcrumbs = [];
-	protected $callbacks   = [];
+class Generator
+{
+    protected $breadcrumbs = [];
+    protected $callbacks = [];
 
-	public function generate(array $callbacks, $name, $params)
-	{
-		$this->breadcrumbs = [];
-		$this->callbacks   = $callbacks;
+    public function generate(array $callbacks, $name, $params)
+    {
+        $this->breadcrumbs = [];
+        $this->callbacks   = $callbacks;
 
-		$this->call($name, $params);
-		return $this->toArray();
-	}
+        $this->call($name, $params);
 
-	protected function call($name, $params)
-	{
-		if (!isset($this->callbacks[$name]))
-			throw new Exception("Breadcrumb not found with name \"{$name}\"");
+        return $this->toArray();
+    }
 
-		array_unshift($params, $this);
+    protected function call($name, $params)
+    {
+        if (! isset($this->callbacks[ $name ])) {
+            throw new Exception("Breadcrumb not found with name \"{$name}\"");
+        }
 
-		call_user_func_array($this->callbacks[$name], $params);
-	}
+        array_unshift($params, $this);
 
-	public function parent($name)
-	{
-		$params = array_slice(func_get_args(), 1);
+        call_user_func_array($this->callbacks[ $name ], $params);
+    }
 
-		$this->call($name, $params);
-	}
+    public function parent($name)
+    {
+        $params = array_slice(func_get_args(), 1);
 
-	public function parentArray($name, $params = [])
-	{
-		$this->call($name, $params);
-	}
+        $this->call($name, $params);
+    }
 
-	public function push($title, $url = null, array $data = [])
-	{
-		$this->breadcrumbs[] = (object) array_merge($data, [
-			'title' => $title,
-			'url' => $url,
-			// These will be altered later where necessary:
-			'first' => false,
-			'last' => false,
-		]);
-	}
+    public function parentArray($name, $params = [])
+    {
+        $this->call($name, $params);
+    }
 
-	public function toArray()
-	{
-		$breadcrumbs = $this->breadcrumbs;
+    public function push($title, $url = null, array $data = [])
+    {
+        $this->breadcrumbs[] = (object) array_merge($data, [
+            'title' => $title,
+            'url'   => $url,
+            // These will be altered later where necessary:
+            'first' => false,
+            'last'  => false,
+        ]);
+    }
 
-		// Add first & last indicators
-		if ($breadcrumbs) {
-			$breadcrumbs[0]->first = true;
-			$breadcrumbs[count($breadcrumbs) - 1]->last = true;
-		}
+    public function toArray()
+    {
+        $breadcrumbs = $this->breadcrumbs;
 
-		return $breadcrumbs;
-	}
+        // Add first & last indicators
+        if ($breadcrumbs) {
+            $breadcrumbs[0]->first                        = true;
+            $breadcrumbs[ count($breadcrumbs) - 1 ]->last = true;
+        }
 
+        return $breadcrumbs;
+    }
 }

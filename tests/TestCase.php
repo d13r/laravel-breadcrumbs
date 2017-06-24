@@ -1,39 +1,42 @@
 <?php
 
-abstract class TestCase extends Orchestra\Testbench\TestCase {
+namespace Tests;
 
-	protected function getPackageProviders($app)
-	{
-		return [
-			DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
-		];
-	}
+use Mockery;
 
-	protected function getPackageAliases($app)
-	{
-		return [
-			'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class
-		];
-	}
+abstract class TestCase extends \Orchestra\Testbench\TestCase
+{
+    protected function getPackageProviders($app)
+    {
+        return [
+            \DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
+        ];
+    }
 
-	public function setUp()
-	{
-		parent::setUp();
+    protected function getPackageAliases($app)
+    {
+        return [
+            'Breadcrumbs' => \DaveJamesMiller\Breadcrumbs\Facade::class,
+        ];
+    }
 
-		$this->loadServiceProvider();
-	}
+    public function setUp()
+    {
+        parent::setUp();
 
-	protected function loadServiceProvider()
-	{
-		// Need to trigger register() to test the views
-		$this->app->make('breadcrumbs');
-	}
+        $this->loadServiceProvider();
+    }
 
-	public function tearDown()
-	{
-		$this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
+    protected function loadServiceProvider()
+    {
+        // Need to trigger register() to test the views
+        $this->app->make('breadcrumbs');
+    }
 
-		Mockery::close();
-	}
+    public function tearDown()
+    {
+        $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
 
+        Mockery::close();
+    }
 }

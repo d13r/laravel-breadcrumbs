@@ -1,4 +1,7 @@
-<?php namespace DaveJamesMiller\Breadcrumbs;
+<?php
 
-class Exception extends \Exception {
+namespace DaveJamesMiller\Breadcrumbs;
+
+class Exception extends \Exception
+{
 }

@@ -1,81 +1,90 @@
 <?php
 
+namespace Tests;
+
 use DaveJamesMiller\Breadcrumbs\CurrentRoute;
 use Mockery as m;
+use Route;
+use stdClass;
 
-class CurrentRouteTest extends TestCase {
+class CurrentRouteTest extends TestCase
+{
+    public function setUp()
+    {
+        parent::setUp();
 
-	public function setUp()
-	{
-		parent::setUp();
+        $this->currentRoute = app('DaveJamesMiller\Breadcrumbs\CurrentRoute');
+    }
 
-		$this->currentRoute = app('DaveJamesMiller\Breadcrumbs\CurrentRoute');
-	}
+    public function testNamedRoute()
+    {
+        Route::get('/sample', [
+            'as' => 'sampleroute',
+            function () {
+                $this->assertSame(['sampleroute', []], $this->currentRoute->get());
+            },
+        ]);
 
-	public function testNamedRoute()
-	{
-		Route::get('/sample', ['as' => 'sampleroute', function()
-		{
-			$this->assertSame(['sampleroute', []], $this->currentRoute->get());
-		}]);
+        $this->call('GET', '/sample');
+    }
 
-		$this->call('GET', '/sample');
-	}
+    public function testNamedRouteWithParameters()
+    {
+        $object = new stdClass;
 
-	public function testNamedRouteWithParameters()
-	{
-		$object = new stdClass;
+        Route::bind('object', function () use ($object) {
+            return $object;
+        });
 
-		Route::bind('object', function() use ($object) {
-			return $object;
-		});
+        Route::get('/sample/{text}/{object}', [
+            'as' => 'sampleroute',
+            function () use ($object) {
+                $this->assertSame(['sampleroute', ['blah', $object]], $this->currentRoute->get());
+            },
+        ]);
 
-		Route::get('/sample/{text}/{object}', ['as' => 'sampleroute', function() use ($object)
-		{
-			$this->assertSame(['sampleroute', ['blah', $object]], $this->currentRoute->get());
-		}]);
-
-		$this->call('GET', '/sample/blah/object');
-	}
+        $this->call('GET', '/sample/blah/object');
+    }
 
     /**
      * @expectedException DaveJamesMiller\Breadcrumbs\Exception
      * @expectedExceptionMessage The current route (GET /sample/unnamed) is not named - please check routes.php for an "as" parameter
      */
-	public function testUnnamedRoute()
-	{
-		Route::get('/sample/unnamed', function()
-		{
-			$this->currentRoute->get();
-		});
+    public function testUnnamedRoute()
+    {
+        Route::get('/sample/unnamed', function () {
+            $this->currentRoute->get();
+        });
 
-		// Laravel 5.3+ catches the exception
-		throw $this->call('GET', '/sample/unnamed')->exception;
-	}
+        // Laravel 5.3+ catches the exception
+        throw $this->call('GET', '/sample/unnamed')->exception;
+    }
 
-	public function testSet()
-	{
-		$this->currentRoute->set('custom', [1, 'blah']);
+    public function testSet()
+    {
+        $this->currentRoute->set('custom', [1, 'blah']);
 
-		Route::get('/sample', ['as' => 'sampleroute', function()
-		{
-			$this->assertSame(['custom', [1, 'blah']], $this->currentRoute->get());
-		}]);
+        Route::get('/sample', [
+            'as' => 'sampleroute',
+            function () {
+                $this->assertSame(['custom', [1, 'blah']], $this->currentRoute->get());
+            },
+        ]);
 
-		$this->call('GET', '/sample');
-	}
+        $this->call('GET', '/sample');
+    }
 
-	public function testClear()
-	{
-		$this->currentRoute->set('custom', [1, 'blah']);
-		$this->currentRoute->clear();
+    public function testClear()
+    {
+        $this->currentRoute->set('custom', [1, 'blah']);
+        $this->currentRoute->clear();
 
-		Route::get('/sample', ['as' => 'sampleroute', function()
-		{
-			$this->assertSame(['sampleroute', []], $this->currentRoute->get());
-		}]);
+        Route::get('/sample', [
+            'as' => 'sampleroute',
+            function () {
+                $this->assertSame(['sampleroute', []], $this->currentRoute->get());
+            },
+        ]);
 
-		$this->call('GET', '/sample');
-	}
-
-}
+        $this->call('GET', '/sample');
+    }}

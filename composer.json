@@ -1,43 +1,48 @@
 {
-	"name": "davejamesmiller/laravel-breadcrumbs",
-	"description": "A simple Laravel-style way to create breadcrumbs.",
-	"keywords": [
-		"laravel"
-	],
-	"homepage": "https://github.com/davejamesmiller/laravel-breadcrumbs",
-	"authors": [
-		{
-			"name": "Dave James Miller",
-			"email": "dave@davejamesmiller.com",
-			"homepage": "https://davejamesmiller.com/"
-		}
-	],
-	"license": "MIT License",
-	"require": {
-		"php": ">=7.0.0",
-		"illuminate/support": ">=5.5",
-		"illuminate/view": ">=5.5"
-	},
-	"require-dev": {
-		"mockery/mockery": "0.9.*",
-		"orchestra/testbench": "3.5.*",
-		"phpunit/phpunit": "6.*"
-	},
-	"minimum-stability": "dev",
-	"prefer-stable": true,
-	"autoload": {
-		"psr-4": {
-			"DaveJamesMiller\\Breadcrumbs\\": "src/"
-		}
-	},
-	"extra": {
-		"laravel": {
-			"providers": [
-				"DaveJamesMiller\\Breadcrumbs\\ServiceProvider"
-			],
-			"aliases": {
-				"Breadcrumbs": "DaveJamesMiller\\Breadcrumbs\\Facade"
-			}
-		}
-	}
+    "name": "davejamesmiller/laravel-breadcrumbs",
+    "description": "A simple Laravel-style way to create breadcrumbs.",
+    "keywords": [
+        "laravel"
+    ],
+    "homepage": "https://github.com/davejamesmiller/laravel-breadcrumbs",
+    "authors": [
+        {
+            "name": "Dave James Miller",
+            "email": "dave@davejamesmiller.com",
+            "homepage": "https://davejamesmiller.com/"
+        }
+    ],
+    "license": "MIT License",
+    "require": {
+        "php": ">=7.0.0",
+        "illuminate/support": ">=5.5",
+        "illuminate/view": ">=5.5"
+    },
+    "require-dev": {
+        "mockery/mockery": "0.9.*",
+        "orchestra/testbench": "3.5.*",
+        "phpunit/phpunit": "6.*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "DaveJamesMiller\\Breadcrumbs\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DaveJamesMiller\\Breadcrumbs\\ServiceProvider"
+            ],
+            "aliases": {
+                "Breadcrumbs": "DaveJamesMiller\\Breadcrumbs\\Facade"
+            }
+        }
+    }
 }
