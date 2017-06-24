@@ -2,17 +2,23 @@
 
 root = true
 
+# Defaults - Linux style, 4 spaces
 [*]
 charset = utf-8
 end_of_line = lf
 indent_size = 4
-indent_style = tab
+indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[ISSUE_TEMPLATE.md]
+# Markdown uses trailing whitespace to indicate continuation lines
+[*.{markdown,md}]
 trim_trailing_whitespace = false
 
-[*.yml]
+# Ruby standard is 2 spaces
+[{*.rb,Gemfile,Rakefile,Vagrantfile}]
 indent_size = 2
-indent_style = space
+
+# Ansible standard is 2 spaces
+[ansible/**/*.yml]
+indent_size = 2
