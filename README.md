@@ -3,6 +3,9 @@
 
 [![Latest Stable Version](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/v/stable.png)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
 [![Total Downloads](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/downloads.png)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
+[![Monthly Downloads](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/d/monthly)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
+[![Latest Unstable Version](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/v/unstable)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
+[![License](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/license)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
 
 A simple Laravel-style way to create breadcrumbs in [Laravel](https://laravel.com/).
 
@@ -895,7 +898,7 @@ The following changes are optional because there are shims in place:
  License
 --------------------------------------------------------------------------------
 
-*[The MIT License (MIT)](http://choosealicense.com/licenses/mit/)*
+*[MIT License](https://choosealicense.com/licenses/mit/)*
 
 **Copyright © 2013-2015 Dave James Miller**
 
