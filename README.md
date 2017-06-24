@@ -7,6 +7,23 @@
 A simple Laravel-style way to create breadcrumbs in [Laravel](https://laravel.com/).
 
 
+ Table of Contents
+--------------------------------------------------------------------------------
+
+- [Compatibility Chart](#compatibility-chart)
+- [Getting Started](#getting-started)
+- [Defining Breadcrumbs](#defining-breadcrumbs)
+- [Custom Templates](#custom-templates)
+- [Outputting Breadcrumbs](#outputting-breadcrumbs)
+- [Route-Bound Breadcrumbs](#route-bound-breadcrumbs)
+- [Advanced Usage](#advanced-usage)
+- [API Reference](#api-reference)
+- [Support Requests / Bug Reports](#support-requests--bug-reports)
+- [Contributing](#contributing)
+- [Changelog](#changelog)
+- [License](#license)
+
+
  Compatibility Chart
 --------------------------------------------------------------------------------
 
@@ -96,7 +113,7 @@ Breadcrumbs::register('page', function($breadcrumbs, $page)
 });
 ```
 
-See the *Defining Breadcrumbs* section for more details.
+See the [Defining Breadcrumbs](#defining-breadcrumbs) section for more details.
 
 
 ### 3. Choose a template
@@ -121,12 +138,12 @@ The possible values are:
 - [Bootstrap 2](http://getbootstrap.com/2.3.2/components.html#breadcrumbs): `breadcrumbs::bootstrap2`
 - The path to a custom view: e.g. `_partials/breadcrumbs`
 
-See the *Custom Templates* section for more details.
+See the [Custom Templates](#custom-templates) section for more details.
 
 
 ### 4. Output the breadcrumbs
 
-Finally, call `Breadcrumbs::render()` in the view template for each page, passing it the name of the breadcrumb to use and any additional parameters -- for example:
+Finally, call `Breadcrumbs::render()` in the view template for each page, passing it the name of the breadcrumb to use and any additional parameters – for example:
 
 ```html+php
 {!! Breadcrumbs::render('home') !!}
@@ -134,7 +151,7 @@ Finally, call `Breadcrumbs::render()` in the view template for each page, passin
 {!! Breadcrumbs::render('category', $category) !!}
 ```
 
-See the *Outputting Breadcrumbs* section for other output options, and see *Route-Bound Breadcrumbs* for a way to link breadcrumb names to route names automatically.
+See the [Outputting Breadcrumbs](#outputting-breadcrumbs) section for other output options, and see [Route-Bound Breadcrumbs](#route-bound-breadcrumbs) for a way to link breadcrumb names to route names automatically.
 
 
  Defining Breadcrumbs
@@ -185,7 +202,7 @@ It would be rendered like this:
 
 > [Home](#) / Blog
 
-xNote that the default template does not create a link for the last breadcrumb (the one for the current page), even when a URL is specified. You can override this by creating your own template – see *Custom Templates* for more details.
+Note that the default template does not create a link for the last breadcrumb (the one for the current page), even when a URL is specified. You can override this by creating your own template – see [Custom Templates](#custom-templates) for more details.
 
 
 ### Dynamic titles and links
@@ -280,7 +297,7 @@ Each breadcrumb is an object with the following keys:
 - `url` – The breadcrumb URL (see :doc:`defining`), or `null` if none was given
 - `first` – `true` for the first breadcrumb (top level), `false` otherwise
 - `last` – `true` for the last breadcrumb (current page), `false` otherwise
-- Plus additional keys for each item in `$data` (see *Custom data*)
+- Plus additional keys for each item in `$data` (see [Custom data](#custom-data))
 
 
 ### Update the config
