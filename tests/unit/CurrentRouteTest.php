@@ -18,12 +18,9 @@ class CurrentRouteTest extends TestCase
 
     public function testNamedRoute()
     {
-        Route::get('/sample', [
-            'as' => 'sampleroute',
-            function () {
-                $this->assertSame(['sampleroute', []], $this->currentRoute->get());
-            },
-        ]);
+        Route::name('sampleroute')->get('/sample', function () {
+            $this->assertSame(['sampleroute', []], $this->currentRoute->get());
+        });
 
         $this->call('GET', '/sample');
     }
@@ -36,18 +33,15 @@ class CurrentRouteTest extends TestCase
             return $object;
         });
 
-        Route::get('/sample/{text}/{object}', [
-            'as' => 'sampleroute',
-            function () use ($object) {
-                $this->assertSame(['sampleroute', ['blah', $object]], $this->currentRoute->get());
-            },
-        ]);
+        Route::name('sampleroute')->get('/sample/{text}/{object}', function () use ($object) {
+            $this->assertSame(['sampleroute', ['blah', $object]], $this->currentRoute->get());
+        });
 
         $this->call('GET', '/sample/blah/object');
     }
 
     /**
-     * @expectedException DaveJamesMiller\Breadcrumbs\Exception
+     * @expectedException \DaveJamesMiller\Breadcrumbs\Exception
      * @expectedExceptionMessage The current route (GET /sample/unnamed) is not named - please check routes.php for an "as" parameter
      */
     public function testUnnamedRoute()
@@ -64,12 +58,9 @@ class CurrentRouteTest extends TestCase
     {
         $this->currentRoute->set('custom', [1, 'blah']);
 
-        Route::get('/sample', [
-            'as' => 'sampleroute',
-            function () {
-                $this->assertSame(['custom', [1, 'blah']], $this->currentRoute->get());
-            },
-        ]);
+        Route::name('sampleroute')->get('/sample', function () {
+            $this->assertSame(['custom', [1, 'blah']], $this->currentRoute->get());
+        });
 
         $this->call('GET', '/sample');
     }
@@ -79,12 +70,10 @@ class CurrentRouteTest extends TestCase
         $this->currentRoute->set('custom', [1, 'blah']);
         $this->currentRoute->clear();
 
-        Route::get('/sample', [
-            'as' => 'sampleroute',
-            function () {
-                $this->assertSame(['sampleroute', []], $this->currentRoute->get());
-            },
-        ]);
+        Route::name('sampleroute')->get('/sample', function () {
+            $this->assertSame(['sampleroute', []], $this->currentRoute->get());
+        });
 
         $this->call('GET', '/sample');
-    }}
+    }
+}
