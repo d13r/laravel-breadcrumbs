@@ -1,9 +1,8 @@
 <?php
 
-namespace Tests;
+namespace BreadcrumbsTests;
 
 use DaveJamesMiller\Breadcrumbs\Generator;
-use Mockery as m;
 
 class GeneratorTest extends TestCase
 {

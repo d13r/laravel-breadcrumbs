@@ -13,7 +13,6 @@ class Facade extends BaseFacade
      */
     protected static function getFacadeAccessor()
     {
-        // App::make('breadcrumbs')
-        return 'breadcrumbs';
+        return Manager::class;
     }
 }

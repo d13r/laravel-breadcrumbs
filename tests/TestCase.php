@@ -1,22 +1,26 @@
 <?php
 
-namespace Tests;
+namespace BreadcrumbsTests;
 
+use DaveJamesMiller\Breadcrumbs\Facade;
+use DaveJamesMiller\Breadcrumbs\Manager;
+use DaveJamesMiller\Breadcrumbs\ServiceProvider;
 use Mockery;
+use Orchestra\Testbench\TestCase as TestbenchTestCase;
 
-abstract class TestCase extends \Orchestra\Testbench\TestCase
+abstract class TestCase extends TestbenchTestCase
 {
     protected function getPackageProviders($app)
     {
         return [
-            \DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
+            ServiceProvider::class,
         ];
     }
 
     protected function getPackageAliases($app)
     {
         return [
-            'Breadcrumbs' => \DaveJamesMiller\Breadcrumbs\Facade::class,
+            'Breadcrumbs' => Facade::class,
         ];
     }
 
@@ -30,7 +34,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     protected function loadServiceProvider()
     {
         // Need to trigger register() to test the views
-        $this->app->make('breadcrumbs');
+        $this->app->make(Manager::class);
     }
 
     public function tearDown()

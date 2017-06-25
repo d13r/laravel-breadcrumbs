@@ -1,6 +1,8 @@
 <?php
 
-namespace Tests;
+namespace BreadcrumbsTests;
+
+use DaveJamesMiller\Breadcrumbs\View;
 
 class ViewTest extends TestCase
 {
@@ -8,7 +10,7 @@ class ViewTest extends TestCase
     {
         parent::setUp();
 
-        $this->view = app('DaveJamesMiller\Breadcrumbs\View');
+        $this->view = app(View::class);
 
         $this->breadcrumbs = [
             (object) [

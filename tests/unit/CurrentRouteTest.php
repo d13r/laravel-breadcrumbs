@@ -1,9 +1,8 @@
 <?php
 
-namespace Tests;
+namespace BreadcrumbsTests;
 
 use DaveJamesMiller\Breadcrumbs\CurrentRoute;
-use Mockery as m;
 use Route;
 use stdClass;
 
@@ -13,7 +12,7 @@ class CurrentRouteTest extends TestCase
     {
         parent::setUp();
 
-        $this->currentRoute = app('DaveJamesMiller\Breadcrumbs\CurrentRoute');
+        $this->currentRoute = app(CurrentRoute::class);
     }
 
     public function testNamedRoute()

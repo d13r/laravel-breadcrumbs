@@ -1,17 +1,18 @@
 <?php
 
-namespace Tests;
+namespace BreadcrumbsTests;
 
 use Breadcrumbs;
+use DaveJamesMiller\Breadcrumbs\ServiceProvider;
 
-class DependantServiceProviderErrorTest extends TestCase
+class DependantServiceProviderReversedTest extends TestCase
 {
     protected function getPackageProviders($app)
     {
         return [
-            // These are in the wrong order
+            // These are in the wrong order, but still work because of the deferred loading
             DependantServiceProviderError::class,
-            \DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
+            ServiceProvider::class,
         ];
     }
 
@@ -20,13 +21,10 @@ class DependantServiceProviderErrorTest extends TestCase
         // Disabled - we want to test the automatic loading instead
     }
 
-    /**
-     * @expectedException \DaveJamesMiller\Breadcrumbs\Exception
-     * @expectedExceptionMessage Breadcrumbs view not specified
-     */
     public function testRender()
     {
-        Breadcrumbs::render('home');
+        $html = Breadcrumbs::render('home');
+        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/../fixtures/DependantServiceProvider.html', $html);
     }
 }
 
