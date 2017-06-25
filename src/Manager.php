@@ -19,15 +19,16 @@ class Manager
         $this->view         = $view;
     }
 
-    public function register($name, $callback)
+    public function register(string $name, callable $callback) //: void
     {
         if (isset($this->callbacks[ $name ])) {
             throw new Exception("Breadcrumb name \"{$name}\" has already been registered");
         }
+
         $this->callbacks[ $name ] = $callback;
     }
 
-    public function exists($name = null)
+    public function exists(string $name = null): bool
     {
         if (is_null($name)) {
             try {
@@ -40,32 +41,28 @@ class Manager
         return isset($this->callbacks[ $name ]);
     }
 
-    public function generate($name = null)
+    public function generate(string $name = null, ...$params): array
     {
-        if (is_null($name)) {
+        if ($name === null) {
             list($name, $params) = $this->currentRoute->get();
-        } else {
-            $params = array_slice(func_get_args(), 1);
         }
 
         return $this->generator->generate($this->callbacks, $name, $params);
     }
 
-    public function generateArray($name, $params = [])
+    public function generateArray(string $name, array $params = []): array
     {
         return $this->generator->generate($this->callbacks, $name, $params);
     }
 
-    public function generateIfExists($name = null)
+    public function generateIfExists(string $name = null, ...$params): array
     {
-        if (is_null($name)) {
+        if ($name === null) {
             try {
                 list($name, $params) = $this->currentRoute->get();
             } catch (Exception $e) {
                 return [];
             }
-        } else {
-            $params = array_slice(func_get_args(), 1);
         }
 
         if (! $this->exists($name)) {
@@ -75,7 +72,7 @@ class Manager
         return $this->generator->generate($this->callbacks, $name, $params);
     }
 
-    public function generateIfExistsArray($name, $params = [])
+    public function generateIfExistsArray(string $name, array $params = []): array
     {
         if (! $this->exists($name)) {
             return [];
@@ -84,21 +81,10 @@ class Manager
         return $this->generator->generate($this->callbacks, $name, $params);
     }
 
-    /**
-     * @deprecated Since 3.0.0
-     * @see        generateIfExistsArray
-     */
-    public function generateArrayIfExists()
+    public function render(string $name = null, ...$params): string
     {
-        return call_user_func_array([$this, 'generateIfExistsArray'], func_get_args());
-    }
-
-    public function render($name = null)
-    {
-        if (is_null($name)) {
+        if ($name === null) {
             list($name, $params) = $this->currentRoute->get();
-        } else {
-            $params = array_slice(func_get_args(), 1);
         }
 
         $breadcrumbs = $this->generator->generate($this->callbacks, $name, $params);
@@ -106,23 +92,21 @@ class Manager
         return $this->view->render($this->viewName, $breadcrumbs);
     }
 
-    public function renderArray($name, $params = [])
+    public function renderArray(string $name, array $params = []): string
     {
         $breadcrumbs = $this->generator->generate($this->callbacks, $name, $params);
 
         return $this->view->render($this->viewName, $breadcrumbs);
     }
 
-    public function renderIfExists($name = null)
+    public function renderIfExists(string $name = null, ...$params): string
     {
-        if (is_null($name)) {
+        if ($name === null) {
             try {
                 list($name, $params) = $this->currentRoute->get();
             } catch (Exception $e) {
                 return '';
             }
-        } else {
-            $params = array_slice(func_get_args(), 1);
         }
 
         if (! $this->exists($name)) {
@@ -134,7 +118,7 @@ class Manager
         return $this->view->render($this->viewName, $breadcrumbs);
     }
 
-    public function renderIfExistsArray($name, $params = [])
+    public function renderIfExistsArray(string $name, array $params = []): string
     {
         if (! $this->exists($name)) {
             return '';
@@ -145,33 +129,22 @@ class Manager
         return $this->view->render($this->viewName, $breadcrumbs);
     }
 
-    /**
-     * @deprecated Since 3.0.0
-     * @see        renderIfExistsArray
-     */
-    public function renderArrayIfExists()
-    {
-        return call_user_func_array([$this, 'renderIfExistsArray'], func_get_args());
-    }
-
-    public function setCurrentRoute($name)
-    {
-        $params = array_slice(func_get_args(), 1);
-
-        $this->currentRoute->set($name, $params);
-    }
-
-    public function setCurrentRouteArray($name, $params = [])
+    public function setCurrentRoute(string $name, ...$params) //: void
     {
         $this->currentRoute->set($name, $params);
     }
 
-    public function clearCurrentRoute()
+    public function setCurrentRouteArray(string $name, array $params = []) //: void
+    {
+        $this->currentRoute->set($name, $params);
+    }
+
+    public function clearCurrentRoute() //: void
     {
         $this->currentRoute->clear();
     }
 
-    public function setView($view)
+    public function setView($view) //: void
     {
         $this->viewName = $view;
     }

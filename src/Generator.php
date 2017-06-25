@@ -7,7 +7,7 @@ class Generator
     protected $breadcrumbs = [];
     protected $callbacks = [];
 
-    public function generate(array $callbacks, $name, $params)
+    public function generate(array $callbacks, string $name, array $params): array
     {
         $this->breadcrumbs = [];
         $this->callbacks   = $callbacks;
@@ -17,7 +17,7 @@ class Generator
         return $this->toArray();
     }
 
-    protected function call($name, $params)
+    protected function call(string $name, array $params) //: void
     {
         if (! isset($this->callbacks[ $name ])) {
             throw new Exception("Breadcrumb not found with name \"{$name}\"");
@@ -28,19 +28,17 @@ class Generator
         call_user_func_array($this->callbacks[ $name ], $params);
     }
 
-    public function parent($name)
-    {
-        $params = array_slice(func_get_args(), 1);
-
-        $this->call($name, $params);
-    }
-
-    public function parentArray($name, $params = [])
+    public function parent(string $name, ...$params) //: void
     {
         $this->call($name, $params);
     }
 
-    public function push($title, $url = null, array $data = [])
+    public function parentArray(string $name, array $params = []) //: void
+    {
+        $this->call($name, $params);
+    }
+
+    public function push(string $title, string $url = null, array $data = []) //: void
     {
         $this->breadcrumbs[] = (object) array_merge($data, [
             'title' => $title,
@@ -51,7 +49,7 @@ class Generator
         ]);
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         $breadcrumbs = $this->breadcrumbs;
 

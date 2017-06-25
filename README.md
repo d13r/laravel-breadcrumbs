@@ -718,9 +718,13 @@ Breadcrumbs::register('name', function($breadcrumbs, $page) {
 
 - Laravel 5.5 support (dropped 5.4 and below)
 - Add [package auto-discovery](https://laravel-news.com/package-auto-discovery)
-- Remove deprecated `laravel-breadcrumbs::` view prefix (use `breadcrumbs::` instead)
-- Remove `$app['breadcrumbs']` container short name (use `Breadcrumbs::` facade or `DaveJamesMiller\Breadcrumbs\Manager` type hint)
-- Remove `app/Http/breadcrumbs.php` support (use `routes/breadcrumbs.php` instead)
+- Add type hints to all methods
+- Remove deprecated features & methods:
+    - `Breadcrumbs::renderArrayIfExists()` (use `Breadcrumbs::renderIfExistsArray()` instead)
+    - `Breadcrumbs::generateArrayIfExists()` (use `Breadcrumbs::generateIfExistsArray()` instead)
+    - `app/Http/breadcrumbs.php` file (use `routes/breadcrumbs.php` instead)
+    - `laravel-breadcrumbs::` view prefix (use `breadcrumbs::` instead)
+    - `$app['breadcrumbs']` container short name (use `Breadcrumbs::` facade or `DaveJamesMiller\Breadcrumbs\Manager` type hint)
 
 
 ### [v3.0.3](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.0.3) (24 Jun 2017)

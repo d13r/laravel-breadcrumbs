@@ -64,9 +64,9 @@ class ManagerTest extends TestCase
             ->shouldReceive('generate')
             ->with(['sample' => $fn], 'sample', [1, 'blah'])
             ->once()
-            ->andReturn('generated');;
+            ->andReturn(['generated']);;
 
-        $this->assertSame('generated', $this->manager->generate());
+        $this->assertSame(['generated'], $this->manager->generate());
     }
 
     // Breadcrumbs::generate($name) -> array
@@ -78,9 +78,9 @@ class ManagerTest extends TestCase
             ->shouldReceive('generate')
             ->with(['sample' => $fn], 'sample', [])
             ->once()
-            ->andReturn('generated');;
+            ->andReturn(['generated']);;
 
-        $this->assertSame('generated', $this->manager->generate('sample'));
+        $this->assertSame(['generated'], $this->manager->generate('sample'));
     }
 
     // Breadcrumbs::generate($name, $param1, ...) -> array
@@ -92,9 +92,9 @@ class ManagerTest extends TestCase
             ->shouldReceive('generate')
             ->with(['sample' => $fn], 'sample', [1, 'blah'])
             ->once()
-            ->andReturn('generated');;
+            ->andReturn(['generated']);;
 
-        $this->assertSame('generated', $this->manager->generate('sample', 1, 'blah'));
+        $this->assertSame(['generated'], $this->manager->generate('sample', 1, 'blah'));
     }
 
     // Breadcrumbs::generateArray($name, $params) -> array
@@ -106,9 +106,9 @@ class ManagerTest extends TestCase
             ->shouldReceive('generate')
             ->with(['sample' => $fn], 'sample', [1, 'blah'])
             ->once()
-            ->andReturn('generated');;
+            ->andReturn(['generated']);;
 
-        $this->assertSame('generated', $this->manager->generateArray('sample', [1, 'blah']));
+        $this->assertSame(['generated'], $this->manager->generateArray('sample', [1, 'blah']));
     }
 
     // Breadcrumbs::generateIfExists() -> array
@@ -123,9 +123,9 @@ class ManagerTest extends TestCase
             ->shouldReceive('generate')
             ->with(['sample' => $fn], 'sample', [1, 'blah'])
             ->once()
-            ->andReturn('generated');
+            ->andReturn(['generated']);
 
-        $this->assertSame('generated', $this->manager->generateIfExists());
+        $this->assertSame(['generated'], $this->manager->generateIfExists());
     }
 
     public function testGenerateIfExists_nonexistant()
@@ -158,9 +158,9 @@ class ManagerTest extends TestCase
             ->shouldReceive('generate')
             ->with(['sample' => $fn], 'sample', [])
             ->once()
-            ->andReturn('generated');
+            ->andReturn(['generated']);
 
-        $this->assertSame('generated', $this->manager->generateIfExists('sample'));
+        $this->assertSame(['generated'], $this->manager->generateIfExists('sample'));
     }
 
     public function testGenerateIfExists_name_nonexistant()
@@ -180,9 +180,9 @@ class ManagerTest extends TestCase
             ->shouldReceive('generate')
             ->with(['sample' => $fn], 'sample', [1, 'blah'])
             ->once()
-            ->andReturn('generated');
+            ->andReturn(['generated']);
 
-        $this->assertSame('generated', $this->manager->generateIfExists('sample', 1, 'blah'));
+        $this->assertSame(['generated'], $this->manager->generateIfExists('sample', 1, 'blah'));
     }
 
     public function testGenerateIfExists_name_params_nonexistant()
@@ -193,8 +193,8 @@ class ManagerTest extends TestCase
         $this->assertSame([], $this->manager->generateIfExists('sample', 1, 'blah'));
     }
 
-    // Breadcrumbs::generateArrayIfExists($name, $params) -> array
-    public function testGenerateArrayIfExists_name_params_existing()
+    // Breadcrumbs::generateIfExistsArray($name, $params) -> array
+    public function testGenerateIfExistsArray_name_params_existing()
     {
         $fn = $this->register('sample');
 
@@ -202,17 +202,17 @@ class ManagerTest extends TestCase
             ->shouldReceive('generate')
             ->with(['sample' => $fn], 'sample', [1, 'blah'])
             ->once()
-            ->andReturn('generated');
+            ->andReturn(['generated']);
 
-        $this->assertSame('generated', $this->manager->generateArrayIfExists('sample', [1, 'blah']));
+        $this->assertSame(['generated'], $this->manager->generateIfExistsArray('sample', [1, 'blah']));
     }
 
-    public function testGenerateArrayIfExists_name_params_nonexistant()
+    public function testGenerateIfExistsArray_name_params_nonexistant()
     {
         $this->generator
             ->shouldReceive('generate')->never();
 
-        $this->assertSame([], $this->manager->generateArrayIfExists('sample', [1, 'blah']));
+        $this->assertSame([], $this->manager->generateIfExistsArray('sample', [1, 'blah']));
     }
 
     // Breadcrumbs::render() -> array
@@ -227,10 +227,10 @@ class ManagerTest extends TestCase
             ->shouldReceive('generate')
             ->with(['sample' => $fn], 'sample', [1, 'blah'])
             ->once()
-            ->andReturn('generated');;
+            ->andReturn(['generated']);;
         $this->view
             ->shouldReceive('render')
-            ->with('view', 'generated')
+            ->with('view', ['generated'])
             ->once()
             ->andReturn('rendered');
 
@@ -246,10 +246,10 @@ class ManagerTest extends TestCase
             ->shouldReceive('generate')
             ->with(['sample' => $fn], 'sample', [])
             ->once()
-            ->andReturn('generated');;
+            ->andReturn(['generated']);;
         $this->view
             ->shouldReceive('render')
-            ->with('view', 'generated')
+            ->with('view', ['generated'])
             ->once()
             ->andReturn('rendered');
 
@@ -265,10 +265,10 @@ class ManagerTest extends TestCase
             ->shouldReceive('generate')
             ->with(['sample' => $fn], 'sample', [1, 'blah'])
             ->once()
-            ->andReturn('generated');;
+            ->andReturn(['generated']);;
         $this->view
             ->shouldReceive('render')
-            ->with('view', 'generated')
+            ->with('view', ['generated'])
             ->once()
             ->andReturn('rendered');
 
@@ -284,10 +284,10 @@ class ManagerTest extends TestCase
             ->shouldReceive('generate')
             ->with(['sample' => $fn], 'sample', [1, 'blah'])
             ->once()
-            ->andReturn('generated');;
+            ->andReturn(['generated']);;
         $this->view
             ->shouldReceive('render')
-            ->with('view', 'generated')
+            ->with('view', ['generated'])
             ->once()
             ->andReturn('rendered');
 
@@ -306,10 +306,10 @@ class ManagerTest extends TestCase
             ->shouldReceive('generate')
             ->with(['sample' => $fn], 'sample', [1, 'blah'])
             ->once()
-            ->andReturn('generated');
+            ->andReturn(['generated']);
         $this->view
             ->shouldReceive('render')
-            ->with('view', 'generated')
+            ->with('view', ['generated'])
             ->once()
             ->andReturn('rendered');
 
@@ -350,10 +350,10 @@ class ManagerTest extends TestCase
             ->shouldReceive('generate')
             ->with(['sample' => $fn], 'sample', [])
             ->once()
-            ->andReturn('generated');
+            ->andReturn(['generated']);
         $this->view
             ->shouldReceive('render')
-            ->with('view', 'generated')
+            ->with('view', ['generated'])
             ->once()
             ->andReturn('rendered');
 
@@ -379,10 +379,10 @@ class ManagerTest extends TestCase
             ->shouldReceive('generate')
             ->with(['sample' => $fn], 'sample', [1, 'blah'])
             ->once()
-            ->andReturn('generated');
+            ->andReturn(['generated']);
         $this->view
             ->shouldReceive('render')
-            ->with('view', 'generated')
+            ->with('view', ['generated'])
             ->once()
             ->andReturn('rendered');
 
@@ -399,8 +399,8 @@ class ManagerTest extends TestCase
         $this->assertSame('', $this->manager->renderIfExists('sample', 1, 'blah'));
     }
 
-    // Breadcrumbs::renderArrayIfExists($name, $params) -> array
-    public function testRenderArrayIfExists_name_params_existing()
+    // Breadcrumbs::renderIfExistsArray($name, $params) -> array
+    public function testRenderIfExistsArray_name_params_existing()
     {
         $fn = $this->register('sample');
 
@@ -408,24 +408,24 @@ class ManagerTest extends TestCase
             ->shouldReceive('generate')
             ->with(['sample' => $fn], 'sample', [1, 'blah'])
             ->once()
-            ->andReturn('generated');
+            ->andReturn(['generated']);
         $this->view
             ->shouldReceive('render')
-            ->with('view', 'generated')
+            ->with('view', ['generated'])
             ->once()
             ->andReturn('rendered');
 
-        $this->assertSame('rendered', $this->manager->renderArrayIfExists('sample', [1, 'blah']));
+        $this->assertSame('rendered', $this->manager->renderIfExistsArray('sample', [1, 'blah']));
     }
 
-    public function testRenderArrayIfExists_name_params_nonexistant()
+    public function testRenderIfExistsArray_name_params_nonexistant()
     {
         $this->generator
             ->shouldReceive('generate')->never();
         $this->view
             ->shouldReceive('render')->never();
 
-        $this->assertSame('', $this->manager->renderArrayIfExists('sample', [1, 'blah']));
+        $this->assertSame('', $this->manager->renderIfExistsArray('sample', [1, 'blah']));
     }
 
     // Breadcrumbs::setCurrentRoute($name)
@@ -480,10 +480,10 @@ class ManagerTest extends TestCase
             ->shouldReceive('generate')
             ->with(['sample' => $fn], 'sample', [1, 'blah'])
             ->once()
-            ->andReturn('generated');;
+            ->andReturn(['generated']);;
         $this->view
             ->shouldReceive('render')
-            ->with('custom.view', 'generated')
+            ->with('custom.view', ['generated'])
             ->once()
             ->andReturn('rendered');
 

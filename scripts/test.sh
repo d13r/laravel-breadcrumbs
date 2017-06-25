@@ -6,4 +6,10 @@ cd "$(dirname "$0")/.."
 # Run PHPUnit.
 ################################################################################
 
-exec vendor/bin/phpunit "$@"
+if which php7.0 >/dev/null 2>&1; then
+    php=php7.0
+else
+    php=php
+fi
+
+exec $php vendor/bin/phpunit "$@"

@@ -19,7 +19,7 @@ class ServiceProvider extends BaseServiceProvider
      *
      * @return array
      */
-    public function provides()
+    public function provides(): array
     {
         return [Manager::class];
     }
@@ -29,7 +29,7 @@ class ServiceProvider extends BaseServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register() //: void
     {
         // Register Manager class singleton with the app container
         $this->app->singleton(Manager::class);
@@ -54,14 +54,14 @@ class ServiceProvider extends BaseServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot() //: void
     {
         // Load the routes/breadcrumbs.php file
         $this->registerBreadcrumbs();
     }
 
     // This method can be overridden in a child class
-    public function registerBreadcrumbs()
+    public function registerBreadcrumbs() //: void
     {
         // Load the app breadcrumbs if they're in routes/breadcrumbs.php
         if (file_exists($file = base_path('routes/breadcrumbs.php'))) {

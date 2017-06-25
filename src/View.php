@@ -13,7 +13,7 @@ class View
         $this->factory = $factory;
     }
 
-    public function render($view, $breadcrumbs)
+    public function render(string $view, array $breadcrumbs): string
     {
         if (! $view) {
             throw new Exception('Breadcrumbs view not specified (check the view in config/breadcrumbs.php, and ensure DaveJamesMiller\Breadcrumbs\ServiceProvider is loaded before any dependants in config/app.php)');
