@@ -3,7 +3,9 @@
 namespace BreadcrumbsTests;
 
 use DaveJamesMiller\Breadcrumbs\Manager;
+use LogicException;
 use Mockery as m;
+use DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException;
 
 class ManagerTest extends TestCase
 {
@@ -24,7 +26,7 @@ class ManagerTest extends TestCase
     {
         $this->manager->register($name, $fn = function () {
             // We're not testing whether the callbacks are executed - see GeneratorTest
-            throw new Exception('Callback executed');
+            throw new LogicException('Callback executed');
         });
 
         return $fn;
@@ -134,7 +136,8 @@ class ManagerTest extends TestCase
             ->shouldReceive('get')
             ->andReturn(['sample', [1, 'blah']]);
         $this->generator
-            ->shouldReceive('generate')->never();
+            ->shouldReceive('generate')
+            ->never();
 
         $this->assertSame([], $this->manager->generateIfExists());
     }
@@ -142,9 +145,11 @@ class ManagerTest extends TestCase
     public function testGenerateIfExists_noroute()
     {
         $this->currentRoute
-            ->shouldReceive('get')->andThrow('DaveJamesMiller\Breadcrumbs\Exception', 'The current route (GET /sample/unnamed) is not named - please check routes.php for an "as" parameter');
+            ->shouldReceive('get')
+            ->andThrow(UnnamedRouteException::class, 'The current route (GET /sample/unnamed) is not named');
         $this->generator
-            ->shouldReceive('generate')->never();
+            ->shouldReceive('generate')
+            ->never();
 
         $this->assertSame([], $this->manager->generateIfExists());
     }
@@ -166,7 +171,8 @@ class ManagerTest extends TestCase
     public function testGenerateIfExists_name_nonexistant()
     {
         $this->generator
-            ->shouldReceive('generate')->never();
+            ->shouldReceive('generate')
+            ->never();
 
         $this->assertSame([], $this->manager->generateIfExists('sample'));
     }
@@ -188,7 +194,8 @@ class ManagerTest extends TestCase
     public function testGenerateIfExists_name_params_nonexistant()
     {
         $this->generator
-            ->shouldReceive('generate')->never();
+            ->shouldReceive('generate')
+            ->never();
 
         $this->assertSame([], $this->manager->generateIfExists('sample', 1, 'blah'));
     }
@@ -210,7 +217,8 @@ class ManagerTest extends TestCase
     public function testGenerateIfExistsArray_name_params_nonexistant()
     {
         $this->generator
-            ->shouldReceive('generate')->never();
+            ->shouldReceive('generate')
+            ->never();
 
         $this->assertSame([], $this->manager->generateIfExistsArray('sample', [1, 'blah']));
     }
@@ -322,9 +330,11 @@ class ManagerTest extends TestCase
             ->shouldReceive('get')
             ->andReturn(['sample', [1, 'blah']]);
         $this->generator
-            ->shouldReceive('generate')->never();
+            ->shouldReceive('generate')
+            ->never();
         $this->view
-            ->shouldReceive('render')->never();
+            ->shouldReceive('render')
+            ->never();
 
         $this->assertSame('', $this->manager->renderIfExists());
     }
@@ -332,11 +342,14 @@ class ManagerTest extends TestCase
     public function testRenderIfExists_noroute()
     {
         $this->currentRoute
-            ->shouldReceive('get')->andThrow('DaveJamesMiller\Breadcrumbs\Exception', 'The current route (GET /sample/unnamed) is not named - please check routes.php for an "as" parameter');
+            ->shouldReceive('get')
+            ->andThrow(UnnamedRouteException::class, 'The current route (GET /sample/unnamed) is not named');
         $this->generator
-            ->shouldReceive('generate')->never();
+            ->shouldReceive('generate')
+            ->never();
         $this->view
-            ->shouldReceive('render')->never();
+            ->shouldReceive('render')
+            ->never();
 
         $this->assertSame('', $this->manager->renderIfExists());
     }
@@ -363,9 +376,11 @@ class ManagerTest extends TestCase
     public function testRenderIfExists_name_nonexistant()
     {
         $this->generator
-            ->shouldReceive('generate')->never();
+            ->shouldReceive('generate')
+            ->never();
         $this->view
-            ->shouldReceive('render')->never();
+            ->shouldReceive('render')
+            ->never();
 
         $this->assertSame('', $this->manager->renderIfExists('sample'));
     }
@@ -392,9 +407,11 @@ class ManagerTest extends TestCase
     public function testRenderIfExists_name_params_nonexistant()
     {
         $this->generator
-            ->shouldReceive('generate')->never();
+            ->shouldReceive('generate')
+            ->never();
         $this->view
-            ->shouldReceive('render')->never();
+            ->shouldReceive('render')
+            ->never();
 
         $this->assertSame('', $this->manager->renderIfExists('sample', 1, 'blah'));
     }
@@ -421,9 +438,11 @@ class ManagerTest extends TestCase
     public function testRenderIfExistsArray_name_params_nonexistant()
     {
         $this->generator
-            ->shouldReceive('generate')->never();
+            ->shouldReceive('generate')
+            ->never();
         $this->view
-            ->shouldReceive('render')->never();
+            ->shouldReceive('render')
+            ->never();
 
         $this->assertSame('', $this->manager->renderIfExistsArray('sample', [1, 'blah']));
     }

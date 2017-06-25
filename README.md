@@ -719,6 +719,7 @@ Breadcrumbs::register('name', function($breadcrumbs, $page) {
 - Laravel 5.5 support (dropped 5.4 and below)
 - Add [package auto-discovery](https://laravel-news.com/package-auto-discovery)
 - Add type hints to all methods
+- Add more specific exception classes
 - Remove deprecated features & methods:
     - `Breadcrumbs::renderArrayIfExists()` (use `Breadcrumbs::renderIfExistsArray()` instead)
     - `Breadcrumbs::generateArrayIfExists()` (use `Breadcrumbs::generateIfExistsArray()` instead)

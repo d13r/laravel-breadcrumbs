@@ -40,8 +40,8 @@ class CurrentRouteTest extends TestCase
     }
 
     /**
-     * @expectedException \DaveJamesMiller\Breadcrumbs\Exception
-     * @expectedExceptionMessage The current route (GET /sample/unnamed) is not named - please check routes.php for an "as" parameter
+     * @expectedException \DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException
+     * @expectedExceptionMessage The current route (GET /sample/unnamed) is not named
      */
     public function testUnnamedRoute()
     {

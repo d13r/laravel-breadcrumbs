@@ -2,7 +2,8 @@
 
 namespace DaveJamesMiller\Breadcrumbs;
 
-use Illuminate\Contracts\Routing\Registrar as Router;
+use DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException;
+use Illuminate\Routing\Router;
 
 class CurrentRoute
 {
@@ -22,6 +23,7 @@ class CurrentRoute
         }
 
         // Determine the current route
+        /** @var Router $route */
         $route = $this->router->current();
 
         // No current route
@@ -33,8 +35,9 @@ class CurrentRoute
         $name = $route->getName();
 
         if (is_null($name)) {
-            $uri = head($route->methods()) . ' /' . $route->uri();
-            throw new Exception("The current route ($uri) is not named - please check routes.php for an \"as\" parameter");
+            $uri = array_first($route->methods()) . ' /' . $route->uri();
+
+            throw new UnnamedRouteException("The current route ($uri) is not named");
         }
 
         // Get the current route parameters

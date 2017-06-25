@@ -2,6 +2,9 @@
 
 namespace DaveJamesMiller\Breadcrumbs;
 
+use DaveJamesMiller\Breadcrumbs\Exceptions\DuplicateBreadcrumbException;
+use DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException;
+
 class Manager
 {
     protected $currentRoute;
@@ -22,7 +25,7 @@ class Manager
     public function register(string $name, callable $callback) //: void
     {
         if (isset($this->callbacks[ $name ])) {
-            throw new Exception("Breadcrumb name \"{$name}\" has already been registered");
+            throw new DuplicateBreadcrumbException("Breadcrumb name \"{$name}\" has already been registered");
         }
 
         $this->callbacks[ $name ] = $callback;
@@ -33,7 +36,7 @@ class Manager
         if (is_null($name)) {
             try {
                 list($name) = $this->currentRoute->get();
-            } catch (Exception $e) {
+            } catch (UnnamedRouteException $e) {
                 return false;
             }
         }
@@ -60,7 +63,7 @@ class Manager
         if ($name === null) {
             try {
                 list($name, $params) = $this->currentRoute->get();
-            } catch (Exception $e) {
+            } catch (UnnamedRouteException $e) {
                 return [];
             }
         }
@@ -104,7 +107,7 @@ class Manager
         if ($name === null) {
             try {
                 list($name, $params) = $this->currentRoute->get();
-            } catch (Exception $e) {
+            } catch (UnnamedRouteException $e) {
                 return '';
             }
         }

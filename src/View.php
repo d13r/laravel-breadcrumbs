@@ -2,6 +2,7 @@
 
 namespace DaveJamesMiller\Breadcrumbs;
 
+use DaveJamesMiller\Breadcrumbs\Exceptions\InvalidViewException;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 
 class View
@@ -16,7 +17,7 @@ class View
     public function render(string $view, array $breadcrumbs): string
     {
         if (! $view) {
-            throw new Exception('Breadcrumbs view not specified (check the view in config/breadcrumbs.php, and ensure DaveJamesMiller\Breadcrumbs\ServiceProvider is loaded before any dependants in config/app.php)');
+            throw new InvalidViewException('Breadcrumbs view not specified (check config/breadcrumbs.php)');
         }
 
         return $this->factory->make($view, compact('breadcrumbs'))->render();

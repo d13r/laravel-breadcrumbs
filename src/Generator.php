@@ -2,6 +2,8 @@
 
 namespace DaveJamesMiller\Breadcrumbs;
 
+use DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
+
 class Generator
 {
     protected $breadcrumbs = [];
@@ -20,7 +22,7 @@ class Generator
     protected function call(string $name, array $params) //: void
     {
         if (! isset($this->callbacks[ $name ])) {
-            throw new Exception("Breadcrumb not found with name \"{$name}\"");
+            throw new InvalidBreadcrumbException("Breadcrumb not found with name \"{$name}\"");
         }
 
         array_unshift($params, $this);
