@@ -62,35 +62,30 @@ Create a file called `routes/breadcrumbs.php` that looks like this:
 <?php
 
 // Home
-Breadcrumbs::register('home', function($breadcrumbs)
-{
+Breadcrumbs::register('home', function ($breadcrumbs) {
     $breadcrumbs->push('Home', route('home'));
 });
 
 // Home > About
-Breadcrumbs::register('about', function($breadcrumbs)
-{
+Breadcrumbs::register('about', function ($breadcrumbs) {
     $breadcrumbs->parent('home');
     $breadcrumbs->push('About', route('about'));
 });
 
 // Home > Blog
-Breadcrumbs::register('blog', function($breadcrumbs)
-{
+Breadcrumbs::register('blog', function ($breadcrumbs) {
     $breadcrumbs->parent('home');
     $breadcrumbs->push('Blog', route('blog'));
 });
 
 // Home > Blog > [Category]
-Breadcrumbs::register('category', function($breadcrumbs, $category)
-{
+Breadcrumbs::register('category', function ($breadcrumbs, $category) {
     $breadcrumbs->parent('blog');
     $breadcrumbs->push($category->title, route('category', $category->id));
 });
 
 // Home > Blog > [Category] > [Page]
-Breadcrumbs::register('page', function($breadcrumbs, $page)
-{
+Breadcrumbs::register('page', function ($breadcrumbs, $page) {
     $breadcrumbs->parent('category', $page->category);
     $breadcrumbs->push($page->title, route('page', $page->id));
 });
@@ -149,8 +144,8 @@ The following examples should make it clear:
 The most simple breadcrumb is probably going to be your homepage, which will look something like this:
 
 ```php
-Breadcrumbs::register('home', function($breadcrumbs) {
-    $breadcrumbs->push('Home', route('home'));
+Breadcrumbs::register('home', function ($breadcrumbs) {
+     $breadcrumbs->push('Home', route('home'));
 });
 ```
 
@@ -173,8 +168,8 @@ This example would be rendered like this:
 This is another static page, but this has a parent link before it:
 
 ```php
-Breadcrumbs::register('blog', function($breadcrumbs) {
-    $breadcrumbs->parent('home');
+Breadcrumbs::register('blog', function ($breadcrumbs) {
+     $breadcrumbs->parent('home');
     $breadcrumbs->push('Blog', route('blog'));
 });
 ```
@@ -193,7 +188,7 @@ Note that the default template does not create a link for the last breadcrumb (t
 This is a dynamically generated page pulled from the database:
 
 ```php
-Breadcrumbs::register('page', function($breadcrumbs, $page) {
+Breadcrumbs::register('page', function ($breadcrumbs, $page) {
     $breadcrumbs->parent('blog');
     $breadcrumbs->push($page->title, route('page', $page->id));
 });
@@ -217,7 +212,7 @@ It would be rendered like this:
 Finally if you have nested categories or other special requirements, you can call `$breadcrumbs->push()` multiple times:
 
 ```php
-Breadcrumbs::register('category', function($breadcrumbs, $category) {
+Breadcrumbs::register('category', function ($breadcrumbs, $category) {
     $breadcrumbs->parent('blog');
 
     foreach ($category->ancestors as $ancestor) {
@@ -231,11 +226,12 @@ Breadcrumbs::register('category', function($breadcrumbs, $category) {
 Alternatively you could make a recursive function such as this:
 
 ```php
-Breadcrumbs::register('category', function($breadcrumbs, $category) {
-    if ($category->parent)
+Breadcrumbs::register('category', function ($breadcrumbs, $category) {
+    if ($category->parent) {
         $breadcrumbs->parent('category', $category->parent);
-    else
+    } else {
         $breadcrumbs->parent('blog');
+    }
 
     $breadcrumbs->push($category->title, route('category', $category->slug));
 });
@@ -371,13 +367,12 @@ For each route, create a breadcrumb with the same name. For example (`routes/bre
 
 ```php
 // Home
-Breadcrumbs::register('home', function($breadcrumbs) {
-    $breadcrumbs->push('Home', route('home'));
+Breadcrumbs::register('home', function ($breadcrumbs) {
+     $breadcrumbs->push('Home', route('home'));
 });
 
 // Home > [Page]
-Breadcrumbs::register('page', function($breadcrumbs, $id)
-{
+Breadcrumbs::register('page', function ($breadcrumbs, $id) {
     $page = Page::findOrFail($id);
     $breadcrumbs->parent('home');
     $breadcrumbs->push($page->title, route('page', $page->id));
@@ -425,8 +420,7 @@ class PageController extends Controller
 
 ```php
 // routes/breadcrumbs.php
-Breadcrumbs::register('page', function($breadcrumbs, $page)
-{
+Breadcrumbs::register('page', function ($breadcrumbs, $page) {
     $breadcrumbs->parent('home');
     $breadcrumbs->push($page->title, route('page', $page->id));
 });
@@ -466,29 +460,25 @@ $ php artisan route:list
 // routes/breadcrumbs.php
 
 // Photos
-Breadcrumbs::register('photo.index', function($breadcrumbs)
-{
+Breadcrumbs::register('photo.index', function ($breadcrumbs) {
     $breadcrumbs->parent('home');
     $breadcrumbs->push('Photos', route('photo.index'));
 });
 
 // Photos > Upload Photo
-Breadcrumbs::register('photo.create', function($breadcrumbs)
-{
+Breadcrumbs::register('photo.create', function ($breadcrumbs) {
     $breadcrumbs->parent('photo.index');
     $breadcrumbs->push('Upload Photo', route('photo.create'));
 });
 
 // Photos > [Photo Name]
-Breadcrumbs::register('photo.show', function($breadcrumbs, $photo)
-{
+Breadcrumbs::register('photo.show', function ($breadcrumbs, $photo) {
     $breadcrumbs->parent('photo.index');
     $breadcrumbs->push($photo->title, route('photo.show', $photo->id));
 });
 
 // Photos > [Photo Name] > Edit Photo
-Breadcrumbs::register('photo.edit', function($breadcrumbs, $photo)
-{
+Breadcrumbs::register('photo.edit', function ($breadcrumbs, $photo) {
     $breadcrumbs->parent('photo.show', $photo);
     $breadcrumbs->push('Edit Photo', route('photo.edit', $photo->id));
 });
@@ -579,8 +569,9 @@ class MyServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        if (class_exists('Breadcrumbs'))
+        if (class_exists('Breadcrumbs')) {
             require __DIR__ . '/breadcrumbs.php';
+        }
     }
 }
 ```
@@ -677,7 +668,7 @@ Alternatively you can call `Breadcrumbs::exists('name')`, which returns a boolea
 ### Defining breadcrumbs
 
 ```php
-Breadcrumbs::register('name', function($breadcrumbs, $page) {
+Breadcrumbs::register('name', function ($breadcrumbs, $page) {
     // ...
 });
 ```
