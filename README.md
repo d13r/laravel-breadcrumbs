@@ -106,7 +106,7 @@ By default a [Bootstrap](http://getbootstrap.com/components/#breadcrumbs)-compat
 First initialise the config file by running this command:
 
 ```bash
-php artisan vendor:publish
+php artisan vendor:publish --provider='DaveJamesMiller\Breadcrumbs\ServiceProvider'
 ```
 
 Then open `config/breadcrumbs.php` and edit this line:
