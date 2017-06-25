@@ -2,7 +2,6 @@
 
 namespace DaveJamesMiller\Breadcrumbs;
 
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
