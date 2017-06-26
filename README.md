@@ -169,7 +169,7 @@ This is another static page, but this has a parent link before it:
 
 ```php
 Breadcrumbs::register('blog', function ($breadcrumbs) {
-     $breadcrumbs->parent('home');
+    $breadcrumbs->parent('home');
     $breadcrumbs->push('Blog', route('blog'));
 });
 ```
@@ -209,7 +209,7 @@ It would be rendered like this:
 
 ### Nested categories
 
-Finally if you have nested categories or other special requirements, you can call `$breadcrumbs->push()` multiple times:
+Finally, if you have nested categories or other special requirements, you can call `$breadcrumbs->push()` multiple times:
 
 ```php
 Breadcrumbs::register('category', function ($breadcrumbs, $category) {
@@ -403,15 +403,16 @@ Laravel Breadcrumbs uses the same model binding as the controller. For example:
 
 ```php
 // routes/web.php
-Route::model('page', 'Page');
-Route::get('/page/{page}', ['uses' => 'PageController@show', 'as' => 'page']);
+Route::get('/page/{page}', 'PageController@show')->name('page');
 ```
 
 ```php
 // app/Http/Controllers/PageController.php
+use App\Page;
+
 class PageController extends Controller
 {
-    public function show($page)
+    public function show(Page $page) // <-- Implicit model binding happens here
     {
         return view('page/show', ['page' => $page]);
     }
@@ -420,7 +421,7 @@ class PageController extends Controller
 
 ```php
 // routes/breadcrumbs.php
-Breadcrumbs::register('page', function ($breadcrumbs, $page) {
+Breadcrumbs::register('page', function ($breadcrumbs, $page) { // <-- The same Page model is injected here
     $breadcrumbs->parent('home');
     $breadcrumbs->push($page->title, route('page', $page->id));
 });
@@ -542,7 +543,7 @@ Do not use the following keys in your data array, as they will be overwritten: `
 
 ### Defining breadcrumbs in a different file
 
-If you don't want to use `routes/breadcrumbs.php` (or `app/Http/breadcrumbs.php` in Laravel 5.2 and below), you can create a custom service provider to use instead of `DaveJamesMiller\Breadcrumbs\ServiceProvider` and override the `registerBreadcrumbs()` method:
+If you don't want to use `routes/breadcrumbs.php`, you can create a custom service provider to use instead of `DaveJamesMiller\Breadcrumbs\ServiceProvider` and override the `registerBreadcrumbs()` method:
 
 ```php
 <?php
@@ -693,10 +694,9 @@ Breadcrumbs::register('name', function ($breadcrumbs, $page) {
     - `Breadcrumbs::generateArrayIfExists($name, $params)` → `Breadcrumbs::generateIfExists($page, ...$params)`
     - `Breadcrumbs::setCurrentRouteArray($name, $params)` → `Breadcrumbs::setCurrentRoute($page, ...$params)`
     - `$breadcrumbs->parentArray($name, $params)` → `$breadcrumbs->parent($name, ...$params)`
-- Remove deprecated features & methods:
-    - `app/Http/breadcrumbs.php` file (use `routes/breadcrumbs.php` instead)
-    - `laravel-breadcrumbs::` view prefix (use `breadcrumbs::` instead)
-    - `$app['breadcrumbs']` container short name (use `Breadcrumbs::` facade or `DaveJamesMiller\Breadcrumbs\Manager` type hint)
+- Remove `app/Http/breadcrumbs.php` file (use `routes/breadcrumbs.php` instead)
+- Remove `laravel-breadcrumbs::` view prefix (use `breadcrumbs::` instead)
+- Remove `$app['breadcrumbs']` container short name (use `Breadcrumbs::` facade or `DaveJamesMiller\Breadcrumbs\Manager` type hint)
 
 
 ### [v3.0.3](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.0.3) (24 Jun 2017)
