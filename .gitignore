@@ -1,11 +1,10 @@
 # PHP packages
+/composer.lock
 /vendor
-composer.phar
-composer.lock
 
-# Compiled documentation (run `grunt docs` for HTML; `grunt pdfdocs` for PDF)
-/docs-html/
-/docs-pdf/
+# phpDocumentor
+/docs/
+/phpdoc.xml
 
 # Test coverage output
 /test-coverage/

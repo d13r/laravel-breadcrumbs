@@ -2,6 +2,11 @@
 
 namespace DaveJamesMiller\Breadcrumbs;
 
-class Exception extends \Exception
+use Exception as BaseException;
+
+/**
+ * Base class for exceptions in Laravel Breadcrumbs.
+ */
+abstract class Exception extends BaseException
 {
 }

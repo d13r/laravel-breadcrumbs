@@ -4,6 +4,9 @@ namespace DaveJamesMiller\Breadcrumbs;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
+/**
+ * The Laravel service provider, which registers, configures and bootstraps the package.
+ */
 class ServiceProvider extends BaseServiceProvider
 {
     /**
@@ -14,7 +17,7 @@ class ServiceProvider extends BaseServiceProvider
     protected $defer = true;
 
     /**
-     * Get the services provided by the provider.
+     * Get the classes provided for deferred loading.
      *
      * @return array
      */
@@ -59,7 +62,14 @@ class ServiceProvider extends BaseServiceProvider
         $this->registerBreadcrumbs();
     }
 
-    // This method can be overridden in a child class
+    /**
+     * Load the routes/breadcrumbs.php file (if it exists) which registers available breadcrumbs.
+     *
+     * This method can be overridden in a child class. It is called by the boot() method, which Laravel calls
+     * automatically when bootstrapping the application.
+     *
+     * @return void
+     */
     public function registerBreadcrumbs() //: void
     {
         // Load the app breadcrumbs if they're in routes/breadcrumbs.php
