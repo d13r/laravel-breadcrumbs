@@ -102,19 +102,6 @@ class Manager
     }
 
     /**
-     * Generate a set of breadcrumbs for a page, with an array of parameters.
-     *
-     * @param string|null $name   The name of the current page.
-     * @param array       $params The parameters to pass to the closure for the current page.
-     * @return array The generated breadcrumbs.
-     * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
-     */
-    public function generateArray(string $name, array $params = []): array
-    {
-        return $this->generator->generate($this->callbacks, $name, $params);
-    }
-
-    /**
      * Generate a set of breadcrumbs for a page.
      *
      * Returns an empty array if the page doesn't exist or the current route is unnamed, instead of throwing an
@@ -142,24 +129,6 @@ class Manager
     }
 
     /**
-     * Generate a set of breadcrumbs for a page, with an array of parameters.
-     *
-     * Returns an empty array if the page doesn't exist, instead of throwing an exception.
-     *
-     * @param string|null $name   The name of the current page.
-     * @param array       $params The parameters to pass to the closure for the current page.
-     * @return array The generated breadcrumbs.
-     */
-    public function generateIfExistsArray(string $name, array $params = []): array
-    {
-        try {
-            return $this->generator->generate($this->callbacks, $name, $params);
-        } catch (InvalidBreadcrumbException $e) {
-            return [];
-        }
-    }
-
-    /**
      * Render breadcrumbs for a page.
      *
      * @param string|null $name      The name of the current page.
@@ -175,22 +144,6 @@ class Manager
             list($name, $params) = $this->currentRoute->get();
         }
 
-        $breadcrumbs = $this->generator->generate($this->callbacks, $name, $params);
-
-        return $this->view->render($this->viewName, $breadcrumbs);
-    }
-
-    /**
-     * Render breadcrumbs for a page, with an array of parameters.
-     *
-     * @param string|null $name   The name of the current page.
-     * @param array       $params The parameters to pass to the closure for the current page.
-     * @return string The generated HTML.
-     * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
-     * @throws InvalidViewException if no view has been set.
-     */
-    public function renderArray(string $name, array $params = []): string
-    {
         $breadcrumbs = $this->generator->generate($this->callbacks, $name, $params);
 
         return $this->view->render($this->viewName, $breadcrumbs);
@@ -227,27 +180,6 @@ class Manager
     }
 
     /**
-     * Render breadcrumbs for a page, with an array of parameters.
-     *
-     * Returns an empty string if the page doesn't exist, instead of throwing an exception.
-     *
-     * @param string|null $name   The name of the current page.
-     * @param array       $params The parameters to pass to the closure for the current page.
-     * @return string The generated HTML.
-     * @throws InvalidViewException if no view has been set.
-     */
-    public function renderIfExistsArray(string $name, array $params = []): string
-    {
-        try {
-            $breadcrumbs = $this->generator->generate($this->callbacks, $name, $params);
-        } catch (InvalidBreadcrumbException $e) {
-            return '';
-        }
-
-        return $this->view->render($this->viewName, $breadcrumbs);
-    }
-
-    /**
      * Set the current route name and parameters to use when calling render() or generate() with no parameters.
      *
      * @param string $name      The name of the current page.
@@ -255,19 +187,6 @@ class Manager
      * @return void
      */
     public function setCurrentRoute(string $name, ...$params) //: void
-    {
-        $this->currentRoute->set($name, $params);
-    }
-
-    /**
-     * Set the current route name and parameters to use when calling render() or generate() with no parameters, with an
-     * array of parameters.
-     *
-     * @param string $name   The name of the current page.
-     * @param array  $params The parameters to pass to the closure for the current page.
-     * @return void
-     */
-    public function setCurrentRouteArray(string $name, array $params = []) //: void
     {
         $this->currentRoute->set($name, $params);
     }

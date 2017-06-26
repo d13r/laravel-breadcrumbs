@@ -596,26 +596,7 @@ Or you can call `Breadcrumbs::generate()` and then load the view manually:
 
 If you call `Breadcrumbs::render()` or `Breadcrumbs::generate()` with no parameters, it will use the current route name and parameters by default (as returned by Laravel's `Route::current()` method).
 
-You can override this by calling `Breadcrumbs::setCurrentRoute($name, $param1, $param2...)` or `Breadcrumbs::setCurrentRouteArray($name, $params)`.
-
-
-### Passing an array of parameters
-
-If the breadcrumb requires multiple parameters, you would normally pass them like this:
-
-```php
-Breadcrumbs::render('name', $param1, $param2, $param3);
-Breadcrumbs::generate('name', $param1, $param2, $param3);
-$breadcrumbs->parent('name', $param1, $param2, $param3);
-```
-
-If you want to pass an array of parameters instead you can use these methods:
-
-```php
-Breadcrumbs::renderArray('name', $params);
-Breadcrumbs::generateArray('name', $params);
-$breadcrumbs->parentArray('name', $params);
-```
+You can override this by calling `Breadcrumbs::setCurrentRoute($name, $param1, $param2...)`.
 
 
 ### Checking if a breadcrumb exists
@@ -623,9 +604,7 @@ $breadcrumbs->parentArray('name', $params);
 By default an exception will be thrown if the breadcrumb doesn't exist, so you know to add it. If you want suppress this you can call the following methods instead:
 
 - `Breadcrumbs::renderIfExists()` (returns an empty string)
-- `Breadcrumbs::renderIfExistsArray()` (returns an empty string) (was `renderArrayIfExists` before 3.0.0)
 - `Breadcrumbs::generateIfExists()` (returns an empty array)
-- `Breadcrumbs::generateIfExistsArray()` (returns an empty array) (was `generateArrayIfExists` before 3.0.0)
 
 Alternatively you can call `Breadcrumbs::exists('name')`, which returns a boolean.
 
@@ -643,22 +622,17 @@ Alternatively you can call `Breadcrumbs::exists('name')`, which returns a boolea
 | `Breadcrumbs::generate()`                            | array     | 2.2.3    |
 | `Breadcrumbs::generate($name)`                       | array     | 1.0.0    |
 | `Breadcrumbs::generate($name, $param1, ...)`         | array     | 1.0.0    |
-| `Breadcrumbs::generateArray($name, $params)`         | array     | 2.0.0    |
 | `Breadcrumbs::generateIfExists()`                    | array     | 2.2.0    |
 | `Breadcrumbs::generateIfExists($name)`               | array     | 2.2.0    |
 | `Breadcrumbs::generateIfExists($name, $param1, ...)` | array     | 2.2.0    |
-| `Breadcrumbs::generateIfExistsArray($name, $params)` | array     | 3.0.0    |
 | `Breadcrumbs::render()`                              | string    | 2.2.0    |
 | `Breadcrumbs::render($name)`                         | string    | 1.0.0    |
 | `Breadcrumbs::render($name, $param1, ...)`           | string    | 1.0.0    |
-| `Breadcrumbs::renderArray($name, $params)`           | string    | 2.0.0    |
 | `Breadcrumbs::renderIfExists()`                      | string    | 2.2.0    |
 | `Breadcrumbs::renderIfExists($name)`                 | string    | 2.2.0    |
 | `Breadcrumbs::renderIfExists($name, $param1, ...)`   | string    | 2.2.0    |
-| `Breadcrumbs::renderIfExistsArray($name, $params)`   | string    | 3.0.0    |
 | `Breadcrumbs::setCurrentRoute($name)`                | *(none)*  | 2.2.0    |
 | `Breadcrumbs::setCurrentRoute($name, $param1, ...)`  | *(none)*  | 2.2.0    |
-| `Breadcrumbs::setCurrentRouteArray($name, $params)`  | *(none)*  | 2.2.0    |
 | `Breadcrumbs::clearCurrentRoute()`                   | *(none)*  | 2.2.0    |
 | `Breadcrumbs::setView($view)`                        | *(none)*  | 1.0.0    |
 
@@ -681,7 +655,6 @@ Breadcrumbs::register('name', function ($breadcrumbs, $page) {
 | `$breadcrumbs->push($title, $url, $data)`            | *(none)*  | 2.3.0    |
 | `$breadcrumbs->parent($name)`                        | *(none)*  | 1.0.0    |
 | `$breadcrumbs->parent($name, $param1, ...)`          | *(none)*  | 1.0.0    |
-| `$breadcrumbs->parentArray($name, $params)`          | *(none)*  | 2.0.0    |
 
 [Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/develop/src/Generator.php)
 
@@ -711,9 +684,16 @@ Breadcrumbs::register('name', function ($breadcrumbs, $page) {
 - Add [package auto-discovery](https://laravel-news.com/package-auto-discovery)
 - Add type hints to all methods
 - Add more specific exception classes
+- Remove `Array` variants of methods – use [variadic arguments](https://php.net/manual/en/migration56.new-features.php#migration56.new-features.variadics) instead:
+    - `Breadcrumbs::renderArray($page, $params)` → `Breadcrumbs::render($page, ...$params)`
+    - `Breadcrumbs::generateArray($page, $params)` → `Breadcrumbs::generate($page, ...$params)`
+    - `Breadcrumbs::renderIfExistsArray($page, $params)` → `Breadcrumbs::renderIfExists($page, ...$params)`
+    - `Breadcrumbs::generateIfExistsArray($page, $params)` → `Breadcrumbs::generateIfExists($page, ...$params)`
+    - `Breadcrumbs::renderArrayIfExists($name, $params)` → `Breadcrumbs::renderIfExists($page, ...$params)`
+    - `Breadcrumbs::generateArrayIfExists($name, $params)` → `Breadcrumbs::generateIfExists($page, ...$params)`
+    - `Breadcrumbs::setCurrentRouteArray($name, $params)` → `Breadcrumbs::setCurrentRoute($page, ...$params)`
+    - `$breadcrumbs->parentArray($name, $params)` → `$breadcrumbs->parent($name, ...$params)`
 - Remove deprecated features & methods:
-    - `Breadcrumbs::renderArrayIfExists()` (use `Breadcrumbs::renderIfExistsArray()` instead)
-    - `Breadcrumbs::generateArrayIfExists()` (use `Breadcrumbs::generateIfExistsArray()` instead)
     - `app/Http/breadcrumbs.php` file (use `routes/breadcrumbs.php` instead)
     - `laravel-breadcrumbs::` view prefix (use `breadcrumbs::` instead)
     - `$app['breadcrumbs']` container short name (use `Breadcrumbs::` facade or `DaveJamesMiller\Breadcrumbs\Manager` type hint)

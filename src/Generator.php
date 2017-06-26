@@ -72,20 +72,6 @@ class Generator
     }
 
     /**
-     * Add breadcrumbs for a parent page, with an array of parameters.
-     *
-     * Should be called from the closure for a page, before `push()` is called.
-     *
-     * @param string $name   The name of the parent page.
-     * @param array  $params The parameters to pass to the closure.
-     * @throws InvalidBreadcrumbException
-     */
-    public function parentArray(string $name, array $params) //: void
-    {
-        $this->call($name, $params);
-    }
-
-    /**
      * Add a breadcrumb.
      *
      * Should be called from the closure for each page. May be called more than once.

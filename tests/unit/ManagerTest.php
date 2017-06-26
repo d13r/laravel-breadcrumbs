@@ -100,20 +100,6 @@ class ManagerTest extends TestCase
         $this->assertSame(['generated'], $this->manager->generate('sample', 1, 'blah'));
     }
 
-    // Breadcrumbs::generateArray($name, $params) -> array
-    public function testGenerateArray_name_params()
-    {
-        $fn = $this->register('sample');
-
-        $this->generator
-            ->shouldReceive('generate')
-            ->with(['sample' => $fn], 'sample', [1, 'blah'])
-            ->once()
-            ->andReturn(['generated']);;
-
-        $this->assertSame(['generated'], $this->manager->generateArray('sample', [1, 'blah']));
-    }
-
     // Breadcrumbs::generateIfExists() -> array
     public function testGenerateIfExists_existing()
     {
@@ -207,31 +193,6 @@ class ManagerTest extends TestCase
         $this->assertSame([], $this->manager->generateIfExists('sample', 1, 'blah'));
     }
 
-    // Breadcrumbs::generateIfExistsArray($name, $params) -> array
-    public function testGenerateIfExistsArray_name_params_existing()
-    {
-        $fn = $this->register('sample');
-
-        $this->generator
-            ->shouldReceive('generate')
-            ->with(['sample' => $fn], 'sample', [1, 'blah'])
-            ->once()
-            ->andReturn(['generated']);
-
-        $this->assertSame(['generated'], $this->manager->generateIfExistsArray('sample', [1, 'blah']));
-    }
-
-    public function testGenerateIfExistsArray_name_params_nonexistant()
-    {
-        $this->generator
-            ->shouldReceive('generate')
-            ->with([], 'sample', [1, 'blah'])
-            ->once()
-            ->andThrow(InvalidBreadcrumbException::class, 'Breadcrumb not found with name "sample"');
-
-        $this->assertSame([], $this->manager->generateIfExistsArray('sample', [1, 'blah']));
-    }
-
     // Breadcrumbs::render() -> array
     public function testRender()
     {
@@ -290,25 +251,6 @@ class ManagerTest extends TestCase
             ->andReturn('rendered');
 
         $this->assertSame('rendered', $this->manager->render('sample', 1, 'blah'));
-    }
-
-    // Breadcrumbs::renderArray($name, $params) -> array
-    public function testRenderArray_name_params()
-    {
-        $fn = $this->register('sample');
-
-        $this->generator
-            ->shouldReceive('generate')
-            ->with(['sample' => $fn], 'sample', [1, 'blah'])
-            ->once()
-            ->andReturn(['generated']);;
-        $this->view
-            ->shouldReceive('render')
-            ->with('view', ['generated'])
-            ->once()
-            ->andReturn('rendered');
-
-        $this->assertSame('rendered', $this->manager->renderArray('sample', [1, 'blah']));
     }
 
     // Breadcrumbs::renderIfExists() -> array
@@ -431,39 +373,6 @@ class ManagerTest extends TestCase
         $this->assertSame('', $this->manager->renderIfExists('sample', 1, 'blah'));
     }
 
-    // Breadcrumbs::renderIfExistsArray($name, $params) -> array
-    public function testRenderIfExistsArray_name_params_existing()
-    {
-        $fn = $this->register('sample');
-
-        $this->generator
-            ->shouldReceive('generate')
-            ->with(['sample' => $fn], 'sample', [1, 'blah'])
-            ->once()
-            ->andReturn(['generated']);
-        $this->view
-            ->shouldReceive('render')
-            ->with('view', ['generated'])
-            ->once()
-            ->andReturn('rendered');
-
-        $this->assertSame('rendered', $this->manager->renderIfExistsArray('sample', [1, 'blah']));
-    }
-
-    public function testRenderIfExistsArray_name_params_nonexistant()
-    {
-        $this->generator
-            ->shouldReceive('generate')
-            ->with([], 'sample', [1, 'blah'])
-            ->once()
-            ->andThrow(InvalidBreadcrumbException::class, 'Breadcrumb not found with name "sample"');
-        $this->view
-            ->shouldReceive('render')
-            ->never();
-
-        $this->assertSame('', $this->manager->renderIfExistsArray('sample', [1, 'blah']));
-    }
-
     // Breadcrumbs::setCurrentRoute($name)
     public function testSetCurrentRoute_name()
     {
@@ -484,17 +393,6 @@ class ManagerTest extends TestCase
             ->once();
 
         $this->manager->setCurrentRoute('sample', 1, 'blah');
-    }
-
-    // Breadcrumbs::setCurrentRouteArray($name, $params)
-    public function testSetCurrentRouteArray_name_params()
-    {
-        $this->currentRoute
-            ->shouldReceive('set')
-            ->with('sample', [1, 'blah'])
-            ->once();
-
-        $this->manager->setCurrentRouteArray('sample', [1, 'blah']);
     }
 
     // Breadcrumbs::clearCurrentRoute()

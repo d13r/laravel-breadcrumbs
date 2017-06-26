@@ -137,20 +137,6 @@ class GeneratorTest extends TestCase
         ], 'sample', []);
     }
 
-    // $breadcrumbs->parentArray($name, $params)
-    public function testParentArray_name_params()
-    {
-        $breadcrumbs = $this->generator->generate([
-            'parent' => function ($breadcrumbs, $num, $text) {
-                $this->assertSame(1, $num);
-                $this->assertSame('blah', $text);
-            },
-            'sample' => function ($breadcrumbs) {
-                $breadcrumbs->parentArray('parent', [1, 'blah']);
-            },
-        ], 'sample', []);
-    }
-
     // $breadcrumb->first
     // $breadcrumb->last
     public function testFirstLast()
