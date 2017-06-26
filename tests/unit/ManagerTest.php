@@ -2,6 +2,7 @@
 
 namespace BreadcrumbsTests;
 
+use DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
 use DaveJamesMiller\Breadcrumbs\Manager;
 use LogicException;
 use Mockery as m;
@@ -137,7 +138,9 @@ class ManagerTest extends TestCase
             ->andReturn(['sample', [1, 'blah']]);
         $this->generator
             ->shouldReceive('generate')
-            ->never();
+            ->with([], 'sample', [1, 'blah'])
+            ->once()
+            ->andThrow(InvalidBreadcrumbException::class, 'Breadcrumb not found with name "sample"');
 
         $this->assertSame([], $this->manager->generateIfExists());
     }
@@ -172,7 +175,9 @@ class ManagerTest extends TestCase
     {
         $this->generator
             ->shouldReceive('generate')
-            ->never();
+            ->with([], 'sample', [])
+            ->once()
+            ->andThrow(InvalidBreadcrumbException::class, 'Breadcrumb not found with name "sample"');
 
         $this->assertSame([], $this->manager->generateIfExists('sample'));
     }
@@ -195,7 +200,9 @@ class ManagerTest extends TestCase
     {
         $this->generator
             ->shouldReceive('generate')
-            ->never();
+            ->with([], 'sample', [1, 'blah'])
+            ->once()
+            ->andThrow(InvalidBreadcrumbException::class, 'Breadcrumb not found with name "sample"');
 
         $this->assertSame([], $this->manager->generateIfExists('sample', 1, 'blah'));
     }
@@ -218,7 +225,9 @@ class ManagerTest extends TestCase
     {
         $this->generator
             ->shouldReceive('generate')
-            ->never();
+            ->with([], 'sample', [1, 'blah'])
+            ->once()
+            ->andThrow(InvalidBreadcrumbException::class, 'Breadcrumb not found with name "sample"');
 
         $this->assertSame([], $this->manager->generateIfExistsArray('sample', [1, 'blah']));
     }
@@ -331,7 +340,9 @@ class ManagerTest extends TestCase
             ->andReturn(['sample', [1, 'blah']]);
         $this->generator
             ->shouldReceive('generate')
-            ->never();
+            ->with([], 'sample', [1, 'blah'])
+            ->once()
+            ->andThrow(InvalidBreadcrumbException::class, 'Breadcrumb not found with name "sample"');
         $this->view
             ->shouldReceive('render')
             ->never();
@@ -377,7 +388,9 @@ class ManagerTest extends TestCase
     {
         $this->generator
             ->shouldReceive('generate')
-            ->never();
+            ->with([], 'sample', [])
+            ->once()
+            ->andThrow(InvalidBreadcrumbException::class, 'Breadcrumb not found with name "sample"');
         $this->view
             ->shouldReceive('render')
             ->never();
@@ -408,7 +421,9 @@ class ManagerTest extends TestCase
     {
         $this->generator
             ->shouldReceive('generate')
-            ->never();
+            ->with([], 'sample', [1, 'blah'])
+            ->once()
+            ->andThrow(InvalidBreadcrumbException::class, 'Breadcrumb not found with name "sample"');
         $this->view
             ->shouldReceive('render')
             ->never();
@@ -439,7 +454,9 @@ class ManagerTest extends TestCase
     {
         $this->generator
             ->shouldReceive('generate')
-            ->never();
+            ->with([], 'sample', [1, 'blah'])
+            ->once()
+            ->andThrow(InvalidBreadcrumbException::class, 'Breadcrumb not found with name "sample"');
         $this->view
             ->shouldReceive('render')
             ->never();
