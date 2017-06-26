@@ -54,9 +54,7 @@ class Generator
             throw new InvalidBreadcrumbException("Breadcrumb not found with name \"{$name}\"");
         }
 
-        array_unshift($params, $this);
-
-        call_user_func_array($this->callbacks[ $name ], $params);
+        $this->callbacks[$name]($this, ...$params);
     }
 
     /**
