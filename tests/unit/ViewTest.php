@@ -42,13 +42,13 @@ class ViewTest extends TestCase
 
     public function testBootstrap2()
     {
-        $html = $this->view->render('breadcrumbs::bootstrap2', $this->breadcrumbs);
+        $html = $this->view->render('breadcrumbs::bootstrap2', $this->breadcrumbs)->toHtml();
         $this->assertXmlStringEqualsXmlFile(__DIR__ . '/../fixtures/bootstrap2.html', $html);
     }
 
     public function testBootstrap3()
     {
-        $html = $this->view->render('breadcrumbs::bootstrap3', $this->breadcrumbs);
+        $html = $this->view->render('breadcrumbs::bootstrap3', $this->breadcrumbs)->toHtml();
         $this->assertXmlStringEqualsXmlFile(__DIR__ . '/../fixtures/bootstrap3.html', $html);
     }
 }

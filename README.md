@@ -124,9 +124,9 @@ See the [Custom Templates](#custom-templates) section for more details.
 Finally, call `Breadcrumbs::render()` in the view template for each page, passing it the name of the breadcrumb to use and any additional parameters – for example:
 
 ```html+php
-{!! Breadcrumbs::render('home') !!}
+{{ Breadcrumbs::render('home') }}
 
-{!! Breadcrumbs::render('category', $category) !!}
+{{ Breadcrumbs::render('category', $category) }}
 ```
 
 See the [Outputting Breadcrumbs](#outputting-breadcrumbs) section for other output options, and see [Route-Bound Breadcrumbs](#route-bound-breadcrumbs) for a way to link breadcrumb names to route names automatically.
@@ -197,7 +197,7 @@ Breadcrumbs::register('page', function ($breadcrumbs, $page) {
 The `$page` variable would simply be passed in from the view:
 
 ```html+php
-{!! Breadcrumbs::render('page', $page) !!}
+{{ Breadcrumbs::render('page', $page) }}
 ```
 
 It would be rendered like this:
@@ -299,13 +299,13 @@ Call `Breadcrumbs::render()` in the view template for each page, passing it the 
 In the page (e.g. `resources/views/home.blade.php`):
 
 ```html+php
-{!! Breadcrumbs::render('home') !!}
+{{ Breadcrumbs::render('home') }}
 ```
 
 Or with a parameter:
 
 ```html+php
-{!! Breadcrumbs::render('category', $category) !!}
+{{ Breadcrumbs::render('category', $category) }}
 ```
 
 ### With Blade layouts and @section
@@ -385,7 +385,7 @@ Breadcrumbs::register('page', function ($breadcrumbs, $id) {
 Call `Breadcrumbs::render()` with no parameters in your layout file (e.g. `resources/views/app.blade.php`):
 
 ```html+php
-{!! Breadcrumbs::render() !!}
+{{ Breadcrumbs::render() }}
 ```
 
 This will automatically output breadcrumbs corresponding to the current route.
@@ -393,7 +393,7 @@ This will automatically output breadcrumbs corresponding to the current route.
 It will throw an exception if the breadcrumb doesn't exist, to remind you to create one. To prevent this behaviour, change it to:
 
 ```html+php
-{!! Breadcrumbs::renderIfExists() !!}
+{{ Breadcrumbs::renderIfExists() }}
 ```
 
 

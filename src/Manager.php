@@ -6,6 +6,7 @@ use DaveJamesMiller\Breadcrumbs\Exceptions\DuplicateBreadcrumbException;
 use DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
 use DaveJamesMiller\Breadcrumbs\Exceptions\InvalidViewException;
 use DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException;
+use Illuminate\Support\HtmlString;
 
 /**
  * The main Breadcrumbs singleton class, responsible for registering, generating and rendering breadcrumbs.
@@ -133,12 +134,12 @@ class Manager
      *
      * @param string|null $name      The name of the current page.
      * @param mixed       ...$params The parameters to pass to the closure for the current page.
-     * @return string The generated HTML.
+     * @return HtmlString The generated HTML.
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
      * @throws UnnamedRouteException if no name is given and the current route doesn't have an associated name.
      * @throws InvalidViewException if no view has been set.
      */
-    public function render(string $name = null, ...$params): string
+    public function render(string $name = null, ...$params): HtmlString
     {
         if ($name === null) {
             list($name, $params) = $this->currentRoute->get();
@@ -157,23 +158,23 @@ class Manager
      *
      * @param string|null $name      The name of the current page.
      * @param mixed       ...$params The parameters to pass to the closure for the current page.
-     * @return string The generated HTML.
+     * @return HtmlString The generated HTML.
      * @throws InvalidViewException if no view has been set.
      */
-    public function renderIfExists(string $name = null, ...$params): string
+    public function renderIfExists(string $name = null, ...$params): HtmlString
     {
         if ($name === null) {
             try {
                 list($name, $params) = $this->currentRoute->get();
             } catch (UnnamedRouteException $e) {
-                return '';
+                return new HtmlString('');
             }
         }
 
         try {
             $breadcrumbs = $this->generator->generate($this->callbacks, $name, $params);
         } catch (InvalidBreadcrumbException $e) {
-            return '';
+            return new HtmlString('');
         }
 
         return $this->view->render($this->viewName, $breadcrumbs);

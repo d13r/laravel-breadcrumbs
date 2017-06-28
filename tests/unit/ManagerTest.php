@@ -4,6 +4,7 @@ namespace BreadcrumbsTests;
 
 use DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
 use DaveJamesMiller\Breadcrumbs\Manager;
+use Illuminate\Support\HtmlString;
 use LogicException;
 use Mockery as m;
 use DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException;
@@ -210,9 +211,9 @@ class ManagerTest extends TestCase
             ->shouldReceive('render')
             ->with('view', ['generated'])
             ->once()
-            ->andReturn('rendered');
+            ->andReturn(new HtmlString('rendered'));
 
-        $this->assertSame('rendered', $this->manager->render());
+        $this->assertSame('rendered', $this->manager->render()->toHtml());
     }
 
     // Breadcrumbs::render($name) -> array
@@ -229,9 +230,9 @@ class ManagerTest extends TestCase
             ->shouldReceive('render')
             ->with('view', ['generated'])
             ->once()
-            ->andReturn('rendered');
+            ->andReturn(new HtmlString('rendered'));
 
-        $this->assertSame('rendered', $this->manager->render('sample'));
+        $this->assertSame('rendered', $this->manager->render('sample')->toHtml());
     }
 
     // Breadcrumbs::render($name, $param1, ...) -> array
@@ -248,9 +249,9 @@ class ManagerTest extends TestCase
             ->shouldReceive('render')
             ->with('view', ['generated'])
             ->once()
-            ->andReturn('rendered');
+            ->andReturn(new HtmlString('rendered'));
 
-        $this->assertSame('rendered', $this->manager->render('sample', 1, 'blah'));
+        $this->assertSame('rendered', $this->manager->render('sample', 1, 'blah')->toHtml());
     }
 
     // Breadcrumbs::renderIfExists() -> array
@@ -270,9 +271,9 @@ class ManagerTest extends TestCase
             ->shouldReceive('render')
             ->with('view', ['generated'])
             ->once()
-            ->andReturn('rendered');
+            ->andReturn(new HtmlString('rendered'));
 
-        $this->assertSame('rendered', $this->manager->renderIfExists());
+        $this->assertSame('rendered', $this->manager->renderIfExists()->toHtml());
     }
 
     public function testRenderIfExists_nonexistant()
@@ -289,7 +290,7 @@ class ManagerTest extends TestCase
             ->shouldReceive('render')
             ->never();
 
-        $this->assertSame('', $this->manager->renderIfExists());
+        $this->assertSame('', $this->manager->renderIfExists()->toHtml());
     }
 
     public function testRenderIfExists_noroute()
@@ -304,7 +305,7 @@ class ManagerTest extends TestCase
             ->shouldReceive('render')
             ->never();
 
-        $this->assertSame('', $this->manager->renderIfExists());
+        $this->assertSame('', $this->manager->renderIfExists()->toHtml());
     }
 
     // Breadcrumbs::renderIfExists($name) -> array
@@ -321,9 +322,9 @@ class ManagerTest extends TestCase
             ->shouldReceive('render')
             ->with('view', ['generated'])
             ->once()
-            ->andReturn('rendered');
+            ->andReturn(new HtmlString('rendered'));
 
-        $this->assertSame('rendered', $this->manager->renderIfExists('sample'));
+        $this->assertSame('rendered', $this->manager->renderIfExists('sample')->toHtml());
     }
 
     public function testRenderIfExists_name_nonexistant()
@@ -337,7 +338,7 @@ class ManagerTest extends TestCase
             ->shouldReceive('render')
             ->never();
 
-        $this->assertSame('', $this->manager->renderIfExists('sample'));
+        $this->assertSame('', $this->manager->renderIfExists('sample')->toHtml());
     }
 
     // Breadcrumbs::renderIfExists($name, $param1, ...) -> array
@@ -354,9 +355,9 @@ class ManagerTest extends TestCase
             ->shouldReceive('render')
             ->with('view', ['generated'])
             ->once()
-            ->andReturn('rendered');
+            ->andReturn(new HtmlString('rendered'));
 
-        $this->assertSame('rendered', $this->manager->renderIfExists('sample', 1, 'blah'));
+        $this->assertSame('rendered', $this->manager->renderIfExists('sample', 1, 'blah')->toHtml());
     }
 
     public function testRenderIfExists_name_params_nonexistant()
@@ -370,7 +371,7 @@ class ManagerTest extends TestCase
             ->shouldReceive('render')
             ->never();
 
-        $this->assertSame('', $this->manager->renderIfExists('sample', 1, 'blah'));
+        $this->assertSame('', $this->manager->renderIfExists('sample', 1, 'blah')->toHtml());
     }
 
     // Breadcrumbs::setCurrentRoute($name)
@@ -419,9 +420,9 @@ class ManagerTest extends TestCase
             ->shouldReceive('render')
             ->with('custom.view', ['generated'])
             ->once()
-            ->andReturn('rendered');
+            ->andReturn(new HtmlString('rendered'));
 
         $this->manager->setView($view = 'custom.view');
-        $this->assertSame('rendered', $this->manager->render('sample', 1, 'blah'));
+        $this->assertSame('rendered', $this->manager->render('sample', 1, 'blah')->toHtml());
     }
 }

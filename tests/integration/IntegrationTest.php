@@ -58,7 +58,7 @@ class IntegrationTest extends TestCase
 
     public function testRender()
     {
-        $html = Breadcrumbs::render('post', $this->post);
+        $html = Breadcrumbs::render('post', $this->post)->toHtml();
         $this->assertXmlStringEqualsXmlFile(__DIR__ . '/../fixtures/integration.html', $html);
     }
 }
