@@ -16,26 +16,18 @@ class ViewTest extends TestCase
             (object) [
                 'title' => 'Home',
                 'url'   => '/',
-                'first' => true,
-                'last'  => false,
             ],
             (object) [
                 'title' => 'Not a link',
                 'url'   => null, // Test non-links
-                'first' => false,
-                'last'  => false,
             ],
             (object) [
                 'title' => 'Blog & < >', // Test HTML escaping
                 'url'   => '/blog',
-                'first' => false,
-                'last'  => false,
             ],
             (object) [
                 'title' => 'Sample Post',
                 'url'   => '/blog/123',
-                'first' => false,
-                'last'  => true,
             ],
         ];
     }

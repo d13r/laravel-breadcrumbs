@@ -85,9 +85,6 @@ class Generator
         $this->breadcrumbs[] = (object) array_merge($data, [
             'title' => $title,
             'url'   => $url,
-            // These will be altered later where necessary:
-            'first' => false,
-            'last'  => false,
         ]);
     }
 
@@ -98,14 +95,6 @@ class Generator
      */
     public function toArray(): array
     {
-        $breadcrumbs = $this->breadcrumbs;
-
-        // Add first & last indicators
-        if ($breadcrumbs) {
-            $breadcrumbs[0]->first                        = true;
-            $breadcrumbs[ count($breadcrumbs) - 1 ]->last = true;
-        }
-
-        return $breadcrumbs;
+        return $this->breadcrumbs;
     }
 }

@@ -251,15 +251,15 @@ To customise the HTML, create your own view file (e.g. `resources/views/_partial
 
 ```html+php
 @if ($breadcrumbs)
-    <ul class="breadcrumb">
+    <ol class="breadcrumb">
         @foreach ($breadcrumbs as $breadcrumb)
-            @if (!$breadcrumb->last)
+            @if ($breadcrumb->url && !$loop->last)
                 <li><a href="{{ $breadcrumb->url }}">{{ $breadcrumb->title }}</a></li>
             @else
                 <li class="active">{{ $breadcrumb->title }}</li>
             @endif
         @endforeach
-    </ul>
+    </ol>
 @endif
 ```
 
@@ -272,10 +272,8 @@ The view will receive an array called `$breadcrumbs`.
 
 Each breadcrumb is an object with the following keys:
 
-- `title` – The breadcrumb title (see :doc:`defining`)
-- `url` – The breadcrumb URL (see :doc:`defining`), or `null` if none was given
-- `first` – `true` for the first breadcrumb (top level), `false` otherwise
-- `last` – `true` for the last breadcrumb (current page), `false` otherwise
+- `title` – The breadcrumb title
+- `url` – The breadcrumb URL, or `null` if none was given
 - Plus additional keys for each item in `$data` (see [Custom data](#custom-data))
 
 
@@ -668,8 +666,6 @@ Breadcrumbs::register('name', function ($breadcrumbs, $page) {
 |--------------------------------------|---------------|----------|
 | `$breadcrumb->title`                 | string        | 1.0.0    |
 | `$breadcrumb->url`                   | string / null | 1.0.0    |
-| `$breadcrumb->first`                 | boolean       | 1.0.0    |
-| `$breadcrumb->last`                  | boolean       | 1.0.0    |
 | `$breadcrumb->custom_attribute_name` | mixed         | 2.3.0    |
 
 
@@ -685,6 +681,7 @@ Breadcrumbs::register('name', function ($breadcrumbs, $page) {
 - Add [package auto-discovery](https://laravel-news.com/package-auto-discovery)
 - Add type hints to all methods
 - Add more specific exception classes
+- Remove `$breadcrumbs->first` and `$breadcrumbs->last` (use Blade `$loop->first` and `$loop->last` instead)
 - Remove `Array` variants of methods – use [variadic arguments](https://php.net/manual/en/migration56.new-features.php#migration56.new-features.variadics) instead:
     - `Breadcrumbs::renderArray($page, $params)` → `Breadcrumbs::render($page, ...$params)`
     - `Breadcrumbs::generateArray($page, $params)` → `Breadcrumbs::generate($page, ...$params)`

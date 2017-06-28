@@ -136,27 +136,4 @@ class GeneratorTest extends TestCase
             },
         ], 'sample', []);
     }
-
-    // $breadcrumb->first
-    // $breadcrumb->last
-    public function testFirstLast()
-    {
-        $breadcrumbs = $this->generator->generate([
-            'sample' => function ($breadcrumbs) {
-                $breadcrumbs->push('Level 1', '/1');
-                $breadcrumbs->push('Level 2', '/2');
-                $breadcrumbs->push('Level 3', '/3');
-            },
-        ], 'sample', []);
-
-        $this->assertCount(3, $breadcrumbs);
-
-        $this->assertTrue($breadcrumbs[0]->first, '$breadcrumbs[0]->first');
-        $this->assertFalse($breadcrumbs[1]->first, '$breadcrumbs[1]->first');
-        $this->assertFalse($breadcrumbs[2]->first, '$breadcrumbs[2]->first');
-
-        $this->assertFalse($breadcrumbs[0]->last, '$breadcrumbs[0]->last');
-        $this->assertFalse($breadcrumbs[1]->last, '$breadcrumbs[1]->last');
-        $this->assertTrue($breadcrumbs[2]->last, '$breadcrumbs[2]->last');
-    }
 }

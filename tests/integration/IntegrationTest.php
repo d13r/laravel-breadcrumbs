@@ -42,18 +42,12 @@ class IntegrationTest extends TestCase
 
         $this->assertSame('Home', $breadcrumbs[0]->title);
         $this->assertSame('/', $breadcrumbs[0]->url);
-        $this->assertTrue($breadcrumbs[0]->first);
-        $this->assertFalse($breadcrumbs[0]->last);
 
         $this->assertSame('Sample Category', $breadcrumbs[1]->title);
         $this->assertSame('/category/456', $breadcrumbs[1]->url);
-        $this->assertFalse($breadcrumbs[1]->first);
-        $this->assertFalse($breadcrumbs[1]->last);
 
         $this->assertSame('Sample Post', $breadcrumbs[2]->title);
         $this->assertSame('/blog/123', $breadcrumbs[2]->url);
-        $this->assertFalse($breadcrumbs[2]->first);
-        $this->assertTrue($breadcrumbs[2]->last);
     }
 
     public function testRender()
