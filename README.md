@@ -107,7 +107,7 @@ php artisan vendor:publish --provider='DaveJamesMiller\Breadcrumbs\ServiceProvid
 Then open `config/breadcrumbs.php` and edit this line:
 
 ```php
-'view' => 'breadcrumbs::bootstrap3',
+    'view' => 'breadcrumbs::bootstrap3',
 ```
 
 The possible values are:
@@ -541,25 +541,38 @@ Do not use the following keys in your data array, as they will be overwritten: `
 
 ### Defining breadcrumbs in a different file
 
-If you don't want to use `routes/breadcrumbs.php`, you can create a custom service provider to use instead of `DaveJamesMiller\Breadcrumbs\ServiceProvider` and override the `registerBreadcrumbs()` method:
+If you don't want to use `routes/breadcrumbs.php`, you can change it in the config file. First initialise the config file, if you haven't already:
 
-```php
-<?php
-
-namespace App\Providers;
-
-use DaveJamesMiller\Breadcrumbs\ServiceProvider;
-
-class BreadcrumbsServiceProvider extends ServiceProvider
-{
-    public function registerBreadcrumbs()
-    {
-        require base_path('path/to/breadcrumbs.php');
-    }
-}
+```bash
+php artisan vendor:publish --provider='DaveJamesMiller\Breadcrumbs\ServiceProvider'
 ```
 
-If you are creating your own package, simply load them from your service provider's `boot()` method:
+Then open `config/breadcrumbs.php` and edit this line:
+
+```php
+    'files' => base_path('routes/breadcrumbs.php'),
+```
+
+It can be an absolute path, as above, or an array:
+
+```php
+    'files' => [
+        base_path('breadcrumbs/admin.php'),
+        base_path('breadcrumbs/frontend.php'),
+    ],
+```
+
+So you can use `glob()` to automatically find files using a wildcard:
+
+```php
+    'files' => glob(base_path('breadcrumbs/*.php')),
+```
+
+Or return an empty array `[]` to disable loading.
+
+### Defining breadcrumbs in another package
+
+If you are creating your own package, simply load your breadcrumbs file from your service provider's `boot()` method:
 
 ```php
 class MyServiceProvider extends ServiceProvider

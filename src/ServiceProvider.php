@@ -72,8 +72,24 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function registerBreadcrumbs() //: void
     {
-        // Load the app breadcrumbs if they're in routes/breadcrumbs.php
-        if (file_exists($file = base_path('routes/breadcrumbs.php'))) {
+        // Load the routes/breadcrumbs.php file, or other configured file(s)
+        $files = config('breadcrumbs.files');
+
+        if (! $files) {
+            return;
+        }
+
+        // If it is set to the default value and that file doesn't exist, skip loading it rather than causing an error
+        if ($files === base_path('routes/breadcrumbs.php') && ! is_file($files)) {
+            return;
+        }
+
+        // Support both Breadcrumbs:: and $breadcrumbs-> syntax by making $breadcrumbs variable available
+        /** @noinspection PhpUnusedLocalVariableInspection */
+        $breadcrumbs = $this->app->make(Manager::class);
+
+        // Support both a single string filename and an array of filenames (e.g. returned by glob())
+        foreach ((array) $files as $file) {
             require $file;
         }
     }
