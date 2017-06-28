@@ -24,7 +24,12 @@ class DependantServiceProviderReversedTest extends TestCase
     public function testRender()
     {
         $html = Breadcrumbs::render('home')->toHtml();
-        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/../fixtures/DependantServiceProvider.html', $html);
+
+        $this->assertXmlStringEqualsXmlString('
+            <ol class="breadcrumb">
+                <li class="active">Home</li>
+            </ol>
+        ', $html);
     }
 }
 

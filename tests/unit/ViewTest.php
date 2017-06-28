@@ -43,12 +43,39 @@ class ViewTest extends TestCase
     public function testBootstrap2()
     {
         $html = $this->view->render('breadcrumbs::bootstrap2', $this->breadcrumbs)->toHtml();
-        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/../fixtures/bootstrap2.html', $html);
+
+        $this->assertXmlStringEqualsXmlString('
+            <ul class="breadcrumb">
+                <li>
+                    <a href="/">Home</a>
+                    <span class="divider">/</span>
+                </li>
+                <li class="active">
+                    Not a link
+                    <span class="divider">/</span>
+                </li>
+                <li>
+                    <a href="/blog">Blog &amp; &lt; &gt;</a>
+                    <span class="divider">/</span>
+                </li>
+                <li class="active">
+                    Sample Post
+                </li>
+            </ul>
+        ', $html);
     }
 
     public function testBootstrap3()
     {
         $html = $this->view->render('breadcrumbs::bootstrap3', $this->breadcrumbs)->toHtml();
-        $this->assertXmlStringEqualsXmlFile(__DIR__ . '/../fixtures/bootstrap3.html', $html);
+
+        $this->assertXmlStringEqualsXmlString('
+            <ol class="breadcrumb">
+                <li><a href="/">Home</a></li>
+                <li class="active">Not a link</li>
+                <li><a href="/blog">Blog &amp; &lt; &gt;</a></li>
+                <li class="active">Sample Post</li>
+            </ol>
+        ', $html);
     }
 }
