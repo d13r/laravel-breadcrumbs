@@ -96,7 +96,7 @@ See the [Defining Breadcrumbs](#defining-breadcrumbs) section for more details.
 
 ### 3. Choose a template
 
-By default a [Bootstrap](http://getbootstrap.com/components/#breadcrumbs)-compatible ordered list will be rendered, so if you're using Bootstrap 3 you can skip this step.
+By default a [Bootstrap](https://v4-alpha.getbootstrap.com/components/breadcrumb/)-compatible ordered list will be rendered, so if you're using Bootstrap 4 you can skip this step.
 
 First initialise the config file by running this command:
 
@@ -107,13 +107,14 @@ php artisan vendor:publish --provider='DaveJamesMiller\Breadcrumbs\ServiceProvid
 Then open `config/breadcrumbs.php` and edit this line:
 
 ```php
-    'view' => 'breadcrumbs::bootstrap3',
+    'view' => 'breadcrumbs::bootstrap4',
 ```
 
 The possible values are:
 
-- [Bootstrap 3](http://getbootstrap.com/components/#breadcrumbs): `breadcrumbs::bootstrap3`
-- [Bootstrap 2](http://getbootstrap.com/2.3.2/components.html#breadcrumbs): `breadcrumbs::bootstrap2`
+- `breadcrumbs::bootstrap4` – [Bootstrap 4](https://v4-alpha.getbootstrap.com/components/breadcrumb/)
+- `breadcrumbs::bootstrap3` – [Bootstrap 3](http://getbootstrap.com/components/#breadcrumbs)
+- `breadcrumbs::bootstrap2` – [Bootstrap 2](http://getbootstrap.com/2.3.2/components.html#breadcrumbs)
 - The path to a custom view: e.g. `_partials/breadcrumbs`
 
 See the [Custom Templates](#custom-templates) section for more details.
@@ -699,6 +700,7 @@ Breadcrumbs::register('name', function (Generator $breadcrumbs, Page $page) {
 ### [v4.0.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.0.0) (Date TBC)
 
 - Add Laravel 5.5 support, and drop support for Laravel 5.4 and below (future versions will target a single Laravel release to simplify testing and documentation)
+- Add Boostrap 4 template and set it as the default
 - Add [package auto-discovery](https://laravel-news.com/package-auto-discovery)
 - Add type hints to all methods (parameters and return value)
 - Add more specific exception classes:

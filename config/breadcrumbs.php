@@ -10,6 +10,7 @@ return [
     | Choose a view to display when Breadcrumbs::render() is called.
     | Built in templates are:
     |
+    | - 'breadcrumbs::bootstrap4' - Twitter Bootstrap v4
     | - 'breadcrumbs::bootstrap3' - Twitter Bootstrap v3
     | - 'breadcrumbs::bootstrap2' - Twitter Bootstrap v2
     |
@@ -17,7 +18,7 @@ return [
     |
     */
 
-    'view' => 'breadcrumbs::bootstrap3',
+    'view' => 'breadcrumbs::bootstrap4',
 
     /*
     |--------------------------------------------------------------------------
