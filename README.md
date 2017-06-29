@@ -695,81 +695,37 @@ Breadcrumbs::register('name', function ($breadcrumbs, $page) {
 
 ### [v4.0.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.0.0) (Date TBC)
 
-- Laravel 5.5 support (dropped 5.4 and below)
+- Add Laravel 5.5 support, and drop support for Laravel 5.4 and below (future versions will target a single Laravel release to simplify testing and documentation)
 - Add [package auto-discovery](https://laravel-news.com/package-auto-discovery)
-- Add type hints to all methods
-- Add more specific exception classes
+- Add type hints to all methods (parameters and return value)
+- Add more specific exception classes:
+    - `DuplicateBreadcrumbException`
+    - `InvalidBreadcrumbException`
+    - `InvalidViewException`
+    - `UnnamedRouteException`
 - Remove `$breadcrumbs->first` and `$breadcrumbs->last` in views (use [Blade's](https://laravel.com/docs/5.4/blade#loops) `$loop->first` and `$loop->last` instead)
 - Remove `Array` variants of methods – use [variadic arguments](https://php.net/manual/en/migration56.new-features.php#migration56.new-features.variadics) instead:
     - `Breadcrumbs::renderArray($page, $params)` → `Breadcrumbs::render($page, ...$params)`
     - `Breadcrumbs::generateArray($page, $params)` → `Breadcrumbs::generate($page, ...$params)`
     - `Breadcrumbs::setCurrentRouteArray($name, $params)` → `Breadcrumbs::setCurrentRoute($page, ...$params)`
     - `$breadcrumbs->parentArray($name, $params)` → `$breadcrumbs->parent($name, ...$params)`
-- Remove `IfExists` variants of methods - set new config settings to `false` instead:
-    - `unnamed-route-exception` - when route-bound breadcrumbs are used but the current route doesn't have a name
-    - `missing-route-bound-breadcrumb-exception` - when route-bound breadcrumbs are used and the matching breadcrumb doesn't exist
-    - `invalid-named-breadcrumb-exception` - when a named breadcrumbs is used doesn't exist
+- Remove `IfExists` variants of methods – set new config settings to `false` instead:
+    - `unnamed-route-exception` – when route-bound breadcrumbs are used but the current route doesn't have a name
+    - `missing-route-bound-breadcrumb-exception` – when route-bound breadcrumbs are used and the matching breadcrumb doesn't exist
+    - `invalid-named-breadcrumb-exception` – when a named breadcrumbs is used doesn't exist
 - Remove `app/Http/breadcrumbs.php` file loading (use `routes/breadcrumbs.php`, or change the `files` setting in the config file)
 - Remove `laravel-breadcrumbs::` view prefix (use `breadcrumbs::` instead)
 - Remove `$app['breadcrumbs']` container short name (use `Breadcrumbs::` facade or `DaveJamesMiller\Breadcrumbs\Manager` type hint)
 
 
-### [v3.0.3](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.0.3) (24 Jun 2017)
+### v3.x
 
-- Fix exception when using `renderIfExists()` (and related methods) with an unnamed route
-  ([#133](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/133))
-- Convert docs back to Markdown
-
-
-### [v3.0.2](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.0.2) (30 Jan 2017)
-
-- Laravel 5.4 support
-
-
-### [v3.0.1](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.0.1) (28 Aug 2016)
-
-- Laravel 5.3 support
-
-#### Upgrading from Laravel 5.2 to 5.3
-
-- Upgrade Laravel Breadcrumbs to 3.0.1 (or above)
-- Move `app/Http/breadcrumbs.php` to `routes/breadcrumbs.php` (optional but recommended)
-
-
-### [v3.0.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.0.0) (8 Feb 2015)
-
-- Add Laravel 5 support
-  ([#62](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/62))
-- Change view namespace from `laravel-breadcrumbs::` to `breadcrumbs::`
-- Change Bootstrap 3 template from `<ul>` to `<ol>` to match the [documentation](http://getbootstrap.com/components/#breadcrumbs)
-- Move documentation from GitHub (Markdown) to [Read The Docs](https://readthedocs.org/) (reStructuredText/[Sphinx](http://sphinx-doc.org/))
-- Greatly improve unit & integration tests (largely thanks to [Testbench](https://github.com/orchestral/testbench))
-- Fix issue that prevented non-deferred service providers referencing Breadcrumbs by making Breadcrumbs non-deferred also
-  ([#39](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/39))
-- Rename `generateArrayIfExists()` to `generateIfExistsArray()`
-- Rename `renderArrayIfExists()` to `renderIfExistsArray()`
-- Remove `$breadcrumbs->get()` and `$breadcrumbs->set()` methods from Generator class (they were never used nor documented)
-- Remove `Breadcrumbs::getView()`
-- Switch from PSR-0 to PSR-4 file naming
-
-#### Upgrading from 2.x to 3.x
-
-- [Upgrade to Laravel 5](https://laravel.com/docs/5.0/upgrade#upgrade-5.0)
-- Move `app/breadcrumbs.php` to `app/Http/breadcrumbs.php`
-- Move `app/config/packages/davejamesmiller/laravel-breadcrumbs/config.php` to `config/breadcrumbs.php` (if used)
-
-The following changes are optional because there are shims in place:
-
-- In the config file, replace `laravel-breadcrumbs::` with `breadcrumbs::`
-- Replace any calls to `Breadcrumbs::generateArrayIfExists()` with `Breadcrumbs::generateIfExistsArray()`
-- Replace any calls to `Breadcrumbs::renderArrayIfExists()` with `Breadcrumbs::renderIfExistsArray()`
-
-**Note:** Laravel 4 and PHP 5.3 are no longer supported – please continue to use the [2.x branch](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/2.x) if you use them.
+[Changelog for v3.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.x#changelog)
 
 
 ### v2.x
 
-[Changelog for 2.x and below](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/2.x/CHANGELOG.md)
+[Changelog for v2.x and below](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/2.x/CHANGELOG.md)
 
 
  Technical Support
