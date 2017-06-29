@@ -355,7 +355,7 @@ Route::name('home')->get('/', 'HomeController@index');
 Route::name('page')->get('/page/{id}', 'PageController@show');
 ```
 
-For more details see [Named Routes](https://laravel.com/docs/5.3/routing#named-routes) in the Laravel documentation.
+For more details see [Named Routes](https://laravel.com/docs/5.4/routing#named-routes) in the Laravel documentation.
 
 
 ### Name your breadcrumbs to match
@@ -441,7 +441,7 @@ Breadcrumbs::register('page', function ($breadcrumbs, $page) { // <-- The same P
 
 This makes your code less verbose and more efficient by only loading the page from the database once.
 
-For more details see [Route Model Binding](https://laravel.com/docs/5.3/routing#route-model-binding) in the Laravel documentation.
+For more details see [Route Model Binding](https://laravel.com/docs/5.4/routing#route-model-binding) in the Laravel documentation.
 
 
 ### Resourceful controllers
@@ -497,7 +497,7 @@ Breadcrumbs::register('photo.edit', function ($breadcrumbs, $photo) {
 });
 ```
 
-For more details see [Resource Controllers](https://laravel.com/docs/5.3/controllers#resource-controllers) in the Laravel documentation.
+For more details see [Resource Controllers](https://laravel.com/docs/5.4/controllers#resource-controllers) in the Laravel documentation.
 
 
 ### Implicit controllers
