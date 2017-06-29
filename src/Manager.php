@@ -95,36 +95,38 @@ class Manager
      */
     public function generate(string $name = null, ...$params): array
     {
-        if ($name === null) {
-            list($name, $params) = $this->currentRoute->get();
-        }
+        $origName = $name;
 
-        return $this->generator->generate($this->callbacks, $name, $params);
-    }
-
-    /**
-     * Generate a set of breadcrumbs for a page.
-     *
-     * Returns an empty array if the page doesn't exist or the current route is unnamed, instead of throwing an
-     * exception.
-     *
-     * @param string|null $name      The name of the current page.
-     * @param mixed       ...$params The parameters to pass to the closure for the current page.
-     * @return array The generated breadcrumbs.
-     */
-    public function generateIfExists(string $name = null, ...$params): array
-    {
+        // Route-bound breadcrumbs
         if ($name === null) {
             try {
                 list($name, $params) = $this->currentRoute->get();
             } catch (UnnamedRouteException $e) {
+                if (config('breadcrumbs.unnamed-route-exception')) {
+                    throw $e;
+                }
+
+                return [];
+            }
+
+            // No current route - probably an error page (404, 500, etc.)
+            if ($name === '') {
                 return [];
             }
         }
 
+        // Generate breadcrumbs
         try {
             return $this->generator->generate($this->callbacks, $name, $params);
         } catch (InvalidBreadcrumbException $e) {
+            if ($origName === null && config('breadcrumbs.missing-route-bound-breadcrumb-exception')) {
+                throw $e;
+            }
+
+            if ($origName !== null && config('breadcrumbs.invalid-named-breadcrumb-exception')) {
+                throw $e;
+            }
+
             return [];
         }
     }
@@ -141,39 +143,9 @@ class Manager
      */
     public function render(string $name = null, ...$params): HtmlString
     {
-        if ($name === null) {
-            list($name, $params) = $this->currentRoute->get();
-        }
+        $breadcrumbs = $this->generate($name, ...$params);
 
-        $breadcrumbs = $this->generator->generate($this->callbacks, $name, $params);
-
-        return $this->view->render($this->viewName, $breadcrumbs);
-    }
-
-    /**
-     * Render breadcrumbs for a page.
-     *
-     * Returns an empty string if the page doesn't exist or the current route is unnamed, instead of throwing an
-     * exception.
-     *
-     * @param string|null $name      The name of the current page.
-     * @param mixed       ...$params The parameters to pass to the closure for the current page.
-     * @return HtmlString The generated HTML.
-     * @throws InvalidViewException if no view has been set.
-     */
-    public function renderIfExists(string $name = null, ...$params): HtmlString
-    {
-        if ($name === null) {
-            try {
-                list($name, $params) = $this->currentRoute->get();
-            } catch (UnnamedRouteException $e) {
-                return new HtmlString('');
-            }
-        }
-
-        try {
-            $breadcrumbs = $this->generator->generate($this->callbacks, $name, $params);
-        } catch (InvalidBreadcrumbException $e) {
+        if (! $breadcrumbs) {
             return new HtmlString('');
         }
 

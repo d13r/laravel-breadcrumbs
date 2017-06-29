@@ -340,28 +340,27 @@ Or use the long-hand syntax if you prefer:
  Route-Bound Breadcrumbs
 --------------------------------------------------------------------------------
 
-In normal usage you must call `Breadcrumbs::render($name, $params...)` to render the breadcrumbs on every page. If you prefer, you can name your breadcrumbs the same as your routes and avoid this duplication.
+In normal usage you must call `Breadcrumbs::render($name, $params...)` to render the breadcrumbs on every page. If you prefer, you can name your breadcrumbs the same as your routes and avoid this duplication...
 
-### Setup
 
-#### Name your routes
+### Name your routes
 
 Make sure each of your routes has a name. For example (`routes/web.php`):
 
 ```php
 // Home
-Route::get('/', 'HomeController@index')->name('home');
+Route::name('home')->get('/', 'HomeController@index');
 
 // Home > [Page]
-Route::get('/page/{id}', 'PageController@show')->name('page');
+Route::name('page')->get('/page/{id}', 'PageController@show');
 ```
 
 For more details see [Named Routes](https://laravel.com/docs/5.3/routing#named-routes) in the Laravel documentation.
 
 
-#### Name your breadcrumbs to match
+### Name your breadcrumbs to match
 
-For each route, create a breadcrumb with the same name. For example (`routes/breadcrumbs.php`):
+For each route, create a breadcrumb with the same name and parameters. For example (`routes/breadcrumbs.php`):
 
 ```php
 // Home
@@ -378,7 +377,7 @@ Breadcrumbs::register('page', function ($breadcrumbs, $id) {
 ```
 
 
-#### Output breadcrumbs in your layout
+### Output breadcrumbs in your layout
 
 Call `Breadcrumbs::render()` with no parameters in your layout file (e.g. `resources/views/app.blade.php`):
 
@@ -388,10 +387,25 @@ Call `Breadcrumbs::render()` with no parameters in your layout file (e.g. `resou
 
 This will automatically output breadcrumbs corresponding to the current route.
 
-It will throw an exception if the breadcrumb doesn't exist, to remind you to create one. To prevent this behaviour, change it to:
 
-```html+php
-{{ Breadcrumbs::renderIfExists() }}
+### Route-model binding exceptions
+
+It will throw an exception if the breadcrumb doesn't exist, to remind you to create one. To prevent this, first initialise the config file, if you haven't already:
+
+```bash
+php artisan vendor:publish --provider='DaveJamesMiller\Breadcrumbs\ServiceProvider'
+```
+
+Then open `config/breadcrumbs.php` and set this value:
+
+```php
+    'missing-route-bound-breadcrumb-exception' => false,
+```
+
+Similarly to prevent it throwing an exception if the current route doesn't have a name set this value:
+
+```php
+    'unnamed-route-exception' => false,
 ```
 
 
@@ -401,7 +415,7 @@ Laravel Breadcrumbs uses the same model binding as the controller. For example:
 
 ```php
 // routes/web.php
-Route::get('/page/{page}', 'PageController@show')->name('page');
+Route::name('page')->get('/page/{page}', 'PageController@show');
 ```
 
 ```php
@@ -613,10 +627,7 @@ You can override this by calling `Breadcrumbs::setCurrentRoute($name, $param1, $
 
 ### Checking if a breadcrumb exists
 
-By default an exception will be thrown if the breadcrumb doesn't exist, so you know to add it. If you want suppress this you can call the following methods instead:
-
-- `Breadcrumbs::renderIfExists()` (returns an empty string)
-- `Breadcrumbs::generateIfExists()` (returns an empty array)
+By default an exception will be thrown if the breadcrumb doesn't exist, so you know to add it. If you want suppress this ... TODO
 
 Alternatively you can call `Breadcrumbs::exists('name')`, which returns a boolean.
 
@@ -634,15 +645,9 @@ Alternatively you can call `Breadcrumbs::exists('name')`, which returns a boolea
 | `Breadcrumbs::generate()`                            | array     | 2.2.3    |
 | `Breadcrumbs::generate($name)`                       | array     | 1.0.0    |
 | `Breadcrumbs::generate($name, $param1, ...)`         | array     | 1.0.0    |
-| `Breadcrumbs::generateIfExists()`                    | array     | 2.2.0    |
-| `Breadcrumbs::generateIfExists($name)`               | array     | 2.2.0    |
-| `Breadcrumbs::generateIfExists($name, $param1, ...)` | array     | 2.2.0    |
 | `Breadcrumbs::render()`                              | string    | 2.2.0    |
 | `Breadcrumbs::render($name)`                         | string    | 1.0.0    |
 | `Breadcrumbs::render($name, $param1, ...)`           | string    | 1.0.0    |
-| `Breadcrumbs::renderIfExists()`                      | string    | 2.2.0    |
-| `Breadcrumbs::renderIfExists($name)`                 | string    | 2.2.0    |
-| `Breadcrumbs::renderIfExists($name, $param1, ...)`   | string    | 2.2.0    |
 | `Breadcrumbs::setCurrentRoute($name)`                | *(none)*  | 2.2.0    |
 | `Breadcrumbs::setCurrentRoute($name, $param1, ...)`  | *(none)*  | 2.2.0    |
 | `Breadcrumbs::clearCurrentRoute()`                   | *(none)*  | 2.2.0    |
@@ -694,17 +699,17 @@ Breadcrumbs::register('name', function ($breadcrumbs, $page) {
 - Add [package auto-discovery](https://laravel-news.com/package-auto-discovery)
 - Add type hints to all methods
 - Add more specific exception classes
-- Remove `$breadcrumbs->first` and `$breadcrumbs->last` (use Blade `$loop->first` and `$loop->last` instead)
+- Remove `$breadcrumbs->first` and `$breadcrumbs->last` in views (use [Blade's](https://laravel.com/docs/5.4/blade#loops) `$loop->first` and `$loop->last` instead)
 - Remove `Array` variants of methods – use [variadic arguments](https://php.net/manual/en/migration56.new-features.php#migration56.new-features.variadics) instead:
     - `Breadcrumbs::renderArray($page, $params)` → `Breadcrumbs::render($page, ...$params)`
     - `Breadcrumbs::generateArray($page, $params)` → `Breadcrumbs::generate($page, ...$params)`
-    - `Breadcrumbs::renderIfExistsArray($page, $params)` → `Breadcrumbs::renderIfExists($page, ...$params)`
-    - `Breadcrumbs::generateIfExistsArray($page, $params)` → `Breadcrumbs::generateIfExists($page, ...$params)`
-    - `Breadcrumbs::renderArrayIfExists($name, $params)` → `Breadcrumbs::renderIfExists($page, ...$params)`
-    - `Breadcrumbs::generateArrayIfExists($name, $params)` → `Breadcrumbs::generateIfExists($page, ...$params)`
     - `Breadcrumbs::setCurrentRouteArray($name, $params)` → `Breadcrumbs::setCurrentRoute($page, ...$params)`
     - `$breadcrumbs->parentArray($name, $params)` → `$breadcrumbs->parent($name, ...$params)`
-- Remove `app/Http/breadcrumbs.php` file (use `routes/breadcrumbs.php` instead)
+- Remove `IfExists` variants of methods - set new config settings to `false` instead:
+    - `unnamed-route-exception` - when route-bound breadcrumbs are used but the current route doesn't have a name
+    - `missing-route-bound-breadcrumb-exception` - when route-bound breadcrumbs are used and the matching breadcrumb doesn't exist
+    - `invalid-named-breadcrumb-exception` - when a named breadcrumbs is used doesn't exist
+- Remove `app/Http/breadcrumbs.php` file loading (use `routes/breadcrumbs.php`, or change the `files` setting in the config file)
 - Remove `laravel-breadcrumbs::` view prefix (use `breadcrumbs::` instead)
 - Remove `$app['breadcrumbs']` container short name (use `Breadcrumbs::` facade or `DaveJamesMiller\Breadcrumbs\Manager` type hint)
 
