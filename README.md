@@ -637,21 +637,21 @@ Alternatively you can call `Breadcrumbs::exists('name')`, which returns a boolea
 
 ### `Breadcrumbs` Facade
 
-| Method                                               | Returns   | Added in |
-|------------------------------------------------------|-----------|----------|
-| `Breadcrumbs::register($name, $callback)`            | *(none)*  | 1.0.0    |
-| `Breadcrumbs::exists()`                              | boolean   | 2.2.0    |
-| `Breadcrumbs::exists($name)`                         | boolean   | 2.2.0    |
-| `Breadcrumbs::generate()`                            | array     | 2.2.3    |
-| `Breadcrumbs::generate($name)`                       | array     | 1.0.0    |
-| `Breadcrumbs::generate($name, $param1, ...)`         | array     | 1.0.0    |
-| `Breadcrumbs::render()`                              | string    | 2.2.0    |
-| `Breadcrumbs::render($name)`                         | string    | 1.0.0    |
-| `Breadcrumbs::render($name, $param1, ...)`           | string    | 1.0.0    |
-| `Breadcrumbs::setCurrentRoute($name)`                | *(none)*  | 2.2.0    |
-| `Breadcrumbs::setCurrentRoute($name, $param1, ...)`  | *(none)*  | 2.2.0    |
-| `Breadcrumbs::clearCurrentRoute()`                   | *(none)*  | 2.2.0    |
-| `Breadcrumbs::setView($view)`                        | *(none)*  | 1.0.0    |
+| Method                                                           | Returns   | Added in |
+|------------------------------------------------------------------|-----------|----------|
+| `Breadcrumbs::register(string $name, closure $callback)`         | *(none)*  | 1.0.0    |
+| `Breadcrumbs::exists()`                                          | boolean   | 2.2.0    |
+| `Breadcrumbs::exists(string $name)`                              | boolean   | 2.2.0    |
+| `Breadcrumbs::generate()`                                        | array     | 2.2.3    |
+| `Breadcrumbs::generate(string $name)`                            | array     | 1.0.0    |
+| `Breadcrumbs::generate(string $name, mixed $param1, ...)`        | array     | 1.0.0    |
+| `Breadcrumbs::render()`                                          | string    | 2.2.0    |
+| `Breadcrumbs::render(string $name)`                              | string    | 1.0.0    |
+| `Breadcrumbs::render(string $name, mixed $param1, ...)`          | string    | 1.0.0    |
+| `Breadcrumbs::setCurrentRoute(string $name)`                     | *(none)*  | 2.2.0    |
+| `Breadcrumbs::setCurrentRoute(string $name, mixed $param1, ...)` | *(none)*  | 2.2.0    |
+| `Breadcrumbs::clearCurrentRoute()`                               | *(none)*  | 2.2.0    |
+| `Breadcrumbs::setView($view)`                                    | *(none)*  | 1.0.0    |
 
 [Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/develop/src/Manager.php)
 
@@ -659,19 +659,22 @@ Alternatively you can call `Breadcrumbs::exists('name')`, which returns a boolea
 ### Defining breadcrumbs
 
 ```php
-Breadcrumbs::register('name', function ($breadcrumbs, $page) {
+use App\Models\Page;
+use DaveJamesMiller\Breadcrumbs\Generator;
+
+Breadcrumbs::register('name', function (Generator $breadcrumbs, Page $page) {
     // ...
 });
 ```
 
 
-| Method                                               | Returns   | Added in |
-|------------------------------------------------------|-----------|----------|
-| `$breadcrumbs->push($title)`                         | *(none)*  | 1.0.0    |
-| `$breadcrumbs->push($title, $url)`                   | *(none)*  | 1.0.0    |
-| `$breadcrumbs->push($title, $url, $data)`            | *(none)*  | 2.3.0    |
-| `$breadcrumbs->parent($name)`                        | *(none)*  | 1.0.0    |
-| `$breadcrumbs->parent($name, $param1, ...)`          | *(none)*  | 1.0.0    |
+| Method                                                        | Returns   | Added in |
+|---------------------------------------------------------------|-----------|----------|
+| `$breadcrumbs->push(string $title)`                           | *(none)*  | 1.0.0    |
+| `$breadcrumbs->push(string $title, string $url)`              | *(none)*  | 1.0.0    |
+| `$breadcrumbs->push(string $title, string $url, array $data)` | *(none)*  | 2.3.0    |
+| `$breadcrumbs->parent(string $name)`                          | *(none)*  | 1.0.0    |
+| `$breadcrumbs->parent(string $name, mixed $param1, ...)`      | *(none)*  | 1.0.0    |
 
 [Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/develop/src/Generator.php)
 
