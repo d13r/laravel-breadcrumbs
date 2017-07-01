@@ -36,10 +36,6 @@ class ServiceProvider extends BaseServiceProvider
         // Register Manager class singleton with the app container
         $this->app->singleton(Manager::class);
 
-        $this->app->resolving(Manager::class, function (Manager $manager) {
-            $manager->setView(config('breadcrumbs.view'));
-        });
-
         // Load the default config values
         $configFile = __DIR__ . '/../config/breadcrumbs.php';
         $this->mergeConfigFrom($configFile, 'breadcrumbs');

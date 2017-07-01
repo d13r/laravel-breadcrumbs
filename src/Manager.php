@@ -33,11 +33,6 @@ class Manager
      */
     protected $callbacks = [];
 
-    /**
-     * @var string The name of the view to be used by render().
-     */
-    protected $viewName;
-
     public function __construct(CurrentRoute $currentRoute, Generator $generator, View $view)
     {
         $this->generator    = $generator;
@@ -77,6 +72,8 @@ class Manager
             try {
                 list($name) = $this->currentRoute->get();
             } catch (UnnamedRouteException $e) {
+                return false;
+            } catch (InvalidBreadcrumbException $e) {
                 return false;
             }
         }
@@ -132,7 +129,29 @@ class Manager
     }
 
     /**
-     * Render breadcrumbs for a page.
+     * Render breadcrumbs for a page with the specified view.
+     *
+     * @param string      $view      The name of the view to render.
+     * @param string|null $name      The name of the current page.
+     * @param mixed       ...$params The parameters to pass to the closure for the current page.
+     * @return HtmlString The generated HTML.
+     * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
+     * @throws UnnamedRouteException if no name is given and the current route doesn't have an associated name.
+     * @throws InvalidViewException if no view has been set.
+     */
+    public function view(string $view, string $name = null, ...$params): HtmlString
+    {
+        $breadcrumbs = $this->generate($name, ...$params);
+
+        if (! $breadcrumbs) {
+            return new HtmlString('');
+        }
+
+        return $this->view->render($view, $breadcrumbs);
+    }
+
+    /**
+     * Render breadcrumbs for a page with the default view.
      *
      * @param string|null $name      The name of the current page.
      * @param mixed       ...$params The parameters to pass to the closure for the current page.
@@ -143,13 +162,7 @@ class Manager
      */
     public function render(string $name = null, ...$params): HtmlString
     {
-        $breadcrumbs = $this->generate($name, ...$params);
-
-        if (! $breadcrumbs) {
-            return new HtmlString('');
-        }
-
-        return $this->view->render($this->viewName, $breadcrumbs);
+        return $this->view(config('breadcrumbs.view'), $name, ...$params);
     }
 
     /**
@@ -174,16 +187,5 @@ class Manager
     public function clearCurrentRoute() //: void
     {
         $this->currentRoute->clear();
-    }
-
-    /**
-     * Set the view to use when calling render() (or related methods).
-     *
-     * @param string $view The view name.
-     * @return void
-     */
-    public function setView(string $view) //: void
-    {
-        $this->viewName = $view;
     }
 }

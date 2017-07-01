@@ -19,6 +19,7 @@ A simple [Laravel](https://laravel.com/)-style way to create breadcrumbs.
 - [Custom Templates](#custom-templates)
 - [Outputting Breadcrumbs](#outputting-breadcrumbs)
 - [Route-Bound Breadcrumbs](#route-bound-breadcrumbs)
+- [Structured Data](#structured-data)
 - [Advanced Usage](#advanced-usage)
 - [API Reference](#api-reference)
 - [Changelog](#changelog)
@@ -115,6 +116,7 @@ The possible values are:
 - `breadcrumbs::bootstrap4` – [Bootstrap 4](https://v4-alpha.getbootstrap.com/components/breadcrumb/)
 - `breadcrumbs::bootstrap3` – [Bootstrap 3](http://getbootstrap.com/components/#breadcrumbs)
 - `breadcrumbs::bootstrap2` – [Bootstrap 2](http://getbootstrap.com/2.3.2/components.html#breadcrumbs)
+- `breadcrumbs::json-ld` – [JSON-LD Structured Data](https://developers.google.com/search/docs/data-types/breadcrumbs) (&lt;script&gt; tag, no visible output)
 - The path to a custom view: e.g. `_partials/breadcrumbs`
 
 See the [Custom Templates](#custom-templates) section for more details.
@@ -338,6 +340,38 @@ Or use the long-hand syntax if you prefer:
 ```
 
 
+ Structured Data
+--------------------------------------------------------------------------------
+
+To render breadcrumbs as JSON-LD [structured data](https://developers.google.com/search/docs/data-types/breadcrumbs) (usually for SEO reasons), use `Breadcrumbs::view()` to render the `breadcrumbs::json-ld` template in addition to the normal one. For example:
+
+```html+php
+<html>
+    <head>
+        ...
+        {{ Breadcrumbs::view('breadcrumbs::json-ld', 'category', $category) }}
+        ...
+    </head>
+    <body>
+        ...
+        {{ Breadcrumbs::render('category', $category) }}
+        ...
+    </body>
+</html>
+```
+
+To specify an image, add it to the `$data` parameter in `push()`:
+
+```php
+Breadcrumbs::register('page', function ($breadcrumbs, $page) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push($page->title, route('page', $page->id), ['image' => asset($page->image)]);
+});
+```
+
+(If you prefer to use Microdata or RFDa you will need to create a (custom template)[#custom-templates].)
+
+
  Route-Bound Breadcrumbs
 --------------------------------------------------------------------------------
 
@@ -386,7 +420,17 @@ Call `Breadcrumbs::render()` with no parameters in your layout file (e.g. `resou
 {{ Breadcrumbs::render() }}
 ```
 
-This will automatically output breadcrumbs corresponding to the current route.
+This will automatically output breadcrumbs corresponding to the current route. The same applies to `Breadcrumbs::generate()`:
+
+```php
+$breadcrumbs = Breadcrumbs::generate();
+```
+
+And to `Breadcrumbs::view()`:
+
+```html+php
+{{ Breadcrumbs::view('breadcrumbs::json-ld') }}
+```
 
 
 ### Route-model binding exceptions
@@ -606,16 +650,26 @@ class MyServiceProvider extends ServiceProvider
 
 ### Switching views dynamically
 
-You can change the view at runtime by calling:
+You can use `Breadcrumbs::view()` in place of `Breadcrumbs::render()` to render a specific template:
 
-```php
-Breadcrumbs::setView('view.name');
+```html+php
+{{ Breadcrumbs::view('_partials/breadcrumbs2', 'category', $category) }}
 ```
 
-Or you can call `Breadcrumbs::generate()` and then load the view manually:
+Or you could call `Breadcrumbs::generate()` and then load the view manually:
 
 ```html+php
 @include('_partials/breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)])
+```
+
+Or you can change the default view config setting:
+
+```php
+Config::set('breadcrumbs.view', '_partials/breadcrumbs2');
+```
+
+```php
+{{ Breadcrumbs::render('category', $category) }}
 ```
 
 
@@ -638,23 +692,25 @@ Alternatively you can call `Breadcrumbs::exists('name')`, which returns a boolea
 
 ### `Breadcrumbs` Facade
 
-| Method                                                           | Returns   | Added in |
-|------------------------------------------------------------------|-----------|----------|
-| `Breadcrumbs::register(string $name, closure $callback)`         | *(none)*  | 1.0.0    |
-| `Breadcrumbs::exists()`                                          | boolean   | 2.2.0    |
-| `Breadcrumbs::exists(string $name)`                              | boolean   | 2.2.0    |
-| `Breadcrumbs::generate()`                                        | array     | 2.2.3    |
-| `Breadcrumbs::generate(string $name)`                            | array     | 1.0.0    |
-| `Breadcrumbs::generate(string $name, mixed $param1, ...)`        | array     | 1.0.0    |
-| `Breadcrumbs::render()`                                          | string    | 2.2.0    |
-| `Breadcrumbs::render(string $name)`                              | string    | 1.0.0    |
-| `Breadcrumbs::render(string $name, mixed $param1, ...)`          | string    | 1.0.0    |
-| `Breadcrumbs::setCurrentRoute(string $name)`                     | *(none)*  | 2.2.0    |
-| `Breadcrumbs::setCurrentRoute(string $name, mixed $param1, ...)` | *(none)*  | 2.2.0    |
-| `Breadcrumbs::clearCurrentRoute()`                               | *(none)*  | 2.2.0    |
-| `Breadcrumbs::setView($view)`                                    | *(none)*  | 1.0.0    |
+| Method                                                              | Returns   | Added in |
+|---------------------------------------------------------------------|-----------|----------|
+| `Breadcrumbs::register(string $name, closure $callback)`            | *(none)*  | 1.0.0    |
+| `Breadcrumbs::exists()`                                             | boolean   | 2.2.0    |
+| `Breadcrumbs::exists(string $name)`                                 | boolean   | 2.2.0    |
+| `Breadcrumbs::generate()`                                           | array     | 2.2.3    |
+| `Breadcrumbs::generate(string $name)`                               | array     | 1.0.0    |
+| `Breadcrumbs::generate(string $name, mixed $param1, ...)`           | array     | 1.0.0    |
+| `Breadcrumbs::render()`                                             | string    | 2.2.0    |
+| `Breadcrumbs::render(string $name)`                                 | string    | 1.0.0    |
+| `Breadcrumbs::render(string $name, mixed $param1, ...)`             | string    | 1.0.0    |
+| `Breadcrumbs::view(string $view)`                                   | string    | 4.0.0    |
+| `Breadcrumbs::view(string $view, string $name)`                     | string    | 4.0.0    |
+| `Breadcrumbs::view(string $view, string $name, mixed $param1, ...)` | string    | 4.0.0    |
+| `Breadcrumbs::setCurrentRoute(string $name)`                        | *(none)*  | 2.2.0    |
+| `Breadcrumbs::setCurrentRoute(string $name, mixed $param1, ...)`    | *(none)*  | 2.2.0    |
+| `Breadcrumbs::clearCurrentRoute()`                                  | *(none)*  | 2.2.0    |
 
-[Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/develop/src/Manager.php)
+[Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/src/Manager.php)
 
 
 ### Defining breadcrumbs
@@ -677,7 +733,7 @@ Breadcrumbs::register('name', function (Generator $breadcrumbs, Page $page) {
 | `$breadcrumbs->parent(string $name)`                          | *(none)*  | 1.0.0    |
 | `$breadcrumbs->parent(string $name, mixed $param1, ...)`      | *(none)*  | 1.0.0    |
 
-[Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/develop/src/Generator.php)
+[Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/src/Generator.php)
 
 
 ### In the view (template)
@@ -700,8 +756,9 @@ Breadcrumbs::register('name', function (Generator $breadcrumbs, Page $page) {
 ### [v4.0.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.0.0) (Date TBC)
 
 - Add Laravel 5.5 support, and drop support for Laravel 5.4 and below (future versions will target a single Laravel release to simplify testing and documentation)
-- Add Boostrap 4 template and set it as the default
 - Add [package auto-discovery](https://laravel-news.com/package-auto-discovery)
+- Add Bootstrap 4 template and set it as the default
+- Add `Breadcrumbs::view()` method to render breadcrumbs with a specific view
 - Add type hints to all methods (parameters and return value)
 - Add more specific exception classes:
     - `DuplicateBreadcrumbException`
@@ -718,6 +775,7 @@ Breadcrumbs::register('name', function (Generator $breadcrumbs, Page $page) {
     - `unnamed-route-exception` – when route-bound breadcrumbs are used but the current route doesn't have a name
     - `missing-route-bound-breadcrumb-exception` – when route-bound breadcrumbs are used and the matching breadcrumb doesn't exist
     - `invalid-named-breadcrumb-exception` – when a named breadcrumbs is used doesn't exist
+- Remove `Breadcrumbs::setView($view)` (use `Config::set('breadcrumbs.view', $view)` instead)
 - Remove `app/Http/breadcrumbs.php` file loading (use `routes/breadcrumbs.php`, or change the `files` setting in the config file)
 - Remove `laravel-breadcrumbs::` view prefix (use `breadcrumbs::` instead)
 - Remove `$app['breadcrumbs']` container short name (use `Breadcrumbs::` facade or `DaveJamesMiller\Breadcrumbs\Manager` type hint)
