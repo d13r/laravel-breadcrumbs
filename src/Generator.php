@@ -3,6 +3,7 @@
 namespace DaveJamesMiller\Breadcrumbs;
 
 use DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
+use Illuminate\Support\Collection;
 
 /**
  * Generate a set of breadcrumbs for a page.
@@ -13,9 +14,9 @@ use DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
 class Generator
 {
     /**
-     * @var array Breadcrumbs currently being generated.
+     * @var Collection Breadcrumbs currently being generated.
      */
-    protected $breadcrumbs = [];
+    protected $breadcrumbs;
 
     /**
      * @var array The registered breadcrumb-generating callbacks.
@@ -30,12 +31,12 @@ class Generator
      * @param array  $after     The registered 'after' callbacks.
      * @param string $name      The name of the current page.
      * @param array  $params    The parameters to pass to the closure for the current page.
-     * @return array An array of breadcrumbs.
+     * @return Collection The generated breadcrumbs.
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
      */
-    public function generate(array $callbacks, array $before, array $after, string $name, array $params): array
+    public function generate(array $callbacks, array $before, array $after, string $name, array $params): Collection
     {
-        $this->breadcrumbs = [];
+        $this->breadcrumbs = new Collection;
         $this->callbacks   = $callbacks;
 
         foreach ($before as $callback) {
@@ -48,7 +49,7 @@ class Generator
             $callback($this);
         }
 
-        return $this->toArray();
+        return $this->breadcrumbs;
     }
 
     /**
@@ -92,19 +93,9 @@ class Generator
      */
     public function push(string $title, string $url = null, array $data = []) //: void
     {
-        $this->breadcrumbs[] = (object) array_merge($data, [
+        $this->breadcrumbs->push((object) array_merge($data, [
             'title' => $title,
             'url'   => $url,
-        ]);
-    }
-
-    /**
-     * Fetch the generated breadcrumbs array.
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        return $this->breadcrumbs;
+        ]));
     }
 }

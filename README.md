@@ -293,7 +293,7 @@ Then update your config file (`config/breadcrumbs.php`) with the custom view nam
 
 ### Skipping the view
 
-Alternatively you can skip the custom view and call `Breadcrumbs::generate()` to get the breadcrumbs array directly:
+Alternatively you can skip the custom view and call `Breadcrumbs::generate()` to get the breadcrumbs [Collection](https://laravel.com/docs/5.4/collections) directly:
 
 ```html+php
 @foreach (Breadcrumbs::generate('page', $page) as $breadcrumb)
@@ -637,6 +637,61 @@ Breadcrumbs::after(function (Generator $breadcrumbs) {
 ```
 
 
+### Getting the current page breadcrumb
+
+To get the last breadcrumb for the current page, use `Breadcrumb::current()`. For example, you could use this to output the current page title:
+
+```html+php
+<title>{{ ($breadcrumb = Breadcrumbs::current()) ? $breadcrumb->title : 'Fallback Title' }}</title>
+```
+
+To ignore a breadcrumb, add `'current' => false` to the `$data` parameter in `push()`. This can be useful to ignore pagination breadcrumbs:
+
+```php
+Breadcrumbs::after(function (Generator $breadcrumbs) {
+    $page = (int) request('page', 1);
+    if ($page > 1) {
+        $breadcrumbs->push("Page $page", null, ['current' => false]);
+    }
+});
+```
+
+```html+php
+<title>
+    {{ ($breadcrumb = Breadcrumbs::current()) ? "$breadcrumb->title –" : '' }}
+    {{ ($page = (int) request('page')) > 1 ? "Page $page –" : '' }}
+    Demo App
+</title>
+```
+
+For more advanced filtering, use `Breadcrumbs::generate()` and Laravel's [Collection class](https://laravel.com/docs/5.4/collections) methods instead:
+
+```php
+$current = Breadcrumbs::generate()->where('current', '!==', 'false)->last();
+```
+
+
+### Macros
+
+The Manager class is [macroable](https://unnikked.ga/understanding-the-laravel-macroable-trait-dab051f09172), so you can add your own methods. For example:
+
+```php
+Breadcrumbs::macro('pageTitle', function () {
+    $title = ($breadcrumb = Breadcrumbs::current()) ? "{$breadcrumb->title} – " : '';
+
+    if (($page = (int) request('page')) > 1) {
+        $title .= "Page $page – ";
+    }
+
+    return $title . 'Demo App';
+});
+```
+
+```html+php
+<title>{{ Breadcrumbs::pageTitle() }}</title>
+```
+
+
 ### Defining breadcrumbs in a different file
 
 If you don't want to use `routes/breadcrumbs.php`, you can change it in the config file. First initialise the config file, if you haven't already:
@@ -735,7 +790,7 @@ Config::set('breadcrumbs.view', '_partials/breadcrumbs2');
 {{ Breadcrumbs::render('category', $category) }}
 ```
 
-Or you could call `Breadcrumbs::generate()` to get the breadcrumbs array and load the view manually:
+Or you could call `Breadcrumbs::generate()` to get the breadcrumbs Collection and load the view manually:
 
 ```html+php
 @include('_partials/breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)])
@@ -759,25 +814,25 @@ To check if a breadcrumb with a given name exists, call `Breadcrumbs::exists('na
 
 ### `Breadcrumbs` Facade
 
-| Method                                                              | Returns   | Added in |
-|---------------------------------------------------------------------|-----------|----------|
-| `Breadcrumbs::register(string $name, closure $callback)`            | *(none)*  | 1.0.0    |
-| `Breadcrumbs::before(closure $callback)`                            | *(none)*  | 4.0.0    |
-| `Breadcrumbs::after(closure $callback)`                             | *(none)*  | 4.0.0    |
-| `Breadcrumbs::exists()`                                             | boolean   | 2.2.0    |
-| `Breadcrumbs::exists(string $name)`                                 | boolean   | 2.2.0    |
-| `Breadcrumbs::generate()`                                           | array     | 2.2.3    |
-| `Breadcrumbs::generate(string $name)`                               | array     | 1.0.0    |
-| `Breadcrumbs::generate(string $name, mixed $param1, ...)`           | array     | 1.0.0    |
-| `Breadcrumbs::render()`                                             | string    | 2.2.0    |
-| `Breadcrumbs::render(string $name)`                                 | string    | 1.0.0    |
-| `Breadcrumbs::render(string $name, mixed $param1, ...)`             | string    | 1.0.0    |
-| `Breadcrumbs::view(string $view)`                                   | string    | 4.0.0    |
-| `Breadcrumbs::view(string $view, string $name)`                     | string    | 4.0.0    |
-| `Breadcrumbs::view(string $view, string $name, mixed $param1, ...)` | string    | 4.0.0    |
-| `Breadcrumbs::setCurrentRoute(string $name)`                        | *(none)*  | 2.2.0    |
-| `Breadcrumbs::setCurrentRoute(string $name, mixed $param1, ...)`    | *(none)*  | 2.2.0    |
-| `Breadcrumbs::clearCurrentRoute()`                                  | *(none)*  | 2.2.0    |
+| Method                                                              | Returns    | Added in |
+|---------------------------------------------------------------------|------------|----------|
+| `Breadcrumbs::register(string $name, closure $callback)`            | *(none)*   | 1.0.0    |
+| `Breadcrumbs::before(closure $callback)`                            | *(none)*   | 4.0.0    |
+| `Breadcrumbs::after(closure $callback)`                             | *(none)*   | 4.0.0    |
+| `Breadcrumbs::exists()`                                             | boolean    | 2.2.0    |
+| `Breadcrumbs::exists(string $name)`                                 | boolean    | 2.2.0    |
+| `Breadcrumbs::generate()`                                           | Collection | 2.2.3    |
+| `Breadcrumbs::generate(string $name)`                               | Collection | 1.0.0    |
+| `Breadcrumbs::generate(string $name, mixed $param1, ...)`           | Collection | 1.0.0    |
+| `Breadcrumbs::render()`                                             | string     | 2.2.0    |
+| `Breadcrumbs::render(string $name)`                                 | string     | 1.0.0    |
+| `Breadcrumbs::render(string $name, mixed $param1, ...)`             | string     | 1.0.0    |
+| `Breadcrumbs::view(string $view)`                                   | string     | 4.0.0    |
+| `Breadcrumbs::view(string $view, string $name)`                     | string     | 4.0.0    |
+| `Breadcrumbs::view(string $view, string $name, mixed $param1, ...)` | string     | 4.0.0    |
+| `Breadcrumbs::setCurrentRoute(string $name)`                        | *(none)*   | 2.2.0    |
+| `Breadcrumbs::setCurrentRoute(string $name, mixed $param1, ...)`    | *(none)*   | 2.2.0    |
+| `Breadcrumbs::clearCurrentRoute()`                                  | *(none)*   | 2.2.0    |
 
 [Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/src/Manager.php)
 
@@ -848,7 +903,8 @@ Breadcrumbs::after('name', function (Generator $breadcrumbs) {
     - `InvalidBreadcrumbException`
     - `InvalidViewException`
     - `UnnamedRouteException`
-- Use `errors.404` breadcrumb for custom Error 404 pages
+- Change `Breadcrumbs::generate()` to return a [Collection](https://laravel.com/docs/5.4/collections) instead of an array
+- Use `errors.404` breadcrumb for custom Error 404 pages, instead of no breadcrumbs
 - Remove `$breadcrumbs->first` and `$breadcrumbs->last` in views (use [Blade's](https://laravel.com/docs/5.4/blade#loops) `$loop->first` and `$loop->last` instead)
 - Remove `Array` variants of methods – use [variadic arguments](https://php.net/manual/en/migration56.new-features.php#migration56.new-features.variadics) instead:
     - `Breadcrumbs::renderArray($page, $params)` → `Breadcrumbs::render($page, ...$params)`

@@ -5,6 +5,7 @@ namespace DaveJamesMiller\Breadcrumbs;
 use DaveJamesMiller\Breadcrumbs\Exceptions\InvalidViewException;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 
 /**
@@ -27,12 +28,12 @@ class View
     /**
      * Render a view with the given breadcrumbs.
      *
-     * @param string $view        The view name.
-     * @param array  $breadcrumbs The generated breadcrumbs.
+     * @param string     $view        The view name.
+     * @param Collection $breadcrumbs The generated breadcrumbs.
      * @return HtmlString The generated HTML.
      * @throws InvalidViewException if no view has been set.
      */
-    public function render(string $view, array $breadcrumbs): HtmlString
+    public function render(string $view, Collection $breadcrumbs): HtmlString
     {
         if (! $view) {
             throw new InvalidViewException('Breadcrumbs view not specified (check config/breadcrumbs.php)');

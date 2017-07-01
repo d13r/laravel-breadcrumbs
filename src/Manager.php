@@ -6,13 +6,18 @@ use DaveJamesMiller\Breadcrumbs\Exceptions\DuplicateBreadcrumbException;
 use DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
 use DaveJamesMiller\Breadcrumbs\Exceptions\InvalidViewException;
 use DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException;
+use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\Traits\Macroable;
+use stdClass;
 
 /**
  * The main Breadcrumbs singleton class, responsible for registering, generating and rendering breadcrumbs.
  */
 class Manager
 {
+    use Macroable;
+
     /**
      * @var CurrentRoute
      */
@@ -122,11 +127,11 @@ class Manager
      *
      * @param string|null $name      The name of the current page.
      * @param mixed       ...$params The parameters to pass to the closure for the current page.
-     * @return array The generated breadcrumbs.
+     * @return Collection The generated breadcrumbs.
      * @throws UnnamedRouteException if no name is given and the current route doesn't have an associated name.
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
      */
-    public function generate(string $name = null, ...$params): array
+    public function generate(string $name = null, ...$params): Collection
     {
         $origName = $name;
 
@@ -139,7 +144,7 @@ class Manager
                     throw $e;
                 }
 
-                return [];
+                return new Collection;
             }
         }
 
@@ -155,7 +160,7 @@ class Manager
                 throw $e;
             }
 
-            return [];
+            return new Collection;
         }
     }
 
@@ -194,6 +199,20 @@ class Manager
     public function render(string $name = null, ...$params): HtmlString
     {
         return $this->view(config('breadcrumbs.view'), $name, ...$params);
+    }
+
+    /**
+     * Get the last breadcrumb for the current page.
+     *
+     * Optionally pass a
+     *
+     * @return stdClass|null The breadcrumb for the current page.
+     * @throws UnnamedRouteException if the current route doesn't have an associated name.
+     * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
+     */
+    public function current()
+    {
+        return $this->generate()->where('current', '!==', false)->last();
     }
 
     /**
