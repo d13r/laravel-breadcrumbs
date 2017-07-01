@@ -608,6 +608,20 @@ The `$data` array's entries will be merged into the breadcrumb as properties, so
 Do not use the following keys in your data array, as they will be overwritten: `title`, `url`, `first`, `last`.
 
 
+### Before and after callbacks
+
+You can register "before" and "after" callbacks to add breadcrumbs at the start/end of the trail. For example, to automatically add the current page number at the end:
+
+```php
+Breadcrumbs::after(function (Generator $breadcrumbs) {
+    $page = (int) request('page', 1);
+    if ($page > 1) {
+        $breadcrumbs->push("Page $page");
+    }
+});
+```
+
+
 ### Defining breadcrumbs in a different file
 
 If you don't want to use `routes/breadcrumbs.php`, you can change it in the config file. First initialise the config file, if you haven't already:
@@ -705,6 +719,8 @@ Alternatively you can call `Breadcrumbs::exists('name')`, which returns a boolea
 | Method                                                              | Returns   | Added in |
 |---------------------------------------------------------------------|-----------|----------|
 | `Breadcrumbs::register(string $name, closure $callback)`            | *(none)*  | 1.0.0    |
+| `Breadcrumbs::before(closure $callback)`                            | *(none)*  | 4.0.0    |
+| `Breadcrumbs::after(closure $callback)`                             | *(none)*  | 4.0.0    |
 | `Breadcrumbs::exists()`                                             | boolean   | 2.2.0    |
 | `Breadcrumbs::exists(string $name)`                                 | boolean   | 2.2.0    |
 | `Breadcrumbs::generate()`                                           | array     | 2.2.3    |
@@ -729,7 +745,15 @@ Alternatively you can call `Breadcrumbs::exists('name')`, which returns a boolea
 use App\Models\Page;
 use DaveJamesMiller\Breadcrumbs\Generator;
 
+Breadcrumbs::before('name', function (Generator $breadcrumbs) {
+    // ...
+});
+
 Breadcrumbs::register('name', function (Generator $breadcrumbs, Page $page) {
+    // ...
+});
+
+Breadcrumbs::after('name', function (Generator $breadcrumbs) {
     // ...
 });
 ```
@@ -748,7 +772,11 @@ Breadcrumbs::register('name', function (Generator $breadcrumbs, Page $page) {
 
 ### In the view (template)
 
-`$breadcrumbs` (array), contains:
+```html+php
+@foreach ($breadcrumbs as $breadcrumb)
+    <!-- ... -->
+@endforeach
+```
 
 | Variable                             | Type          | Added in |
 |--------------------------------------|---------------|----------|
@@ -769,6 +797,7 @@ Breadcrumbs::register('name', function (Generator $breadcrumbs, Page $page) {
 - Add [package auto-discovery](https://laravel-news.com/package-auto-discovery)
 - Add Bootstrap 4 template and set it as the default
 - Add `Breadcrumbs::view()` method to render breadcrumbs with a specific view
+- Add `Breadcrumbs::before()` and `Breadcrumbs::after()` methods
 - Add type hints to all methods (parameters and return value)
 - Add more specific exception classes:
     - `DuplicateBreadcrumbException`

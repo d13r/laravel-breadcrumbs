@@ -33,6 +33,16 @@ class Manager
      */
     protected $callbacks = [];
 
+    /**
+     * @var array Closures to call before generating breadcrumbs for the current page.
+     */
+    protected $before = [];
+
+    /**
+     * @var array Closures to call after generating breadcrumbs for the current page.
+     */
+    protected $after = [];
+
     public function __construct(CurrentRoute $currentRoute, Generator $generator, View $view)
     {
         $this->generator    = $generator;
@@ -56,6 +66,32 @@ class Manager
         }
 
         $this->callbacks[ $name ] = $callback;
+    }
+
+    /**
+     * Register a closure to call before generating breadcrumbs for the current page.
+     *
+     * For example, this can be used to always prepend the homepage without needing to manually add it to each page.
+     *
+     * @param callback $callback The callback, which should accept a Generator instance as the first and only parameter.
+     * @return void
+     */
+    public function before(callable $callback) //: void
+    {
+        $this->before[] = $callback;
+    }
+
+    /**
+     * Register a closure to call after generating breadcrumbs for the current page.
+     *
+     * For example, this can be used to append the current page number when using pagination.
+     *
+     * @param callback $callback The callback, which should accept a Generator instance as the first and only parameter.
+     * @return void
+     */
+    public function after(callable $callback) //: void
+    {
+        $this->after[] = $callback;
     }
 
     /**
@@ -109,7 +145,7 @@ class Manager
 
         // Generate breadcrumbs
         try {
-            return $this->generator->generate($this->callbacks, $name, $params);
+            return $this->generator->generate($this->callbacks, $this->before, $this->after, $name, $params);
         } catch (InvalidBreadcrumbException $e) {
             if ($origName === null && config('breadcrumbs.missing-route-bound-breadcrumb-exception')) {
                 throw $e;

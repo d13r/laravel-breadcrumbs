@@ -26,17 +26,27 @@ class Generator
      * Generate breadcrumbs.
      *
      * @param array  $callbacks The registered breadcrumb-generating closures.
+     * @param array  $before    The registered 'before' callbacks.
+     * @param array  $after     The registered 'after' callbacks.
      * @param string $name      The name of the current page.
      * @param array  $params    The parameters to pass to the closure for the current page.
      * @return array An array of breadcrumbs.
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
      */
-    public function generate(array $callbacks, string $name, array $params): array
+    public function generate(array $callbacks, array $before, array $after, string $name, array $params): array
     {
         $this->breadcrumbs = [];
         $this->callbacks   = $callbacks;
 
+        foreach ($before as $callback) {
+            $callback($this);
+        }
+
         $this->call($name, $params);
+
+        foreach ($after as $callback) {
+            $callback($this);
+        }
 
         return $this->toArray();
     }
