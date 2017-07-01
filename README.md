@@ -285,8 +285,18 @@ Each breadcrumb is an object with the following keys:
 Then update your config file (`config/breadcrumbs.php`) with the custom view name, e.g.:
 
 ```php
-// resources/views/_partials/breadcrumbs.blade.php
-'view' => '_partials/breadcrumbs',
+    'view' => '_partials/breadcrumbs', #--> resources/views/_partials/breadcrumbs.blade.php
+```
+
+
+### Skipping the view
+
+Alternatively you can skip the custom view and call `Breadcrumbs::generate()` to get the breadcrumbs array directly:
+
+```html+php
+@foreach (Breadcrumbs::generate('page', $page) as $breadcrumb)
+    <!-- ... -->
+@endforeach
 ```
 
 
@@ -294,6 +304,7 @@ Then update your config file (`config/breadcrumbs.php`) with the custom view nam
 --------------------------------------------------------------------------------
 
 Call `Breadcrumbs::render()` in the view template for each page, passing it the name of the breadcrumb to use and any additional parameters.
+
 
 ### With Blade
 
@@ -308,6 +319,7 @@ Or with a parameter:
 ```html+php
 {{ Breadcrumbs::render('category', $category) }}
 ```
+
 
 ### With Blade layouts and @section
 
@@ -324,6 +336,7 @@ In the layout (e.g. `resources/views/app.blade.php`):
 ```html+php
 @yield('breadcrumbs')
 ```
+
 
 ### Pure PHP (without Blade)
 
@@ -445,7 +458,7 @@ And to `Breadcrumbs::view()`:
 
 ### Route-model binding exceptions
 
-It will throw an exception if the breadcrumb doesn't exist, to remind you to create one. To prevent this, first initialise the config file, if you haven't already:
+It will throw an `InvalidBreadcrumbException` if the breadcrumb doesn't exist, to remind you to create one. To prevent this, first initialise the config file, if you haven't already:
 
 ```bash
 php artisan vendor:publish --provider='DaveJamesMiller\Breadcrumbs\ServiceProvider'
@@ -457,7 +470,7 @@ Then open `config/breadcrumbs.php` and set this value:
     'missing-route-bound-breadcrumb-exception' => false,
 ```
 
-Similarly to prevent it throwing an exception if the current route doesn't have a name set this value:
+Similarly to prevent it throwing an `UnnamedRouteException` if the current route doesn't have a name set this value:
 
 ```php
     'unnamed-route-exception' => false,
@@ -653,6 +666,7 @@ So you can use `glob()` to automatically find files using a wildcard:
 
 Or return an empty array `[]` to disable loading.
 
+
 ### Defining breadcrumbs in another package
 
 If you are creating your own package, simply load your breadcrumbs file from your service provider's `boot()` method:
@@ -672,21 +686,15 @@ class MyServiceProvider extends ServiceProvider
 ```
 
 
-### Switching views dynamically
+### Switching views at runtime
 
-You can use `Breadcrumbs::view()` in place of `Breadcrumbs::render()` to render a specific template:
+You can use `Breadcrumbs::view()` in place of `Breadcrumbs::render()` to render a template other than the [default one](#3-choose-a-template):
 
 ```html+php
 {{ Breadcrumbs::view('_partials/breadcrumbs2', 'category', $category) }}
 ```
 
-Or you could call `Breadcrumbs::generate()` and then load the view manually:
-
-```html+php
-@include('_partials/breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)])
-```
-
-Or you can change the default view config setting:
+Or you can override the config setting to affect all future `render()` calls:
 
 ```php
 Config::set('breadcrumbs.view', '_partials/breadcrumbs2');
@@ -694,6 +702,12 @@ Config::set('breadcrumbs.view', '_partials/breadcrumbs2');
 
 ```php
 {{ Breadcrumbs::render('category', $category) }}
+```
+
+Or you could call `Breadcrumbs::generate()` to get the breadcrumbs array and load the view manually:
+
+```html+php
+@include('_partials/breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)])
 ```
 
 
@@ -706,9 +720,7 @@ You can override this by calling `Breadcrumbs::setCurrentRoute($name, $param1, $
 
 ### Checking if a breadcrumb exists
 
-By default an exception will be thrown if the breadcrumb doesn't exist, so you know to add it. If you want suppress this ... TODO
-
-Alternatively you can call `Breadcrumbs::exists('name')`, which returns a boolean.
+To check if a breadcrumb with a given name exists, call `Breadcrumbs::exists('name')`, which returns a boolean.
 
 
  API Reference
