@@ -19,7 +19,7 @@ class GeneratorTest extends TestCase
             'sample' => function ($breadcrumbs) {
                 $this->assertSame($this->generator, $breadcrumbs);
             },
-        ], 'sample', []);
+        ], [], [], 'sample', []);
     }
 
     public function testCallbackParameters()
@@ -29,7 +29,7 @@ class GeneratorTest extends TestCase
                 $this->assertSame(1, $num);
                 $this->assertSame('blah', $text);
             },
-        ], 'sample', [1, 'blah']);
+        ], [], [], 'sample', [1, 'blah']);
     }
 
     // $breadcrumbs->push($title)
@@ -40,7 +40,7 @@ class GeneratorTest extends TestCase
             'sample' => function ($breadcrumbs) {
                 $breadcrumbs->push('Home');
             },
-        ], 'sample', []);
+        ], [], [], 'sample', []);
 
         $this->assertCount(1, $breadcrumbs);
         $this->assertSame('Home', $breadcrumbs[0]->title);
@@ -55,7 +55,7 @@ class GeneratorTest extends TestCase
             'sample' => function ($breadcrumbs) {
                 $breadcrumbs->push('Home', '/');
             },
-        ], 'sample', []);
+        ], [], [], 'sample', []);
 
         $this->assertCount(1, $breadcrumbs);
         $this->assertSame('Home', $breadcrumbs[0]->title);
@@ -76,7 +76,7 @@ class GeneratorTest extends TestCase
             'sample' => function ($breadcrumbs) {
                 $breadcrumbs->push('Home', '/', ['foo' => 'bar', 'title' => 'ignored']);
             },
-        ], 'sample', []);
+        ], [], [], 'sample', []);
 
         $this->assertCount(1, $breadcrumbs);
         $this->assertSame('Home', $breadcrumbs[0]->title);
@@ -92,7 +92,7 @@ class GeneratorTest extends TestCase
                 $breadcrumbs->push('Level 2', '/2');
                 $breadcrumbs->push('Level 3', '/3');
             },
-        ], 'sample', []);
+        ], [], [], 'sample', []);
 
         $this->assertCount(3, $breadcrumbs);
         $this->assertSame('Level 1', $breadcrumbs[0]->title);
@@ -114,7 +114,7 @@ class GeneratorTest extends TestCase
                 $breadcrumbs->parent('home');
                 $breadcrumbs->push('Page', '/page');
             },
-        ], 'sample', []);
+        ], [], [], 'sample', []);
 
         $this->assertCount(2, $breadcrumbs);
         $this->assertSame('Home', $breadcrumbs[0]->title);
@@ -134,6 +134,6 @@ class GeneratorTest extends TestCase
             'sample' => function ($breadcrumbs) {
                 $breadcrumbs->parent('parent', 1, 'blah');
             },
-        ], 'sample', []);
+        ], [], [], 'sample', []);
     }
 }

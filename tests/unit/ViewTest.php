@@ -3,6 +3,7 @@
 namespace BreadcrumbsTests;
 
 use DaveJamesMiller\Breadcrumbs\View;
+use Illuminate\Support\Collection;
 
 class ViewTest extends TestCase
 {
@@ -12,7 +13,7 @@ class ViewTest extends TestCase
 
         $this->view = app(View::class);
 
-        $this->breadcrumbs = [
+        $this->breadcrumbs = new Collection([
             (object) [
                 'title' => 'Home',
                 'url'   => '/',
@@ -29,7 +30,7 @@ class ViewTest extends TestCase
                 'title' => 'Sample Post',
                 'url'   => '/blog/123',
             ],
-        ];
+        ]);
     }
 
     public function testBootstrap2()

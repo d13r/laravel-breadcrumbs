@@ -56,9 +56,9 @@ class IntegrationTest extends TestCase
 
         $this->assertXmlStringEqualsXmlString('
             <ol class="breadcrumb">
-                <li><a href="/">Home</a></li>
-                <li><a href="/category/456">Sample Category</a></li>
-                <li class="active">Sample Post</li>
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/category/456">Sample Category</a></li>
+                <li class="breadcrumb-item active">Sample Post</li>
             </ol>
         ', $html);
     }

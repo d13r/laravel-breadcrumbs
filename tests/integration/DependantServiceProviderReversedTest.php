@@ -27,7 +27,7 @@ class DependantServiceProviderReversedTest extends TestCase
 
         $this->assertXmlStringEqualsXmlString('
             <ol class="breadcrumb">
-                <li class="active">Home</li>
+                <li class="breadcrumb-item active">Home</li>
             </ol>
         ', $html);
     }
