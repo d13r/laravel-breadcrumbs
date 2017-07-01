@@ -116,6 +116,8 @@ The possible values are:
 - `breadcrumbs::bootstrap4` – [Bootstrap 4](https://v4-alpha.getbootstrap.com/components/breadcrumb/)
 - `breadcrumbs::bootstrap3` – [Bootstrap 3](http://getbootstrap.com/components/#breadcrumbs)
 - `breadcrumbs::bootstrap2` – [Bootstrap 2](http://getbootstrap.com/2.3.2/components.html#breadcrumbs)
+- `breadcrumbs::foundation6` – [Foundation 6](http://foundation.zurb.com/sites/docs/breadcrumbs.html)
+- `breadcrumbs::materialize` – [Materialize](http://materializecss.com/breadcrumbs.html)
 - `breadcrumbs::json-ld` – [JSON-LD Structured Data](https://developers.google.com/search/docs/data-types/breadcrumbs) (&lt;script&gt; tag, no visible output)
 - The path to a custom view: e.g. `_partials/breadcrumbs`
 
@@ -837,6 +839,7 @@ Breadcrumbs::after('name', function (Generator $breadcrumbs) {
 - Add Laravel 5.5 support, and drop support for Laravel 5.4 and below (future versions will target a single Laravel release to simplify testing and documentation)
 - Add [package auto-discovery](https://laravel-news.com/package-auto-discovery)
 - Add Bootstrap 4 template and set it as the default
+- Add Foundation 6 and Materialize templates
 - Add `Breadcrumbs::view()` method to render breadcrumbs with a specific view
 - Add `Breadcrumbs::before()` and `Breadcrumbs::after()` methods
 - Add type hints to all methods (parameters and return value)
