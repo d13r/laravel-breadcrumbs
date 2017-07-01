@@ -369,7 +369,7 @@ Breadcrumbs::register('page', function ($breadcrumbs, $page) {
 });
 ```
 
-(If you prefer to use Microdata or RFDa you will need to create a (custom template)[#custom-templates].)
+(If you prefer to use Microdata or RDFa you will need to create a [custom template](#custom-templates).)
 
 
  Route-Bound Breadcrumbs
