@@ -18,8 +18,8 @@ A simple [Laravel](https://laravel.com/)-style way to create breadcrumbs.
 - [Defining Breadcrumbs](#defining-breadcrumbs)
 - [Custom Templates](#custom-templates)
 - [Outputting Breadcrumbs](#outputting-breadcrumbs)
-- [Route-Bound Breadcrumbs](#route-bound-breadcrumbs)
 - [Structured Data](#structured-data)
+- [Route-Bound Breadcrumbs](#route-bound-breadcrumbs)
 - [Advanced Usage](#advanced-usage)
 - [API Reference](#api-reference)
 - [Changelog](#changelog)
@@ -411,6 +411,16 @@ Breadcrumbs::register('page', function ($breadcrumbs, $id) {
 });
 ```
 
+To add breadcrumbs to a [custom 404 Not Found page](https://laravel.com/docs/5.4/errors#custom-http-error-pages), use the name `errors.404`:
+
+```php
+// Error 404
+Breadcrumbs::register('errors.404', function (Generator $breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Page Not Found');
+});
+```
+
 
 ### Output breadcrumbs in your layout
 
@@ -765,6 +775,7 @@ Breadcrumbs::register('name', function (Generator $breadcrumbs, Page $page) {
     - `InvalidBreadcrumbException`
     - `InvalidViewException`
     - `UnnamedRouteException`
+- Use `errors.404` breadcrumb for custom Error 404 pages
 - Remove `$breadcrumbs->first` and `$breadcrumbs->last` in views (use [Blade's](https://laravel.com/docs/5.4/blade#loops) `$loop->first` and `$loop->last` instead)
 - Remove `Array` variants of methods – use [variadic arguments](https://php.net/manual/en/migration56.new-features.php#migration56.new-features.variadics) instead:
     - `Breadcrumbs::renderArray($page, $params)` → `Breadcrumbs::render($page, ...$params)`

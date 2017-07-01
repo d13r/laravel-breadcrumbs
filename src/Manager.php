@@ -105,11 +105,6 @@ class Manager
 
                 return [];
             }
-
-            // No current route - probably an error page (404, 500, etc.)
-            if ($name === '') {
-                return [];
-            }
         }
 
         // Generate breadcrumbs

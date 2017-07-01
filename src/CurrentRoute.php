@@ -50,9 +50,9 @@ class CurrentRoute
         /** @var Router $route */
         $route = $this->router->current();
 
-        // No current route
-        if (is_null($route)) {
-            return ['', []];
+        // No current route - must be the 404 page
+        if ($route === null) {
+            return ['errors.404', []];
         }
 
         // Convert route to name
