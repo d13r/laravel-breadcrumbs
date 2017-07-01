@@ -667,11 +667,13 @@ So you can use `glob()` to automatically find files using a wildcard:
 Or return an empty array `[]` to disable loading.
 
 
-### Defining breadcrumbs in another package
+### Defining/using breadcrumbs in another package
 
 If you are creating your own package, simply load your breadcrumbs file from your service provider's `boot()` method:
 
 ```php
+use Illuminate\Support\ServiceProvider;
+
 class MyServiceProvider extends ServiceProvider
 {
     public function register() {}
@@ -681,6 +683,33 @@ class MyServiceProvider extends ServiceProvider
         if (class_exists('Breadcrumbs')) {
             require __DIR__ . '/breadcrumbs.php';
         }
+    }
+}
+```
+
+
+### Dependency injection
+
+You can also use dependency injection to access the `Manager` instance if you prefer, instead of using the `Breadcrumbs::` facade:
+
+```php
+use DaveJamesMiller\Breadcrumbs\Manager as BreadcrumbsManager;
+use Illuminate\Support\ServiceProvider;
+
+class MyServiceProvider extends ServiceProvider
+{
+    private $breadcrumbs;
+    
+    public function __construct(BreadcrumbsManager $breadcrumbs)
+    {
+        $this->breadcrumbs = $breadcrumbs;
+    }
+
+    public function register() {}
+
+    public function boot()
+    {
+        $this->breadcrumbs->register(...);
     }
 }
 ```
