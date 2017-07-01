@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Support\Facades\Request;
+
 $json = [
     '@context'        => 'http://schema.org',
     '@type'           => 'BreadcrumbList',
@@ -10,7 +12,7 @@ foreach ($breadcrumbs as $i => $breadcrumb) {
         '@type'    => 'ListItem',
         'position' => $i + 1,
         'item'     => [
-            '@id'  => $breadcrumb->url,
+            '@id'  => $breadcrumb->url ?: Request::fullUrl(),
             'name' => $breadcrumb->title,
             'image' => $breadcrumb->image ?? null,
         ],
