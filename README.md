@@ -85,10 +85,10 @@ Breadcrumbs::register('category', function ($breadcrumbs, $category) {
     $breadcrumbs->push($category->title, route('category', $category->id));
 });
 
-// Home > Blog > [Category] > [Page]
-Breadcrumbs::register('page', function ($breadcrumbs, $page) {
-    $breadcrumbs->parent('category', $page->category);
-    $breadcrumbs->push($page->title, route('page', $page->id));
+// Home > Blog > [Category] > [Post]
+Breadcrumbs::register('post', function ($breadcrumbs, $post) {
+    $breadcrumbs->parent('category', $post->category);
+    $breadcrumbs->push($post->title, route('post', $post->id));
 });
 ```
 
@@ -128,7 +128,7 @@ See the [Custom Templates](#custom-templates) section for more details.
 
 Finally, call `Breadcrumbs::render()` in the view template for each page, passing it the name of the breadcrumb to use and any additional parameters – for example:
 
-```html+php
+```blade
 {{ Breadcrumbs::render('home') }}
 
 {{ Breadcrumbs::render('category', $category) }}
@@ -193,21 +193,21 @@ Note that the default template does not create a link for the last breadcrumb (t
 This is a dynamically generated page pulled from the database:
 
 ```php
-Breadcrumbs::register('page', function ($breadcrumbs, $page) {
+Breadcrumbs::register('post', function ($breadcrumbs, $post) {
     $breadcrumbs->parent('blog');
-    $breadcrumbs->push($page->title, route('page', $page->id));
+    $breadcrumbs->push($post->title, route('post', $post->id));
 });
 ```
 
-The `$page` variable would simply be passed in from the view:
+The `$post` variable would simply be passed in from the view:
 
-```html+php
-{{ Breadcrumbs::render('page', $page) }}
+```blade
+{{ Breadcrumbs::render('post', $post) }}
 ```
 
 It would be rendered like this:
 
-> [Home](#) / [Blog](#) / Page Title
+> [Home](#) / [Blog](#) / Post Title
 
 **Tip:** You can pass multiple parameters if necessary.
 
@@ -254,7 +254,7 @@ Both would be rendered like this:
 
 To customise the HTML, create your own view file (e.g. `resources/views/_partials/breadcrumbs.blade.php`) like this:
 
-```html+php
+```blade
 @if ($breadcrumbs)
     <ol class="breadcrumb">
         @foreach ($breadcrumbs as $breadcrumb)
@@ -295,9 +295,9 @@ Then update your config file (`config/breadcrumbs.php`) with the custom view nam
 
 Alternatively you can skip the custom view and call `Breadcrumbs::generate()` to get the breadcrumbs [Collection](https://laravel.com/docs/5.4/collections) directly:
 
-```html+php
-@foreach (Breadcrumbs::generate('page', $page) as $breadcrumb)
-    <!-- ... -->
+```blade
+@foreach (Breadcrumbs::generate('post', $post) as $breadcrumb)
+    {{-- ... --}}
 @endforeach
 ```
 
@@ -312,13 +312,13 @@ Call `Breadcrumbs::render()` in the view template for each page, passing it the 
 
 In the page (e.g. `resources/views/home.blade.php`):
 
-```html+php
+```blade
 {{ Breadcrumbs::render('home') }}
 ```
 
 Or with a parameter:
 
-```html+php
+```blade
 {{ Breadcrumbs::render('category', $category) }}
 ```
 
@@ -327,7 +327,7 @@ Or with a parameter:
 
 In the page (e.g. `resources/views/home.blade.php`):
 
-```html+php
+```blade
 @extends('layout.name')
 
 @section('breadcrumbs', Breadcrumbs::render('home'))
@@ -335,7 +335,7 @@ In the page (e.g. `resources/views/home.blade.php`):
 
 In the layout (e.g. `resources/views/app.blade.php`):
 
-```html+php
+```blade
 @yield('breadcrumbs')
 ```
 
@@ -344,13 +344,13 @@ In the layout (e.g. `resources/views/app.blade.php`):
 
 In the page (e.g. `resources/views/home.php`):
 
-```html+php
+```blade
 <?= Breadcrumbs::render('home') ?>
 ```
 
 Or use the long-hand syntax if you prefer:
 
-```html+php
+```blade
 <?php echo Breadcrumbs::render('home') ?>
 ```
 
@@ -360,7 +360,7 @@ Or use the long-hand syntax if you prefer:
 
 To render breadcrumbs as JSON-LD [structured data](https://developers.google.com/search/docs/data-types/breadcrumbs) (usually for SEO reasons), use `Breadcrumbs::view()` to render the `breadcrumbs::json-ld` template in addition to the normal one. For example:
 
-```html+php
+```blade
 <html>
     <head>
         ...
@@ -378,9 +378,9 @@ To render breadcrumbs as JSON-LD [structured data](https://developers.google.com
 To specify an image, add it to the `$data` parameter in `push()`:
 
 ```php
-Breadcrumbs::register('page', function ($breadcrumbs, $page) {
+Breadcrumbs::register('post', function ($breadcrumbs, $post) {
     $breadcrumbs->parent('home');
-    $breadcrumbs->push($page->title, route('page', $page->id), ['image' => asset($page->image)]);
+    $breadcrumbs->push($post->title, route('post', $post->id), ['image' => asset($post->image)]);
 });
 ```
 
@@ -401,8 +401,8 @@ Make sure each of your routes has a name. For example (`routes/web.php`):
 // Home
 Route::name('home')->get('/', 'HomeController@index');
 
-// Home > [Page]
-Route::name('page')->get('/page/{id}', 'PageController@show');
+// Home > [Post]
+Route::name('post')->get('/post/{id}', 'PostController@show');
 ```
 
 For more details see [Named Routes](https://laravel.com/docs/5.4/routing#named-routes) in the Laravel documentation.
@@ -418,11 +418,11 @@ Breadcrumbs::register('home', function ($breadcrumbs) {
      $breadcrumbs->push('Home', route('home'));
 });
 
-// Home > [Page]
-Breadcrumbs::register('page', function ($breadcrumbs, $id) {
-    $page = Page::findOrFail($id);
+// Home > [Post]
+Breadcrumbs::register('post', function ($breadcrumbs, $id) {
+    $post = Post::findOrFail($id);
     $breadcrumbs->parent('home');
-    $breadcrumbs->push($page->title, route('page', $page->id));
+    $breadcrumbs->push($post->title, route('post', $post->id));
 });
 ```
 
@@ -441,7 +441,7 @@ Breadcrumbs::register('errors.404', function (Generator $breadcrumbs) {
 
 Call `Breadcrumbs::render()` with no parameters in your layout file (e.g. `resources/views/app.blade.php`):
 
-```html+php
+```blade
 {{ Breadcrumbs::render() }}
 ```
 
@@ -453,7 +453,7 @@ $breadcrumbs = Breadcrumbs::generate();
 
 And to `Breadcrumbs::view()`:
 
-```html+php
+```blade
 {{ Breadcrumbs::view('breadcrumbs::json-ld') }}
 ```
 
@@ -485,31 +485,31 @@ Laravel Breadcrumbs uses the same model binding as the controller. For example:
 
 ```php
 // routes/web.php
-Route::name('page')->get('/page/{page}', 'PageController@show');
+Route::name('post')->get('/post/{post}', 'PostController@show');
 ```
 
 ```php
-// app/Http/Controllers/PageController.php
-use App\Page;
+// app/Http/Controllers/PostController.php
+use App\Post;
 
-class PageController extends Controller
+class PostController extends Controller
 {
-    public function show(Page $page) // <-- Implicit model binding happens here
+    public function show(Post $post) // <-- Implicit model binding happens here
     {
-        return view('page/show', ['page' => $page]);
+        return view('post/show', ['post' => $post]);
     }
 }
 ```
 
 ```php
 // routes/breadcrumbs.php
-Breadcrumbs::register('page', function ($breadcrumbs, $page) { // <-- The same Page model is injected here
+Breadcrumbs::register('post', function ($breadcrumbs, $post) { // <-- The same Post model is injected here
     $breadcrumbs->parent('home');
-    $breadcrumbs->push($page->title, route('page', $page->id));
+    $breadcrumbs->push($post->title, route('post', $post->id));
 });
 ```
 
-This makes your code less verbose and more efficient by only loading the page from the database once.
+This makes your code less verbose and more efficient by only loading the post from the database once.
 
 For more details see [Route Model Binding](https://laravel.com/docs/5.4/routing#route-model-binding) in the Laravel documentation.
 
@@ -613,7 +613,7 @@ $breadcrumbs->push('Home', '/', ['icon' => 'home.png']);
 
 The `$data` array's entries will be merged into the breadcrumb as properties, so you would access the icon as ``$breadcrumb->icon`` in your template, like this:
 
-```html+php
+```blade
 <li><a href="{{ $breadcrumb->url }}">
     <img src="/images/icons/{{ $breadcrumb->icon }}">
     {{ $breadcrumb->title }}
@@ -641,7 +641,7 @@ Breadcrumbs::after(function (Generator $breadcrumbs) {
 
 To get the last breadcrumb for the current page, use `Breadcrumb::current()`. For example, you could use this to output the current page title:
 
-```html+php
+```blade
 <title>{{ ($breadcrumb = Breadcrumbs::current()) ? $breadcrumb->title : 'Fallback Title' }}</title>
 ```
 
@@ -656,7 +656,7 @@ Breadcrumbs::after(function (Generator $breadcrumbs) {
 });
 ```
 
-```html+php
+```blade
 <title>
     {{ ($breadcrumb = Breadcrumbs::current()) ? "$breadcrumb->title –" : '' }}
     {{ ($page = (int) request('page')) > 1 ? "Page $page –" : '' }}
@@ -687,7 +687,7 @@ Breadcrumbs::macro('pageTitle', function () {
 });
 ```
 
-```html+php
+```blade
 <title>{{ Breadcrumbs::pageTitle() }}</title>
 ```
 
@@ -776,7 +776,7 @@ class MyServiceProvider extends ServiceProvider
 
 You can use `Breadcrumbs::view()` in place of `Breadcrumbs::render()` to render a template other than the [default one](#3-choose-a-template):
 
-```html+php
+```blade
 {{ Breadcrumbs::view('_partials/breadcrumbs2', 'category', $category) }}
 ```
 
@@ -792,7 +792,7 @@ Config::set('breadcrumbs.view', '_partials/breadcrumbs2');
 
 Or you could call `Breadcrumbs::generate()` to get the breadcrumbs Collection and load the view manually:
 
-```html+php
+```blade
 @include('_partials/breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)])
 ```
 
@@ -840,14 +840,14 @@ To check if a breadcrumb with a given name exists, call `Breadcrumbs::exists('na
 ### Defining breadcrumbs
 
 ```php
-use App\Models\Page;
+use App\Models\Post;
 use DaveJamesMiller\Breadcrumbs\Generator;
 
 Breadcrumbs::before('name', function (Generator $breadcrumbs) {
     // ...
 });
 
-Breadcrumbs::register('name', function (Generator $breadcrumbs, Page $page) {
+Breadcrumbs::register('name', function (Generator $breadcrumbs, Post $post) {
     // ...
 });
 
@@ -870,9 +870,9 @@ Breadcrumbs::after('name', function (Generator $breadcrumbs) {
 
 ### In the view (template)
 
-```html+php
+```blade
 @foreach ($breadcrumbs as $breadcrumb)
-    <!-- ... -->
+    {{-- ... --}}
 @endforeach
 ```
 
