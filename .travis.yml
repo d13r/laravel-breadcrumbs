@@ -1,0 +1,14 @@
+language: php
+
+php:
+  - 7.1
+  - 7.0
+
+install:
+  - travis_retry composer install --no-interaction
+
+script:
+  - phpunit --coverage-clover build/logs/clover.xml
+
+#after_script:
+#  - php vendor/bin/coveralls -v
