@@ -1,4 +1,4 @@
-@if ($breadcrumbs)
+@if (count($breadcrumbs))
 
     <ul class="breadcrumb">
         @foreach ($breadcrumbs as $breadcrumb)

@@ -1,4 +1,4 @@
-@if ($breadcrumbs)
+@if (count($breadcrumbs))
 
     <nav aria-label="You are here:" role="navigation">
         <ul class="breadcrumbs">

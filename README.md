@@ -255,7 +255,7 @@ Both would be rendered like this:
 To customise the HTML, create your own view file (e.g. `resources/views/_partials/breadcrumbs.blade.php`) like this:
 
 ```blade
-@if ($breadcrumbs)
+@if (count($breadcrumbs))
     <ol class="breadcrumb">
         @foreach ($breadcrumbs as $breadcrumb)
             @if ($breadcrumb->url && !$loop->last)
