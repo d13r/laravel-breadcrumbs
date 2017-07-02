@@ -88,7 +88,7 @@ Breadcrumbs::register('category', function ($breadcrumbs, $category) {
 // Home > Blog > [Category] > [Post]
 Breadcrumbs::register('post', function ($breadcrumbs, $post) {
     $breadcrumbs->parent('category', $post->category);
-    $breadcrumbs->push($post->title, route('post', $post->id));
+    $breadcrumbs->push($post->title, route('post', $post));
 });
 ```
 
@@ -195,7 +195,7 @@ This is a dynamically generated page pulled from the database:
 ```php
 Breadcrumbs::register('post', function ($breadcrumbs, $post) {
     $breadcrumbs->parent('blog');
-    $breadcrumbs->push($post->title, route('post', $post->id));
+    $breadcrumbs->push($post->title, route('post', $post));
 });
 ```
 
@@ -380,7 +380,7 @@ To specify an image, add it to the `$data` parameter in `push()`:
 ```php
 Breadcrumbs::register('post', function ($breadcrumbs, $post) {
     $breadcrumbs->parent('home');
-    $breadcrumbs->push($post->title, route('post', $post->id), ['image' => asset($post->image)]);
+    $breadcrumbs->push($post->title, route('post', $post), ['image' => asset($post->image)]);
 });
 ```
 
@@ -422,7 +422,7 @@ Breadcrumbs::register('home', function ($breadcrumbs) {
 Breadcrumbs::register('post', function ($breadcrumbs, $id) {
     $post = Post::findOrFail($id);
     $breadcrumbs->parent('home');
-    $breadcrumbs->push($post->title, route('post', $post->id));
+    $breadcrumbs->push($post->title, route('post', $post));
 });
 ```
 
@@ -505,7 +505,7 @@ class PostController extends Controller
 // routes/breadcrumbs.php
 Breadcrumbs::register('post', function ($breadcrumbs, $post) { // <-- The same Post model is injected here
     $breadcrumbs->parent('home');
-    $breadcrumbs->push($post->title, route('post', $post->id));
+    $breadcrumbs->push($post->title, route('post', $post));
 });
 ```
 
@@ -520,7 +520,7 @@ Laravel automatically creates route names for resourceful controllers, e.g. `pho
 
 ```php
 // routes/web.php
-Route::resource('photo', 'PhotoController');
+Route::resource('photo', PhotoController::class);
 ```
 
 ```
@@ -568,23 +568,6 @@ Breadcrumbs::register('photo.edit', function ($breadcrumbs, $photo) {
 ```
 
 For more details see [Resource Controllers](https://laravel.com/docs/5.4/controllers#resource-controllers) in the Laravel documentation.
-
-
-### Implicit controllers
-
-To use implicit controllers, you must specify names for each route. For example:
-
-```php
-// routes/web.php
-Route::controller('auth', 'Auth\AuthController', [
-    'getRegister' => 'auth.register',
-    'getLogin'    => 'auth.login',
-]);
-```
-
-(You don't need to provide route names for actions that redirect and never display a view – e.g. most POST views.)
-
-For more details see [Implicit Controllers](https://laravel.com/docs/5.1/controllers#implicit-controllers) in the Laravel documentation.
 
 
  Advanced Usage
