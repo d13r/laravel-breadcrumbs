@@ -59,7 +59,7 @@ class CurrentRoute
         $name = $route->getName();
 
         if (is_null($name)) {
-            $uri = array_first($route->methods()) . ' /' . $route->uri();
+            $uri = array_first($route->methods()) . ' /' . ltrim($route->uri(), '/');
 
             throw new UnnamedRouteException("The current route ($uri) is not named");
         }
