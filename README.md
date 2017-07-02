@@ -104,7 +104,7 @@ By default a [Bootstrap](https://v4-alpha.getbootstrap.com/components/breadcrumb
 First initialise the config file by running this command:
 
 ```bash
-php artisan vendor:publish --provider='DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider'
+    php artisan vendor:publish --provider='DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider'
 ```
 
 Then open `config/breadcrumbs.php` and edit this line:
@@ -168,6 +168,12 @@ For generating the URL, you can use any of the standard Laravel URL-generation m
 
 This example would be rendered like this:
 
+```blade
+{{ Breadcrumbs::render('home') }}
+```
+
+And results in this output:
+
 > Home
 
 ### Parent links
@@ -184,6 +190,12 @@ Breadcrumbs::register('blog', function ($breadcrumbs) {
 It works by calling the closure for the `home` breadcrumb defined above.
 
 It would be rendered like this:
+
+```blade
+{{ Breadcrumbs::render('blog') }}
+```
+
+And results in this output:
 
 > [Home](#) / Blog
 
@@ -207,7 +219,7 @@ The `$post` variable would simply be passed in from the view:
 {{ Breadcrumbs::render('post', $post) }}
 ```
 
-It would be rendered like this:
+It results in this output:
 
 > [Home](#) / [Blog](#) / Post Title
 
@@ -245,6 +257,12 @@ Breadcrumbs::register('category', function ($breadcrumbs, $category) {
 ```
 
 Both would be rendered like this:
+
+```blade
+{{ Breadcrumbs::render('category', $category) }}
+```
+
+And result in this:
 
 > [Home](#) / [Blog](#) / [Grandparent Category](#) / [Parent Category](#) / Category Title
 
