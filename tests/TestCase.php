@@ -2,11 +2,11 @@
 
 namespace BreadcrumbsTests;
 
+use Config;
 use DaveJamesMiller\Breadcrumbs\Facade;
-use DaveJamesMiller\Breadcrumbs\Manager;
 use DaveJamesMiller\Breadcrumbs\ServiceProvider;
-use Mockery;
 use Orchestra\Testbench\TestCase as TestbenchTestCase;
+use View;
 
 abstract class TestCase extends TestbenchTestCase
 {
@@ -24,23 +24,11 @@ abstract class TestCase extends TestbenchTestCase
         ];
     }
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
-        $this->loadServiceProvider();
-    }
-
-    protected function loadServiceProvider()
-    {
-        // Need to trigger register() to test the views
-        $this->app->make(Manager::class);
-    }
-
-    public function tearDown()
-    {
-        $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
-
-        Mockery::close();
+        View::getFinder()->prependLocation(__DIR__ . '/resources/views');
+        Config::set('breadcrumbs.view', 'breadcrumbs');
     }
 }

@@ -895,6 +895,7 @@ Breadcrumbs::after('name', function (Generator $breadcrumbs) {
 - Remove `app/Http/breadcrumbs.php` file loading (use `routes/breadcrumbs.php`, or change the `files` setting in the config file)
 - Remove `laravel-breadcrumbs::` view prefix (use `breadcrumbs::` instead)
 - Remove `$app['breadcrumbs']` container short name (use `Breadcrumbs::` facade or `DaveJamesMiller\Breadcrumbs\Manager` type hint)
+- Greatly improved unit tests
 
 
 ### v3.x

@@ -19,8 +19,7 @@
     <!-- List of files with tests inside -->
     <testsuites>
         <testsuite name="Package Test Suite">
-            <directory suffix=".php">tests/unit/</directory>
-            <directory suffix=".php">tests/integration/</directory>
+            <directory suffix="Test.php">tests/</directory>
         </testsuite>
     </testsuites>
 

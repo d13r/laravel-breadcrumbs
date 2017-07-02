@@ -1,0 +1,3 @@
+<nav>
+    {{ Breadcrumbs::render() }}
+</nav>

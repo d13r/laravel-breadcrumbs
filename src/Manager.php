@@ -4,7 +4,7 @@ namespace DaveJamesMiller\Breadcrumbs;
 
 use DaveJamesMiller\Breadcrumbs\Exceptions\DuplicateBreadcrumbException;
 use DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
-use DaveJamesMiller\Breadcrumbs\Exceptions\InvalidViewException;
+use DaveJamesMiller\Breadcrumbs\Exceptions\ViewNotSetException;
 use DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
@@ -173,7 +173,7 @@ class Manager
      * @return HtmlString The generated HTML.
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
      * @throws UnnamedRouteException if no name is given and the current route doesn't have an associated name.
-     * @throws InvalidViewException if no view has been set.
+     * @throws ViewNotSetException if no view has been set.
      */
     public function view(string $view, string $name = null, ...$params): HtmlString
     {
@@ -194,7 +194,7 @@ class Manager
      * @return HtmlString The generated HTML.
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
      * @throws UnnamedRouteException if no name is given and the current route doesn't have an associated name.
-     * @throws InvalidViewException if no view has been set.
+     * @throws ViewNotSetException if no view has been set.
      */
     public function render(string $name = null, ...$params): HtmlString
     {

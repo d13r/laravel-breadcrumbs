@@ -1,0 +1,302 @@
+<?php
+
+namespace BreadcrumbsTests;
+
+use App;
+use Breadcrumbs;
+use BreadcrumbsTests\Controllers\PostController;
+use BreadcrumbsTests\Models\Post;
+use Config;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use Route;
+
+class RouteBoundTest extends TestCase
+{
+    public function testRender()
+    {
+        // Home
+        Route::name('home')->get('/', function () { });
+
+        Breadcrumbs::register('home', function ($breadcrumbs) {
+            $breadcrumbs->push('Home', route('home'));
+        });
+
+        // Home > [Post]
+        Route::name('post')->get('/post/{id}', function () {
+            return Breadcrumbs::render();
+        });
+
+        Breadcrumbs::register('post', function ($breadcrumbs, $id) {
+            $post = Post::findOrFail($id);
+            $breadcrumbs->parent('home');
+            $breadcrumbs->push($post->title, route('post', $post));
+        });
+
+        $html = $this->get('/post/1')->content();
+
+        $this->assertXmlStringEqualsXmlString('
+            <ol>
+                <li><a href="http://localhost">Home</a></li>
+                <li class="current">Post 1</li>
+            </ol>
+        ', $html);
+    }
+
+    public function testGenerate()
+    {
+        // Home
+        Route::name('home')->get('/', function () { });
+
+        Breadcrumbs::register('home', function ($breadcrumbs) {
+            $breadcrumbs->push('Home', route('home'));
+        });
+
+        // Home > [Post]
+        Route::name('post')->get('/post/{id}', function () use (&$breadcrumbs) {
+            $breadcrumbs = Breadcrumbs::generate();
+        });
+
+        Breadcrumbs::register('post', function ($breadcrumbs, $id) {
+            $post = Post::findOrFail($id);
+            $breadcrumbs->parent('home');
+            $breadcrumbs->push($post->title, route('post', $post));
+        });
+
+        $this->get('/post/1');
+
+        $this->assertCount(2, $breadcrumbs);
+
+        $this->assertSame('Home', $breadcrumbs[0]->title);
+        $this->assertSame('http://localhost', $breadcrumbs[0]->url);
+
+        $this->assertSame('Post 1', $breadcrumbs[1]->title);
+        $this->assertSame('http://localhost/post/1', $breadcrumbs[1]->url);
+    }
+
+    public function testView()
+    {
+        // Home
+        Route::name('home')->get('/', function () { });
+
+        Breadcrumbs::register('home', function ($breadcrumbs) {
+            $breadcrumbs->push('Home', route('home'));
+        });
+
+        // Home > [Post]
+        Route::name('post')->get('/post/{id}', function () {
+            return Breadcrumbs::view('breadcrumbs2');
+        });
+
+        Breadcrumbs::register('post', function ($breadcrumbs, $id) {
+            $post = Post::findOrFail($id);
+            $breadcrumbs->parent('home');
+            $breadcrumbs->push($post->title, route('post', $post));
+        });
+
+        $html = $this->get('/post/1')->content();
+
+        $this->assertXmlStringEqualsXmlString('
+            <ul>
+                <li><a href="http://localhost">Home</a></li>
+                <li class="current">Post 1</li>
+            </ul>
+        ', $html);
+    }
+
+    public function testError404()
+    {
+        Route::name('home')->get('/', function () { });
+
+        Breadcrumbs::register('home', function ($breadcrumbs) {
+            $breadcrumbs->push('Home', route('home'));
+        });
+
+        Breadcrumbs::register('errors.404', function ($breadcrumbs) {
+            $breadcrumbs->parent('home');
+            $breadcrumbs->push('Not Found');
+        });
+
+        // Set the base path to tests/ so it will load tests/resources/views/errors/404.blade.php
+        // (See Illuminate\Foundation\Exceptions\Handler::renderHttpException())
+        App::setBasePath(__DIR__);
+
+        $html = $this->get('/this-does-not-exist')->content();
+
+        $this->assertXmlStringEqualsXmlString('
+            <nav>
+                <ol>
+                    <li><a href="http://localhost">Home</a></li>
+                    <li class="current">Not Found</li>
+                </ol>
+            </nav>
+        ', $html);
+    }
+
+    /**
+     * @expectedException \DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException
+     * @expectedExceptionMessage Breadcrumb not found with name "home"
+     */
+    public function testMissingBreadcrumbException()
+    {
+        Route::name('home')->get('/', function () {
+            return Breadcrumbs::render();
+        });
+
+        throw $this->get('/')->exception;
+    }
+
+    public function testMissingBreadcrumbExceptionDisabled()
+    {
+        Config::set('breadcrumbs.missing-route-bound-breadcrumb-exception', false);
+
+        Route::name('home')->get('/', function () {
+            return Breadcrumbs::render();
+        });
+
+        $html = $this->get('/')->content();
+
+        $this->assertXmlStringEqualsXmlString('
+            <p>No breadcrumbs</p>
+        ', $html);
+    }
+
+    /**
+     * @expectedException \DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException
+     * @expectedExceptionMessage The current route (GET /blog) is not named
+     */
+    public function testUnnamedRouteException()
+    {
+        Route::get('/blog', function () {
+            return Breadcrumbs::render();
+        });
+
+        throw $this->get('/blog')->exception;
+    }
+
+    /**
+     * @expectedException \DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException
+     * @expectedExceptionMessage The current route (GET /) is not named
+     */
+    public function testUnnamedHomeRouteException()
+    {
+        // Make sure the message is "GET /" not "GET //"
+        Route::get('/', function () {
+            return Breadcrumbs::render();
+        });
+
+        throw $this->get('/')->exception;
+    }
+
+    public function testUnnamedRouteExceptionDisabled()
+    {
+        Config::set('breadcrumbs.unnamed-route-exception', false);
+
+        Route::get('/', function () {
+            return Breadcrumbs::render();
+        });
+
+        $html = $this->get('/')->content();
+
+        $this->assertXmlStringEqualsXmlString('
+            <p>No breadcrumbs</p>
+        ', $html);
+    }
+
+    public function testExplicitModelBinding()
+    {
+        // Home
+        Route::name('home')->get('/', function () { });
+
+        Breadcrumbs::register('home', function ($breadcrumbs) {
+            $breadcrumbs->push('Home', route('home'));
+        });
+
+        // Home > [Post]
+        Route::model('post', Post::class);
+
+        Route::name('post')->middleware(SubstituteBindings::class)->get('/post/{post}', function ($post) {
+            return Breadcrumbs::render();
+        });
+
+        Breadcrumbs::register('post', function ($breadcrumbs, $post) {
+            $breadcrumbs->parent('home');
+            $breadcrumbs->push($post->title, route('post', $post));
+        });
+
+        $html = $this->get('/post/1')->content();
+
+        $this->assertXmlStringEqualsXmlString('
+            <ol>
+                <li><a href="http://localhost">Home</a></li>
+                <li class="current">Post 1</li>
+            </ol>
+        ', $html);
+    }
+
+    public function testImplicitModelBinding()
+    {
+        // Home
+        Route::name('home')->get('/', function () { });
+
+        Breadcrumbs::register('home', function ($breadcrumbs) {
+            $breadcrumbs->push('Home', route('home'));
+        });
+
+        // Home > [Post]
+        Route::name('post')->middleware(SubstituteBindings::class)->get('/post/{post}', function (Post $post) {
+            return Breadcrumbs::render();
+        });
+
+        Breadcrumbs::register('post', function ($breadcrumbs, $post) {
+            $breadcrumbs->parent('home');
+            $breadcrumbs->push($post->title, route('post', $post));
+        });
+
+        $html = $this->get('/post/1')->content();
+
+        $this->assertXmlStringEqualsXmlString('
+            <ol>
+                <li><a href="http://localhost">Home</a></li>
+                <li class="current">Post 1</li>
+            </ol>
+        ', $html);
+    }
+
+    public function testResourcefulControllers()
+    {
+        Route::middleware(SubstituteBindings::class)->resource('post', PostController::class);
+
+        // Posts
+        Breadcrumbs::register('post.index', function ($breadcrumbs) {
+            $breadcrumbs->push('Posts', route('post.index'));
+        });
+
+        // Posts > Upload Post
+        Breadcrumbs::register('post.create', function ($breadcrumbs) {
+            $breadcrumbs->parent('post.index');
+            $breadcrumbs->push('New Post', route('post.create'));
+        });
+
+        // Posts > [Post Name]
+        Breadcrumbs::register('post.show', function ($breadcrumbs, Post $post) {
+            $breadcrumbs->parent('post.index');
+            $breadcrumbs->push($post->title, route('post.show', $post->id));
+        });
+
+        // Posts > [Post Name] > Edit Post
+        Breadcrumbs::register('post.edit', function ($breadcrumbs, Post $post) {
+            $breadcrumbs->parent('post.show', $post);
+            $breadcrumbs->push('Edit Post', route('post.edit', $post->id));
+        });
+
+        $html = $this->get('/post/1/edit')->content();
+
+        $this->assertXmlStringEqualsXmlString('
+            <ol>
+                <li><a href="http://localhost/post">Posts</a></li>
+                <li><a href="http://localhost/post/1">Post 1</a></li>
+                <li class="current">Edit Post</li>
+            </ol>
+        ', $html);
+    }
+}

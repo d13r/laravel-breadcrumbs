@@ -2,7 +2,7 @@
 
 namespace DaveJamesMiller\Breadcrumbs;
 
-use DaveJamesMiller\Breadcrumbs\Exceptions\InvalidViewException;
+use DaveJamesMiller\Breadcrumbs\Exceptions\ViewNotSetException;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Support\Collection;
@@ -31,12 +31,12 @@ class View
      * @param string     $view        The view name.
      * @param Collection $breadcrumbs The generated breadcrumbs.
      * @return HtmlString The generated HTML.
-     * @throws InvalidViewException if no view has been set.
+     * @throws ViewNotSetException if no view has been set.
      */
     public function render(string $view, Collection $breadcrumbs): HtmlString
     {
         if (! $view) {
-            throw new InvalidViewException('Breadcrumbs view not specified (check config/breadcrumbs.php)');
+            throw new ViewNotSetException('Breadcrumbs view not specified (check config/breadcrumbs.php)');
         }
 
         $html = $this->factory->make($view, compact('breadcrumbs'))->render();

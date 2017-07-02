@@ -3,13 +3,14 @@
 namespace BreadcrumbsTests;
 
 use Breadcrumbs;
+use DaveJamesMiller\Breadcrumbs\ServiceProvider as BreadcrumbsServiceProvider;
 
-class CustomServiceProviderTest extends TestCase
+class CustomChildServiceProviderTest extends TestCase
 {
     protected function getPackageProviders($app)
     {
         return [
-            CustomServiceProvider::class,
+            CustomChildServiceProvider::class,
         ];
     }
 
@@ -18,14 +19,14 @@ class CustomServiceProviderTest extends TestCase
         $html = Breadcrumbs::render('home')->toHtml();
 
         $this->assertXmlStringEqualsXmlString('
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Home</li>
+            <ol>
+                <li class="current">Home</li>
             </ol>
         ', $html);
     }
 }
 
-class CustomServiceProvider extends \DaveJamesMiller\Breadcrumbs\ServiceProvider
+class CustomChildServiceProvider extends BreadcrumbsServiceProvider
 {
     public function registerBreadcrumbs()
     {

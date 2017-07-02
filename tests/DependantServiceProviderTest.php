@@ -25,8 +25,8 @@ class DependantServiceProviderTest extends TestCase
         $html = Breadcrumbs::render('home')->toHtml();
 
         $this->assertXmlStringEqualsXmlString('
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Home</li>
+            <ol>
+                <li class="current">Home</li>
             </ol>
         ', $html);
     }
