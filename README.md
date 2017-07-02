@@ -730,7 +730,7 @@ class MyServiceProvider extends ServiceProvider
 
 ### Dependency injection
 
-You can also use dependency injection to access the `Manager` instance if you prefer, instead of using the `Breadcrumbs::` facade:
+You can use [dependency injection](https://laravel.com/docs/5.4/providers#the-boot-method) to access the `Manager` instance if you prefer, instead of using the `Breadcrumbs::` facade:
 
 ```php
 use DaveJamesMiller\Breadcrumbs\Manager as BreadcrumbsManager;
@@ -738,18 +738,11 @@ use Illuminate\Support\ServiceProvider;
 
 class MyServiceProvider extends ServiceProvider
 {
-    private $breadcrumbs;
-    
-    public function __construct(BreadcrumbsManager $breadcrumbs)
-    {
-        $this->breadcrumbs = $breadcrumbs;
-    }
-
     public function register() {}
 
-    public function boot()
+    public function boot(BreadcrumbsManager $breadcrumbs)
     {
-        $this->breadcrumbs->register(...);
+        $breadcrumbs->register(...);
     }
 }
 ```
