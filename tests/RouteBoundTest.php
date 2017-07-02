@@ -103,6 +103,35 @@ class RouteBoundTest extends TestCase
         ', $html);
     }
 
+    public function testExists()
+    {
+        // Exists
+        Breadcrumbs::register('exists', function () {});
+
+        Route::name('exists')->get('/exists', function () use (&$exists1) {
+            $exists1 = Breadcrumbs::exists();
+        });
+
+        $this->get('/exists');
+        $this->assertTrue($exists1);
+
+        // Doesn't exist
+        Route::name('doesnt-exist')->get('/doesnt-exist', function () use (&$exists2) {
+            $exists2 = Breadcrumbs::exists();
+        });
+
+        $this->get('/doesnt-exist');
+        $this->assertFalse($exists2);
+
+        // Unnamed
+        Route::get('/unnamed', function () use (&$exists3) {
+            $exists3 = Breadcrumbs::exists();
+        });
+
+        $this->get('/unnamed');
+        $this->assertFalse($exists3);
+    }
+
     public function testError404()
     {
         Route::name('home')->get('/', function () { });

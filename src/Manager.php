@@ -114,8 +114,6 @@ class Manager
                 list($name) = $this->currentRoute->get();
             } catch (UnnamedRouteException $e) {
                 return false;
-            } catch (InvalidBreadcrumbException $e) {
-                return false;
             }
         }
 
@@ -178,10 +176,6 @@ class Manager
     public function view(string $view, string $name = null, ...$params): HtmlString
     {
         $breadcrumbs = $this->generate($name, ...$params);
-
-        if (! $breadcrumbs) {
-            return new HtmlString('');
-        }
 
         return $this->view->render($view, $breadcrumbs);
     }
