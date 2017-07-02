@@ -104,7 +104,7 @@ By default a [Bootstrap](https://v4-alpha.getbootstrap.com/components/breadcrumb
 First initialise the config file by running this command:
 
 ```bash
-php artisan vendor:publish --provider='DaveJamesMiller\Breadcrumbs\ServiceProvider'
+php artisan vendor:publish --provider='DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider'
 ```
 
 Then open `config/breadcrumbs.php` and edit this line:
@@ -465,7 +465,7 @@ And to `Breadcrumbs::view()`:
 It will throw an `InvalidBreadcrumbException` if the breadcrumb doesn't exist, to remind you to create one. To prevent this, first initialise the config file, if you haven't already:
 
 ```bash
-php artisan vendor:publish --provider='DaveJamesMiller\Breadcrumbs\ServiceProvider'
+php artisan vendor:publish --provider='DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider'
 ```
 
 Then open `config/breadcrumbs.php` and set this value:
@@ -682,7 +682,7 @@ Breadcrumbs::macro('pageTitle', function () {
 If you don't want to use `routes/breadcrumbs.php`, you can change it in the config file. First initialise the config file, if you haven't already:
 
 ```bash
-php artisan vendor:publish --provider='DaveJamesMiller\Breadcrumbs\ServiceProvider'
+php artisan vendor:publish --provider='DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider'
 ```
 
 Then open `config/breadcrumbs.php` and edit this line:
