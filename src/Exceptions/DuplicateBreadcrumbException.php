@@ -2,13 +2,13 @@
 
 namespace DaveJamesMiller\Breadcrumbs\Exceptions;
 
-use DaveJamesMiller\Breadcrumbs\Exception;
+use DaveJamesMiller\Breadcrumbs\BreadcrumbsException;
 
 /**
  * Exception that is thrown if the user attempts to register two breadcrumbs with the same name.
  *
- * @see \DaveJamesMiller\Breadcrumbs\Manager::register()
+ * @see \DaveJamesMiller\Breadcrumbs\BreadcrumbsManager::register()
  */
-class DuplicateBreadcrumbException extends Exception
+class DuplicateBreadcrumbException extends BreadcrumbsException
 {
 }

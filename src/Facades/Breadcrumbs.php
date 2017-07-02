@@ -1,15 +1,16 @@
 <?php
 
-namespace DaveJamesMiller\Breadcrumbs;
+namespace DaveJamesMiller\Breadcrumbs\Facades;
 
-use Illuminate\Support\Facades\Facade as BaseFacade;
+use DaveJamesMiller\Breadcrumbs\BreadcrumbsManager;
+use Illuminate\Support\Facades\Facade;
 
 /**
  * Breadcrumbs facade - allows easy access to the Manager instance.
  *
- * @see Manager
+ * @see BreadcrumbsManager
  */
-class Facade extends BaseFacade
+class Breadcrumbs extends Facade
 {
     /**
      * Get the name of the class registered in the Application container.
@@ -18,6 +19,6 @@ class Facade extends BaseFacade
      */
     protected static function getFacadeAccessor(): string
     {
-        return Manager::class;
+        return BreadcrumbsManager::class;
     }
 }

@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
  * This is passed as the first parameter to all breadcrumb-generating closures. In the documentation it is named
  * `$breadcrumbs`.
  */
-class Generator
+class BreadcrumbsGenerator
 {
     /**
      * @var Collection Breadcrumbs currently being generated.

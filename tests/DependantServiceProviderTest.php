@@ -3,14 +3,14 @@
 namespace BreadcrumbsTests;
 
 use Breadcrumbs;
-use DaveJamesMiller\Breadcrumbs\ServiceProvider;
+use DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider;
 
 class DependantServiceProviderTest extends TestCase
 {
     protected function getPackageProviders($app)
     {
         return [
-            ServiceProvider::class,
+            BreadcrumbsServiceProvider::class,
             DependantServiceProvider::class,
         ];
     }

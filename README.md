@@ -4,10 +4,10 @@
 [![Latest Stable Version](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/v/stable)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
 [![Total Downloads](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/downloads)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
 [![Monthly Downloads](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/d/monthly)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
+[![License](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/license)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)<br>
 [![Latest Unstable Version](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/v/unstable)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
 [![Build Status](https://travis-ci.org/davejamesmiller/laravel-breadcrumbs.svg?branch=master)](https://travis-ci.org/davejamesmiller/laravel-breadcrumbs)
 [![Coverage Status](https://coveralls.io/repos/github/davejamesmiller/laravel-breadcrumbs/badge.svg?branch=master)](https://coveralls.io/github/davejamesmiller/laravel-breadcrumbs?branch=master)
-[![License](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/license)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
 
 A simple [Laravel](https://laravel.com/)-style way to create breadcrumbs.
 
@@ -432,7 +432,7 @@ To add breadcrumbs to a [custom 404 Not Found page](https://laravel.com/docs/5.4
 
 ```php
 // Error 404
-Breadcrumbs::register('errors.404', function (Generator $breadcrumbs) {
+Breadcrumbs::register('errors.404', function ($breadcrumbs) {
     $breadcrumbs->parent('home');
     $breadcrumbs->push('Page Not Found');
 });
@@ -613,7 +613,7 @@ Do not use the following keys in your data array, as they will be overwritten: `
 You can register "before" and "after" callbacks to add breadcrumbs at the start/end of the trail. For example, to automatically add the current page number at the end:
 
 ```php
-Breadcrumbs::after(function (Generator $breadcrumbs) {
+Breadcrumbs::after(function ($breadcrumbs) {
     $page = (int) request('page', 1);
     if ($page > 1) {
         $breadcrumbs->push("Page $page");
@@ -633,7 +633,7 @@ To get the last breadcrumb for the current page, use `Breadcrumb::current()`. Fo
 To ignore a breadcrumb, add `'current' => false` to the `$data` parameter in `push()`. This can be useful to ignore pagination breadcrumbs:
 
 ```php
-Breadcrumbs::after(function (Generator $breadcrumbs) {
+Breadcrumbs::after(function ($breadcrumbs) {
     $page = (int) request('page', 1);
     if ($page > 1) {
         $breadcrumbs->push("Page $page", null, ['current' => false]);
@@ -658,7 +658,7 @@ $current = Breadcrumbs::generate()->where('current', '!==', 'false)->last();
 
 ### Macros
 
-The Manager class is [macroable](https://unnikked.ga/understanding-the-laravel-macroable-trait-dab051f09172), so you can add your own methods. For example:
+The BreadcrumbsManager class is [macroable](https://unnikked.ga/understanding-the-laravel-macroable-trait-dab051f09172), so you can add your own methods. For example:
 
 ```php
 Breadcrumbs::macro('pageTitle', function () {
@@ -732,10 +732,10 @@ class MyServiceProvider extends ServiceProvider
 
 ### Dependency injection
 
-You can use [dependency injection](https://laravel.com/docs/5.4/providers#the-boot-method) to access the `Manager` instance if you prefer, instead of using the `Breadcrumbs::` facade:
+You can use [dependency injection](https://laravel.com/docs/5.4/providers#the-boot-method) to access the `BreadcrumbsManager` instance if you prefer, instead of using the `Breadcrumbs::` facade:
 
 ```php
-use DaveJamesMiller\Breadcrumbs\Manager as BreadcrumbsManager;
+use DaveJamesMiller\Breadcrumbs\BreadcrumbsManager;
 use Illuminate\Support\ServiceProvider;
 
 class MyServiceProvider extends ServiceProvider
@@ -812,24 +812,24 @@ To check if a breadcrumb with a given name exists, call `Breadcrumbs::exists('na
 | `Breadcrumbs::setCurrentRoute(string $name, mixed $param1, ...)`    | *(none)*   | 2.2.0    |
 | `Breadcrumbs::clearCurrentRoute()`                                  | *(none)*   | 2.2.0    |
 
-[Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/src/Manager.php)
+[Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/src/BreadcrumbsManager.php)
 
 
 ### Defining breadcrumbs
 
 ```php
 use App\Models\Post;
-use DaveJamesMiller\Breadcrumbs\Generator;
+use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 
-Breadcrumbs::before('name', function (Generator $breadcrumbs) {
+Breadcrumbs::before('name', function (BreadcrumbsGenerator $breadcrumbs) {
     // ...
 });
 
-Breadcrumbs::register('name', function (Generator $breadcrumbs, Post $post) {
+Breadcrumbs::register('name', function (BreadcrumbsGenerator $breadcrumbs, Post $post) {
     // ...
 });
 
-Breadcrumbs::after('name', function (Generator $breadcrumbs) {
+Breadcrumbs::after('name', function (BreadcrumbsGenerator $breadcrumbs) {
     // ...
 });
 ```
@@ -843,7 +843,7 @@ Breadcrumbs::after('name', function (Generator $breadcrumbs) {
 | `$breadcrumbs->parent(string $name)`                          | *(none)*  | 1.0.0    |
 | `$breadcrumbs->parent(string $name, mixed $param1, ...)`      | *(none)*  | 1.0.0    |
 
-[Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/src/Generator.php)
+[Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/src/BreadcrumbsGenerator.php)
 
 
 ### In the view (template)
@@ -881,8 +881,14 @@ Breadcrumbs::after('name', function (Generator $breadcrumbs) {
     - `InvalidBreadcrumbException`
     - `InvalidViewException`
     - `UnnamedRouteException`
-- Change `Breadcrumbs::generate()` to return a [Collection](https://laravel.com/docs/5.4/collections) instead of an array
 - Use `errors.404` breadcrumb for custom Error 404 pages, instead of no breadcrumbs
+- Change `Breadcrumbs::generate()` to return a [Collection](https://laravel.com/docs/5.4/collections) instead of an array
+- Rename classes to make them easier to reference in an IDE
+    - `Manager` → `BreadcrumbsManager`
+    - `Generator` → `BreadcrumbsGenerator`
+    - `ServiceProvider` → `BreadcrumbsServiceProvider`
+    - `Exception` → `BreadcrumbsException`
+    - `Facade` → `Facades\Breadcrumbs`
 - Remove `$breadcrumbs->first` and `$breadcrumbs->last` in views (use [Blade's](https://laravel.com/docs/5.4/blade#loops) `$loop->first` and `$loop->last` instead)
 - Remove `Array` variants of methods – use [variadic arguments](https://php.net/manual/en/migration56.new-features.php#migration56.new-features.variadics) instead:
     - `Breadcrumbs::renderArray($page, $params)` → `Breadcrumbs::render($page, ...$params)`
@@ -896,7 +902,7 @@ Breadcrumbs::after('name', function (Generator $breadcrumbs) {
 - Remove `Breadcrumbs::setView($view)` (use `Config::set('breadcrumbs.view', $view)` instead)
 - Remove `app/Http/breadcrumbs.php` file loading (use `routes/breadcrumbs.php`, or change the `files` setting in the config file)
 - Remove `laravel-breadcrumbs::` view prefix (use `breadcrumbs::` instead)
-- Remove `$app['breadcrumbs']` container short name (use `Breadcrumbs::` facade or `DaveJamesMiller\Breadcrumbs\Manager` type hint)
+- Remove `$app['breadcrumbs']` container short name (use `Breadcrumbs::` facade or `DaveJamesMiller\Breadcrumbs\BreadcrumbsManager` type hint)
 - Greatly improved unit tests
 
 

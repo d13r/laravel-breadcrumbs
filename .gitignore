@@ -6,8 +6,9 @@
 /docs/
 /phpdoc.xml
 
-# Test coverage output
+# Test output
 /test-coverage/
+/tests/storage/
 
 # Operating system files
 .DS_Store

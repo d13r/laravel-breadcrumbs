@@ -3,8 +3,8 @@
 namespace BreadcrumbsTests;
 
 use Breadcrumbs;
-use DaveJamesMiller\Breadcrumbs\Manager as BreadcrumbsManager;
-use DaveJamesMiller\Breadcrumbs\ServiceProvider as BreadcrumbsServiceProvider;
+use DaveJamesMiller\Breadcrumbs\BreadcrumbsManager as BreadcrumbsManager;
+use DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider as BreadcrumbsServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 class CustomPackageServiceProviderTest extends TestCase

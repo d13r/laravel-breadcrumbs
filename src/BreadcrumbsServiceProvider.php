@@ -2,12 +2,12 @@
 
 namespace DaveJamesMiller\Breadcrumbs;
 
-use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
 /**
  * The Laravel service provider, which registers, configures and bootstraps the package.
  */
-class ServiceProvider extends BaseServiceProvider
+class BreadcrumbsServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -23,7 +23,7 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function provides(): array
     {
-        return [Manager::class];
+        return [BreadcrumbsManager::class];
     }
 
     /**
@@ -34,7 +34,7 @@ class ServiceProvider extends BaseServiceProvider
     public function register() //: void
     {
         // Register Manager class singleton with the app container
-        $this->app->singleton(Manager::class);
+        $this->app->singleton(BreadcrumbsManager::class);
 
         // Load the default config values
         $configFile = __DIR__ . '/../config/breadcrumbs.php';
@@ -82,7 +82,7 @@ class ServiceProvider extends BaseServiceProvider
 
         // Support both Breadcrumbs:: and $breadcrumbs-> syntax by making $breadcrumbs variable available
         /** @noinspection PhpUnusedLocalVariableInspection */
-        $breadcrumbs = $this->app->make(Manager::class);
+        $breadcrumbs = $this->app->make(BreadcrumbsManager::class);
 
         // Support both a single string filename and an array of filenames (e.g. returned by glob())
         foreach ((array) $files as $file) {

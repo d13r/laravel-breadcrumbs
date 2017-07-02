@@ -6,6 +6,8 @@ use DaveJamesMiller\Breadcrumbs\Exceptions\DuplicateBreadcrumbException;
 use DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
 use DaveJamesMiller\Breadcrumbs\Exceptions\ViewNotSetException;
 use DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException;
+use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Traits\Macroable;
@@ -14,24 +16,24 @@ use stdClass;
 /**
  * The main Breadcrumbs singleton class, responsible for registering, generating and rendering breadcrumbs.
  */
-class Manager
+class BreadcrumbsManager
 {
     use Macroable;
 
     /**
-     * @var CurrentRoute
-     */
-    protected $currentRoute;
-
-    /**
-     * @var Generator
+     * @var BreadcrumbsGenerator
      */
     protected $generator;
 
     /**
-     * @var View
+     * @var Router
      */
-    protected $view;
+    protected $router;
+
+    /**
+     * @var ViewFactory
+     */
+    protected $viewFactory;
 
     /**
      * @var array The registered breadcrumb-generating callbacks.
@@ -48,11 +50,16 @@ class Manager
      */
     protected $after = [];
 
-    public function __construct(CurrentRoute $currentRoute, Generator $generator, View $view)
+    /**
+     * @var array|null The current route name and parameters.
+     */
+    protected $route;
+
+    public function __construct(BreadcrumbsGenerator $generator, Router $router, ViewFactory $viewFactory)
     {
-        $this->generator    = $generator;
-        $this->currentRoute = $currentRoute;
-        $this->view         = $view;
+        $this->generator   = $generator;
+        $this->router      = $router;
+        $this->viewFactory = $viewFactory;
     }
 
     /**
@@ -111,7 +118,7 @@ class Manager
     {
         if (is_null($name)) {
             try {
-                list($name) = $this->currentRoute->get();
+                list($name) = $this->getCurrentRoute();
             } catch (UnnamedRouteException $e) {
                 return false;
             }
@@ -136,7 +143,7 @@ class Manager
         // Route-bound breadcrumbs
         if ($name === null) {
             try {
-                list($name, $params) = $this->currentRoute->get();
+                list($name, $params) = $this->getCurrentRoute();
             } catch (UnnamedRouteException $e) {
                 if (config('breadcrumbs.unnamed-route-exception')) {
                     throw $e;
@@ -177,7 +184,9 @@ class Manager
     {
         $breadcrumbs = $this->generate($name, ...$params);
 
-        return $this->view->render($view, $breadcrumbs);
+        $html = $this->viewFactory->make($view, compact('breadcrumbs'))->render();
+
+        return new HtmlString($html);
     }
 
     /**
@@ -192,7 +201,13 @@ class Manager
      */
     public function render(string $name = null, ...$params): HtmlString
     {
-        return $this->view(config('breadcrumbs.view'), $name, ...$params);
+        $view = config('breadcrumbs.view');
+
+        if (! $view) {
+            throw new ViewNotSetException('Breadcrumbs view not specified (check config/breadcrumbs.php)');
+        }
+
+        return $this->view($view, $name, ...$params);
     }
 
     /**
@@ -210,6 +225,51 @@ class Manager
     }
 
     /**
+     * Get the current route name and parameters.
+     *
+     * This may be the route set manually with the setCurrentRoute() method, but normally is the route retrieved from
+     * the Laravel Router.
+     *
+     * #### Example
+     * ```php
+     * list($name, $params) = $this->getCurrentRoute();
+     * ```
+     *
+     * @return array A two-element array consisting of the route name (string) and any parameters (array).
+     * @throws UnnamedRouteException if the current route doesn't have an associated name.
+     */
+    protected function getCurrentRoute()
+    {
+        // Manually set route
+        if ($this->route) {
+            return $this->route;
+        }
+
+        // Determine the current route
+        /** @var Router $route */
+        $route = $this->router->current();
+
+        // No current route - must be the 404 page
+        if ($route === null) {
+            return ['errors.404', []];
+        }
+
+        // Convert route to name
+        $name = $route->getName();
+
+        if ($name === null) {
+            $uri = array_first($route->methods()) . ' /' . ltrim($route->uri(), '/');
+
+            throw new UnnamedRouteException("The current route ($uri) is not named");
+        }
+
+        // Get the current route parameters
+        $params = array_values($route->parameters());
+
+        return [$name, $params];
+    }
+
+    /**
      * Set the current route name and parameters to use when calling render() or generate() with no parameters.
      *
      * @param string $name      The name of the current page.
@@ -218,7 +278,7 @@ class Manager
      */
     public function setCurrentRoute(string $name, ...$params) //: void
     {
-        $this->currentRoute->set($name, $params);
+        $this->route = [$name, $params];
     }
 
     /**
@@ -230,6 +290,6 @@ class Manager
      */
     public function clearCurrentRoute() //: void
     {
-        $this->currentRoute->clear();
+        $this->route = null;
     }
 }

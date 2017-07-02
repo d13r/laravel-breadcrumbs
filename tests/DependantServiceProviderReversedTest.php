@@ -3,7 +3,7 @@
 namespace BreadcrumbsTests;
 
 use Breadcrumbs;
-use DaveJamesMiller\Breadcrumbs\ServiceProvider;
+use DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider;
 
 class DependantServiceProviderReversedTest extends TestCase
 {
@@ -12,7 +12,7 @@ class DependantServiceProviderReversedTest extends TestCase
         return [
             // These are in the wrong order, but still work because of the deferred loading
             DependantServiceProviderError::class,
-            ServiceProvider::class,
+            BreadcrumbsServiceProvider::class,
         ];
     }
 
