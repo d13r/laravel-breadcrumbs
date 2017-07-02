@@ -905,6 +905,14 @@ Breadcrumbs::after('name', function (BreadcrumbsGenerator $breadcrumbs) {
 - Remove `$app['breadcrumbs']` container short name (use `Breadcrumbs::` facade or `DaveJamesMiller\Breadcrumbs\BreadcrumbsManager` type hint)
 - Greatly improved unit tests
 
+#### Upgrading from 3.x to 4.x
+
+- Remove the `ServiceProvider` and `Facade` from `config/app.php`
+- [Upgrade to Laravel 5.5](https://laravel.com/docs/5.4/upgrade) (requires PHP 7.0+)
+- If using Bootstrap 3, make sure you have [selected the Bootstrap 3 template](#3-choose-a-template) in the config file
+- If using `renderIfExists()`, switch to `render()` and [disable exceptions in the config file](#route-model-binding-exceptions)
+- If using `renderArray()`, switch to `render()` and [variadic arguments](https://php.net/manual/en/migration56.new-features.php#migration56.new-features.variadics)
+
 
 ### v3.x
 
