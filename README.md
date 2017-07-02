@@ -1,11 +1,13 @@
  Laravel Breadcrumbs
 ================================================================================
 
-[![Latest Stable Version](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/v/stable?format=flat-square)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
-[![Total Downloads](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/downloads?format=flat-square)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
-[![Monthly Downloads](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/d/monthly?format=flat-square)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
-[![Latest Unstable Version](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/v/unstable?format=flat-square)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
-[![License](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/license?format=flat-square)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
+[![Latest Stable Version](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/v/stable)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
+[![Total Downloads](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/downloads)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
+[![Monthly Downloads](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/d/monthly)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
+[![Latest Unstable Version](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/v/unstable)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
+[![Build Status](https://travis-ci.org/davejamesmiller/laravel-breadcrumbs.svg?branch=master)](https://travis-ci.org/davejamesmiller/laravel-breadcrumbs)
+[![Coverage Status](https://coveralls.io/repos/github/davejamesmiller/laravel-breadcrumbs/badge.svg?branch=master)](https://coveralls.io/github/davejamesmiller/laravel-breadcrumbs?branch=master)
+[![License](https://poser.pugx.org/davejamesmiller/laravel-breadcrumbs/license)](https://packagist.org/packages/davejamesmiller/laravel-breadcrumbs)
 
 A simple [Laravel](https://laravel.com/)-style way to create breadcrumbs.
 
