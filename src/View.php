@@ -1,6 +1,7 @@
 <?php namespace DaveJamesMiller\Breadcrumbs;
 
 use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Support\HtmlString;
 
 class View {
 
@@ -16,7 +17,9 @@ class View {
 		if (!$view)
 			throw new Exception('Breadcrumbs view not specified (check the view in config/breadcrumbs.php, and ensure DaveJamesMiller\Breadcrumbs\ServiceProvider is loaded before any dependants in config/app.php)');
 
-		return $this->factory->make($view, compact('breadcrumbs'))->render();
+		return new HtmlString(
+			$this->factory->make($view, compact('breadcrumbs'))->render()
+		);
 	}
 
 }
