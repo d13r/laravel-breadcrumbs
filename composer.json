@@ -27,5 +27,12 @@
 		"psr-4": {
 			"DaveJamesMiller\\Breadcrumbs\\": "src/"
 		}
+	},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"DaveJamesMiller\\Breadcrumbs\\ServiceProvider"
+			]
+		}
 	}
 }
