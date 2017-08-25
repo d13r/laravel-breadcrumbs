@@ -885,7 +885,7 @@ Breadcrumbs::after('name', function (BreadcrumbsGenerator $breadcrumbs) {
 *Laravel Breadcrumbs uses [Semantic Versioning](http://semver.org/).*
 
 
-### [v4.0.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.0.0) (Date TBC)
+### [v4.0.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.0.0) (Fri 25 Aug 2017)
 
 - Add Laravel 5.5 support, and drop support for Laravel 5.4 and below (future versions will target a single Laravel release to simplify testing and documentation)
 - Add [package auto-discovery](https://laravel-news.com/package-auto-discovery)
