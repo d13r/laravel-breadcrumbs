@@ -313,7 +313,7 @@ Then update your config file (`config/breadcrumbs.php`) with the custom view nam
 
 ### Skipping the view
 
-Alternatively you can skip the custom view and call `Breadcrumbs::generate()` to get the breadcrumbs [Collection](https://laravel.com/docs/5.4/collections) directly:
+Alternatively you can skip the custom view and call `Breadcrumbs::generate()` to get the breadcrumbs [Collection](https://laravel.com/docs/5.5/collections) directly:
 
 ```blade
 @foreach (Breadcrumbs::generate('post', $post) as $breadcrumb)
@@ -425,7 +425,7 @@ Route::name('home')->get('/', 'HomeController@index');
 Route::name('post')->get('/post/{id}', 'PostController@show');
 ```
 
-For more details see [Named Routes](https://laravel.com/docs/5.4/routing#named-routes) in the Laravel documentation.
+For more details see [Named Routes](https://laravel.com/docs/5.5/routing#named-routes) in the Laravel documentation.
 
 
 ### Name your breadcrumbs to match
@@ -446,7 +446,7 @@ Breadcrumbs::register('post', function ($breadcrumbs, $id) {
 });
 ```
 
-To add breadcrumbs to a [custom 404 Not Found page](https://laravel.com/docs/5.4/errors#custom-http-error-pages), use the name `errors.404`:
+To add breadcrumbs to a [custom 404 Not Found page](https://laravel.com/docs/5.5/errors#custom-http-error-pages), use the name `errors.404`:
 
 ```php
 // Error 404
@@ -531,7 +531,7 @@ Breadcrumbs::register('post', function ($breadcrumbs, $post) { // <-- The same P
 
 This makes your code less verbose and more efficient by only loading the post from the database once.
 
-For more details see [Route Model Binding](https://laravel.com/docs/5.4/routing#route-model-binding) in the Laravel documentation.
+For more details see [Route Model Binding](https://laravel.com/docs/5.5/routing#route-model-binding) in the Laravel documentation.
 
 
 ### Resourceful controllers
@@ -587,7 +587,7 @@ Breadcrumbs::register('photo.edit', function ($breadcrumbs, $photo) {
 });
 ```
 
-For more details see [Resource Controllers](https://laravel.com/docs/5.4/controllers#resource-controllers) in the Laravel documentation.
+For more details see [Resource Controllers](https://laravel.com/docs/5.5/controllers#resource-controllers) in the Laravel documentation.
 
 
  Advanced Usage
@@ -667,7 +667,7 @@ Breadcrumbs::after(function ($breadcrumbs) {
 </title>
 ```
 
-For more advanced filtering, use `Breadcrumbs::generate()` and Laravel's [Collection class](https://laravel.com/docs/5.4/collections) methods instead:
+For more advanced filtering, use `Breadcrumbs::generate()` and Laravel's [Collection class](https://laravel.com/docs/5.5/collections) methods instead:
 
 ```php
 $current = Breadcrumbs::generate()->where('current', '!==', 'false)->last();
@@ -750,7 +750,7 @@ class MyServiceProvider extends ServiceProvider
 
 ### Dependency injection
 
-You can use [dependency injection](https://laravel.com/docs/5.4/providers#the-boot-method) to access the `BreadcrumbsManager` instance if you prefer, instead of using the `Breadcrumbs::` facade:
+You can use [dependency injection](https://laravel.com/docs/5.5/providers#the-boot-method) to access the `BreadcrumbsManager` instance if you prefer, instead of using the `Breadcrumbs::` facade:
 
 ```php
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsManager;
@@ -900,14 +900,14 @@ Breadcrumbs::after('name', function (BreadcrumbsGenerator $breadcrumbs) {
     - `InvalidViewException`
     - `UnnamedRouteException`
 - Use `errors.404` breadcrumb for custom Error 404 pages, instead of no breadcrumbs
-- Change `Breadcrumbs::generate()` to return a [Collection](https://laravel.com/docs/5.4/collections) instead of an array
+- Change `Breadcrumbs::generate()` to return a [Collection](https://laravel.com/docs/5.5/collections) instead of an array
 - Rename classes to make them easier to reference in an IDE
     - `Manager` → `BreadcrumbsManager`
     - `Generator` → `BreadcrumbsGenerator`
     - `ServiceProvider` → `BreadcrumbsServiceProvider`
     - `Exception` → `BreadcrumbsException`
     - `Facade` → `Facades\Breadcrumbs`
-- Remove `$breadcrumbs->first` and `$breadcrumbs->last` in views (use [Blade's](https://laravel.com/docs/5.4/blade#loops) `$loop->first` and `$loop->last` instead)
+- Remove `$breadcrumbs->first` and `$breadcrumbs->last` in views (use [Blade's](https://laravel.com/docs/5.5/blade#loops) `$loop->first` and `$loop->last` instead)
 - Remove `Array` variants of methods – use [variadic arguments](https://php.net/manual/en/migration56.new-features.php#migration56.new-features.variadics) instead:
     - `Breadcrumbs::renderArray($page, $params)` → `Breadcrumbs::render($page, ...$params)`
     - `Breadcrumbs::generateArray($page, $params)` → `Breadcrumbs::generate($page, ...$params)`
@@ -926,7 +926,7 @@ Breadcrumbs::after('name', function (BreadcrumbsGenerator $breadcrumbs) {
 #### Upgrading from 3.x to 4.x
 
 - Remove the `ServiceProvider` and `Facade` from `config/app.php`
-- [Upgrade to Laravel 5.5](https://laravel.com/docs/5.4/upgrade) (requires PHP 7.0+)
+- [Upgrade to Laravel 5.5](https://laravel.com/docs/5.5/upgrade) (requires PHP 7.0+)
 - If using Bootstrap 3, make sure you have [selected the Bootstrap 3 template](#3-choose-a-template) in the config file
 - If using `renderIfExists()`, switch to `render()` and [disable exceptions in the config file](#route-model-binding-exceptions)
 - If using `renderArray()`, switch to `render()` and [variadic arguments](https://php.net/manual/en/migration56.new-features.php#migration56.new-features.variadics)
