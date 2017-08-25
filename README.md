@@ -34,13 +34,11 @@ A simple [Laravel](https://laravel.com/)-style way to create breadcrumbs.
  Compatibility Chart
 --------------------------------------------------------------------------------
 
-| Laravel Breadcrumbs                                                              | Laravel   | PHP  |
-|----------------------------------------------------------------------------------|-----------|------|
-| **4.0.0**                                                                        | 5.5       | 7.0+ |
-| [3.0.2 – 3.0.3](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.x) | 5.0 – 5.4 | 5.4+ |
-| [3.0.1](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.x)         | 5.0 – 5.3 | 5.4+ |
-| [3.0.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.x)         | 5.0 – 5.2 | 5.4+ |
-| [2.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/2.x)           | 4.0 – 4.2 | 5.3+ |
+| Laravel Breadcrumbs                                                    | Laravel   | PHP  |
+|------------------------------------------------------------------------|-----------|------|
+| **4.x**                                                                | 5.5       | 7.0+ |
+| [3.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.x) | 5.0 – 5.4 | 5.4+ |
+| [2.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/2.x) | 4.0 – 4.2 | 5.3+ |
 
 
  Getting Started
