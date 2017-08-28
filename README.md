@@ -116,6 +116,7 @@ The possible values are:
 - `breadcrumbs::bootstrap4` – [Bootstrap 4](https://v4-alpha.getbootstrap.com/components/breadcrumb/)
 - `breadcrumbs::bootstrap3` – [Bootstrap 3](http://getbootstrap.com/components/#breadcrumbs)
 - `breadcrumbs::bootstrap2` – [Bootstrap 2](http://getbootstrap.com/2.3.2/components.html#breadcrumbs)
+- `breadcrumbs::bulma` – [Bulma](http://bulma.io/documentation/components/breadcrumb/)
 - `breadcrumbs::foundation6` – [Foundation 6](http://foundation.zurb.com/sites/docs/breadcrumbs.html)
 - `breadcrumbs::materialize` – [Materialize](http://materializecss.com/breadcrumbs.html)
 - `breadcrumbs::json-ld` – [JSON-LD Structured Data](https://developers.google.com/search/docs/data-types/breadcrumbs) (&lt;script&gt; tag, no visible output)
@@ -882,6 +883,10 @@ Breadcrumbs::after('name', function (BreadcrumbsGenerator $breadcrumbs) {
 
 *Laravel Breadcrumbs uses [Semantic Versioning](http://semver.org/).*
 
+
+### [v4.1.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.1.0) (Mon 28 Aug 2017)
+
+- Add Bulma template
 
 ### [v4.0.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.0.0) (Fri 25 Aug 2017)
 
