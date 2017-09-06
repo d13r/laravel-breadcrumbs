@@ -622,7 +622,7 @@ The `$data` array's entries will be merged into the breadcrumb as properties, so
 </a></li>
 ```
 
-Do not use the following keys in your data array, as they will be overwritten: `title`, `url`, `first`, `last`.
+Do not use the keys `title` or `url` as they will be overwritten.
 
 
 ### Before and after callbacks
