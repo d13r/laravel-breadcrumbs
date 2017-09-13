@@ -102,7 +102,7 @@ By default a [Bootstrap](https://v4-alpha.getbootstrap.com/components/breadcrumb
 First initialise the config file by running this command:
 
 ```bash
-    php artisan vendor:publish --provider='DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider'
+php artisan vendor:publish --provider='DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider'
 ```
 
 Then open `config/breadcrumbs.php` and edit this line:
