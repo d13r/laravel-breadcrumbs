@@ -275,15 +275,19 @@ To customise the HTML, create your own view file (e.g. `resources/views/partials
 
 ```blade
 @if (count($breadcrumbs))
+
     <ol class="breadcrumb">
         @foreach ($breadcrumbs as $breadcrumb)
+
             @if ($breadcrumb->url && !$loop->last)
-                <li><a href="{{ $breadcrumb->url }}">{{ $breadcrumb->title }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ $breadcrumb->url }}">{{ $breadcrumb->title }}</a></li>
             @else
-                <li class="active">{{ $breadcrumb->title }}</li>
+                <li class="breadcrumb-item active">{{ $breadcrumb->title }}</li>
             @endif
+
         @endforeach
     </ol>
+
 @endif
 ```
 
