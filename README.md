@@ -120,7 +120,7 @@ The possible values are:
 - `breadcrumbs::foundation6` – [Foundation 6](http://foundation.zurb.com/sites/docs/breadcrumbs.html)
 - `breadcrumbs::materialize` – [Materialize](http://materializecss.com/breadcrumbs.html)
 - `breadcrumbs::json-ld` – [JSON-LD Structured Data](https://developers.google.com/search/docs/data-types/breadcrumbs) (&lt;script&gt; tag, no visible output)
-- The path to a custom view: e.g. `_partials/breadcrumbs`
+- The path to a custom view: e.g. `partials.breadcrumbs`
 
 See the [Custom Templates](#custom-templates) section for more details.
 
@@ -271,7 +271,7 @@ And result in this:
 
 ### Create a view
 
-To customise the HTML, create your own view file (e.g. `resources/views/_partials/breadcrumbs.blade.php`) like this:
+To customise the HTML, create your own view file (e.g. `resources/views/partials/breadcrumbs.blade.php`) like this:
 
 ```blade
 @if (count($breadcrumbs))
@@ -306,7 +306,7 @@ Each breadcrumb is an object with the following keys:
 Then update your config file (`config/breadcrumbs.php`) with the custom view name, e.g.:
 
 ```php
-    'view' => '_partials/breadcrumbs', #--> resources/views/_partials/breadcrumbs.blade.php
+    'view' => 'partials.breadcrumbs', #--> resources/views/partials/breadcrumbs.blade.php
 ```
 
 
@@ -772,13 +772,13 @@ class MyServiceProvider extends ServiceProvider
 You can use `Breadcrumbs::view()` in place of `Breadcrumbs::render()` to render a template other than the [default one](#3-choose-a-template):
 
 ```blade
-{{ Breadcrumbs::view('_partials/breadcrumbs2', 'category', $category) }}
+{{ Breadcrumbs::view('partials.breadcrumbs2', 'category', $category) }}
 ```
 
 Or you can override the config setting to affect all future `render()` calls:
 
 ```php
-Config::set('breadcrumbs.view', '_partials/breadcrumbs2');
+Config::set('breadcrumbs.view', 'partials.breadcrumbs2');
 ```
 
 ```php
@@ -788,7 +788,7 @@ Config::set('breadcrumbs.view', '_partials/breadcrumbs2');
 Or you could call `Breadcrumbs::generate()` to get the breadcrumbs Collection and load the view manually:
 
 ```blade
-@include('_partials/breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)])
+@include('partials.breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)])
 ```
 
 
