@@ -3,8 +3,9 @@
 namespace BreadcrumbsTests;
 
 use Breadcrumbs;
-use DaveJamesMiller\Breadcrumbs\BreadcrumbsManager as BreadcrumbsManager;
-use DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider as BreadcrumbsServiceProvider;
+use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
+use DaveJamesMiller\Breadcrumbs\BreadcrumbsManager;
+use DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 class CustomPackageServiceProviderTest extends TestCase
@@ -35,7 +36,7 @@ class CustomPackageServiceProvider extends ServiceProvider
 
     public function boot(BreadcrumbsManager $breadcrumbs)
     {
-        $breadcrumbs->register('home', function ($breadcrumbs) {
+        $breadcrumbs->register('home', function (BreadcrumbsGenerator $breadcrumbs) {
             $breadcrumbs->push('Home', '/');
         });
     }
