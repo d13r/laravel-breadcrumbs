@@ -903,7 +903,7 @@ Breadcrumbs::after('name', function (BreadcrumbsGenerator $breadcrumbs) {
 *Laravel Breadcrumbs uses [Semantic Versioning](http://semver.org/).*
 
 
-### [v4.1.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.2.0) (Thu 14 Sep 2017)
+### [v4.2.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.2.0) (Thu 14 Sep 2017)
 
 - Add `manager-class` and `generator-class` config options
 
