@@ -33,15 +33,18 @@ class BreadcrumbsServiceProvider extends ServiceProvider
      */
     public function register() //: void
     {
-        // Register Manager class singleton with the app container
-        $this->app->singleton(BreadcrumbsManager::class);
-
         // Load the default config values
         $configFile = __DIR__ . '/../config/breadcrumbs.php';
         $this->mergeConfigFrom($configFile, 'breadcrumbs');
 
         // Publish the config/breadcrumbs.php file
         $this->publishes([$configFile => config_path('breadcrumbs.php')], 'config');
+
+        // Register Manager class singleton with the app container
+        $this->app->singleton(BreadcrumbsManager::class, config('breadcrumbs.manager-class'));
+
+        // Register Generator class so it can be overridden
+        $this->app->bind(BreadcrumbsGenerator::class, config('breadcrumbs.generator-class'));
 
         // Register 'breadcrumbs::' view namespace
         $this->loadViewsFrom(__DIR__ . '/../views/', 'breadcrumbs');

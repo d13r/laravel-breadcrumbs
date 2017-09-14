@@ -677,25 +677,41 @@ $current = Breadcrumbs::generate()->where('current', '!==', 'false)->last();
 ```
 
 
-### Macros
+### Switching views at runtime
 
-The BreadcrumbsManager class is [macroable](https://unnikked.ga/understanding-the-laravel-macroable-trait-dab051f09172), so you can add your own methods. For example:
-
-```php
-Breadcrumbs::macro('pageTitle', function () {
-    $title = ($breadcrumb = Breadcrumbs::current()) ? "{$breadcrumb->title} – " : '';
-
-    if (($page = (int) request('page')) > 1) {
-        $title .= "Page $page – ";
-    }
-
-    return $title . 'Demo App';
-});
-```
+You can use `Breadcrumbs::view()` in place of `Breadcrumbs::render()` to render a template other than the [default one](#3-choose-a-template):
 
 ```blade
-<title>{{ Breadcrumbs::pageTitle() }}</title>
+{{ Breadcrumbs::view('partials.breadcrumbs2', 'category', $category) }}
 ```
+
+Or you can override the config setting to affect all future `render()` calls:
+
+```php
+Config::set('breadcrumbs.view', 'partials.breadcrumbs2');
+```
+
+```php
+{{ Breadcrumbs::render('category', $category) }}
+```
+
+Or you could call `Breadcrumbs::generate()` to get the breadcrumbs Collection and load the view manually:
+
+```blade
+@include('partials.breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)])
+```
+
+
+### Overriding the "current" route
+
+If you call `Breadcrumbs::render()` or `Breadcrumbs::generate()` with no parameters, it will use the current route name and parameters by default (as returned by Laravel's `Route::current()` method).
+
+You can override this by calling `Breadcrumbs::setCurrentRoute($name, $param1, $param2...)`.
+
+
+### Checking if a breadcrumb exists
+
+To check if a breadcrumb with a given name exists, call `Breadcrumbs::exists('name')`, which returns a boolean.
 
 
 ### Defining breadcrumbs in a different file
@@ -771,41 +787,40 @@ class MyServiceProvider extends ServiceProvider
 ```
 
 
-### Switching views at runtime
+### Macros
 
-You can use `Breadcrumbs::view()` in place of `Breadcrumbs::render()` to render a template other than the [default one](#3-choose-a-template):
-
-```blade
-{{ Breadcrumbs::view('partials.breadcrumbs2', 'category', $category) }}
-```
-
-Or you can override the config setting to affect all future `render()` calls:
+The BreadcrumbsManager class is [macroable](https://unnikked.ga/understanding-the-laravel-macroable-trait-dab051f09172), so you can add your own methods. For example:
 
 ```php
-Config::set('breadcrumbs.view', 'partials.breadcrumbs2');
-```
+Breadcrumbs::macro('pageTitle', function () {
+    $title = ($breadcrumb = Breadcrumbs::current()) ? "{$breadcrumb->title} – " : '';
 
-```php
-{{ Breadcrumbs::render('category', $category) }}
-```
+    if (($page = (int) request('page')) > 1) {
+        $title .= "Page $page – ";
+    }
 
-Or you could call `Breadcrumbs::generate()` to get the breadcrumbs Collection and load the view manually:
+    return $title . 'Demo App';
+});
+```
 
 ```blade
-@include('partials.breadcrumbs2', ['breadcrumbs' => Breadcrumbs::generate('category', $category)])
+<title>{{ Breadcrumbs::pageTitle() }}</title>
 ```
 
 
-### Overriding the "current" route
+### Advanced customisations
 
-If you call `Breadcrumbs::render()` or `Breadcrumbs::generate()` with no parameters, it will use the current route name and parameters by default (as returned by Laravel's `Route::current()` method).
+For more advanced customisations you can subclass BreadcrumbsManager and/or BreadcrumbsGenerator, then update the config file with the new class name:
 
-You can override this by calling `Breadcrumbs::setCurrentRoute($name, $param1, $param2...)`.
+```php
+    // Manager
+    'manager-class' => DaveJamesMiller\Breadcrumbs\BreadcrumbsManager::class,
 
+    // Generator
+    'generator-class' => DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator::class,
+```
 
-### Checking if a breadcrumb exists
-
-To check if a breadcrumb with a given name exists, call `Breadcrumbs::exists('name')`, which returns a boolean.
+(**Note:** Anything that's not part of the public API (see below) may change between releases, so I suggest you write unit tests to ensure it doesn't break when upgrading.)
 
 
  API Reference
@@ -887,6 +902,10 @@ Breadcrumbs::after('name', function (BreadcrumbsGenerator $breadcrumbs) {
 
 *Laravel Breadcrumbs uses [Semantic Versioning](http://semver.org/).*
 
+
+### [v4.1.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.2.0) (Thu 14 Sep 2017)
+
+- Add `manager-class` and `generator-class` config options
 
 ### [v4.1.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.1.0) (Mon 28 Aug 2017)
 
