@@ -897,6 +897,21 @@ Breadcrumbs::after('name', function (BreadcrumbsGenerator $breadcrumbs) {
 | `$breadcrumb->custom_attribute_name` | mixed         | 2.3.0    |
 
 
+### Configuration
+
+| Setting                                    | Type           | Added in |
+|--------------------------------------------|----------------|----------|
+| `view`                                     | string         | 2.0.0    |
+| `files`                                    | string / array | 4.0.0    |
+| `unnamed-route-exception`                  | boolean        | 4.0.0    |
+| `missing-route-bound-breadcrumb-exception` | boolean        | 4.0.0    |
+| `invalid-named-breadcrumb-exception`       | boolean        | 4.0.0    |
+| `manager-class`                            | string         | 4.2.0    |
+| `generator-class`                          | string         | 4.2.0    |
+
+[Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/config/breadcrumbs.php)
+
+
  Changelog
 --------------------------------------------------------------------------------
 
