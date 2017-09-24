@@ -106,7 +106,7 @@ class RouteBoundTest extends TestCase
     public function testExists()
     {
         // Exists
-        Breadcrumbs::register('exists', function () {});
+        Breadcrumbs::register('exists', function () { });
 
         Route::name('exists')->get('/exists', function () use (&$exists1) {
             $exists1 = Breadcrumbs::exists();
@@ -144,10 +144,6 @@ class RouteBoundTest extends TestCase
             $breadcrumbs->parent('home');
             $breadcrumbs->push('Not Found');
         });
-
-        // Set the base path to tests/ so it will load tests/resources/views/errors/404.blade.php
-        // (See Illuminate\Foundation\Exceptions\Handler::renderHttpException())
-        App::setBasePath(__DIR__);
 
         $html = $this->get('/this-does-not-exist')->content();
 

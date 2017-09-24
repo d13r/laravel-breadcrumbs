@@ -9,7 +9,9 @@ class SkipFileLoadingTest extends TestCase
 {
     protected function getEnvironmentSetUp($app)
     {
-        Config::set('breadcrumbs.files', []);
+        parent::getEnvironmentSetUp($app);
+
+        $app->config->set('breadcrumbs.files', []);
     }
 
     public function testLoading()

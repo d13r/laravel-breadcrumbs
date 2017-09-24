@@ -9,7 +9,9 @@ class MultipleFileLoadingTest extends TestCase
 {
     protected function getEnvironmentSetUp($app)
     {
-        Config::set('breadcrumbs.files', glob(__DIR__ . '/breadcrumbs/*.php'));
+        parent::getEnvironmentSetUp($app);
+
+        $app->config->set('breadcrumbs.files', glob(__DIR__ . '/breadcrumbs/*.php'));
     }
 
     public function testLoading()

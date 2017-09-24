@@ -24,11 +24,12 @@ abstract class TestCase extends TestbenchTestCase
         ];
     }
 
-    protected function setUp()
+    protected function getEnvironmentSetUp($app)
     {
-        parent::setUp();
+        $app->config->set('view.paths', [__DIR__ . '/resources/views']);
 
-        View::getFinder()->prependLocation(__DIR__ . '/resources/views');
-        Config::set('breadcrumbs.view', 'breadcrumbs');
+        $app->config->set('breadcrumbs.view', 'breadcrumbs');
     }
+
+
 }
