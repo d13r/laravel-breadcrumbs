@@ -986,7 +986,7 @@ Breadcrumbs::after('name', function (BreadcrumbsGenerator $breadcrumbs) {
  Technical Support
 --------------------------------------------------------------------------------
 
-Sorry, **I don't offer free technical support** for my open source packages. If you can't get Laravel Breadcrumbs working in your application, I suggest you try posting a question on [Stack Overflow](https://stackoverflow.com/search?q=laravel+breadcrumbs). For paid support / consultancy please [email me](https://davejamesmiller.com/contact).
+Sorry, **I don't offer free technical support** for my open source packages. If you can't get Laravel Breadcrumbs working in your application, I suggest you try posting a question on [Stack Overflow](https://stackoverflow.com/search?q=laravel+breadcrumbs), [Laravel.io Forum](https://laravel.io/forum) or [Laracasts Forum](https://laracasts.com/discuss). For paid support / consultancy please [email me](https://davejamesmiller.com/contact).
 
 
  Bug Reports
