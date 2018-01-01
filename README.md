@@ -986,13 +986,17 @@ Breadcrumbs::after('name', function (BreadcrumbsGenerator $breadcrumbs) {
  Technical Support
 --------------------------------------------------------------------------------
 
-Sorry, **I don't offer free technical support** for my open source packages. If you can't get Laravel Breadcrumbs working in your application, I suggest you try posting a question on [Stack Overflow](https://stackoverflow.com/search?q=laravel+breadcrumbs), [Laravel.io Forum](https://laravel.io/forum) or [Laracasts Forum](https://laracasts.com/discuss). For paid support / consultancy please [email me](https://davejamesmiller.com/contact).
+Sorry, **I don't offer free technical support**. I spent a lot of time building Laravel Breadcrumbs and writing documentation, and I give it to you for free. Please don't expect me to also solve your problems for free.
+
+I strongly believe that spending time fixing your own problems is the best way to learn, but if you're really stuck, I suggest you try posting a question on [Stack Overflow](https://stackoverflow.com/search?q=laravel+breadcrumbs), [Laravel.io Forum](https://laravel.io/forum) or [Laracasts Forum](https://laracasts.com/discuss).
+
+If you really need my help and are willing to pay for it, please [email me](mailto:dave@davejamesmiller.com). (Make sure it's clear you're looking for paid support, else I'll probably ignore your email.)
 
 
  Bug Reports
 --------------------------------------------------------------------------------
 
-Please note this is free software so **I don't guarantee to fix any bugs** – I will investigate if/when I have the time and motivation to do so. Don't be afraid to go into the Laravel Breadcrumbs code (`vendor/davejamesmiller/laravel-breadcrumbs/src/`), use `var_dump()` to see what's happening and fix your own problems! For paid support / consultancy please [email me](https://davejamesmiller.com/contact).
+Please [open an issue](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/new) on GitHub. But remember this is free software, so **I don't guarantee to fix any bugs** – I will investigate if/when I have the time and motivation to do so. Don't be afraid to go into the Laravel Breadcrumbs code (`vendor/davejamesmiller/laravel-breadcrumbs/src/`), use `var_dump()` to see what's happening and fix your own problems!
 
 
  Contributing
