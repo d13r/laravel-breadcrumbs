@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
-        backupGlobals="false"
-        backupStaticAttributes="false"
-        beStrictAboutOutputDuringTests="true"
-        beStrictAboutTestsThatDoNotTestAnything="true"
-        bootstrap="vendor/autoload.php"
-        beStrictAboutCoversAnnotation="true"
-        colors="true"
-        convertErrorsToExceptions="true"
-        convertNoticesToExceptions="true"
-        convertWarningsToExceptions="true"
-        processIsolation="false"
-        stopOnFailure="false"
-        syntaxCheck="false"
-        verbose="true"
+    backupGlobals="false"
+    backupStaticAttributes="false"
+    beStrictAboutOutputDuringTests="true"
+    beStrictAboutTestsThatDoNotTestAnything="true"
+    bootstrap="vendor/autoload.php"
+    beStrictAboutCoversAnnotation="true"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    processIsolation="false"
+    stopOnFailure="false"
+    syntaxCheck="false"
+    verbose="true"
 >
 
     <!-- List of files with tests inside -->

@@ -12,7 +12,7 @@ class Post extends Model
         $this->title = "Post $id";
     }
 
-     // Manual loading
+    // Manual loading
     public static function findOrFail($id)
     {
         return new static($id);

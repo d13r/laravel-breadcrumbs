@@ -2,7 +2,6 @@
 
 namespace BreadcrumbsTests;
 
-use App;
 use Breadcrumbs;
 use BreadcrumbsTests\Controllers\PostController;
 use BreadcrumbsTests\Models\Post;

@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Request;
 
 $json = [
@@ -12,8 +13,8 @@ foreach ($breadcrumbs as $i => $breadcrumb) {
         '@type'    => 'ListItem',
         'position' => $i + 1,
         'item'     => [
-            '@id'  => $breadcrumb->url ?: Request::fullUrl(),
-            'name' => $breadcrumb->title,
+            '@id'   => $breadcrumb->url ?: Request::fullUrl(),
+            'name'  => $breadcrumb->title,
             'image' => $breadcrumb->image ?? null,
         ],
     ];

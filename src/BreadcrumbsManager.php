@@ -65,7 +65,7 @@ class BreadcrumbsManager
     /**
      * Register a breadcrumb-generating callback for a page.
      *
-     * @param string   $name     The name of the page.
+     * @param string $name The name of the page.
      * @param callable $callback The callback, which should accept a Generator instance as the first parameter and may
      *                           accept additional parameters.
      * @return void
@@ -130,8 +130,8 @@ class BreadcrumbsManager
     /**
      * Generate a set of breadcrumbs for a page.
      *
-     * @param string|null $name      The name of the current page.
-     * @param mixed       ...$params The parameters to pass to the closure for the current page.
+     * @param string|null $name The name of the current page.
+     * @param mixed ...$params The parameters to pass to the closure for the current page.
      * @return Collection The generated breadcrumbs.
      * @throws UnnamedRouteException if no name is given and the current route doesn't have an associated name.
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
@@ -172,9 +172,9 @@ class BreadcrumbsManager
     /**
      * Render breadcrumbs for a page with the specified view.
      *
-     * @param string      $view      The name of the view to render.
-     * @param string|null $name      The name of the current page.
-     * @param mixed       ...$params The parameters to pass to the closure for the current page.
+     * @param string $view The name of the view to render.
+     * @param string|null $name The name of the current page.
+     * @param mixed ...$params The parameters to pass to the closure for the current page.
      * @return HtmlString The generated HTML.
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
      * @throws UnnamedRouteException if no name is given and the current route doesn't have an associated name.
@@ -192,8 +192,8 @@ class BreadcrumbsManager
     /**
      * Render breadcrumbs for a page with the default view.
      *
-     * @param string|null $name      The name of the current page.
-     * @param mixed       ...$params The parameters to pass to the closure for the current page.
+     * @param string|null $name The name of the current page.
+     * @param mixed ...$params The parameters to pass to the closure for the current page.
      * @return HtmlString The generated HTML.
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
      * @throws UnnamedRouteException if no name is given and the current route doesn't have an associated name.
@@ -272,8 +272,8 @@ class BreadcrumbsManager
     /**
      * Set the current route name and parameters to use when calling render() or generate() with no parameters.
      *
-     * @param string $name      The name of the current page.
-     * @param mixed  ...$params The parameters to pass to the closure for the current page.
+     * @param string $name The name of the current page.
+     * @param mixed ...$params The parameters to pass to the closure for the current page.
      * @return void
      */
     public function setCurrentRoute(string $name, ...$params): void

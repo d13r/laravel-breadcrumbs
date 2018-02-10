@@ -13,7 +13,7 @@ class BasicFunctionalityTest extends TestCase
     {
         parent::setUp();
 
-        $closure = function() { throw new LogicException; };
+        $closure = function () { throw new LogicException; };
 
         // Home
         Route::name('home')->get('/', $closure);
@@ -88,7 +88,7 @@ class BasicFunctionalityTest extends TestCase
     public function testRenderHome()
     {
         $rendered = Breadcrumbs::render('home');
-        $html = $rendered->toHtml();
+        $html     = $rendered->toHtml();
 
         $this->assertInstanceOf(Htmlable::class, $rendered);
 

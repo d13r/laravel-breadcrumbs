@@ -26,11 +26,11 @@ class BreadcrumbsGenerator
     /**
      * Generate breadcrumbs.
      *
-     * @param array  $callbacks The registered breadcrumb-generating closures.
-     * @param array  $before    The registered 'before' callbacks.
-     * @param array  $after     The registered 'after' callbacks.
-     * @param string $name      The name of the current page.
-     * @param array  $params    The parameters to pass to the closure for the current page.
+     * @param array $callbacks The registered breadcrumb-generating closures.
+     * @param array $before The registered 'before' callbacks.
+     * @param array $after The registered 'after' callbacks.
+     * @param string $name The name of the current page.
+     * @param array $params The parameters to pass to the closure for the current page.
      * @return Collection The generated breadcrumbs.
      * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
      */
@@ -55,8 +55,8 @@ class BreadcrumbsGenerator
     /**
      * Call the closure to generate breadcrumbs for a page.
      *
-     * @param string $name   The name of the page.
-     * @param array  $params The parameters to pass to the closure.
+     * @param string $name The name of the page.
+     * @param array $params The parameters to pass to the closure.
      * @throws InvalidBreadcrumbException if the name is not registered.
      */
     protected function call(string $name, array $params): void
@@ -73,8 +73,8 @@ class BreadcrumbsGenerator
      *
      * Should be called from the closure for a page, before `push()` is called.
      *
-     * @param string $name      The name of the parent page.
-     * @param array  ...$params The parameters to pass to the closure.
+     * @param string $name The name of the parent page.
+     * @param array ...$params The parameters to pass to the closure.
      * @throws InvalidBreadcrumbException
      */
     public function parent(string $name, ...$params): void
@@ -87,9 +87,9 @@ class BreadcrumbsGenerator
      *
      * Should be called from the closure for each page. May be called more than once.
      *
-     * @param string      $title The title of the page.
-     * @param string|null $url   The URL of the page.
-     * @param array       $data  Optional associative array of additional data to pass to the view.
+     * @param string $title The title of the page.
+     * @param string|null $url The URL of the page.
+     * @param array $data Optional associative array of additional data to pass to the view.
      */
     public function push(string $title, string $url = null, array $data = []): void
     {

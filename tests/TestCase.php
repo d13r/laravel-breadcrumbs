@@ -3,8 +3,8 @@
 namespace BreadcrumbsTests;
 
 use Config;
-use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider;
+use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use Orchestra\Testbench\TestCase as TestbenchTestCase;
 use View;
 
