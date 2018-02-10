@@ -6,7 +6,7 @@ cd "$(dirname "$0")/.."
 # Run PHPUnit.
 ################################################################################
 
-if which php7.1 >/dev/null 2>&1; then
+if command -v php7.1 >/dev/null 2>&1; then
     php=php7.1
 else
     php=php
