@@ -923,25 +923,18 @@ Breadcrumbs::after('name', function (BreadcrumbsGenerator $breadcrumbs) {
 
 - Add Laravel 5.6 support, and drop support for Laravel 5.5
 - Drop PHP 7.0 support (add `void` return type hint, and use `[]` instead of `list()`)
+- Fix class names in PhpDoc for `Breadcrumbs` facade when using [IDE Helper](https://github.com/barryvdh/laravel-ide-helper)
 
 #### Upgrading from 3.x to 4.x
 
 - If you are extending any classes, add `: void` return type hints where needed.
 
 
-### v4.x
+### Older versions
 
-[Changelog for v4.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.x#changelog)
-
-
-### v3.x
-
-[Changelog for v3.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.x#changelog)
-
-
-### v2.x
-
-[Changelog for v2.x and below](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/2.x/CHANGELOG.md)
+- [Changelog for v4.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.x#changelog)
+- [Changelog for v3.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.x#changelog)
+- [Changelog for v2.x and below](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/2.x/CHANGELOG.md)
 
 
  Technical Support
