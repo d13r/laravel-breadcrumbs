@@ -28,7 +28,7 @@ class CustomChildServiceProviderTest extends TestCase
 
 class CustomChildBreadcrumbsServiceProvider extends BreadcrumbsServiceProvider
 {
-    public function registerBreadcrumbs()
+    public function registerBreadcrumbs(): void
     {
         Breadcrumbs::register('home', function ($breadcrumbs) {
             $breadcrumbs->push('Home', '/');

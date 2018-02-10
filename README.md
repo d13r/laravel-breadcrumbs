@@ -36,7 +36,8 @@ A simple [Laravel](https://laravel.com/)-style way to create breadcrumbs.
 
 | Laravel Breadcrumbs                                                    | Laravel   | PHP  |
 |------------------------------------------------------------------------|-----------|------|
-| **4.x**                                                                | 5.5       | 7.0+ |
+| **4.x**                                                                | 5.6       | 7.1+ |
+| [4.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.x) | 5.5       | 7.0+ |
 | [3.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.x) | 5.0 – 5.4 | 5.4+ |
 | [2.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/2.x) | 4.0 – 4.2 | 5.3+ |
 
@@ -830,9 +831,9 @@ For more advanced customisations you can subclass BreadcrumbsManager and/or Brea
 
 | Method                                                              | Returns    | Added in |
 |---------------------------------------------------------------------|------------|----------|
-| `Breadcrumbs::register(string $name, closure $callback)`            | *(none)*   | 1.0.0    |
-| `Breadcrumbs::before(closure $callback)`                            | *(none)*   | 4.0.0    |
-| `Breadcrumbs::after(closure $callback)`                             | *(none)*   | 4.0.0    |
+| `Breadcrumbs::register(string $name, closure $callback)`            | void       | 1.0.0    |
+| `Breadcrumbs::before(closure $callback)`                            | void       | 4.0.0    |
+| `Breadcrumbs::after(closure $callback)`                             | void       | 4.0.0    |
 | `Breadcrumbs::exists()`                                             | boolean    | 2.2.0    |
 | `Breadcrumbs::exists(string $name)`                                 | boolean    | 2.2.0    |
 | `Breadcrumbs::generate()`                                           | Collection | 2.2.3    |
@@ -844,9 +845,9 @@ For more advanced customisations you can subclass BreadcrumbsManager and/or Brea
 | `Breadcrumbs::view(string $view)`                                   | string     | 4.0.0    |
 | `Breadcrumbs::view(string $view, string $name)`                     | string     | 4.0.0    |
 | `Breadcrumbs::view(string $view, string $name, mixed $param1, ...)` | string     | 4.0.0    |
-| `Breadcrumbs::setCurrentRoute(string $name)`                        | *(none)*   | 2.2.0    |
-| `Breadcrumbs::setCurrentRoute(string $name, mixed $param1, ...)`    | *(none)*   | 2.2.0    |
-| `Breadcrumbs::clearCurrentRoute()`                                  | *(none)*   | 2.2.0    |
+| `Breadcrumbs::setCurrentRoute(string $name)`                        | void       | 2.2.0    |
+| `Breadcrumbs::setCurrentRoute(string $name, mixed $param1, ...)`    | void       | 2.2.0    |
+| `Breadcrumbs::clearCurrentRoute()`                                  | void       | 2.2.0    |
 
 [Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/src/BreadcrumbsManager.php)
 
@@ -871,13 +872,13 @@ Breadcrumbs::after('name', function (BreadcrumbsGenerator $breadcrumbs) {
 ```
 
 
-| Method                                                        | Returns   | Added in |
-|---------------------------------------------------------------|-----------|----------|
-| `$breadcrumbs->push(string $title)`                           | *(none)*  | 1.0.0    |
-| `$breadcrumbs->push(string $title, string $url)`              | *(none)*  | 1.0.0    |
-| `$breadcrumbs->push(string $title, string $url, array $data)` | *(none)*  | 2.3.0    |
-| `$breadcrumbs->parent(string $name)`                          | *(none)*  | 1.0.0    |
-| `$breadcrumbs->parent(string $name, mixed $param1, ...)`      | *(none)*  | 1.0.0    |
+| Method                                                        | Returns | Added in |
+|---------------------------------------------------------------|---------|----------|
+| `$breadcrumbs->push(string $title)`                           | void    | 1.0.0    |
+| `$breadcrumbs->push(string $title, string $url)`              | void    | 1.0.0    |
+| `$breadcrumbs->push(string $title, string $url, array $data)` | void    | 2.3.0    |
+| `$breadcrumbs->parent(string $name)`                          | void    | 1.0.0    |
+| `$breadcrumbs->parent(string $name, mixed $param1, ...)`      | void    | 1.0.0    |
 
 [Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/src/BreadcrumbsGenerator.php)
 
@@ -918,59 +919,19 @@ Breadcrumbs::after('name', function (BreadcrumbsGenerator $breadcrumbs) {
 *Laravel Breadcrumbs uses [Semantic Versioning](http://semver.org/).*
 
 
-### [v4.2.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.2.0) (Thu 14 Sep 2017)
+### [v5.0.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.0.0) (Sat 10 Feb 2018)
 
-- Add `manager-class` and `generator-class` config options
-
-### [v4.1.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.1.0) (Mon 28 Aug 2017)
-
-- Add Bulma template
-
-### [v4.0.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.0.0) (Fri 25 Aug 2017)
-
-- Add Laravel 5.5 support, and drop support for Laravel 5.4 and below (future versions will target a single Laravel release to simplify testing and documentation)
-- Add [package auto-discovery](https://laravel-news.com/package-auto-discovery)
-- Add Bootstrap 4 template and set it as the default
-- Add Foundation 6 and Materialize templates
-- Add `Breadcrumbs::view()` method to render breadcrumbs with a specific view
-- Add `Breadcrumbs::before()` and `Breadcrumbs::after()` methods
-- Add type hints to all methods (parameters and return value)
-- Add more specific exception classes:
-    - `DuplicateBreadcrumbException`
-    - `InvalidBreadcrumbException`
-    - `InvalidViewException`
-    - `UnnamedRouteException`
-- Use `errors.404` breadcrumb for custom Error 404 pages, instead of no breadcrumbs
-- Change `Breadcrumbs::generate()` to return a [Collection](https://laravel.com/docs/5.5/collections) instead of an array
-- Rename classes to make them easier to reference in an IDE
-    - `Manager` → `BreadcrumbsManager`
-    - `Generator` → `BreadcrumbsGenerator`
-    - `ServiceProvider` → `BreadcrumbsServiceProvider`
-    - `Exception` → `BreadcrumbsException`
-    - `Facade` → `Facades\Breadcrumbs`
-- Remove `$breadcrumbs->first` and `$breadcrumbs->last` in views (use [Blade's](https://laravel.com/docs/5.5/blade#loops) `$loop->first` and `$loop->last` instead)
-- Remove `Array` variants of methods – use [variadic arguments](https://php.net/manual/en/migration56.new-features.php#migration56.new-features.variadics) instead:
-    - `Breadcrumbs::renderArray($page, $params)` → `Breadcrumbs::render($page, ...$params)`
-    - `Breadcrumbs::generateArray($page, $params)` → `Breadcrumbs::generate($page, ...$params)`
-    - `Breadcrumbs::setCurrentRouteArray($name, $params)` → `Breadcrumbs::setCurrentRoute($page, ...$params)`
-    - `$breadcrumbs->parentArray($name, $params)` → `$breadcrumbs->parent($name, ...$params)`
-- Remove `IfExists` variants of methods – set new config settings to `false` instead:
-    - `unnamed-route-exception` – when route-bound breadcrumbs are used but the current route doesn't have a name
-    - `missing-route-bound-breadcrumb-exception` – when route-bound breadcrumbs are used and the matching breadcrumb doesn't exist
-    - `invalid-named-breadcrumb-exception` – when a named breadcrumbs is used doesn't exist
-- Remove `Breadcrumbs::setView($view)` (use `Config::set('breadcrumbs.view', $view)` instead)
-- Remove `app/Http/breadcrumbs.php` file loading (use `routes/breadcrumbs.php`, or change the `files` setting in the config file)
-- Remove `laravel-breadcrumbs::` view prefix (use `breadcrumbs::` instead)
-- Remove `$app['breadcrumbs']` container short name (use `Breadcrumbs::` facade or `DaveJamesMiller\Breadcrumbs\BreadcrumbsManager` type hint)
-- Greatly improved unit tests
+- Add Laravel 5.6 support, and drop support for Laravel 5.5
+- Drop PHP 7.0 support (add `void` return type hint, and use `[]` instead of `list()`)
 
 #### Upgrading from 3.x to 4.x
 
-- Remove the `ServiceProvider` and `Facade` from `config/app.php`
-- [Upgrade to Laravel 5.5](https://laravel.com/docs/5.5/upgrade) (requires PHP 7.0+)
-- If using Bootstrap 3, make sure you have [selected the Bootstrap 3 template](#3-choose-a-template) in the config file
-- If using `renderIfExists()`, switch to `render()` and [disable exceptions in the config file](#route-model-binding-exceptions)
-- If using `renderArray()`, switch to `render()` and [variadic arguments](https://php.net/manual/en/migration56.new-features.php#migration56.new-features.variadics)
+- If you are extending any classes, add `: void` return type hints where needed.
+
+
+### v4.x
+
+[Changelog for v4.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.x#changelog)
 
 
 ### v3.x

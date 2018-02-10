@@ -31,7 +31,7 @@ class BreadcrumbsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register() //: void
+    public function register(): void
     {
         // Load the default config values
         $configFile = __DIR__ . '/../config/breadcrumbs.php';
@@ -55,7 +55,7 @@ class BreadcrumbsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot() //: void
+    public function boot(): void
     {
         // Load the routes/breadcrumbs.php file
         $this->registerBreadcrumbs();
@@ -69,7 +69,7 @@ class BreadcrumbsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function registerBreadcrumbs() //: void
+    public function registerBreadcrumbs(): void
     {
         // Load the routes/breadcrumbs.php file, or other configured file(s)
         $files = config('breadcrumbs.files');

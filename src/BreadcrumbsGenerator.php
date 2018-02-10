@@ -59,7 +59,7 @@ class BreadcrumbsGenerator
      * @param array  $params The parameters to pass to the closure.
      * @throws InvalidBreadcrumbException if the name is not registered.
      */
-    protected function call(string $name, array $params) //: void
+    protected function call(string $name, array $params): void
     {
         if (! isset($this->callbacks[ $name ])) {
             throw new InvalidBreadcrumbException("Breadcrumb not found with name \"{$name}\"");
@@ -77,7 +77,7 @@ class BreadcrumbsGenerator
      * @param array  ...$params The parameters to pass to the closure.
      * @throws InvalidBreadcrumbException
      */
-    public function parent(string $name, ...$params) //: void
+    public function parent(string $name, ...$params): void
     {
         $this->call($name, $params);
     }
@@ -91,7 +91,7 @@ class BreadcrumbsGenerator
      * @param string|null $url   The URL of the page.
      * @param array       $data  Optional associative array of additional data to pass to the view.
      */
-    public function push(string $title, string $url = null, array $data = []) //: void
+    public function push(string $title, string $url = null, array $data = []): void
     {
         $this->breadcrumbs->push((object) array_merge($data, [
             'title' => $title,

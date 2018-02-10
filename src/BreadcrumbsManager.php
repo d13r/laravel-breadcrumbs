@@ -71,7 +71,7 @@ class BreadcrumbsManager
      * @return void
      * @throws DuplicateBreadcrumbException If the given name has already been used.
      */
-    public function register(string $name, callable $callback) //: void
+    public function register(string $name, callable $callback): void
     {
         if (isset($this->callbacks[ $name ])) {
             throw new DuplicateBreadcrumbException("Breadcrumb name \"{$name}\" has already been registered");
@@ -88,7 +88,7 @@ class BreadcrumbsManager
      * @param callback $callback The callback, which should accept a Generator instance as the first and only parameter.
      * @return void
      */
-    public function before(callable $callback) //: void
+    public function before(callable $callback): void
     {
         $this->before[] = $callback;
     }
@@ -101,7 +101,7 @@ class BreadcrumbsManager
      * @param callback $callback The callback, which should accept a Generator instance as the first and only parameter.
      * @return void
      */
-    public function after(callable $callback) //: void
+    public function after(callable $callback): void
     {
         $this->after[] = $callback;
     }
@@ -118,7 +118,7 @@ class BreadcrumbsManager
     {
         if (is_null($name)) {
             try {
-                list($name) = $this->getCurrentRoute();
+                [$name] = $this->getCurrentRoute();
             } catch (UnnamedRouteException $e) {
                 return false;
             }
@@ -143,7 +143,7 @@ class BreadcrumbsManager
         // Route-bound breadcrumbs
         if ($name === null) {
             try {
-                list($name, $params) = $this->getCurrentRoute();
+                [$name, $params] = $this->getCurrentRoute();
             } catch (UnnamedRouteException $e) {
                 if (config('breadcrumbs.unnamed-route-exception')) {
                     throw $e;
@@ -232,7 +232,7 @@ class BreadcrumbsManager
      *
      * #### Example
      * ```php
-     * list($name, $params) = $this->getCurrentRoute();
+     * [$name, $params] = $this->getCurrentRoute();
      * ```
      *
      * @return array A two-element array consisting of the route name (string) and any parameters (array).
@@ -276,7 +276,7 @@ class BreadcrumbsManager
      * @param mixed  ...$params The parameters to pass to the closure for the current page.
      * @return void
      */
-    public function setCurrentRoute(string $name, ...$params) //: void
+    public function setCurrentRoute(string $name, ...$params): void
     {
         $this->route = [$name, $params];
     }
@@ -288,7 +288,7 @@ class BreadcrumbsManager
      *
      * @return void
      */
-    public function clearCurrentRoute() //: void
+    public function clearCurrentRoute(): void
     {
         $this->route = null;
     }
