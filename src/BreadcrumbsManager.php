@@ -69,7 +69,7 @@ class BreadcrumbsManager
      * @param callable $callback The callback, which should accept a Generator instance as the first parameter and may
      *                           accept additional parameters.
      * @return void
-     * @throws DuplicateBreadcrumbException If the given name has already been used.
+     * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\DuplicateBreadcrumbException If the given name has already been used.
      */
     public function register(string $name, callable $callback): void
     {
@@ -132,9 +132,9 @@ class BreadcrumbsManager
      *
      * @param string|null $name      The name of the current page.
      * @param mixed       ...$params The parameters to pass to the closure for the current page.
-     * @return Collection The generated breadcrumbs.
-     * @throws UnnamedRouteException if no name is given and the current route doesn't have an associated name.
-     * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
+     * @return \Illuminate\Support\Collection The generated breadcrumbs.
+     * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException if no name is given and the current route doesn't have an associated name.
+     * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
      */
     public function generate(string $name = null, ...$params): Collection
     {
@@ -175,10 +175,10 @@ class BreadcrumbsManager
      * @param string      $view      The name of the view to render.
      * @param string|null $name      The name of the current page.
      * @param mixed       ...$params The parameters to pass to the closure for the current page.
-     * @return HtmlString The generated HTML.
-     * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
-     * @throws UnnamedRouteException if no name is given and the current route doesn't have an associated name.
-     * @throws ViewNotSetException if no view has been set.
+     * @return \Illuminate\Support\HtmlString The generated HTML.
+     * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
+     * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException if no name is given and the current route doesn't have an associated name.
+     * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\ViewNotSetException if no view has been set.
      */
     public function view(string $view, string $name = null, ...$params): HtmlString
     {
@@ -194,10 +194,10 @@ class BreadcrumbsManager
      *
      * @param string|null $name      The name of the current page.
      * @param mixed       ...$params The parameters to pass to the closure for the current page.
-     * @return HtmlString The generated HTML.
-     * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
-     * @throws UnnamedRouteException if no name is given and the current route doesn't have an associated name.
-     * @throws ViewNotSetException if no view has been set.
+     * @return \Illuminate\Support\HtmlString The generated HTML.
+     * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
+     * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException if no name is given and the current route doesn't have an associated name.
+     * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\ViewNotSetException if no view has been set.
      */
     public function render(string $name = null, ...$params): HtmlString
     {
@@ -216,8 +216,8 @@ class BreadcrumbsManager
      * Optionally pass a
      *
      * @return stdClass|null The breadcrumb for the current page.
-     * @throws UnnamedRouteException if the current route doesn't have an associated name.
-     * @throws InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
+     * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException if the current route doesn't have an associated name.
+     * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
      */
     public function current()
     {
@@ -236,7 +236,7 @@ class BreadcrumbsManager
      * ```
      *
      * @return array A two-element array consisting of the route name (string) and any parameters (array).
-     * @throws UnnamedRouteException if the current route doesn't have an associated name.
+     * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException if the current route doesn't have an associated name.
      */
     protected function getCurrentRoute()
     {
