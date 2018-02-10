@@ -925,8 +925,9 @@ Breadcrumbs::after('name', function (BreadcrumbsGenerator $breadcrumbs) {
 - Drop PHP 7.0 support (add `void` return type hint, and use `[]` instead of `list()`)
 - Fix class names in PhpDoc for `Breadcrumbs` facade when using [IDE Helper](https://github.com/barryvdh/laravel-ide-helper)
 
-#### Upgrading from 3.x to 4.x
+#### Upgrading from 4.x to 5.x
 
+- [Upgrade to Laravel 5.6](https://laravel.com/docs/5.6/upgrade) (requires PHP 7.1.3+)
 - If you are extending any classes, add `: void` return type hints where needed.
 
 
