@@ -36,7 +36,7 @@ A simple [Laravel](https://laravel.com/)-style way to create breadcrumbs.
 
 | Laravel Breadcrumbs                                                    | Laravel   | PHP  |
 |------------------------------------------------------------------------|-----------|------|
-| **4.x**                                                                | 5.6       | 7.1+ |
+| **5.x**                                                                | 5.6       | 7.1+ |
 | [4.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.x) | 5.5       | 7.0+ |
 | [3.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.x) | 5.0 – 5.4 | 5.4+ |
 | [2.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/2.x) | 4.0 – 4.2 | 5.3+ |
