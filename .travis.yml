@@ -7,8 +7,8 @@ cache:
     - $HOME/.composer/cache/files
 
 php:
+  - 7.2
   - 7.1
-  - 7.0
 
 install:
   - travis_retry composer install --no-interaction
