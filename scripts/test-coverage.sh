@@ -6,8 +6,8 @@ cd "$(dirname "$0")/.."
 # Run PHPUnit with code coverage (requires Xdebug).
 ################################################################################
 
-if command -v php7.1 >/dev/null 2>&1; then
-    php=php7.1
+if command -v php7.2 >/dev/null 2>&1; then
+    php=php7.2
 else
     php=php
 fi
