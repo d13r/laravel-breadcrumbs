@@ -6,10 +6,10 @@ cd "$(dirname "$0")/.."
 # Run PHPUnit.
 ################################################################################
 
-if command -v php7.2 >/dev/null 2>&1; then
-    php=php7.2
-else
-    php=php
+if [ ! -d vendor ]; then
+    scripts/composer.sh install
 fi
 
-exec $php vendor/bin/phpunit "$@"
+scripts/docker-compose.sh run --rm phpunit-72 vendor/bin/phpunit "$@"
+echo
+scripts/docker-compose.sh run --rm phpunit-71 vendor/bin/phpunit "$@"

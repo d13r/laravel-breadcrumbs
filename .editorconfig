@@ -15,10 +15,6 @@ trim_trailing_whitespace = true
 [*.{markdown,md}]
 trim_trailing_whitespace = false
 
-# Ruby standard is 2 spaces
-[{*.rb,Gemfile,Rakefile,Vagrantfile}]
-indent_size = 2
-
-# Ansible standard is 2 spaces
-[ansible/**/*.yml]
+# Docker Compose
+[docker-compose.yml]
 indent_size = 2

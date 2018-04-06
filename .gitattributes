@@ -1,10 +1,16 @@
 # Exclude development files from exported zip files
 # To test this, commit the changes then run:
-# git archive HEAD | tar -t
+# scripts/list-production-files.sh
+
 /.editorconfig export-ignore
 /.gitattributes export-ignore
 /.gitignore export-ignore
+
 /*.md export-ignore
 /*.xml export-ignore
+/*.yml export-ignore
+
+/docker export-ignore
 /scripts export-ignore
+/test-app export-ignore
 /tests export-ignore

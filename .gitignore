@@ -6,6 +6,11 @@
 /docs/
 /phpdoc.xml
 
+# Test app
+/laravel-template/
+/test-app/composer.lock
+/tmp/
+
 # Test output
 /build/
 /test-coverage/

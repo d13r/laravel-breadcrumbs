@@ -964,12 +964,11 @@ Please [open an issue](https://github.com/davejamesmiller/laravel-breadcrumbs/is
 **Documentation:** If you think the documentation can be improved in any way, please do [edit this file](https://github.com/davejamesmiller/laravel-breadcrumbs/edit/master/README.md) and make a pull request.
 
 
-### Developing inside a real application
+### Developing inside your application
 
-The easiest way to work on Laravel Breadcrumbs inside a real Laravel application is to tell Composer to install from source (Git) using the `--prefer-source` flag:
+The easiest way to work on Laravel Breadcrumbs inside your existing application is to tell Composer to install from source (Git) using the `--prefer-source` flag:
 
 ```bash
-cd /path/to/repo
 rm -rf vendor/davejamesmiller/laravel-breadcrumbs
 composer install --prefer-source
 ```
@@ -979,34 +978,11 @@ Then:
 ```bash
 cd vendor/davejamesmiller/laravel-breadcrumbs
 git checkout -t origin/master
-git checkout -b YOUR_BRANCH
 # Make changes and commit them
-git remote add YOUR_USERNAME git@github.com:YOUR_USERNAME/laravel-breadcrumbs
+git checkout -b YOUR_BRANCH
+git remote add YOUR_USERNAME git@github.com:YOUR_USERNAME/laravel-breadcrumbs.git
 git push -u YOUR_USERNAME YOUR_BRANCH
 ```
-
-Alternatively there is a [test app](https://github.com/davejamesmiller/laravel-breadcrumbs-test) that you can use.
-
-
-### Unit tests
-
-To run the unit tests, simply run:
-
-```bash
-cd /path/to/laravel-breadcrumbs
-composer update
-scripts/test.sh
-```
-
-#### Code coverage
-
-To check code coverage, you will also need [Xdebug](https://xdebug.org/) installed. Run:
-
-```bash
-scripts/test-coverage.sh
-```
-
-Then open `test-coverage/index.html` to view the results. Be aware of the [edge cases](https://phpunit.de/manual/current/en/code-coverage-analysis.html#code-coverage-analysis.edge-cases) in PHPUnit that can make it not-quite-accurate.
 
 
 ### Using your fork in a project
@@ -1028,6 +1004,77 @@ To use your own fork in a project, update the `composer.json` in your main proje
 ```
 
 Replace `YOUR_USERNAME` with your GitHub username and `YOUR_BRANCH` with the branch name (e.g. `develop`). This tells Composer to use your repository instead of the default one.
+
+
+### Running the test application
+
+Alternatively there is a test application inside the repo runs on Docker Compose (tested on Linux only):
+
+```bash
+git clone git@github.com:davejamesmiller/laravel-breadcrumbs.git
+cd laravel-breadcrumbs
+scripts/serve.sh
+# Make changes and commit them
+git checkout -b YOUR_BRANCH
+git remote add YOUR_USERNAME git@github.com:YOUR_USERNAME/laravel-breadcrumbs.git
+git push -u YOUR_USERNAME YOUR_BRANCH
+```
+
+
+### Unit tests
+
+To run the unit tests:
+
+```bash
+# Docker Compose (recommended)
+scripts/test.sh
+
+# Local PHP
+composer install
+vendor/bin/phpunit
+```
+
+To check code coverage:
+
+```bash
+# Docker Compose
+scripts/test-coverage.sh
+
+# Local PHP
+php -d xdebug.coverage_enable=On vendor/bin/phpunit --coverage-html test-coverage
+```
+
+Then open `test-coverage/index.html` to view the results. Be aware of the [edge cases](https://phpunit.de/manual/current/en/code-coverage-analysis.html#code-coverage-analysis.edge-cases) in PHPUnit that can make it not-quite-accurate.
+
+
+### API Docs
+
+To generate API docs using phpDocumentor:
+
+```bash
+# Docker Compose
+scripts/phpdoc.sh
+
+# Local PHP
+mkdir -p docs/bin
+curl https://www.phpdoc.org/phpDocumentor.phar > docs/bin/phpdoc
+chmod +x docs/bin/phpdoc
+docs/bin/phpdoc
+```
+
+
+### Other useful Docker Compose scripts
+
+```bash
+# Composer
+scripts/composer.sh install
+
+# Install Laravel template in laravel-template/ (for upgrading test-app/)
+scripts/install-laravel-template.sh
+
+# Delete all generated files
+scripts/clean.sh
+```
 
 
  License
