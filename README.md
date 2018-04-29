@@ -50,7 +50,7 @@ A simple [Laravel](https://laravel.com/)-style way to create breadcrumbs.
 Run this at the command line:
 
 ```bash
-composer require davejamesmiller/laravel-breadcrumbs
+composer require davejamesmiller/laravel-breadcrumbs:5.x
 ```
 
 This will both update `composer.json` and install the package into the `vendor/` directory.
