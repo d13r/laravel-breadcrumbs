@@ -10,9 +10,9 @@ A simple Laravel-style way to create breadcrumbs in
 
 --------------------------------------------------------------------------------
 
-**Not working?** Before opening a support request, please read this and make sure you include the information requested (adjusting the paths as necessary for Laravel 4):
+**Not working?** Before opening a support request, please read this:
 
-[Support & Contribution Guidelines](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/CONTRIBUTING.rst)
+[Technical Support](https://github.com/davejamesmiller/laravel-breadcrumbs#technical-support)
 
 --------------------------------------------------------------------------------
 
@@ -21,7 +21,7 @@ A simple Laravel-style way to create breadcrumbs in
 ### 1. Install with Composer
 
 ```bash
-composer require davejamesmiller/laravel-breadcrumbs:2.*
+composer require davejamesmiller/laravel-breadcrumbs:2.x
 ```
 
 This will update `composer.json` and install it into the `vendor/` directory.
