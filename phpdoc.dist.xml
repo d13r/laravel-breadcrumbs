@@ -2,10 +2,10 @@
 <phpdoc>
     <title>Laravel Breadcrumbs API Documentation</title>
     <parser>
-        <target>docs/cache/parser/</target>
+        <target>api-docs/cache/parser/</target>
     </parser>
     <transformer>
-        <target>docs/</target>
+        <target>api-docs/</target>
     </transformer>
     <files>
         <directory>src/</directory>

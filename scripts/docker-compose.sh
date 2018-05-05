@@ -5,8 +5,8 @@ set -o nounset -o pipefail -o errexit
 # Run Docker Compose.
 ################################################################################
 
-# Make sure the docs/ and test-coverage/ directories exist so Docker Compose doesn't create them as root
-mkdir -p docs test-coverage
+# Make sure these directories exist so Docker Compose doesn't create them as root
+mkdir -p docs test-coverage tmp/grip
 
 # Ensure generated files are owned by the current user not root
 export UID

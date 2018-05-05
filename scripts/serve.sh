@@ -18,8 +18,9 @@ fi
 
 # Display URLs
 echo
-echo "  API Docs:       http://$(hostname -f):8000/  (run 'scripts/phpdoc.sh' to build)"
-echo "  Test Coverage:  http://$(hostname -f):8001/  (run 'scripts/test-coverage.sh' to build)"
+echo "  README:         http://$(hostname -f):8000/"
+echo "  API Docs:       http://$(hostname -f):8001/  (run 'scripts/phpdoc.sh' to build)"
+echo "  Test Coverage:  http://$(hostname -f):8002/  (run 'scripts/test-coverage.sh' to build)"
 echo "  PHP 7.1:        http://$(hostname -f):8071/"
 echo "  PHP 7.2:        http://$(hostname -f):8072/"
 echo
@@ -27,4 +28,4 @@ echo "Press Ctrl+C to stop."
 echo
 
 # Run web servers
-scripts/docker-compose.sh up test-app-71 test-app-72 serve-coverage serve-docs
+scripts/docker-compose.sh up readme api-docs test-coverage test-app-71 test-app-72

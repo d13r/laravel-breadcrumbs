@@ -2,6 +2,13 @@ version: '2'
 
 services:
 
+  api-docs:
+    image: halverneus/static-file-server
+    ports:
+      - '8001:8080'
+    volumes:
+      - ./api-docs:/web
+
   composer:
     image: composer
     user: $UID:$GID
@@ -29,6 +36,16 @@ services:
     volumes:
       - .:/app
 
+  readme:
+    build: ./docker/grip
+    command: grip /app/README.md 0.0.0.0:8000
+    user: $UID:$GID
+    ports:
+      - '8000:8000'
+    volumes:
+      - .:/app
+      - ./tmp/grip:/.grip
+
   test-app-71:
     image: php:7.1
     command: php -S 0.0.0.0:8071 /app/test-app/public/index.php
@@ -49,16 +66,9 @@ services:
       - .:/app
       - .:/breadcrumbs
 
-  serve-coverage:
+  test-coverage:
     image: halverneus/static-file-server
     ports:
-      - '8001:8080'
+      - '8002:8080'
     volumes:
       - ./test-coverage:/web
-
-  serve-docs:
-    image: halverneus/static-file-server
-    ports:
-      - '8000:8080'
-    volumes:
-      - ./docs:/web

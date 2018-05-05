@@ -1056,10 +1056,10 @@ To generate API docs using phpDocumentor:
 scripts/phpdoc.sh
 
 # Local PHP
-mkdir -p docs/bin
-curl https://www.phpdoc.org/phpDocumentor.phar > docs/bin/phpdoc
-chmod +x docs/bin/phpdoc
-docs/bin/phpdoc
+mkdir -p api-docs/bin
+curl https://www.phpdoc.org/phpDocumentor.phar > api-docs/bin/phpdoc
+chmod +x api-docs/bin/phpdoc
+api-docs/bin/phpdoc
 ```
 
 
