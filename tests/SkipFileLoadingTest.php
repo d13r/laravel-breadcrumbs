@@ -2,9 +2,6 @@
 
 namespace BreadcrumbsTests;
 
-use Breadcrumbs;
-use Config;
-
 class SkipFileLoadingTest extends TestCase
 {
     protected function getEnvironmentSetUp($app)

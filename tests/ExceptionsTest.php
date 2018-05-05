@@ -17,8 +17,8 @@ class ExceptionsTest extends TestCase
      */
     public function testDuplicateBreadcrumbException()
     {
-        Breadcrumbs::register('duplicate', function () { });
-        Breadcrumbs::register('duplicate', function () { });
+        Breadcrumbs::for('duplicate', function () { });
+        Breadcrumbs::for('duplicate', function () { });
     }
 
     /**
@@ -49,8 +49,8 @@ class ExceptionsTest extends TestCase
     {
         Config::set('breadcrumbs.view', '');
 
-        Breadcrumbs::register('home', function ($breadcrumbs) {
-            $breadcrumbs->push('Home', url('/'));
+        Breadcrumbs::for('home', function ($trail) {
+            $trail->push('Home', url('/'));
         });
 
         Breadcrumbs::render('home');

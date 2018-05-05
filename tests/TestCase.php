@@ -2,11 +2,9 @@
 
 namespace BreadcrumbsTests;
 
-use Config;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use Orchestra\Testbench\TestCase as TestbenchTestCase;
-use View;
 
 abstract class TestCase extends TestbenchTestCase
 {

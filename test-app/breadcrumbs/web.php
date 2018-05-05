@@ -15,61 +15,61 @@ Breadcrumbs::macro('pageTitle', function () {
     return $title . 'Laravel Breadcrumbs Test';
 });
 
-Breadcrumbs::before(function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->push('Before');
+Breadcrumbs::before(function (BreadcrumbsGenerator $trail) {
+    $trail->push('Before');
 });
 
-Breadcrumbs::register('home', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->push('Home', route('home'), ['custom' => 'Custom data for Home']);
+Breadcrumbs::for('home', function (BreadcrumbsGenerator $trail) {
+    $trail->push('Home', route('home'), ['custom' => 'Custom data for Home']);
 });
 
-Breadcrumbs::register('blog', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->parent('home');
-    $breadcrumbs->push('Blog', route('blog'));
+Breadcrumbs::for('blog', function (BreadcrumbsGenerator $trail) {
+    $trail->parent('home');
+    $trail->push('Blog', route('blog'));
 });
 
-Breadcrumbs::register('category', function (BreadcrumbsGenerator $breadcrumbs, $category) {
-    $breadcrumbs->parent('blog');
+Breadcrumbs::for('category', function (BreadcrumbsGenerator $trail, $category) {
+    $trail->parent('blog');
 
     foreach ($category->ancestors as $ancestor) {
-        $breadcrumbs->push($ancestor->title, route('category', $ancestor->id));
+        $trail->push($ancestor->title, route('category', $ancestor->id));
     }
 
-    $breadcrumbs->push($category->title, route('category', $category->id));
+    $trail->push($category->title, route('category', $category->id));
 });
 
-Breadcrumbs::register('post', function (BreadcrumbsGenerator $breadcrumbs, $post) {
-    $breadcrumbs->parent('category', $post->category);
-    $breadcrumbs->push($post->title, route('post', $post->id), ['image' => asset($post->image)]);
+Breadcrumbs::for('post', function (BreadcrumbsGenerator $trail, $post) {
+    $trail->parent('category', $post->category);
+    $trail->push($post->title, route('post', $post->id), ['image' => asset($post->image)]);
 });
 
-Breadcrumbs::register('text', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->parent('home');
-    $breadcrumbs->push('Text 1', null, ['custom' => 'Custom data for Text 1']);
-    $breadcrumbs->push('Text 2');
-    $breadcrumbs->push('Text 3');
+Breadcrumbs::for('text', function (BreadcrumbsGenerator $trail) {
+    $trail->parent('home');
+    $trail->push('Text 1', null, ['custom' => 'Custom data for Text 1']);
+    $trail->push('Text 2');
+    $trail->push('Text 3');
 });
 
 // Make sure $breadcrumbs is set too
 /** @var BreadcrumbsManager $breadcrumbs */
-$breadcrumbs->register('section-test', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->parent('home');
-    $breadcrumbs->push('@section() Test', route('section'));
+$breadcrumbs->for('section-test', function (BreadcrumbsGenerator $trail) {
+    $trail->parent('home');
+    $trail->push('@section() Test', route('section'));
 });
 
-Breadcrumbs::register('server-error', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->parent('home');
-    $breadcrumbs->push('Internal Server Error Test');
+Breadcrumbs::for('server-error', function (BreadcrumbsGenerator $trail) {
+    $trail->parent('home');
+    $trail->push('Internal Server Error Test');
 });
 
-Breadcrumbs::register('errors.404', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->parent('home');
-    $breadcrumbs->push('Page Not Found');
+Breadcrumbs::for('errors.404', function (BreadcrumbsGenerator $trail) {
+    $trail->parent('home');
+    $trail->push('Page Not Found');
 });
 
-Breadcrumbs::after(function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::after(function (BreadcrumbsGenerator $trail) {
     $page = (int) request('page', 1);
     if ($page > 1) {
-        $breadcrumbs->push("Page $page", null, ['current' => false]);
+        $trail->push("Page $page", null, ['current' => false]);
     }
 });

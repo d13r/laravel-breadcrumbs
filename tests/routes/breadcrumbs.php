@@ -1,5 +1,5 @@
 <?php
 
-Breadcrumbs::register('single-file-test', function ($breadcrumbs) {
-    $breadcrumbs->push('Loaded');
+Breadcrumbs::for('single-file-test', function ($trail) {
+    $trail->push('Loaded');
 });

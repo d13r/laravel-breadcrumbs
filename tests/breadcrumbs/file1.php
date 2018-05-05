@@ -1,6 +1,6 @@
 <?php
 
-Breadcrumbs::register('multiple-file-test', function ($breadcrumbs) {
-    $breadcrumbs->parent('multiple-file-test-parent');
-    $breadcrumbs->push('Loaded');
+Breadcrumbs::for('multiple-file-test', function ($trail) {
+    $trail->parent('multiple-file-test-parent');
+    $trail->push('Loaded');
 });

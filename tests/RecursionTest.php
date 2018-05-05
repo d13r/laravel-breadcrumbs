@@ -11,8 +11,8 @@ class RecursionTest extends TestCase
         parent::setUp();
 
         // Blog
-        Breadcrumbs::register('blog', function ($breadcrumbs) {
-            $breadcrumbs->push('Blog', url('/'));
+        Breadcrumbs::for('blog', function ($trail) {
+            $trail->push('Blog', url('/'));
         });
 
         $this->category1 = (object) ['id' => 1, 'title' => 'Category 1'];
@@ -22,14 +22,14 @@ class RecursionTest extends TestCase
 
     public function testRepeatedPush()
     {
-        Breadcrumbs::register('category', function ($breadcrumbs, $category) {
-            $breadcrumbs->parent('blog');
+        Breadcrumbs::for('category', function ($trail, $category) {
+            $trail->parent('blog');
 
             foreach ($category->ancestors as $ancestor) {
-                $breadcrumbs->push($ancestor->title, url("category/{$ancestor->id}"));
+                $trail->push($ancestor->title, url("category/{$ancestor->id}"));
             }
 
-            $breadcrumbs->push($category->title, url("category/{$category->id}"));
+            $trail->push($category->title, url("category/{$category->id}"));
         });
 
         $this->category3->ancestors = [$this->category1, $this->category2];
@@ -48,14 +48,14 @@ class RecursionTest extends TestCase
 
     public function testRecursiveCall()
     {
-        Breadcrumbs::register('category', function ($breadcrumbs, $category) {
+        Breadcrumbs::for('category', function ($trail, $category) {
             if ($category->parent) {
-                $breadcrumbs->parent('category', $category->parent);
+                $trail->parent('category', $category->parent);
             } else {
-                $breadcrumbs->parent('blog');
+                $trail->parent('blog');
             }
 
-            $breadcrumbs->push($category->title, url("category/{$category->id}"));
+            $trail->push($category->title, url("category/{$category->id}"));
         });
 
         $this->category1->parent = null;

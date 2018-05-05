@@ -41,8 +41,8 @@ class DependantServiceProviderError extends \Illuminate\Support\ServiceProvider
 
     public function boot()
     {
-        Breadcrumbs::register('home', function ($breadcrumbs) {
-            $breadcrumbs->push('Home', '/');
+        Breadcrumbs::for('home', function ($trail) {
+            $trail->push('Home', '/');
         });
     }
 }

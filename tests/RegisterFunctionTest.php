@@ -7,7 +7,9 @@ use Illuminate\Contracts\Support\Htmlable;
 use LogicException;
 use Route;
 
-class BasicFunctionalityTest extends TestCase
+// Breadcrumbs::register() was renamed Breadcrumbs::for() in v5.1.0 but is still supported for backwards compatibility.
+// It's not officially deprecated, but may be in the future.
+class RegisterFunctionTest extends TestCase
 {
     protected function setUp()
     {
@@ -18,40 +20,40 @@ class BasicFunctionalityTest extends TestCase
         // Home
         Route::name('home')->get('/', $closure);
 
-        Breadcrumbs::for('home', function ($trail) {
-            $trail->push('Home', route('home'));
+        Breadcrumbs::register('home', function ($breadcrumbs) {
+            $breadcrumbs->push('Home', route('home'));
         });
 
         // Home > About
         Route::name('about')->get('about', $closure);
 
-        Breadcrumbs::for('about', function ($trail) {
-            $trail->parent('home');
-            $trail->push('About', route('about'));
+        Breadcrumbs::register('about', function ($breadcrumbs) {
+            $breadcrumbs->parent('home');
+            $breadcrumbs->push('About', route('about'));
         });
 
         // Home > Blog
         Route::name('blog')->get('blog', $closure);
 
-        Breadcrumbs::for('blog', function ($trail) {
-            $trail->parent('home');
-            $trail->push('Blog', route('blog'));
+        Breadcrumbs::register('blog', function ($breadcrumbs) {
+            $breadcrumbs->parent('home');
+            $breadcrumbs->push('Blog', route('blog'));
         });
 
         // Home > Blog > [Category]
         Route::name('category')->get('blog/category/{category}', $closure);
 
-        Breadcrumbs::for('category', function ($trail, $category) {
-            $trail->parent('blog');
-            $trail->push($category->title, route('category', $category->id));
+        Breadcrumbs::register('category', function ($breadcrumbs, $category) {
+            $breadcrumbs->parent('blog');
+            $breadcrumbs->push($category->title, route('category', $category->id));
         });
 
         // Home > Blog > [Category] > [Post]
         Route::name('post')->get('blog/post/{post}', $closure);
 
-        Breadcrumbs::for('post', function ($trail, $post) {
-            $trail->parent('category', $post->category);
-            $trail->push($post->title, route('post', $post->id));
+        Breadcrumbs::register('post', function ($breadcrumbs, $post) {
+            $breadcrumbs->parent('category', $post->category);
+            $breadcrumbs->push($post->title, route('post', $post->id));
         });
 
         $this->category = (object) [

@@ -30,8 +30,8 @@ class CustomChildBreadcrumbsServiceProvider extends BreadcrumbsServiceProvider
 {
     public function registerBreadcrumbs(): void
     {
-        Breadcrumbs::register('home', function ($breadcrumbs) {
-            $breadcrumbs->push('Home', '/');
+        Breadcrumbs::for('home', function ($trail) {
+            $trail->push('Home', '/');
         });
     }
 }

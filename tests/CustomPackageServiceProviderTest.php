@@ -36,8 +36,8 @@ class CustomPackageServiceProvider extends ServiceProvider
 
     public function boot(BreadcrumbsManager $breadcrumbs)
     {
-        $breadcrumbs->register('home', function (BreadcrumbsGenerator $breadcrumbs) {
-            $breadcrumbs->push('Home', '/');
+        $breadcrumbs->for('home', function (BreadcrumbsGenerator $trail) {
+            $trail->push('Home', '/');
         });
     }
 }

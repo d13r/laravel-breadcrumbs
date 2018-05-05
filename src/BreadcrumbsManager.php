@@ -72,13 +72,31 @@ class BreadcrumbsManager
      * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\DuplicateBreadcrumbException If the given name has already been
      *     used.
      */
-    public function register(string $name, callable $callback): void
+    public function for(string $name, callable $callback): void
     {
         if (isset($this->callbacks[ $name ])) {
             throw new DuplicateBreadcrumbException("Breadcrumb name \"{$name}\" has already been registered");
         }
 
         $this->callbacks[ $name ] = $callback;
+    }
+
+    /**
+     * Register a breadcrumb-generating callback for a page.
+     *
+     * For backwards-compatibility with v5.0.0 and below.
+     *
+     * @see self::for()
+     * @param string $name The name of the page.
+     * @param callable $callback The callback, which should accept a Generator instance as the first parameter and may
+     *     accept additional parameters.
+     * @return void
+     * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\DuplicateBreadcrumbException If the given name has already been
+     *     used.
+     */
+    public function register(string $name, callable $callback): void
+    {
+        $this->for($name, $callback);
     }
 
     /**

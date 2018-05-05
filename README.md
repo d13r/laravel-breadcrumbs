@@ -64,32 +64,32 @@ Create a file called `routes/breadcrumbs.php` that looks like this:
 <?php
 
 // Home
-Breadcrumbs::register('home', function ($breadcrumbs) {
-    $breadcrumbs->push('Home', route('home'));
+Breadcrumbs::for('home', function ($trail) {
+    $trail->push('Home', route('home'));
 });
 
 // Home > About
-Breadcrumbs::register('about', function ($breadcrumbs) {
-    $breadcrumbs->parent('home');
-    $breadcrumbs->push('About', route('about'));
+Breadcrumbs::for('about', function ($trail) {
+    $trail->parent('home');
+    $trail->push('About', route('about'));
 });
 
 // Home > Blog
-Breadcrumbs::register('blog', function ($breadcrumbs) {
-    $breadcrumbs->parent('home');
-    $breadcrumbs->push('Blog', route('blog'));
+Breadcrumbs::for('blog', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Blog', route('blog'));
 });
 
 // Home > Blog > [Category]
-Breadcrumbs::register('category', function ($breadcrumbs, $category) {
-    $breadcrumbs->parent('blog');
-    $breadcrumbs->push($category->title, route('category', $category->id));
+Breadcrumbs::for('category', function ($trail, $category) {
+    $trail->parent('blog');
+    $trail->push($category->title, route('category', $category->id));
 });
 
 // Home > Blog > [Category] > [Post]
-Breadcrumbs::register('post', function ($breadcrumbs, $post) {
-    $breadcrumbs->parent('category', $post->category);
-    $breadcrumbs->push($post->title, route('post', $post));
+Breadcrumbs::for('post', function ($trail, $post) {
+    $trail->parent('category', $post->category);
+    $trail->push($post->title, route('post', $post));
 });
 ```
 
@@ -151,12 +151,12 @@ The following examples should make it clear:
 The most simple breadcrumb is probably going to be your homepage, which will look something like this:
 
 ```php
-Breadcrumbs::register('home', function ($breadcrumbs) {
-     $breadcrumbs->push('Home', route('home'));
+Breadcrumbs::for('home', function ($trail) {
+     $trail->push('Home', route('home'));
 });
 ```
 
-As you can see, you simply call `$breadcrumbs->push($title, $url)` inside the closure.
+As you can see, you simply call `$trail->push($title, $url)` inside the closure.
 
 For generating the URL, you can use any of the standard Laravel URL-generation methods, including:
 
@@ -181,9 +181,9 @@ And results in this output:
 This is another static page, but this has a parent link before it:
 
 ```php
-Breadcrumbs::register('blog', function ($breadcrumbs) {
-    $breadcrumbs->parent('home');
-    $breadcrumbs->push('Blog', route('blog'));
+Breadcrumbs::for('blog', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Blog', route('blog'));
 });
 ```
 
@@ -207,9 +207,9 @@ Note that the default template does not create a link for the last breadcrumb (t
 This is a dynamically generated page pulled from the database:
 
 ```php
-Breadcrumbs::register('post', function ($breadcrumbs, $post) {
-    $breadcrumbs->parent('blog');
-    $breadcrumbs->push($post->title, route('post', $post));
+Breadcrumbs::for('post', function ($trail, $post) {
+    $trail->parent('blog');
+    $trail->push($post->title, route('post', $post));
 });
 ```
 
@@ -228,31 +228,31 @@ It results in this output:
 
 ### Nested categories
 
-Finally, if you have nested categories or other special requirements, you can call `$breadcrumbs->push()` multiple times:
+Finally, if you have nested categories or other special requirements, you can call `$trail->push()` multiple times:
 
 ```php
-Breadcrumbs::register('category', function ($breadcrumbs, $category) {
-    $breadcrumbs->parent('blog');
+Breadcrumbs::for('category', function ($trail, $category) {
+    $trail->parent('blog');
 
     foreach ($category->ancestors as $ancestor) {
-        $breadcrumbs->push($ancestor->title, route('category', $ancestor->id));
+        $trail->push($ancestor->title, route('category', $ancestor->id));
     }
 
-    $breadcrumbs->push($category->title, route('category', $category->id));
+    $trail->push($category->title, route('category', $category->id));
 });
 ```
 
 Alternatively you could make a recursive function such as this:
 
 ```php
-Breadcrumbs::register('category', function ($breadcrumbs, $category) {
+Breadcrumbs::for('category', function ($trail, $category) {
     if ($category->parent) {
-        $breadcrumbs->parent('category', $category->parent);
+        $trail->parent('category', $category->parent);
     } else {
-        $breadcrumbs->parent('blog');
+        $trail->parent('blog');
     }
 
-    $breadcrumbs->push($category->title, route('category', $category->slug));
+    $trail->push($category->title, route('category', $category->slug));
 });
 ```
 
@@ -402,9 +402,9 @@ To render breadcrumbs as JSON-LD [structured data](https://developers.google.com
 To specify an image, add it to the `$data` parameter in `push()`:
 
 ```php
-Breadcrumbs::register('post', function ($breadcrumbs, $post) {
-    $breadcrumbs->parent('home');
-    $breadcrumbs->push($post->title, route('post', $post), ['image' => asset($post->image)]);
+Breadcrumbs::for('post', function ($trail, $post) {
+    $trail->parent('home');
+    $trail->push($post->title, route('post', $post), ['image' => asset($post->image)]);
 });
 ```
 
@@ -438,15 +438,15 @@ For each route, create a breadcrumb with the same name and parameters. For examp
 
 ```php
 // Home
-Breadcrumbs::register('home', function ($breadcrumbs) {
-     $breadcrumbs->push('Home', route('home'));
+Breadcrumbs::for('home', function ($trail) {
+     $trail->push('Home', route('home'));
 });
 
 // Home > [Post]
-Breadcrumbs::register('post', function ($breadcrumbs, $id) {
+Breadcrumbs::for('post', function ($trail, $id) {
     $post = Post::findOrFail($id);
-    $breadcrumbs->parent('home');
-    $breadcrumbs->push($post->title, route('post', $post));
+    $trail->parent('home');
+    $trail->push($post->title, route('post', $post));
 });
 ```
 
@@ -454,9 +454,9 @@ To add breadcrumbs to a [custom 404 Not Found page](https://laravel.com/docs/5.5
 
 ```php
 // Error 404
-Breadcrumbs::register('errors.404', function ($breadcrumbs) {
-    $breadcrumbs->parent('home');
-    $breadcrumbs->push('Page Not Found');
+Breadcrumbs::for('errors.404', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Page Not Found');
 });
 ```
 
@@ -527,9 +527,9 @@ class PostController extends Controller
 
 ```php
 // routes/breadcrumbs.php
-Breadcrumbs::register('post', function ($breadcrumbs, $post) { // <-- The same Post model is injected here
-    $breadcrumbs->parent('home');
-    $breadcrumbs->push($post->title, route('post', $post));
+Breadcrumbs::for('post', function ($trail, $post) { // <-- The same Post model is injected here
+    $trail->parent('home');
+    $trail->push($post->title, route('post', $post));
 });
 ```
 
@@ -567,27 +567,27 @@ $ php artisan route:list
 // routes/breadcrumbs.php
 
 // Photos
-Breadcrumbs::register('photo.index', function ($breadcrumbs) {
-    $breadcrumbs->parent('home');
-    $breadcrumbs->push('Photos', route('photo.index'));
+Breadcrumbs::for('photo.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Photos', route('photo.index'));
 });
 
 // Photos > Upload Photo
-Breadcrumbs::register('photo.create', function ($breadcrumbs) {
-    $breadcrumbs->parent('photo.index');
-    $breadcrumbs->push('Upload Photo', route('photo.create'));
+Breadcrumbs::for('photo.create', function ($trail) {
+    $trail->parent('photo.index');
+    $trail->push('Upload Photo', route('photo.create'));
 });
 
 // Photos > [Photo Name]
-Breadcrumbs::register('photo.show', function ($breadcrumbs, $photo) {
-    $breadcrumbs->parent('photo.index');
-    $breadcrumbs->push($photo->title, route('photo.show', $photo->id));
+Breadcrumbs::for('photo.show', function ($trail, $photo) {
+    $trail->parent('photo.index');
+    $trail->push($photo->title, route('photo.show', $photo->id));
 });
 
 // Photos > [Photo Name] > Edit Photo
-Breadcrumbs::register('photo.edit', function ($breadcrumbs, $photo) {
-    $breadcrumbs->parent('photo.show', $photo);
-    $breadcrumbs->push('Edit Photo', route('photo.edit', $photo->id));
+Breadcrumbs::for('photo.edit', function ($trail, $photo) {
+    $trail->parent('photo.show', $photo);
+    $trail->push('Edit Photo', route('photo.edit', $photo->id));
 });
 ```
 
@@ -602,7 +602,7 @@ For more details see [Resource Controllers](https://laravel.com/docs/5.5/control
 The second parameter to `push()` is optional, so if you want a breadcrumb with no URL you can do so:
 
 ```php
-$breadcrumbs->push('Sample');
+$trail->push('Sample');
 ```
 
 The `$breadcrumb->url` value will be `null`.
@@ -615,7 +615,7 @@ The default Twitter Bootstrap templates provided render this with a CSS class of
 The `push()` method accepts an optional third parameter, `$data` – an array of arbitrary data to be passed to the breadcrumb, which you can use in your custom template. For example, if you wanted each breadcrumb to have an icon, you could do:
 
 ```php
-$breadcrumbs->push('Home', '/', ['icon' => 'home.png']);
+$trail->push('Home', '/', ['icon' => 'home.png']);
 ```
 
 The `$data` array's entries will be merged into the breadcrumb as properties, so you would access the icon as ``$breadcrumb->icon`` in your template, like this:
@@ -635,10 +635,10 @@ Do not use the keys `title` or `url` as they will be overwritten.
 You can register "before" and "after" callbacks to add breadcrumbs at the start/end of the trail. For example, to automatically add the current page number at the end:
 
 ```php
-Breadcrumbs::after(function ($breadcrumbs) {
+Breadcrumbs::after(function ($trail) {
     $page = (int) request('page', 1);
     if ($page > 1) {
-        $breadcrumbs->push("Page $page");
+        $trail->push("Page $page");
     }
 });
 ```
@@ -655,10 +655,10 @@ To get the last breadcrumb for the current page, use `Breadcrumb::current()`. Fo
 To ignore a breadcrumb, add `'current' => false` to the `$data` parameter in `push()`. This can be useful to ignore pagination breadcrumbs:
 
 ```php
-Breadcrumbs::after(function ($breadcrumbs) {
+Breadcrumbs::after(function ($trail) {
     $page = (int) request('page', 1);
     if ($page > 1) {
-        $breadcrumbs->push("Page $page", null, ['current' => false]);
+        $trail->push("Page $page", null, ['current' => false]);
     }
 });
 ```
@@ -831,6 +831,7 @@ For more advanced customisations you can subclass BreadcrumbsManager and/or Brea
 
 | Method                                                              | Returns    | Added in |
 |---------------------------------------------------------------------|------------|----------|
+| `Breadcrumbs::for(string $name, closure $callback)`                 | void       | 5.1.0    |
 | `Breadcrumbs::register(string $name, closure $callback)`            | void       | 1.0.0    |
 | `Breadcrumbs::before(closure $callback)`                            | void       | 4.0.0    |
 | `Breadcrumbs::after(closure $callback)`                             | void       | 4.0.0    |
@@ -858,27 +859,27 @@ For more advanced customisations you can subclass BreadcrumbsManager and/or Brea
 use App\Models\Post;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 
-Breadcrumbs::before('name', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::before('name', function (BreadcrumbsGenerator $trail) {
     // ...
 });
 
-Breadcrumbs::register('name', function (BreadcrumbsGenerator $breadcrumbs, Post $post) {
+Breadcrumbs::for('name', function (BreadcrumbsGenerator $trail, Post $post) {
     // ...
 });
 
-Breadcrumbs::after('name', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::after('name', function (BreadcrumbsGenerator $trail) {
     // ...
 });
 ```
 
 
-| Method                                                        | Returns | Added in |
-|---------------------------------------------------------------|---------|----------|
-| `$breadcrumbs->push(string $title)`                           | void    | 1.0.0    |
-| `$breadcrumbs->push(string $title, string $url)`              | void    | 1.0.0    |
-| `$breadcrumbs->push(string $title, string $url, array $data)` | void    | 2.3.0    |
-| `$breadcrumbs->parent(string $name)`                          | void    | 1.0.0    |
-| `$breadcrumbs->parent(string $name, mixed $param1, ...)`      | void    | 1.0.0    |
+| Method                                                  | Returns | Added in |
+|---------------------------------------------------------|---------|----------|
+| `$trail->push(string $title)`                           | void    | 1.0.0    |
+| `$trail->push(string $title, string $url)`              | void    | 1.0.0    |
+| `$trail->push(string $title, string $url, array $data)` | void    | 2.3.0    |
+| `$trail->parent(string $name)`                          | void    | 1.0.0    |
+| `$trail->parent(string $name, mixed $param1, ...)`      | void    | 1.0.0    |
 
 [Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/src/BreadcrumbsGenerator.php)
 
@@ -917,6 +918,21 @@ Breadcrumbs::after('name', function (BreadcrumbsGenerator $breadcrumbs) {
 --------------------------------------------------------------------------------
 
 *Laravel Breadcrumbs uses [Semantic Versioning](http://semver.org/).*
+
+
+### [v5.1.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.1.0) (Sat 5 May 2018)
+
+- Add `Breadcrumbs::for($name, $callback)` as an alias for `Breadcrumbs::register($name, $callback)`
+- Renamed `$breadcrumbs` to `$trail` in documentation (this doesn't affect the code)
+
+These changes were inspired by (read: taken directly from) [Dwight Watson's Breadcrumbs package](https://github.com/dwightwatson/breadcrumbs).
+
+#### Upgrading from 5.0.0 to 5.1.0
+
+No changes are required, but I recommend updating your `routes/breadcrumbs.php` to match the new documentation:
+
+- Replace `Breadcrumbs::register` with `Breadcrumbs::for`
+- Replace `$breadcrumbs` with `$trail`
 
 
 ### [v5.0.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.0.0) (Sat 10 Feb 2018)
@@ -1061,6 +1077,8 @@ curl https://www.phpdoc.org/phpDocumentor.phar > api-docs/bin/phpdoc
 chmod +x api-docs/bin/phpdoc
 api-docs/bin/phpdoc
 ```
+
+**Note:** This currently fails for `BreadcrumbsManager` due to `function for(...)`, even though it's [valid PHP7 code](https://wiki.php.net/rfc/context_sensitive_lexer). 
 
 
 ### Other useful Docker Compose scripts

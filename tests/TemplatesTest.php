@@ -11,20 +11,20 @@ class TemplatesTest extends TestCase
         parent::setUp();
 
         // Home (Normal link)
-        Breadcrumbs::register('home', function ($breadcrumbs) {
-            $breadcrumbs->push('Home', url('/'));
+        Breadcrumbs::for('home', function ($trail) {
+            $trail->push('Home', url('/'));
         });
 
         // Home > Blog (Not a link)
-        Breadcrumbs::register('blog', function ($breadcrumbs) {
-            $breadcrumbs->parent('home');
-            $breadcrumbs->push('Blog');
+        Breadcrumbs::for('blog', function ($trail) {
+            $trail->parent('home');
+            $trail->push('Blog');
         });
 
         // Home > Blog > [Category] (Active page)
-        Breadcrumbs::register('category', function ($breadcrumbs, $category) {
-            $breadcrumbs->parent('blog');
-            $breadcrumbs->push($category->title, url("blog/category/{$category->id}"));
+        Breadcrumbs::for('category', function ($trail, $category) {
+            $trail->parent('blog');
+            $trail->push($category->title, url("blog/category/{$category->id}"));
         });
 
         $this->category = (object) [

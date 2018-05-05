@@ -16,8 +16,8 @@ class RouteBoundTest extends TestCase
         // Home
         Route::name('home')->get('/', function () { });
 
-        Breadcrumbs::register('home', function ($breadcrumbs) {
-            $breadcrumbs->push('Home', route('home'));
+        Breadcrumbs::for('home', function ($trail) {
+            $trail->push('Home', route('home'));
         });
 
         // Home > [Post]
@@ -25,10 +25,10 @@ class RouteBoundTest extends TestCase
             return Breadcrumbs::render();
         });
 
-        Breadcrumbs::register('post', function ($breadcrumbs, $id) {
+        Breadcrumbs::for('post', function ($trail, $id) {
             $post = Post::findOrFail($id);
-            $breadcrumbs->parent('home');
-            $breadcrumbs->push($post->title, route('post', $post));
+            $trail->parent('home');
+            $trail->push($post->title, route('post', $post));
         });
 
         $html = $this->get('/post/1')->content();
@@ -46,8 +46,8 @@ class RouteBoundTest extends TestCase
         // Home
         Route::name('home')->get('/', function () { });
 
-        Breadcrumbs::register('home', function ($breadcrumbs) {
-            $breadcrumbs->push('Home', route('home'));
+        Breadcrumbs::for('home', function ($trail) {
+            $trail->push('Home', route('home'));
         });
 
         // Home > [Post]
@@ -55,10 +55,10 @@ class RouteBoundTest extends TestCase
             $breadcrumbs = Breadcrumbs::generate();
         });
 
-        Breadcrumbs::register('post', function ($breadcrumbs, $id) {
+        Breadcrumbs::for('post', function ($trail, $id) {
             $post = Post::findOrFail($id);
-            $breadcrumbs->parent('home');
-            $breadcrumbs->push($post->title, route('post', $post));
+            $trail->parent('home');
+            $trail->push($post->title, route('post', $post));
         });
 
         $this->get('/post/1');
@@ -77,7 +77,7 @@ class RouteBoundTest extends TestCase
         // Home
         Route::name('home')->get('/', function () { });
 
-        Breadcrumbs::register('home', function ($breadcrumbs) {
+        Breadcrumbs::for('home', function ($breadcrumbs) {
             $breadcrumbs->push('Home', route('home'));
         });
 
@@ -86,7 +86,7 @@ class RouteBoundTest extends TestCase
             return Breadcrumbs::view('breadcrumbs2');
         });
 
-        Breadcrumbs::register('post', function ($breadcrumbs, $id) {
+        Breadcrumbs::for('post', function ($breadcrumbs, $id) {
             $post = Post::findOrFail($id);
             $breadcrumbs->parent('home');
             $breadcrumbs->push($post->title, route('post', $post));
@@ -105,7 +105,7 @@ class RouteBoundTest extends TestCase
     public function testExists()
     {
         // Exists
-        Breadcrumbs::register('exists', function () { });
+        Breadcrumbs::for('exists', function () { });
 
         Route::name('exists')->get('/exists', function () use (&$exists1) {
             $exists1 = Breadcrumbs::exists();
@@ -135,11 +135,11 @@ class RouteBoundTest extends TestCase
     {
         Route::name('home')->get('/', function () { });
 
-        Breadcrumbs::register('home', function ($breadcrumbs) {
+        Breadcrumbs::for('home', function ($breadcrumbs) {
             $breadcrumbs->push('Home', route('home'));
         });
 
-        Breadcrumbs::register('errors.404', function ($breadcrumbs) {
+        Breadcrumbs::for('errors.404', function ($breadcrumbs) {
             $breadcrumbs->parent('home');
             $breadcrumbs->push('Not Found');
         });
@@ -231,7 +231,7 @@ class RouteBoundTest extends TestCase
         // Home
         Route::name('home')->get('/', function () { });
 
-        Breadcrumbs::register('home', function ($breadcrumbs) {
+        Breadcrumbs::for('home', function ($breadcrumbs) {
             $breadcrumbs->push('Home', route('home'));
         });
 
@@ -242,7 +242,7 @@ class RouteBoundTest extends TestCase
             return Breadcrumbs::render();
         });
 
-        Breadcrumbs::register('post', function ($breadcrumbs, $post) {
+        Breadcrumbs::for('post', function ($breadcrumbs, $post) {
             $breadcrumbs->parent('home');
             $breadcrumbs->push($post->title, route('post', $post));
         });
@@ -262,7 +262,7 @@ class RouteBoundTest extends TestCase
         // Home
         Route::name('home')->get('/', function () { });
 
-        Breadcrumbs::register('home', function ($breadcrumbs) {
+        Breadcrumbs::for('home', function ($breadcrumbs) {
             $breadcrumbs->push('Home', route('home'));
         });
 
@@ -271,7 +271,7 @@ class RouteBoundTest extends TestCase
             return Breadcrumbs::render();
         });
 
-        Breadcrumbs::register('post', function ($breadcrumbs, $post) {
+        Breadcrumbs::for('post', function ($breadcrumbs, $post) {
             $breadcrumbs->parent('home');
             $breadcrumbs->push($post->title, route('post', $post));
         });
@@ -291,24 +291,24 @@ class RouteBoundTest extends TestCase
         Route::middleware(SubstituteBindings::class)->resource('post', PostController::class);
 
         // Posts
-        Breadcrumbs::register('post.index', function ($breadcrumbs) {
+        Breadcrumbs::for('post.index', function ($breadcrumbs) {
             $breadcrumbs->push('Posts', route('post.index'));
         });
 
         // Posts > Upload Post
-        Breadcrumbs::register('post.create', function ($breadcrumbs) {
+        Breadcrumbs::for('post.create', function ($breadcrumbs) {
             $breadcrumbs->parent('post.index');
             $breadcrumbs->push('New Post', route('post.create'));
         });
 
         // Posts > [Post Name]
-        Breadcrumbs::register('post.show', function ($breadcrumbs, Post $post) {
+        Breadcrumbs::for('post.show', function ($breadcrumbs, Post $post) {
             $breadcrumbs->parent('post.index');
             $breadcrumbs->push($post->title, route('post.show', $post->id));
         });
 
         // Posts > [Post Name] > Edit Post
-        Breadcrumbs::register('post.edit', function ($breadcrumbs, Post $post) {
+        Breadcrumbs::for('post.edit', function ($breadcrumbs, Post $post) {
             $breadcrumbs->parent('post.show', $post);
             $breadcrumbs->push('Edit Post', route('post.edit', $post->id));
         });

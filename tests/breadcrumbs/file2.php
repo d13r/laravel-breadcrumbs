@@ -1,5 +1,5 @@
 <?php
 
-Breadcrumbs::register('multiple-file-test-parent', function ($breadcrumbs) {
-    $breadcrumbs->push('Parent');
+Breadcrumbs::for('multiple-file-test-parent', function ($trail) {
+    $trail->push('Parent');
 });

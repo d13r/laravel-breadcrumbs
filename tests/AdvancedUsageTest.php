@@ -12,8 +12,8 @@ class AdvancedUsageTest extends TestCase
 {
     public function testBreadcrumbsWithNoUrl()
     {
-        Breadcrumbs::register('sample', function ($breadcrumbs) {
-            $breadcrumbs->push('Sample');
+        Breadcrumbs::for('sample', function ($trail) {
+            $trail->push('Sample');
         });
 
         $breadcrumbs = Breadcrumbs::generate('sample');
@@ -25,8 +25,8 @@ class AdvancedUsageTest extends TestCase
 
     public function testCustomData()
     {
-        Breadcrumbs::register('home', function ($breadcrumbs) {
-            $breadcrumbs->push('Home', '/', ['icon' => 'home.png']);
+        Breadcrumbs::for('home', function ($trail) {
+            $trail->push('Home', '/', ['icon' => 'home.png']);
         });
 
         $breadcrumbs = Breadcrumbs::generate('home');
@@ -39,18 +39,18 @@ class AdvancedUsageTest extends TestCase
 
     public function testBeforeAndAfterCallbacks()
     {
-        Breadcrumbs::before(function ($breadcrumbs) {
-            $breadcrumbs->push('Before');
+        Breadcrumbs::before(function ($trail) {
+            $trail->push('Before');
         });
 
-        Breadcrumbs::register('home', function ($breadcrumbs) {
-            $breadcrumbs->push('Home', route('home'));
+        Breadcrumbs::for('home', function ($trail) {
+            $trail->push('Home', route('home'));
         });
 
-        Breadcrumbs::after(function ($breadcrumbs) {
+        Breadcrumbs::after(function ($trail) {
             $page = (int) request('page', 1);
             if ($page > 1) {
-                $breadcrumbs->push("Page $page");
+                $trail->push("Page $page");
             }
         });
 
@@ -77,10 +77,10 @@ class AdvancedUsageTest extends TestCase
             return Breadcrumbs::current()->title;
         });
 
-        Breadcrumbs::register('post', function ($breadcrumbs, $post) {
-            $breadcrumbs->push('Home', route('home'));
-            $breadcrumbs->push($post->title, route('post', $post));
-            $breadcrumbs->push('Page 2', null, ['current' => false]);
+        Breadcrumbs::for('post', function ($trail, $post) {
+            $trail->push('Home', route('home'));
+            $trail->push($post->title, route('post', $post));
+            $trail->push('Page 2', null, ['current' => false]);
         });
 
         $html = $this->get('/post/1')->content();
@@ -93,10 +93,10 @@ class AdvancedUsageTest extends TestCase
         Route::name('home')->get('/', function () { });
         Route::name('post')->get('/post/{post}', function () { });
 
-        Breadcrumbs::register('post', function ($breadcrumbs, $id) {
-            $breadcrumbs->push('Home', route('home'));
-            $breadcrumbs->push("Post $id", route('post', $id));
-            $breadcrumbs->push('Page 2', null, ['current' => false]);
+        Breadcrumbs::for('post', function ($trail, $id) {
+            $trail->push('Home', route('home'));
+            $trail->push("Post $id", route('post', $id));
+            $trail->push('Page 2', null, ['current' => false]);
         });
 
         $breadcrumbs = Breadcrumbs::generate('post', 1)->where('current', '!==', false);
@@ -113,10 +113,10 @@ class AdvancedUsageTest extends TestCase
             return Breadcrumbs::pageTitle();
         });
 
-        Breadcrumbs::register('post', function ($breadcrumbs, $post) {
-            $breadcrumbs->push('Home', route('home'));
-            $breadcrumbs->push($post->title, route('post', $post));
-            $breadcrumbs->push('Page 2', null, ['current' => false]);
+        Breadcrumbs::for('post', function ($trail, $post) {
+            $trail->push('Home', route('home'));
+            $trail->push($post->title, route('post', $post));
+            $trail->push('Page 2', null, ['current' => false]);
         });
 
         Breadcrumbs::macro('pageTitle', function () {
@@ -136,8 +136,8 @@ class AdvancedUsageTest extends TestCase
 
     public function testSetCurrentRoute()
     {
-        Breadcrumbs::register('sample', function ($breadcrumbs) {
-            $breadcrumbs->push("Sample");
+        Breadcrumbs::for('sample', function ($trail) {
+            $trail->push("Sample");
         });
 
         Breadcrumbs::setCurrentRoute('sample');
@@ -153,8 +153,8 @@ class AdvancedUsageTest extends TestCase
 
     public function testSetCurrentRouteWithParams()
     {
-        Breadcrumbs::register('sample', function ($breadcrumbs, $a, $b) {
-            $breadcrumbs->push("Sample $a, $b");
+        Breadcrumbs::for('sample', function ($trail, $a, $b) {
+            $trail->push("Sample $a, $b");
         });
 
         Breadcrumbs::setCurrentRoute('sample', 1, 2);
@@ -173,8 +173,8 @@ class AdvancedUsageTest extends TestCase
      */
     public function testClearCurrentRoute()
     {
-        Breadcrumbs::register('sample', function ($breadcrumbs, $a, $b) {
-            $breadcrumbs->push("Sample $a, $b");
+        Breadcrumbs::for('sample', function ($trail, $a, $b) {
+            $trail->push("Sample $a, $b");
         });
 
         Breadcrumbs::setCurrentRoute('sample', 1, 2);
