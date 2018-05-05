@@ -89,7 +89,7 @@ Breadcrumbs::for('category', function ($trail, $category) {
 // Home > Blog > [Category] > [Post]
 Breadcrumbs::for('post', function ($trail, $post) {
     $trail->parent('category', $post->category);
-    $trail->push($post->title, route('post', $post));
+    $trail->push($post->title, route('post', $post->id));
 });
 ```
 
