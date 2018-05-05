@@ -12,7 +12,7 @@
             "homepage": "http://davejamesmiller.com/"
         }
     ],
-    "license": "MIT License",
+    "license": "MIT",
     "require": {
         "php": ">=5.3.0",
         "illuminate/support": "~4.0",
