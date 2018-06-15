@@ -859,7 +859,7 @@ For more advanced customisations you can subclass BreadcrumbsManager and/or Brea
 use App\Models\Post;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 
-Breadcrumbs::before('name', function (BreadcrumbsGenerator $trail) {
+Breadcrumbs::before(function (BreadcrumbsGenerator $trail) {
     // ...
 });
 
@@ -867,7 +867,7 @@ Breadcrumbs::for('name', function (BreadcrumbsGenerator $trail, Post $post) {
     // ...
 });
 
-Breadcrumbs::after('name', function (BreadcrumbsGenerator $trail) {
+Breadcrumbs::after(function (BreadcrumbsGenerator $trail) {
     // ...
 });
 ```
