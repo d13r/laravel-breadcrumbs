@@ -28,7 +28,7 @@ class CustomChildServiceProviderTest extends TestCase
 
 class CustomChildBreadcrumbsServiceProvider extends BreadcrumbsServiceProvider
 {
-    public function registerBreadcrumbs(): void
+    protected function loadBreadcrumbs(): void
     {
         Breadcrumbs::for('home', function ($trail) {
             $trail->push('Home', '/');
