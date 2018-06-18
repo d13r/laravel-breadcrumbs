@@ -17,16 +17,6 @@ class BreadcrumbsServiceProvider extends ServiceProvider
     protected $defer = true;
 
     /**
-     * Get the classes provided for deferred loading.
-     *
-     * @return array
-     */
-    public function provides(): array
-    {
-        return [BreadcrumbsManager::class];
-    }
-
-    /**
      * Register the service provider.
      *
      * @return void
@@ -34,20 +24,13 @@ class BreadcrumbsServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Load the default config values
-        $configFile = __DIR__ . '/../config/breadcrumbs.php';
-        $this->mergeConfigFrom($configFile, 'breadcrumbs');
-
-        // Publish the config/breadcrumbs.php file
-        $this->publishes([$configFile => config_path('breadcrumbs.php')], 'config');
+        $this->mergeConfigFrom($this->getConfigFilePath(), 'breadcrumbs');
 
         // Register Manager class singleton with the app container
         $this->app->singleton(BreadcrumbsManager::class, config('breadcrumbs.manager-class'));
 
         // Register Generator class so it can be overridden
         $this->app->bind(BreadcrumbsGenerator::class, config('breadcrumbs.generator-class'));
-
-        // Register 'breadcrumbs::' view namespace
-        $this->loadViewsFrom(__DIR__ . '/../views/', 'breadcrumbs');
     }
 
     /**
@@ -58,7 +41,25 @@ class BreadcrumbsServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Load the routes/breadcrumbs.php file
-        $this->registerBreadcrumbs();
+        $this->loadBreadcrumbs();
+
+        // Publish the config/breadcrumbs.php file
+        $this->publishes([$this->getConfigFilePath() => config_path('breadcrumbs.php')], 'config');
+
+        // Register 'breadcrumbs::' view namespace
+        $this->loadViewsFrom(__DIR__ . '/../views/', 'breadcrumbs');
+    }
+
+    /**
+     * Get the classes provided for deferred loading.
+     *
+     * @return array
+     */
+    public function provides(): array
+    {
+        return [
+            BreadcrumbsManager::class,
+        ];
     }
 
     /**
@@ -69,7 +70,7 @@ class BreadcrumbsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function registerBreadcrumbs(): void
+    protected function loadBreadcrumbs(): void
     {
         // Load the routes/breadcrumbs.php file, or other configured file(s)
         $files = config('breadcrumbs.files');
@@ -91,5 +92,15 @@ class BreadcrumbsServiceProvider extends ServiceProvider
         foreach ((array) $files as $file) {
             require $file;
         }
+    }
+
+    /**
+     * Get the config file path.
+     *
+     * @return string
+     */
+    private function getConfigFilePath()
+    {
+        return __DIR__ . '/../config/breadcrumbs.php';
     }
 }
