@@ -900,6 +900,8 @@ Breadcrumbs::after(function (BreadcrumbsGenerator $trail) {
 | `$breadcrumb->url`                   | string / null | 1.0.0    |
 | `$breadcrumb->custom_attribute_name` | mixed         | 2.3.0    |
 
+[Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/src/BreadcrumbsGenerator.php#L96)   
+
 
 ### Configuration
 
