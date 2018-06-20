@@ -484,7 +484,7 @@ And to `Breadcrumbs::view()`:
 ```
 
 
-### Route-model binding exceptions
+### Route binding exceptions
 
 It will throw an `InvalidBreadcrumbException` if the breadcrumb doesn't exist, to remind you to create one. To prevent this, first initialise the config file, if you haven't already:
 
