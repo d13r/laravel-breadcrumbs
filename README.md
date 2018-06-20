@@ -399,6 +399,8 @@ To render breadcrumbs as JSON-LD [structured data](https://developers.google.com
 </html>
 ```
 
+(Note: If you use [Laravel Page Speed](https://github.com/renatomarinho/laravel-page-speed) you may need to [disable the `TrimUrls` middleware](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/178).)
+
 To specify an image, add it to the `$data` parameter in `push()`:
 
 ```php
