@@ -93,6 +93,17 @@ Breadcrumbs::for('post', function ($trail, $post) {
 });
 ```
 
+For Laravel Breadcrumbs 4.x use the following syntax:
+```
+<?php
+
+// Home
+Breadcrumbs::register('home', function ($breadcrumbs) {
+    $breadcrumbs->push('Home', route('home'));
+});
+...
+```
+
 See the [Defining Breadcrumbs](#defining-breadcrumbs) section for more details.
 
 
