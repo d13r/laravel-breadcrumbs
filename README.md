@@ -902,7 +902,7 @@ Breadcrumbs::after(function (BreadcrumbsGenerator $trail) {
 | `$breadcrumb->url`                   | string / null | 1.0.0    |
 | `$breadcrumb->custom_attribute_name` | mixed         | 2.3.0    |
 
-[Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/src/BreadcrumbsGenerator.php#L96)   
+[Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/src/BreadcrumbsGenerator.php#L96)
 
 
 ### Configuration
@@ -1004,6 +1004,8 @@ git remote add YOUR_USERNAME git@github.com:YOUR_USERNAME/laravel-breadcrumbs.gi
 git push -u YOUR_USERNAME YOUR_BRANCH
 ```
 
+Alternatively there is a [test app](https://github.com/davejamesmiller/laravel-breadcrumbs-test) that you can use.
+
 
 ### Using your fork in a project
 
@@ -1026,42 +1028,18 @@ To use your own fork in a project, update the `composer.json` in your main proje
 Replace `YOUR_USERNAME` with your GitHub username and `YOUR_BRANCH` with the branch name (e.g. `develop`). This tells Composer to use your repository instead of the default one.
 
 
-### Running the test application
-
-Alternatively there is a test application inside the repo runs on Docker Compose (tested on Linux only):
-
-```bash
-git clone git@github.com:davejamesmiller/laravel-breadcrumbs.git
-cd laravel-breadcrumbs
-scripts/serve.sh
-# Make changes and commit them
-git checkout -b YOUR_BRANCH
-git remote add YOUR_USERNAME git@github.com:YOUR_USERNAME/laravel-breadcrumbs.git
-git push -u YOUR_USERNAME YOUR_BRANCH
-```
-
-
 ### Unit tests
 
 To run the unit tests:
 
 ```bash
-# Docker Compose (recommended)
 scripts/test.sh
-
-# Local PHP
-composer install
-vendor/bin/phpunit
 ```
 
 To check code coverage:
 
 ```bash
-# Docker Compose
 scripts/test-coverage.sh
-
-# Local PHP
-php -d xdebug.coverage_enable=On vendor/bin/phpunit --coverage-html test-coverage
 ```
 
 Then open `test-coverage/index.html` to view the results. Be aware of the [edge cases](https://phpunit.de/manual/current/en/code-coverage-analysis.html#code-coverage-analysis.edge-cases) in PHPUnit that can make it not-quite-accurate.
@@ -1072,31 +1050,10 @@ Then open `test-coverage/index.html` to view the results. Be aware of the [edge 
 To generate API docs using phpDocumentor:
 
 ```bash
-# Docker Compose
 scripts/phpdoc.sh
-
-# Local PHP
-mkdir -p api-docs/bin
-curl https://www.phpdoc.org/phpDocumentor.phar > api-docs/bin/phpdoc
-chmod +x api-docs/bin/phpdoc
-api-docs/bin/phpdoc
 ```
 
 **Note:** This currently fails for `BreadcrumbsManager` due to `function for(...)`, even though it's [valid PHP7 code](https://wiki.php.net/rfc/context_sensitive_lexer). 
-
-
-### Other useful Docker Compose scripts
-
-```bash
-# Composer
-scripts/composer.sh install
-
-# Install Laravel template in laravel-template/ (for upgrading test-app/)
-scripts/install-laravel-template.sh
-
-# Delete all generated files
-scripts/clean.sh
-```
 
 
  License

@@ -14,7 +14,3 @@ trim_trailing_whitespace = true
 # Markdown uses trailing whitespace to indicate continuation lines
 [*.{markdown,md}]
 trim_trailing_whitespace = false
-
-# Docker Compose
-[docker-compose.yml]
-indent_size = 2

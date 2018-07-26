@@ -7,9 +7,18 @@ cd "$(dirname "$0")/.."
 ################################################################################
 
 if [ ! -d vendor ]; then
-    scripts/composer.sh install
+    composer install
 fi
 
-scripts/docker-compose.sh run --rm phpunit-72 vendor/bin/phpunit "$@"
-echo
-scripts/docker-compose.sh run --rm phpunit-71 vendor/bin/phpunit "$@"
+has_run=false
+
+for executable in php7.2 php7.1; do
+    if command -v $executable >/dev/null 2>&1; then
+        $executable vendor/bin/phpunit "$@"
+        has_run=true
+    fi
+done
+
+if ! $has_run; then
+    php vendor/bin/phpunit "$@"
+fi

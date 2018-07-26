@@ -8,9 +8,6 @@
 
 /*.md export-ignore
 /*.xml export-ignore
-/*.yml export-ignore
 
-/docker export-ignore
 /scripts export-ignore
-/test-app export-ignore
 /tests export-ignore
