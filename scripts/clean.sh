@@ -10,6 +10,7 @@ cd "$(dirname "$0")/.."
 scripts/docker-compose.sh down --rmi all -v
 
 rm -rfv \
+    api-docs/ \
     composer.lock \
     docs/ \
     laravel-template/ \
