@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * Breadcrumbs facade - allows easy access to the Manager instance.
  *
- * @see \DaveJamesMiller\Breadcrumbs\BreadcrumbsManager
+ * @see BreadcrumbsManager
  */
 class Breadcrumbs extends Facade
 {
