@@ -9,7 +9,7 @@ If you don't like that, please remember this is free, open source software. The 
 says "The software is provided "as is", without warranty of any kind".
 
 Having said that, if you have a very specific question, and you're super-polite about it, I may help.
-If you just paste an error message and expect me to fix it, I definitely won't!
+If you just paste an error message and expect me to tell you how to fix it, I definitely won't!
 
 Thanks,
 Dave
