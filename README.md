@@ -927,6 +927,10 @@ Breadcrumbs::after(function (BreadcrumbsGenerator $trail) {
 *Laravel Breadcrumbs uses [Semantic Versioning](http://semver.org/).*
 
 
+### [v5.1.2](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.1.2) (Fri 14 Sep 2018)
+
+- Update [default config file](config/breadcrumbs.php) with the full list of available views
+
 ### [v5.1.1](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.1.1) (Wed 5 Sep 2018)
 
 - Add Laravel 5.7 support
