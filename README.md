@@ -56,7 +56,7 @@ Run this at the command line:
 composer require davejamesmiller/laravel-breadcrumbs:5.x
 ```
 
-This will both update `composer.json` and install the package into the `vendor/` directory.
+This will update `composer.json` and install the package into the `vendor/` directory.
 
 
 ### 2. Define your breadcrumbs
@@ -101,7 +101,7 @@ See the [Defining Breadcrumbs](#defining-breadcrumbs) section for more details.
 
 ### 3. Choose a template
 
-By default a [Bootstrap](https://v4-alpha.getbootstrap.com/components/breadcrumb/)-compatible ordered list will be rendered, so if you're using Bootstrap 4 you can skip this step.
+By default a [Bootstrap](https://getbootstrap.com/docs/4.0/components/breadcrumb/)-compatible ordered list will be rendered, so if you're using Bootstrap 4 you can skip this step.
 
 First initialise the config file by running this command:
 
@@ -117,7 +117,7 @@ Then open `config/breadcrumbs.php` and edit this line:
 
 The possible values are:
 
-- `breadcrumbs::bootstrap4` – [Bootstrap 4](https://v4-alpha.getbootstrap.com/components/breadcrumb/)
+- `breadcrumbs::bootstrap4` – [Bootstrap 4](https://getbootstrap.com/docs/4.0/components/breadcrumb/)
 - `breadcrumbs::bootstrap3` – [Bootstrap 3](http://getbootstrap.com/components/#breadcrumbs)
 - `breadcrumbs::bootstrap2` – [Bootstrap 2](http://getbootstrap.com/2.3.2/components.html#breadcrumbs)
 - `breadcrumbs::bulma` – [Bulma](http://bulma.io/documentation/components/breadcrumb/)
@@ -131,7 +131,7 @@ See the [Custom Templates](#custom-templates) section for more details.
 
 ### 4. Output the breadcrumbs
 
-Finally, call `Breadcrumbs::render()` in the view template for each page, passing it the name of the breadcrumb to use and any additional parameters – for example:
+Finally, call `Breadcrumbs::render()` in the view for each page, passing it the name of the breadcrumb to use and any additional parameters – for example:
 
 ```blade
 {{ Breadcrumbs::render('home') }}
@@ -216,7 +216,7 @@ Breadcrumbs::for('post', function ($trail, $post) {
 });
 ```
 
-The `$post` variable would simply be passed in from the view:
+The `$post` object would simply be passed in from the view:
 
 ```blade
 {{ Breadcrumbs::render('post', $post) }}
@@ -332,7 +332,7 @@ Alternatively you can skip the custom view and call `Breadcrumbs::generate()` to
  Outputting Breadcrumbs
 --------------------------------------------------------------------------------
 
-Call `Breadcrumbs::render()` in the view template for each page, passing it the name of the breadcrumb to use and any additional parameters.
+Call `Breadcrumbs::render()` in the view for each page, passing it the name of the breadcrumb to use and any additional parameters.
 
 
 ### With Blade
@@ -612,7 +612,7 @@ $trail->push('Sample');
 
 The `$breadcrumb->url` value will be `null`.
 
-The default Twitter Bootstrap templates provided render this with a CSS class of "active", the same as the last breadcrumb, because otherwise they default to black text not grey which doesn't look right.
+The default Bootstrap templates provided render this with a CSS class of "active", the same as the last breadcrumb, because otherwise they default to black text not grey which doesn't look right.
 
 
 ### Custom data
@@ -623,7 +623,7 @@ The `push()` method accepts an optional third parameter, `$data` – an array of
 $trail->push('Home', '/', ['icon' => 'home.png']);
 ```
 
-The `$data` array's entries will be merged into the breadcrumb as properties, so you would access the icon as ``$breadcrumb->icon`` in your template, like this:
+The `$data` array's entries will be merged into the breadcrumb as properties, so you would access the icon as `$breadcrumb->icon` in your template, like this:
 
 ```blade
 <li><a href="{{ $breadcrumb->url }}">
@@ -697,7 +697,7 @@ Or you can override the config setting to affect all future `render()` calls:
 Config::set('breadcrumbs.view', 'partials.breadcrumbs2');
 ```
 
-```php
+```blade
 {{ Breadcrumbs::render('category', $category) }}
 ```
 
