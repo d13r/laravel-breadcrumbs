@@ -82,6 +82,68 @@ class BreadcrumbsManager
     }
 
     /**
+     * Register a breadcumb for a resource route.
+     *
+     * @param string      $title
+     * @param string      $resource
+     * @param string|null $parent
+     * @param string      $create
+     * @param string      $edit
+     * @param string      $show
+     * @throws DuplicateBreadcrumbException
+     */
+    public function resource(
+        string $title,
+        string $resource,
+        string $parent = null,
+        string $create = "Create",
+        string $edit = "Edit",
+        string $show = "Show"
+    ) : void
+    {
+        $this->register("$resource.index", function (BreadcrumbsGenerator $generator) use (
+            $resource,
+            $title,
+            $parent
+        ) {
+            if ($parent) {
+                $generator->parent($parent);
+            }
+            $generator->push($title, route("$resource.index"));
+        });
+
+        $this->register("$resource.create", function (BreadcrumbsGenerator $generator) use (
+            $create,
+            $resource,
+            $title,
+            $parent
+        ) {
+            $generator->parent("$resource.index");
+            $generator->push($create, route("$resource.create"));
+        });
+
+        $this->register("$resource.edit", function (BreadcrumbsGenerator $generator, $model) use (
+            $edit,
+            $resource,
+            $title,
+            $parent
+        ) {
+            $generator->parent("$resource.index");
+            $generator->push($edit, route("$resource.edit", $model));
+        });
+
+        $this->register("$resource.show", function (BreadcrumbsGenerator $generator, $model) use (
+            $show,
+            $resource,
+            $title,
+            $parent
+        ) {
+            $generator->parent("$resource.index");
+            $generator->push($show, route("$resource.show", $model));
+        });
+    }
+
+    /**
      * Register a breadcrumb-generating callback for a page.
      *
      * For backwards-compatibility with v5.0.0 and below.
