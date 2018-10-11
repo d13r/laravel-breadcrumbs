@@ -813,6 +813,8 @@ Breadcrumbs::macro('pageTitle', function () {
 <title>{{ Breadcrumbs::pageTitle() }}</title>
 ```
 
+Or you could use it to add a `Breadcrumbs::resource()` shorthand method [[1](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/171)][[2](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/195)].
+
 
 ### Advanced customisations
 
