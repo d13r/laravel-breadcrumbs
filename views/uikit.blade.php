@@ -1,13 +1,13 @@
 @if (count($breadcrumbs))
-        <ul class="uk-breadcrumb">
+    <ul class="uk-breadcrumb">
         @foreach ($breadcrumbs as $breadcrumb)
-            <li>
-                @if ($breadcrumb->url && !$loop->last)
-                    <a href="{{ $breadcrumb->url }}">{{ $breadcrumb->title }}</a>
-                @else
-                    <span>{{ $breadcrumb->title }}</span>
-                @endif
-            </li>
+            @if ($loop->last)
+                <li><span>{{ $breadcrumb->title }}</span></li>
+            @elseif ($breadcrumb->url)
+                <li><a href="{{ $breadcrumb->url }}">{{ $breadcrumb->title }}</a></li>
+            @else
+                <li class="uk-disabled"><a>{{ $breadcrumb->title }}</a></li>
+            @endif
         @endforeach
     </ul>
 @endif
