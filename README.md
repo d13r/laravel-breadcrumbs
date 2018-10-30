@@ -123,7 +123,7 @@ The possible values are:
 - `breadcrumbs::bulma` – [Bulma](http://bulma.io/documentation/components/breadcrumb/)
 - `breadcrumbs::foundation6` – [Foundation 6](http://foundation.zurb.com/sites/docs/breadcrumbs.html)
 - `breadcrumbs::materialize` – [Materialize](http://materializecss.com/breadcrumbs.html)
-- `breadcrumbs::uikit` – [UiKit](https://getuikit.com/docs/breadcrumb)
+- `breadcrumbs::uikit` – [UIkit](https://getuikit.com/docs/breadcrumb)
 - `breadcrumbs::json-ld` – [JSON-LD Structured Data](https://developers.google.com/search/docs/data-types/breadcrumbs) (&lt;script&gt; tag, no visible output)
 - The path to a custom view: e.g. `partials.breadcrumbs`
 
