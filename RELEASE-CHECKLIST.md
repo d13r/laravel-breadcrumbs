@@ -2,8 +2,8 @@
 
 - [ ] Ensure the [README](README.md) is up to date, particularly the [changelog](README.md#changelog)
 - [ ] Merge the changes into the `master` branch (if applicable)
-- [ ] Make sure [all tests are passing](https://travis-ci.org/davejamesmiller/laravel-breadcrumbs)
 - [ ] Push the code changes to GitHub (`git push`)
+- [ ] Make sure [all tests are passing](https://travis-ci.org/davejamesmiller/laravel-breadcrumbs)
 - [ ] Tag the release (`git tag 1.2.3`)
 - [ ] Push the tag (`git push --tag`)
 
