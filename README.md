@@ -930,13 +930,21 @@ Breadcrumbs::after(function (BreadcrumbsGenerator $trail) {
 *Laravel Breadcrumbs uses [Semantic Versioning](http://semver.org/).*
 
 
+### [v5.2.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.2.0) (Tue 30 Oct 2018)
+
+- Add [UIkit](https://getuikit.com/docs/breadcrumb) template (`breadcrumbs::uikit`)
+  ([#196](https://github.com/davejamesmiller/laravel-breadcrumbs/issues/196) by [PieterHollevoet](https://github.com/PieterHollevoet))
+
+
 ### [v5.1.2](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.1.2) (Fri 14 Sep 2018)
 
 - Update [default config file](config/breadcrumbs.php) with the full list of available views
 
+
 ### [v5.1.1](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.1.1) (Wed 5 Sep 2018)
 
 - Add Laravel 5.7 support
+
 
 ### [v5.1.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.1.0) (Sat 5 May 2018)
 
