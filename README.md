@@ -26,7 +26,7 @@ A simple [Laravel](https://laravel.com/)-style way to create breadcrumbs.
 - [API Reference](#api-reference)
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
-- [No Technical Support](#no-technical-support)
+- [No Technical Support!](#no-technical-support)
 - [Changelog](#changelog)
 - [License](#license)
 
