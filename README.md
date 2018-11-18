@@ -24,6 +24,7 @@ A simple [Laravel](https://laravel.com/)-style way to create breadcrumbs.
 - [Route-Bound Breadcrumbs](#route-bound-breadcrumbs)
 - [Advanced Usage](#advanced-usage)
 - [API Reference](#api-reference)
+- [FAQ](#faq)
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
 - [No Technical Support!](#no-technical-support)
