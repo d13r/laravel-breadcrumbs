@@ -1035,9 +1035,9 @@ Sorry I wasn't able to help this time, but once you have solved your problem, pl
 
 **Bug fixes:** Please fix it and open a [pull request](https://github.com/davejamesmiller/laravel-breadcrumbs/pulls). ([See below](#developing-inside-your-application) for more detailed instructions.) Bonus points if you add a unit test to make sure it doesn't happen again!
 
-**New version of Laravel:** [See below](#new-version-of-laravel) for details of what needs to be changed to support a new version of Laravel.
+**New version of Laravel:** [See below](#new-version-of-laravel) for details of everything that needs to be changed to support a new version of Laravel. (Don't just change `composer.json` and ignore the rest!)
 
-**New features:** Only features with a clear use case and well-considered API will be accepted. They must be documented and include unit tests. If in doubt, make a proof-of-concept (either code or documentation) and open a [pull request](https://github.com/davejamesmiller/laravel-breadcrumbs/pulls) to discuss the details.
+**New features:** Only features with a clear use case and well-considered API will be accepted. They must be documented and include unit tests. If in doubt, make a proof-of-concept (either code or documentation) and open a [pull request](https://github.com/davejamesmiller/laravel-breadcrumbs/pulls) to discuss the details. (Tip: If you want a feature that's too specific to be included by default, see [Macros](#macros) or [Advanced customisations](#advanced-customisations) for ways to add them.)
 
 
 ### Creating a pull request
