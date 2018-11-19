@@ -940,7 +940,7 @@ Breadcrumbs::after(function (BreadcrumbsGenerator $trail) {
 
 ### There's a new version of Laravel - can you add support for it?
 
-If/when someone [submits a pull request](#contributing) I will. (Otherwise it won't be until I decide to upgrade my own applications.)
+Yes - if/when (1) someone [submits a pull request](#contributing) to add it, or (2) I decide to upgrade my own applications - whichever comes first. (In practice it's usually the former because I don't generally upgrade on day 1.)
 
 
 ### Why is there no Breadcrumbs::resource() method?
@@ -981,7 +981,7 @@ Breadcrumbs::resource('photos', 'Photos');
 Breadcrumbs::resource('users', 'Users');
 ```
 
-Note that this *doesn't* deal with translations or nested resources, and it assumes that all models have a `title` attribute. Adapt it as you see fit.
+Note that this *doesn't* deal with translations or nested resources, and it assumes that all models have a `title` attribute (which users probably don't). Adapt it however you see fit.
 
 
  Troubleshooting
