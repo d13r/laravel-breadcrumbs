@@ -359,6 +359,16 @@ In the page (e.g. `resources/views/home.blade.php`):
 ```blade
 @extends('layout.name')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('home') }}
+@endsection
+```
+
+Or using the shorthand syntax:
+
+```blade
+@extends('layout.name')
+
 @section('breadcrumbs', Breadcrumbs::render('home'))
 ```
 
