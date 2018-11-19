@@ -204,7 +204,7 @@ And results in this output:
 
 > [Home](#) / Blog
 
-Note that the default template does not create a link for the last breadcrumb (the one for the current page), even when a URL is specified. You can override this by creating your own template – see [Custom Templates](#custom-templates) for more details.
+Note that the default templates do not create a link for the last breadcrumb (the one for the current page), even when a URL is specified. You can override this by creating your own template – see [Custom Templates](#custom-templates) for more details.
 
 
 ### Dynamic titles and links
