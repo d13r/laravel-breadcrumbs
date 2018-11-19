@@ -1141,7 +1141,7 @@ When a new version of Laravel is released, these files will need to be updated:
 
 Run `composer update` to install the new version of Laravel, and `scripts/test.sh` to make sure everything still works.
 
-If everything does work, it can be released as a patch version. If changes are needed, it may need to be a minor version ([consult SemVer](https://semver.org/)). If there are major changes in Laravel, I will release a new major version that drops support for old versions of Laravel, rather than attempting to support both in one codebase. Please update the README accordingly.
+If everything does work, it can be released as a patch version. If changes are needed, it may need to be a minor version ([consult semver.org](https://semver.org/#spec-item-6)). If there are major changes in Laravel, I will release a new major version that drops support for old versions of Laravel, rather than attempting to support both in one codebase. Please update the README accordingly.
 
 
  No Technical Support!
