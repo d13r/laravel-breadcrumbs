@@ -49,6 +49,8 @@ A simple [Laravel](https://laravel.com/)-style way to create breadcrumbs.
 
 ***Note:** If you are using an older version, click it in the table above to see the documentation for that version.*
 
+***Note 2:** If you think this documentation can be improved in any way, please [edit this file](https://github.com/davejamesmiller/laravel-breadcrumbs/edit/master/README.md) and make a pull request.*
+
 ### 1. Install Laravel Breadcrumbs
 
 Run this at the command line:
@@ -1023,7 +1025,7 @@ Note that this *doesn't* deal with translations or nested resources, and it assu
 
 #### Something else
 
-Once you have solved your problem, please [edit this file](https://github.com/davejamesmiller/laravel-breadcrumbs/edit/master/README.md) with the solution to help the next person!
+Sorry I wasn't able to help this time, but once you have solved your problem, please [edit this file](https://github.com/davejamesmiller/laravel-breadcrumbs/edit/master/README.md) with the solution to help the next person!
 
 
  Contributing
