@@ -501,7 +501,7 @@ And to `Breadcrumbs::view()`:
 
 ### Route binding exceptions
 
-It will throw an `InvalidBreadcrumbException` if the breadcrumb doesn't exist, to remind you to create one. To prevent this, first initialise the config file, if you haven't already:
+It will throw an `InvalidBreadcrumbException` if the breadcrumb doesn't exist, to remind you to create one. To disable this (e.g. if you have some pages with no breadcrumbs), first initialise the config file, if you haven't already:
 
 ```bash
 php artisan vendor:publish --provider="DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider"
@@ -513,7 +513,7 @@ Then open `config/breadcrumbs.php` and set this value:
     'missing-route-bound-breadcrumb-exception' => false,
 ```
 
-Similarly to prevent it throwing an `UnnamedRouteException` if the current route doesn't have a name set this value:
+Similarly, to prevent it throwing an `UnnamedRouteException` if the current route doesn't have a name, set this value:
 
 ```php
     'unnamed-route-exception' => false,
