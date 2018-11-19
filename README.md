@@ -372,7 +372,7 @@ Or using the shorthand syntax:
 @section('breadcrumbs', Breadcrumbs::render('home'))
 ```
 
-In the layout (e.g. `resources/views/app.blade.php`):
+And in the layout (e.g. `resources/views/layout/name.blade.php`):
 
 ```blade
 @yield('breadcrumbs')
@@ -387,7 +387,7 @@ In the page (e.g. `resources/views/home.php`):
 <?= Breadcrumbs::render('home') ?>
 ```
 
-Or use the long-hand syntax if you prefer:
+Or use the longhand syntax if you prefer:
 
 ```blade
 <?php echo Breadcrumbs::render('home') ?>
