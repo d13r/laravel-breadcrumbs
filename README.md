@@ -218,7 +218,7 @@ Breadcrumbs::for('post', function ($trail, $post) {
 });
 ```
 
-The `$post` object would simply be passed in from the view:
+The `$post` object (probably an [Eloquent](https://laravel.com/docs/5.7/eloquent) model, but could be anything) would simply be passed in from the view:
 
 ```blade
 {{ Breadcrumbs::render('post', $post) }}
