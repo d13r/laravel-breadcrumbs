@@ -610,6 +610,8 @@ Breadcrumbs::for('photo.edit', function ($trail, $photo) {
 
 For more details see [Resource Controllers](https://laravel.com/docs/5.5/controllers#resource-controllers) in the Laravel documentation.
 
+(Related FAQ: [Why is there no Breadcrumbs::resource() method?](#why-is-there-no-breadcrumbsresource-method).)
+
 
  Advanced Usage
 --------------------------------------------------------------------------------
@@ -941,7 +943,7 @@ Breadcrumbs::after(function (BreadcrumbsGenerator $trail) {
 If/when someone [submits a pull request](#contributing) I will. (Otherwise it won't be until I decide to upgrade my own applications.)
 
 
-### Can you add a Breadcrumbs::resource() method?
+### Why is there no Breadcrumbs::resource() method?
 
 A few people have suggested adding `Breadcrumbs::resource()` to match [`Route::resource()`](https://laravel.com/docs/5.7/controllers#resource-controllers), but no-one has come up with a good implementation that (a) is flexible enough to deal with translations, nested resources, etc., and (b) isn't overly complex as a result.
 
