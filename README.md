@@ -609,6 +609,15 @@ Breadcrumbs::for('photo.edit', function ($trail, $photo) {
     $trail->push('Edit Photo', route('photo.edit', $photo->id));
 });
 ```
+In newer versions of Laravel -- I'm using 5.7.11 -- resource controllers must pass in parameters differently. Following the above will throw a ```UrlGenerationException```. In most recent versions, Resource controllers pass only an ```$id``` rather than an associative array of parameters. So follow this paradigm instead:
+
+```
+// Photos > [Photo Name] > Edit Photo
+Breadcrumbs::for('photo.edit', function ($trail, $photoId) {
+    $trail->parent('photo.show', $photo);
+    $trail->push('Edit Photo', route('photo.edit', $photoId));
+});
+```
 
 For more details see [Resource Controllers](https://laravel.com/docs/5.5/controllers#resource-controllers) in the Laravel documentation.
 
@@ -945,7 +954,8 @@ Breadcrumbs::after(function (BreadcrumbsGenerator $trail) {
 Yes - if/when (1) someone [submits a pull request](#contributing) to add it, or (2) I decide to upgrade my own applications - whichever comes first. (In practice it's usually the former because I don't generally upgrade on day 1.)
 
 
-### Why is there no Breadcrumbs::resource() method?
+### Why is there no Breadcrumbs::
+() method?
 
 A few people have suggested adding `Breadcrumbs::resource()` to match [`Route::resource()`](https://laravel.com/docs/5.7/controllers#resource-controllers), but no-one has come up with a good implementation that (a) is flexible enough to deal with translations, nested resources, etc., and (b) isn't overly complex as a result.
 
