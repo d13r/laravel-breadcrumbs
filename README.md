@@ -37,8 +37,8 @@ A simple [Laravel](https://laravel.com/)-style way to create breadcrumbs.
 
 | Laravel Breadcrumbs                                                    | Laravel   | PHP  |
 |------------------------------------------------------------------------|-----------|------|
-| **5.2.1+**                                                             | 5.6 - 5.8 | 7.1+ |
-| **5.1.1+**                                                             | 5.6 – 5.7 | 7.1+ |
+| **5.2.1+**                                                             | 5.6 – 5.8 | 7.1+ |
+| 5.1.1 – 5.2.0                                                          | 5.6 – 5.7 | 7.1+ |
 | 5.0.0 – 5.1.0                                                          | 5.6       | 7.1+ |
 | [4.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.x) | 5.5       | 7.0+ |
 | [3.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.x) | 5.0 – 5.4 | 5.4+ |
@@ -1022,7 +1022,7 @@ Note that this *doesn't* deal with translations or nested resources, and it assu
 
 #### Method for does not exist
 
-- You're probably using a version [older than 5.1](#v510-sat-5-may-2018) - use `Breadcrumbs::register()` instead of `Breadcrumbs::for()`.
+- You're probably using a version [older than 5.1](#v510-sat-5-may-2018) - use `Breadcrumbs::register()` instead of `Breadcrumbs::for()` (or upgrade).
 
 #### Something else
 
@@ -1172,9 +1172,9 @@ So if you get stuck, *please* don't expect me to help! Here are some alternate s
 *Laravel Breadcrumbs uses [Semantic Versioning](http://semver.org/).*
 
 
-### [v5.2.1](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.2.1) (Tue 26 Feb 2019)
+### [v5.2.1](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.2.1) (Wed 27 Feb 2019)
 
-- Add Laravel 5.8 support
+- Add Laravel 5.8 support (thanks to [Andrew Dabich](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/203))
 
 
 ### [v5.2.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.2.0) (Tue 30 Oct 2018)
@@ -1232,7 +1232,7 @@ No changes are required, but I recommend updating your `routes/breadcrumbs.php` 
 
 *[MIT License](https://choosealicense.com/licenses/mit/)*
 
-**Copyright © 2013-2018 Dave James Miller**
+**Copyright © 2013-2019 Dave James Miller**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
