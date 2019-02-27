@@ -11,7 +11,7 @@ use Route;
 // It's not officially deprecated, but may be in the future.
 class RegisterFunctionTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

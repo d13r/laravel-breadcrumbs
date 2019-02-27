@@ -8,6 +8,7 @@ use DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException;
 use DaveJamesMiller\Breadcrumbs\Exceptions\ViewNotSetException;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Traits\Macroable;
@@ -279,7 +280,7 @@ class BreadcrumbsManager
         $name = $route->getName();
 
         if ($name === null) {
-            $uri = array_first($route->methods()) . ' /' . ltrim($route->uri(), '/');
+            $uri = Arr::first($route->methods()) . ' /' . ltrim($route->uri(), '/');
 
             throw new UnnamedRouteException("The current route ($uri) is not named");
         }
