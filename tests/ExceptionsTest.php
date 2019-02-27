@@ -11,22 +11,20 @@ class ExceptionsTest extends TestCase
 {
     // Also see RouteBoundTest which tests the route binding-related exceptions
 
-    /**
-     * @expectedException \DaveJamesMiller\Breadcrumbs\Exceptions\DuplicateBreadcrumbException
-     * @expectedExceptionMessage Breadcrumb name "duplicate" has already been registered
-     */
     public function testDuplicateBreadcrumbException()
     {
+        $this->expectException(\DaveJamesMiller\Breadcrumbs\Exceptions\DuplicateBreadcrumbException::class);
+        $this->expectExceptionMessage('Breadcrumb name "duplicate" has already been registered');
+
         Breadcrumbs::for('duplicate', function () { });
         Breadcrumbs::for('duplicate', function () { });
     }
 
-    /**
-     * @expectedException \DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException
-     * @expectedExceptionMessage Breadcrumb not found with name "invalid"
-     */
     public function testInvalidBreadcrumbException()
     {
+        $this->expectException(\DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException::class);
+        $this->expectExceptionMessage('Breadcrumb not found with name "invalid"');
+
         Breadcrumbs::render('invalid');
     }
 
@@ -41,12 +39,11 @@ class ExceptionsTest extends TestCase
         ', $html);
     }
 
-    /**
-     * @expectedException \DaveJamesMiller\Breadcrumbs\Exceptions\ViewNotSetException
-     * @expectedExceptionMessage Breadcrumbs view not specified (check config/breadcrumbs.php)
-     */
     public function testViewNotSetException()
     {
+        $this->expectException(\DaveJamesMiller\Breadcrumbs\Exceptions\ViewNotSetException::class);
+        $this->expectExceptionMessage('Breadcrumbs view not specified (check config/breadcrumbs.php)');
+
         Config::set('breadcrumbs.view', '');
 
         Breadcrumbs::for('home', function ($trail) {

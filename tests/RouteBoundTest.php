@@ -156,12 +156,11 @@ class RouteBoundTest extends TestCase
         ', $html);
     }
 
-    /**
-     * @expectedException \DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException
-     * @expectedExceptionMessage Breadcrumb not found with name "home"
-     */
     public function testMissingBreadcrumbException()
     {
+        $this->expectException(\DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException::class);
+        $this->expectExceptionMessage('Breadcrumb not found with name "home"');
+
         Route::name('home')->get('/', function () {
             return Breadcrumbs::render();
         });
@@ -184,12 +183,11 @@ class RouteBoundTest extends TestCase
         ', $html);
     }
 
-    /**
-     * @expectedException \DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException
-     * @expectedExceptionMessage The current route (GET /blog) is not named
-     */
     public function testUnnamedRouteException()
     {
+        $this->expectException(\DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException::class);
+        $this->expectExceptionMessage('The current route (GET /blog) is not named');
+
         Route::get('/blog', function () {
             return Breadcrumbs::render();
         });
@@ -197,12 +195,11 @@ class RouteBoundTest extends TestCase
         throw $this->get('/blog')->exception;
     }
 
-    /**
-     * @expectedException \DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException
-     * @expectedExceptionMessage The current route (GET /) is not named
-     */
     public function testUnnamedHomeRouteException()
     {
+        $this->expectException(\DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException::class);
+        $this->expectExceptionMessage('The current route (GET /) is not named');
+
         // Make sure the message is "GET /" not "GET //"
         Route::get('/', function () {
             return Breadcrumbs::render();

@@ -258,11 +258,10 @@ class AdvancedUsageTest extends TestCase
         ', $html);
     }
 
-    /**
-     * @expectedException \DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException
-     */
     public function testClearCurrentRoute()
     {
+        $this->expectException(\DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException::class);
+
         Breadcrumbs::for('sample', function ($trail, $a, $b) {
             $trail->push("Sample $a, $b");
         });
