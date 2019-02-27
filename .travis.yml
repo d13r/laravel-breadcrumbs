@@ -21,7 +21,7 @@ install:
   - travis_retry composer require --dev "laravel/framework:${Laravel}.*" --no-interaction
 
 script:
-  - phpunit --coverage-clover build/logs/clover.xml
+  - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
 after_success:
   - travis_retry php vendor/bin/coveralls -v
