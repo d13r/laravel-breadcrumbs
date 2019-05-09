@@ -2,15 +2,16 @@
 
 namespace BreadcrumbsTests;
 
-use Breadcrumbs;
-use Illuminate\Contracts\Support\Htmlable;
+use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use LogicException;
-use Route;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Route;
 
 // Breadcrumbs::register() was renamed Breadcrumbs::for() in v5.1.0 but is still supported for backwards compatibility.
 // It's not officially deprecated, but may be in the future.
-class RegisterFunctionTest extends TestCase
+class ToGoogleStructuredDataTest extends TestCase
 {
+    protected $category, $post;
     protected function setUp(): void
     {
         parent::setUp();
@@ -70,73 +71,36 @@ class RegisterFunctionTest extends TestCase
 
     public function testGenerate()
     {
-        $breadcrumbs = Breadcrumbs::generate('post', $this->post);
+        $googleStructuredData = Breadcrumbs::toGoogleStructuredData('post', $this->post);
 
-        $this->assertCount(4, $breadcrumbs);
+        $this->assertSame('https://schema.org', $googleStructuredData['@context']);
 
-        $this->assertSame('Home', $breadcrumbs[0]->title);
-        $this->assertSame('http://localhost', $breadcrumbs[0]->url);
+        $this->assertSame('BreadcrumbList', $googleStructuredData['@type']);
 
-        $this->assertSame('Blog', $breadcrumbs[1]->title);
-        $this->assertSame('http://localhost/blog', $breadcrumbs[1]->url);
+        $this->assertCount(4, $googleStructuredData['itemListElement']);
 
-        $this->assertSame('Sample Category', $breadcrumbs[2]->title);
-        $this->assertSame('http://localhost/blog/category/456', $breadcrumbs[2]->url);
+        $this->assertSame('ListItem', $googleStructuredData['itemListElement'][0]['@type']);
+        $this->assertSame('http://localhost', $googleStructuredData['itemListElement'][0]['item']);
+        $this->assertSame(1, $googleStructuredData['itemListElement'][0]['position']);
+        $this->assertSame('Home', $googleStructuredData['itemListElement'][0]['name']);
 
-        $this->assertSame('Sample Post', $breadcrumbs[3]->title);
-        $this->assertSame('http://localhost/blog/post/123', $breadcrumbs[3]->url);
-    }
 
-    public function testRenderHome()
-    {
-        $rendered = Breadcrumbs::render('home');
-        $html     = $rendered->toHtml();
+        $this->assertSame('ListItem', $googleStructuredData['itemListElement'][1]['@type']);
+        $this->assertSame('http://localhost/blog', $googleStructuredData['itemListElement'][1]['item']);
+        $this->assertSame(2, $googleStructuredData['itemListElement'][1]['position']);
+        $this->assertSame('Blog', $googleStructuredData['itemListElement'][1]['name']);
 
-        $this->assertInstanceOf(Htmlable::class, $rendered);
+        $this->assertSame('ListItem', $googleStructuredData['itemListElement'][2]['@type']);
+        $this->assertSame('http://localhost/blog/category/456', $googleStructuredData['itemListElement'][2]['item']);
+        $this->assertSame(3, $googleStructuredData['itemListElement'][2]['position']);
+        $this->assertSame('Sample Category', $googleStructuredData['itemListElement'][2]['name']);
 
-        $this->assertXmlStringEqualsXmlString('
-            <ol>
-                <li class="current">Home</li>
-            </ol>
-        ', $html);
-    }
+        $this->assertSame('ListItem', $googleStructuredData['itemListElement'][3]['@type']);
+        $this->assertSame('http://localhost/blog/post/123', $googleStructuredData['itemListElement'][3]['item']);
+        $this->assertSame(4, $googleStructuredData['itemListElement'][3]['position']);
+        $this->assertSame('Sample Post', $googleStructuredData['itemListElement'][3]['name']);
 
-    public function testRenderBlog()
-    {
-        $html = Breadcrumbs::render('blog')->toHtml();
-
-        $this->assertXmlStringEqualsXmlString('
-            <ol>
-                <li><a href="http://localhost">Home</a></li>
-                <li class="current">Blog</li>
-            </ol>
-        ', $html);
-    }
-
-    public function testRenderCategory()
-    {
-        $html = Breadcrumbs::render('category', $this->category)->toHtml();
-
-        $this->assertXmlStringEqualsXmlString('
-            <ol>
-                <li><a href="http://localhost">Home</a></li>
-                <li><a href="http://localhost/blog">Blog</a></li>
-                <li class="current">Sample Category</li>
-            </ol>
-        ', $html);
-    }
-
-    public function testRenderPost()
-    {
-        $html = Breadcrumbs::render('post', $this->post)->toHtml();
-
-        $this->assertXmlStringEqualsXmlString('
-            <ol>
-                <li><a href="http://localhost">Home</a></li>
-                <li><a href="http://localhost/blog">Blog</a></li>
-                <li><a href="http://localhost/blog/category/456">Sample Category</a></li>
-                <li class="current">Sample Post</li>
-            </ol>
-        ', $html);
+        $this->assertInstanceOf(Collection::class, $googleStructuredData);
+        $this->assertInstanceOf(Collection::class, $googleStructuredData['itemListElement']);
     }
 }
