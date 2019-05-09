@@ -314,4 +314,25 @@ class BreadcrumbsManager
     {
         $this->route = null;
     }
+
+    /**
+     * It simply creates a Google Structured Data structure.
+     * @param string $name
+     * @param mixed ...$params
+     * @return \Illuminate\Support\Collection
+     */
+    public function toGoogleStructuredData (string $name, ...$params) {
+        return collect([
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => $this->generate($name, ...$params)->map(function ($breadcrumb, $key) {
+                return [
+                    '@type' => 'ListItem',
+                    'position' => $key + 1,
+                    'name' => $breadcrumb->title,
+                    'item' => $breadcrumb->url
+                ];
+            })
+        ]);
+    }
 }
