@@ -845,32 +845,59 @@ For more advanced customisations you can subclass BreadcrumbsManager and/or Brea
 
 (**Note:** Anything that's not part of the public API (see below) may change between releases, so I suggest you write unit tests to ensure it doesn't break when upgrading.)
 
+### Google Structured Data Support
+You can easily convert to Google Structural Data.
+```php
+$GoogleStructureData = Breadcrumbs::toGoogleStructuredData('posts');
+```
+```json
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "http://localhost:1000"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Posts",
+            "item": "http://localhost:1000/posts"
+        }
+    ]
+}
+```
+(**Note** It is important to remember that the return value always has the `Collection`. If you want to get JSON output, you must call `toJson`)
 
  API Reference
 --------------------------------------------------------------------------------
 
 ### `Breadcrumbs` Facade
 
-| Method                                                              | Returns    | Added in |
-|---------------------------------------------------------------------|------------|----------|
-| `Breadcrumbs::for(string $name, closure $callback)`                 | void       | 5.1.0    |
-| `Breadcrumbs::register(string $name, closure $callback)`            | void       | 1.0.0    |
-| `Breadcrumbs::before(closure $callback)`                            | void       | 4.0.0    |
-| `Breadcrumbs::after(closure $callback)`                             | void       | 4.0.0    |
-| `Breadcrumbs::exists()`                                             | boolean    | 2.2.0    |
-| `Breadcrumbs::exists(string $name)`                                 | boolean    | 2.2.0    |
-| `Breadcrumbs::generate()`                                           | Collection | 2.2.3    |
-| `Breadcrumbs::generate(string $name)`                               | Collection | 1.0.0    |
-| `Breadcrumbs::generate(string $name, mixed $param1, ...)`           | Collection | 1.0.0    |
-| `Breadcrumbs::render()`                                             | string     | 2.2.0    |
-| `Breadcrumbs::render(string $name)`                                 | string     | 1.0.0    |
-| `Breadcrumbs::render(string $name, mixed $param1, ...)`             | string     | 1.0.0    |
-| `Breadcrumbs::view(string $view)`                                   | string     | 4.0.0    |
-| `Breadcrumbs::view(string $view, string $name)`                     | string     | 4.0.0    |
-| `Breadcrumbs::view(string $view, string $name, mixed $param1, ...)` | string     | 4.0.0    |
-| `Breadcrumbs::setCurrentRoute(string $name)`                        | void       | 2.2.0    |
-| `Breadcrumbs::setCurrentRoute(string $name, mixed $param1, ...)`    | void       | 2.2.0    |
-| `Breadcrumbs::clearCurrentRoute()`                                  | void       | 2.2.0    |
+| Method                                                                    | Returns    | Added in |
+|---------------------------------------------------------------------------|------------|----------|
+| `Breadcrumbs::for(string $name, closure $callback)`                       | void       | 5.1.0    |
+| `Breadcrumbs::register(string $name, closure $callback)`                  | void       | 1.0.0    |
+| `Breadcrumbs::before(closure $callback)`                                  | void       | 4.0.0    |
+| `Breadcrumbs::after(closure $callback)`                                   | void       | 4.0.0    |
+| `Breadcrumbs::exists()`                                                   | boolean    | 2.2.0    |
+| `Breadcrumbs::exists(string $name)`                                       | boolean    | 2.2.0    |
+| `Breadcrumbs::generate()`                                                 | Collection | 2.2.3    |
+| `Breadcrumbs::generate(string $name)`                                     | Collection | 1.0.0    |
+| `Breadcrumbs::generate(string $name, mixed $param1, ...)`                 | Collection | 1.0.0    |
+| `Breadcrumbs::render()`                                                   | string     | 2.2.0    |
+| `Breadcrumbs::render(string $name)`                                       | string     | 1.0.0    |
+| `Breadcrumbs::render(string $name, mixed $param1, ...)`                   | string     | 1.0.0    |
+| `Breadcrumbs::view(string $view)`                                         | string     | 4.0.0    |
+| `Breadcrumbs::view(string $view, string $name)`                           | string     | 4.0.0    |
+| `Breadcrumbs::view(string $view, string $name, mixed $param1, ...)`       | string     | 4.0.0    |
+| `Breadcrumbs::setCurrentRoute(string $name)`                              | void       | 2.2.0    |
+| `Breadcrumbs::setCurrentRoute(string $name, mixed $param1, ...)`          | void       | 2.2.0    |
+| `Breadcrumbs::clearCurrentRoute()`                                        | void       | 2.2.0    |
+| `Breadcrumbs::toGoogleStructuredData(string $name, mixed $param1, ...)`   | Collection | DEV      |
 
 [Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/src/BreadcrumbsManager.php)
 
