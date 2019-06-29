@@ -1034,7 +1034,7 @@ Sorry I wasn't able to help this time, but once you have solved your problem, pl
 
 **Documentation:** If you think the documentation can be improved in any way, please do [edit this file](https://github.com/davejamesmiller/laravel-breadcrumbs/edit/master/README.md) and make a pull request.
 
-**Bug fixes:** Please fix it and open a [pull request](https://github.com/davejamesmiller/laravel-breadcrumbs/pulls). ([See below](#developing-inside-your-application) for more detailed instructions.) Bonus points if you add a unit test to make sure it doesn't happen again!
+**Bug fixes:** Please fix it and open a [pull request](https://github.com/davejamesmiller/laravel-breadcrumbs/pulls). ([See below](#creating-a-pull-request) for more detailed instructions.) Bonus points if you add a unit test to make sure it doesn't happen again!
 
 **New version of Laravel:** [See below](#new-version-of-laravel) for details of everything that needs to be changed to support a new version of Laravel. (Don't just change `composer.json` and ignore the rest!)
 
