@@ -10,15 +10,23 @@ php:
   - 7.3
   - 7.2
   - 7.1
+  - 7.4snapshot # https://travis-ci.community/t/add-php-7-4-branch-to-test-against/2179
 
 env:
   matrix:
-    - Laravel=5.8
-    - Laravel=5.7
-    - Laravel=5.6
+    - Laravel=5.8.*
+    - Laravel=5.7.*
+    - Laravel=5.6.*
+    - Laravel=dev-master
+
+matrix:
+  allow_failures:
+    - php: 7.4snapshot
+    - env: Laravel=dev-master
+  fast_finish: true
 
 install:
-  - travis_retry composer require --dev "laravel/framework:${Laravel}.*" --no-interaction
+  - travis_retry composer require --dev "laravel/framework:${Laravel}" --no-interaction
 
 script:
   - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
