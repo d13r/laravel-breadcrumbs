@@ -28,7 +28,7 @@ A simple [Laravel](https://laravel.com/)-style way to create breadcrumbs.
 - [FAQ](#faq)
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
-- [No Technical Support!](#no-technical-support)
+- [No Technical Support](#no-technical-support)
 - [Changelog](#changelog)
 - [License](#license)
 
@@ -1146,25 +1146,25 @@ Run `composer update` to install the new version of Laravel, and `scripts/test.s
 If everything does work, it can be released as a patch version. If changes are needed, it may need to be a minor version ([consult semver.org](https://semver.org/#spec-item-6)). If there are major changes in Laravel, I will release a new major version that drops support for old versions of Laravel, rather than attempting to support both in one codebase. Please update the README accordingly.
 
 
- No Technical Support!
+ No Technical Support
 --------------------------------------------------------------------------------
 
-Sorry, **I don't offer any technical support**, and GitHub Issues are disabled. I won't figure out why it's not working for you. I won't fix bugs for you. I won't write new features on request.
+Sorry, I don't offer any technical support, and GitHub Issues are disabled.
 
-Maybe that seems unfair to you? If so, please remember this is **free** open source software. The license even says `The software is provided "as is", without warranty of any kind`. I wrote it for my own benefit, *not* yours.
+(That means I won't figure out why it's not working for you, I won't fix bugs for you, and I won't write new features on request. This is **free** open source software - the license even says `The software is provided "as is", without warranty of any kind`. I wrote it for my own benefit, *not* yours.)
 
-**But** the beauty of open source is you can do whatever you want with it! You can fork it, fix it, improve it and extend it. If you think other people would benefit from your changes, you can submit a [pull request](https://github.com/davejamesmiller/laravel-breadcrumbs/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc) to have your changes included in the next release. Yes it requires some effort on your part, but why should I do all the work?
+**But** the beauty of open source is you can do whatever you want with it! You can fork it, fix it, improve it and extend it. If you don't want to maintain your own fork, and you think other people would benefit from your changes, you can submit a [pull request](https://github.com/davejamesmiller/laravel-breadcrumbs/pulls) to have your changes included in the next release. (Yes it requires some effort on your part, but why should I do all the work?)
 
-So if you get stuck, *please* don't expect me to help! Here are some alternate suggestions:
+If you get really stuck, I suggest you:
 
-- Read and re-read both this file and the [Laravel documentation](https://laravel.com/docs) to see if you missed something.
-- Dive into the source code and spend some time figuring out how it's meant to work.
-- Try to reproduce the problem on a brand new Laravel project, in case it's an incompatibility with another package or your other code.
-- Ask your colleagues to help you debug it.
-- Pay someone more experienced to help you. (If you work for a company, ask your boss to pay them.)
-- Try posting on [Stack Overflow](https://stackoverflow.com/search?q=laravel+breadcrumbs), [Laravel.io Forum](https://laravel.io/forum) or [Laracasts Forum](https://laracasts.com/discuss). (I can't promise anyone will answer though - they don't get paid either.)
-- Use a different package instead.
-- Write your own breadcrumbs generator.
+1. Read and re-read both this file and the [Laravel documentation](https://laravel.com/docs) to see if you missed something.
+2. Dive into the source code and spend some time figuring out how it's meant to work and what's actually happening.
+3. Try to reproduce the problem on a brand new Laravel project, in case it's an incompatibility with another package or your other code.
+4. Ask your colleagues to help you debug it, if you work in a team.
+5. Pay someone more experienced to help you (or if you work for a company, ask your boss to pay them).
+6. Try posting on [Stack Overflow](https://stackoverflow.com/search?q=laravel+breadcrumbs), [Laravel.io Forum](https://laravel.io/forum) or [Laracasts Forum](https://laracasts.com/discuss) (but I can't promise anyone will answer - they don't get paid either).
+7. Use a different package instead.
+8. Write your own breadcrumbs generator.
 
 
  Changelog
