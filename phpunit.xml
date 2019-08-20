@@ -2,10 +2,12 @@
 <phpunit
     backupGlobals="false"
     backupStaticAttributes="false"
+    beStrictAboutChangesToGlobalState="true"
     beStrictAboutOutputDuringTests="true"
+    beStrictAboutCoversAnnotation="true"
     beStrictAboutTestsThatDoNotTestAnything="true"
     bootstrap="vendor/autoload.php"
-    beStrictAboutCoversAnnotation="true"
+    cacheResult="true"
     colors="true"
     convertErrorsToExceptions="true"
     convertNoticesToExceptions="true"

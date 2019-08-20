@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ul class="breadcrumb">
+  <li>
+    <a href="http://localhost">Home</a>
+    <span class="divider">/</span>
+  </li>
+  <li class="active">
+                    Blog
+                    <span class="divider">/</span>
+                </li>
+  <li class="active">
+                    Sample Category
+                </li>
+</ul>

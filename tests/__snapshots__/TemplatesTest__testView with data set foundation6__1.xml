@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<nav aria-label="You are here:" role="navigation">
+  <ul class="breadcrumbs">
+    <li>
+      <a href="http://localhost">Home</a>
+    </li>
+    <li class="disabled">Blog</li>
+    <li class="current"><span class="show-for-sr">Current:</span> Sample Category</li>
+  </ul>
+</nav>

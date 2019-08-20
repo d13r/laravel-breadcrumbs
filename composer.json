@@ -21,7 +21,8 @@
         "laravel/framework": "5.6.*|5.7.*|5.8.*|dev-master",
         "orchestra/testbench": "3.6.*|3.7.*|3.8.*|3.9.x-dev",
         "phpunit/phpunit": "7.*",
-        "php-coveralls/php-coveralls": "^1.0"
+        "php-coveralls/php-coveralls": "^1.0",
+        "spatie/phpunit-snapshot-assertions": "^2.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

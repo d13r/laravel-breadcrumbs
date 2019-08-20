@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<nav class="breadcrumb" aria-label="breadcrumbs">
+  <ul>
+    <li>
+      <a href="http://localhost">Home</a>
+    </li>
+    <li class="is-active">
+      <a>Blog</a>
+    </li>
+    <li class="is-active">
+      <a href="http://localhost/blog/category/456" aria-current="page">Sample Category</a>
+    </li>
+  </ul>
+</nav>

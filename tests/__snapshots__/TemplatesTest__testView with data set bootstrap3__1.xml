@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<ol class="breadcrumb">
+  <li>
+    <a href="http://localhost">Home</a>
+  </li>
+  <li class="active">Blog</li>
+  <li class="active">Sample Category</li>
+</ol>

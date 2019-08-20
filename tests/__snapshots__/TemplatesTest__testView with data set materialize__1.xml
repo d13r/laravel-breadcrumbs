@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<nav>
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <a href="http://localhost" class="breadcrumb">Home</a>
+      <span class="breadcrumb">Blog</span>
+      <span class="breadcrumb">Sample Category</span>
+    </div>
+  </div>
+</nav>

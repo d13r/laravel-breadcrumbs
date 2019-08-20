@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ul class="uk-breadcrumb">
+  <li>
+    <a href="http://localhost">Home</a>
+  </li>
+  <li class="uk-disabled">
+    <a>Blog</a>
+  </li>
+  <li>
+    <span>Sample Category</span>
+  </li>
+</ul>
