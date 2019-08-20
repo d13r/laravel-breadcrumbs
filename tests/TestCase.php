@@ -22,12 +22,11 @@ abstract class TestCase extends TestbenchTestCase
         ];
     }
 
-    protected function getEnvironmentSetUp($app)
+    protected function resolveApplicationConfiguration($app)
     {
-        $app->config->set('view.paths', [__DIR__ . '/resources/views']);
+        parent::resolveApplicationConfiguration($app);
 
+        $app->config->set('view.paths', [__DIR__ . '/resources/views']);
         $app->config->set('breadcrumbs.view', 'breadcrumbs');
     }
-
-
 }
