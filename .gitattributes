@@ -7,7 +7,9 @@
 /.gitignore export-ignore
 
 /*.md export-ignore
+/*.svg export-ignore
 /*.xml export-ignore
+/*.yml export-ignore
 
 /scripts export-ignore
 /tests export-ignore
