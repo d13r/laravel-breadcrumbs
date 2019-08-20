@@ -20,6 +20,9 @@ env:
     - Laravel=6.0.x-dev
 
 matrix:
+  exclude:
+    - php: 7.1
+      env: Laravel=6.0.x-dev
   allow_failures:
     - php: 7.4snapshot
     - env: Laravel=6.0.x-dev
