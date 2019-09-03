@@ -7,17 +7,17 @@ cache:
     - $HOME/.composer/cache/files
 
 php:
+  - 7.4snapshot # https://travis-ci.community/t/add-php-7-4-branch-to-test-against/2179
   - 7.3
   - 7.2
   - 7.1
-  - 7.4snapshot # https://travis-ci.community/t/add-php-7-4-branch-to-test-against/2179
 
 env:
   matrix:
+    - Laravel=6.0.*
     - Laravel=5.8.*
     - Laravel=5.7.*
     - Laravel=5.6.*
-    - Laravel=6.0.*
 
 matrix:
   exclude:
