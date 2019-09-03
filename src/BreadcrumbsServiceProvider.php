@@ -40,7 +40,7 @@ class BreadcrumbsServiceProvider extends ServiceProvider //implements Deferrable
         $this->mergeConfigFrom($configFile, 'breadcrumbs');
 
         // Publish the config/breadcrumbs.php file
-        $this->publishes([$configFile => config_path('breadcrumbs.php')], 'config');
+        $this->publishes([$configFile => config_path('breadcrumbs.php')], 'breadcrumbs-config');
 
         // Register Manager class singleton with the app container
         $this->app->singleton(BreadcrumbsManager::class, config('breadcrumbs.manager-class'));

@@ -112,7 +112,7 @@ By default a [Bootstrap](https://getbootstrap.com/docs/4.0/components/breadcrumb
 First initialise the config file by running this command:
 
 ```bash
-php artisan vendor:publish --provider="DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider"
+php artisan vendor:publish --tag=breadcrumbs-config
 ```
 
 Then open `config/breadcrumbs.php` and edit this line:
@@ -509,7 +509,7 @@ And to `Breadcrumbs::view()`:
 It will throw an `InvalidBreadcrumbException` if the breadcrumb doesn't exist, to remind you to create one. To disable this (e.g. if you have some pages with no breadcrumbs), first initialise the config file, if you haven't already:
 
 ```bash
-php artisan vendor:publish --provider="DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider"
+php artisan vendor:publish --tag=breadcrumbs-config
 ```
 
 Then open `config/breadcrumbs.php` and set this value:
@@ -744,7 +744,7 @@ To check if a breadcrumb with a given name exists, call `Breadcrumbs::exists('na
 If you don't want to use `routes/breadcrumbs.php`, you can change it in the config file. First initialise the config file, if you haven't already:
 
 ```bash
-php artisan vendor:publish --provider="DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider"
+php artisan vendor:publish --tag=breadcrumbs-config
 ```
 
 Then open `config/breadcrumbs.php` and edit this line:
@@ -1175,10 +1175,11 @@ If you get really stuck, I suggest you:
 *Laravel Breadcrumbs uses [Semantic Versioning](http://semver.org/).*
 
 
-### Unreleased (`dev-master`)
+### [v5.3.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.3.0) (Tue 3 Sep 2019)
 
 - Add Laravel 6.0 support
 - Add [Laravel Ignition](https://freek.dev/1441-ignition-a-new-error-page-for-laravel) suggested solutions
+- Change `vendor:publish` tag from `config` to `breadcrumbs-config` to match Horizon & Telescope and simplify the command
 
 
 ### [v5.2.1](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.2.1) (Wed 27 Feb 2019)
