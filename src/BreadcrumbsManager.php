@@ -8,11 +8,9 @@ use DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException;
 use DaveJamesMiller\Breadcrumbs\Exceptions\ViewNotSetException;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Traits\Macroable;
-use stdClass;
 
 /**
  * The main Breadcrumbs singleton class, responsible for registering, generating and rendering breadcrumbs.
@@ -58,8 +56,8 @@ class BreadcrumbsManager
 
     public function __construct(BreadcrumbsGenerator $generator, Router $router, ViewFactory $viewFactory)
     {
-        $this->generator   = $generator;
-        $this->router      = $router;
+        $this->generator = $generator;
+        $this->router = $router;
         $this->viewFactory = $viewFactory;
     }
 
@@ -75,11 +73,11 @@ class BreadcrumbsManager
      */
     public function for(string $name, callable $callback): void
     {
-        if (isset($this->callbacks[ $name ])) {
-            throw new DuplicateBreadcrumbException("Breadcrumb name \"{$name}\" has already been registered");
+        if (isset($this->callbacks[$name])) {
+            throw new DuplicateBreadcrumbException($name);
         }
 
-        $this->callbacks[ $name ] = $callback;
+        $this->callbacks[$name] = $callback;
     }
 
     /**
@@ -87,13 +85,13 @@ class BreadcrumbsManager
      *
      * For backwards-compatibility with v5.0.0 and below.
      *
-     * @see self::for()
      * @param string $name The name of the page.
      * @param callable $callback The callback, which should accept a Generator instance as the first parameter and may
      *     accept additional parameters.
      * @return void
      * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\DuplicateBreadcrumbException If the given name has already been
      *     used.
+     * @see self::for()
      */
     public function register(string $name, callable $callback): void
     {
@@ -144,7 +142,7 @@ class BreadcrumbsManager
             }
         }
 
-        return isset($this->callbacks[ $name ]);
+        return isset($this->callbacks[$name]);
     }
 
     /**
@@ -180,6 +178,7 @@ class BreadcrumbsManager
             return $this->generator->generate($this->callbacks, $this->before, $this->after, $name, $params);
         } catch (InvalidBreadcrumbException $e) {
             if ($origName === null && config('breadcrumbs.missing-route-bound-breadcrumb-exception')) {
+                $e->setIsRouteBound();
                 throw $e;
             }
 
@@ -225,7 +224,7 @@ class BreadcrumbsManager
     {
         $view = config('breadcrumbs.view');
 
-        if (! $view) {
+        if (!$view) {
             throw new ViewNotSetException('Breadcrumbs view not specified (check config/breadcrumbs.php)');
         }
 
@@ -268,7 +267,6 @@ class BreadcrumbsManager
         }
 
         // Determine the current route
-        /** @var Router $route */
         $route = $this->router->current();
 
         // No current route - must be the 404 page
@@ -280,9 +278,7 @@ class BreadcrumbsManager
         $name = $route->getName();
 
         if ($name === null) {
-            $uri = Arr::first($route->methods()) . ' /' . ltrim($route->uri(), '/');
-
-            throw new UnnamedRouteException("The current route ($uri) is not named");
+            throw new UnnamedRouteException($route);
         }
 
         // Get the current route parameters

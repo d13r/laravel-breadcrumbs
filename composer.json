@@ -15,7 +15,8 @@
     "require": {
         "php": ">=7.1.3",
         "illuminate/support": "^5.6|^6.0|6.0.x-dev",
-        "illuminate/view": "^5.6|^6.0|6.0.x-dev"
+        "illuminate/view": "^5.6|^6.0|6.0.x-dev",
+        "facade/ignition-contracts": "^1.0"
     },
     "require-dev": {
         "orchestra/testbench": "3.6.*|3.7.*|3.8.*|3.9.*|3.9.x-dev",
@@ -32,6 +33,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "App\\": "tests/",
             "BreadcrumbsTests\\": "tests/"
         }
     },

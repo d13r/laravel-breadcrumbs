@@ -5,9 +5,12 @@ namespace BreadcrumbsTests;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use Orchestra\Testbench\TestCase as TestbenchTestCase;
+use Spatie\Snapshots\MatchesSnapshots;
 
 abstract class TestCase extends TestbenchTestCase
 {
+    use MatchesSnapshots;
+
     protected function getPackageProviders($app)
     {
         return [
@@ -28,5 +31,12 @@ abstract class TestCase extends TestbenchTestCase
 
         $app->config->set('view.paths', [__DIR__ . '/resources/views']);
         $app->config->set('breadcrumbs.view', 'breadcrumbs');
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->withoutExceptionHandling();
     }
 }

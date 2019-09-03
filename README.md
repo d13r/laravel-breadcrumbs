@@ -925,7 +925,9 @@ Breadcrumbs::after(function (BreadcrumbsGenerator $trail) {
 [Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/src/BreadcrumbsGenerator.php#L96)
 
 
-### Configuration
+### Configuration file
+
+`config/breadcrumbs.php`
 
 | Setting                                    | Type           | Added in |
 |--------------------------------------------|----------------|----------|
@@ -1176,6 +1178,7 @@ If you get really stuck, I suggest you:
 ### Unreleased (`dev-master`)
 
 - Add Laravel 6.0 support
+- Add [Laravel Ignition](https://freek.dev/1441-ignition-a-new-error-page-for-laravel) suggested solutions
 
 
 ### [v5.2.1](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.2.1) (Wed 27 Feb 2019)

@@ -4,12 +4,9 @@ namespace BreadcrumbsTests;
 
 use Breadcrumbs;
 use Generator;
-use Spatie\Snapshots\MatchesSnapshots;
 
 class TemplatesTest extends TestCase
 {
-    use MatchesSnapshots;
-
     protected function setUp(): void
     {
         parent::setUp();

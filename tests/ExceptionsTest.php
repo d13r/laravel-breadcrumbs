@@ -4,12 +4,11 @@ namespace BreadcrumbsTests;
 
 use Breadcrumbs;
 use Config;
-use Route;
-use URL;
 
 class ExceptionsTest extends TestCase
 {
     // Also see RouteBoundTest which tests the route binding-related exceptions
+    // and IgnitionTest which tests the Laravel Ignition integration (solutions)
 
     public function testDuplicateBreadcrumbException()
     {

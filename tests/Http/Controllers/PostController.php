@@ -1,6 +1,6 @@
 <?php
 
-namespace BreadcrumbsTests\Controllers;
+namespace App\Http\Controllers;
 
 use Breadcrumbs;
 use BreadcrumbsTests\Models\Post;

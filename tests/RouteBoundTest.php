@@ -3,7 +3,6 @@
 namespace BreadcrumbsTests;
 
 use Breadcrumbs;
-use BreadcrumbsTests\Controllers\PostController;
 use BreadcrumbsTests\Models\Post;
 use Config;
 use Illuminate\Routing\Middleware\SubstituteBindings;
@@ -144,7 +143,7 @@ class RouteBoundTest extends TestCase
             $breadcrumbs->push('Not Found');
         });
 
-        $html = $this->get('/this-does-not-exist')->content();
+        $html = $this->withExceptionHandling()->get('/this-does-not-exist')->content();
 
         $this->assertXmlStringEqualsXmlString('
             <nav>
@@ -165,7 +164,7 @@ class RouteBoundTest extends TestCase
             return Breadcrumbs::render();
         });
 
-        $this->withoutExceptionHandling()->get('/');
+        $this->get('/');
     }
 
     public function testMissingBreadcrumbExceptionDisabled()
@@ -192,7 +191,7 @@ class RouteBoundTest extends TestCase
             return Breadcrumbs::render();
         });
 
-        $this->withoutExceptionHandling()->get('/blog');
+        $this->get('/blog');
     }
 
     public function testUnnamedHomeRouteException()
@@ -205,7 +204,7 @@ class RouteBoundTest extends TestCase
             return Breadcrumbs::render();
         });
 
-        $this->withoutExceptionHandling()->get('/');
+        $this->get('/');
     }
 
     public function testUnnamedRouteExceptionDisabled()
@@ -285,7 +284,7 @@ class RouteBoundTest extends TestCase
 
     public function testResourcefulControllers()
     {
-        Route::middleware(SubstituteBindings::class)->resource('post', PostController::class);
+        Route::middleware(SubstituteBindings::class)->resource('post', 'App\Http\Controllers\PostController');
 
         // Posts
         Breadcrumbs::for('post.index', function ($breadcrumbs) {

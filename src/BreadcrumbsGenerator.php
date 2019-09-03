@@ -62,7 +62,7 @@ class BreadcrumbsGenerator
     protected function call(string $name, array $params): void
     {
         if (! isset($this->callbacks[ $name ])) {
-            throw new InvalidBreadcrumbException("Breadcrumb not found with name \"{$name}\"");
+            throw new InvalidBreadcrumbException($name);
         }
 
         $this->callbacks[$name]($this, ...$params);
