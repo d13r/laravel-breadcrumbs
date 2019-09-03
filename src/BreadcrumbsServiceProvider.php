@@ -2,22 +2,16 @@
 
 namespace DaveJamesMiller\Breadcrumbs;
 
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
 /**
  * The Laravel service provider, which registers, configures and bootstraps the package.
  */
-class BreadcrumbsServiceProvider extends ServiceProvider
+class BreadcrumbsServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = true;
-
-    /**
-     * Get the classes provided for deferred loading.
+     * Get the services provided for deferred loading.
      *
      * @return array
      */
