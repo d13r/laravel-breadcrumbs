@@ -165,7 +165,7 @@ class RouteBoundTest extends TestCase
             return Breadcrumbs::render();
         });
 
-        throw $this->get('/')->exception;
+        $this->withoutExceptionHandling()->get('/');
     }
 
     public function testMissingBreadcrumbExceptionDisabled()
@@ -192,7 +192,7 @@ class RouteBoundTest extends TestCase
             return Breadcrumbs::render();
         });
 
-        throw $this->get('/blog')->exception;
+        $this->withoutExceptionHandling()->get('/blog');
     }
 
     public function testUnnamedHomeRouteException()
@@ -205,7 +205,7 @@ class RouteBoundTest extends TestCase
             return Breadcrumbs::render();
         });
 
-        throw $this->get('/')->exception;
+        $this->withoutExceptionHandling()->get('/');
     }
 
     public function testUnnamedRouteExceptionDisabled()
