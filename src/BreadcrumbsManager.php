@@ -242,7 +242,7 @@ class BreadcrumbsManager
      * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException if the current route doesn't have an associated name.
      * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
      */
-    public function current()
+    public function current(): ?\stdClass
     {
         return $this->generate()->where('current', '!==', false)->last();
     }
