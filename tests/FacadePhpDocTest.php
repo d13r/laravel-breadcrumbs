@@ -8,30 +8,10 @@ use Illuminate\Support\Str;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionParameter;
+use ReflectionType;
 
 class FacadePhpDocTest extends TestCase
 {
-    /**
-     * Methods that are not needed in phpDoc
-     */
-    private const EXCLUSION_METHODS = [
-        '__construct',
-        '__destruct',
-        '__call',
-        '__callStatic',
-        '__get',
-        '__set',
-        '__isset',
-        '__unset',
-        '__sleep',
-        '__wakeup',
-        '__toString',
-        '__invoke',
-        '__set_state',
-        '__clone',
-        '__debugInfo',
-    ];
-
     public function tags()
     {
         $code = file_get_contents(__DIR__ . '/../src/BreadcrumbsManager.php');
@@ -69,91 +49,75 @@ class FacadePhpDocTest extends TestCase
         );
     }
 
-    public function testBreadcrumbsFacade()
+    public function dataProviderManagerMethods()
     {
-        $this->checkMethodDocBlock(Breadcrumbs::class, BreadcrumbsManager::class);
+
     }
 
-    /**
-     * Checks the correctness of building the doc block according to the main class
-     *
-     * @param string $facade
-     * @param string $class
-     *
-     * @throws \ReflectionException
-     */
-    private function checkMethodDocBlock(string $facade, string $class)
+    public function testBreadcrumbsFacade()
     {
-        $class = new ReflectionClass($class);
+        $class = new ReflectionClass(BreadcrumbsManager::class);
         $methods = $class->getMethods(ReflectionMethod::IS_PUBLIC);
-        $facadeDocs = (new ReflectionClass($facade))->getDocComment();
+        $facadeDocs = (new ReflectionClass(Breadcrumbs::class))->getDocComment();
 
         collect($methods)
-            ->map(function (ReflectionMethod $method) {
-                return in_array($method->name, self::EXCLUSION_METHODS, true) ? null : $method;
+            ->filter(function (ReflectionMethod $method) {
+                return !Str::startsWith($method->name, '__');
             })
-            ->filter()
             ->map(function (ReflectionMethod $method) {
 
-                $parameters = $this->buildParametsDocBlock($method->getParameters());
-                $returns = $this->buildReturnTypeDocBlock($method->getReturnType());
-
-                $docMethod = sprintf('@method static %s %s%s',
-                    $returns,
+                $docMethod = sprintf('* @method static %s %s(%s)',
+                    $this->buildReturnTypeDocBlock($method->getReturnType()),
                     $method->getName(),
-                    $parameters
+                    $this->buildParametersDocBlock($method->getParameters())
                 );
 
                 return preg_replace('/\s+/', ' ', $docMethod);
             })
             ->each(function (string $method) use ($facadeDocs) {
-                $this->assertStringContainsString($method, $facadeDocs, 'Not found: ' . $method);
+                $this->assertStringContainsString($method, $facadeDocs, 'Invalid docblock on Breadcrumbs facade');
             });
     }
 
-    /**
-     * @param ReflectionParameter[] $parameters
-     *
-     * @return string
-     */
-    private function buildParametsDocBlock($parameters = [])
+    private function buildParametersDocBlock($parameters = []): string
     {
-        $parameters = array_map(function (ReflectionParameter $parameter) {
-            $name = optional($parameter->getType())->getName();
+        return collect($parameters)
+            ->map(static function (ReflectionParameter $parameter) {
+                $doc = '$' . $parameter->getName();
 
-            $strParam = sprintf('%s $%s', $name, $parameter->getName());
-            $strParam = trim($strParam);
+                if ($parameter->isVariadic()) {
+                    $doc = '...' . $doc;
+                }
 
-            if (!$parameter->isDefaultValueAvailable()) {
-                return $strParam;
-            }
+                if ($type = $parameter->getType()) {
+                    $doc = $type->getName() . ' ' . $doc;
+                }
 
-            $defaultValue = $parameter->getDefaultValue() ?? 'null';
-            return sprintf('%s = %s', $strParam, $defaultValue);
-        }, $parameters);
+                if ($parameter->isDefaultValueAvailable()) {
+                    $doc .= ' = ' . var_export($parameter->getDefaultValue(), true);
+                }
 
-        return sprintf('(%s)', implode(', ', $parameters));
+                return $doc;
+            })
+            ->implode(', ');
     }
 
-    /**
-     * @param \ReflectionType|null $reflectionType
-     *
-     * @return string
-     */
-    private function buildReturnTypeDocBlock(\ReflectionType $reflectionType = null)
+    private function buildReturnTypeDocBlock(ReflectionType $reflectionType = null): ?string
     {
-        $reflectionType = optional($reflectionType);
+        if (!$reflectionType) {
+            return '';
+        }
 
-        $strReturn = $reflectionType->getName();
+        $doc = $reflectionType->getName();
 
-        if (class_exists($strReturn)) {
-            $strReturn = Str::start($strReturn, '\\');
+        if (!$reflectionType->isBuiltin()) {
+            $doc = Str::start($doc, '\\');
         }
 
         if ($reflectionType->allowsNull()) {
-            $strReturn = sprintf('%s|%s', $strReturn, 'null');
+            $doc .= '|null';
         }
 
-        return $strReturn;
+        return $doc;
     }
 }
