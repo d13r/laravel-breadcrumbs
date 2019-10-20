@@ -50,11 +50,6 @@ class FacadePhpDocTest extends TestCase
         );
     }
 
-    public function dataProviderManagerMethods()
-    {
-
-    }
-
     public function testBreadcrumbsFacade()
     {
         $class = new ReflectionClass(BreadcrumbsManager::class);
