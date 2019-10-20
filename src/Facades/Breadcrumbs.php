@@ -20,10 +20,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static array getCurrentRoute()
  * @method static void setCurrentRoute(string $name, ...$params)
  * @method static void clearCurrentRoute()
- * @method static macro($name, $macro)
- * @method static mixin($mixin, $replace = true)
- * @method static hasMacro($name)
- *
+ * @mixin \Illuminate\Support\Traits\Macroable
  * @see BreadcrumbsManager
  */
 class Breadcrumbs extends Facade

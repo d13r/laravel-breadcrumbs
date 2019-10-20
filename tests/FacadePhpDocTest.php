@@ -5,6 +5,7 @@ namespace BreadcrumbsTests;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsManager;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use Illuminate\Support\Str;
+use Illuminate\Support\Traits\Macroable;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionParameter;
@@ -58,28 +59,40 @@ class FacadePhpDocTest extends TestCase
     {
         $class = new ReflectionClass(BreadcrumbsManager::class);
         $methods = $class->getMethods(ReflectionMethod::IS_PUBLIC);
-        $facadeDocs = (new ReflectionClass(Breadcrumbs::class))->getDocComment();
+
+        $macroableTrait = new ReflectionClass(Macroable::class);
+        /** @var \Illuminate\Support\Collection $macroableMethods */
+        $macroableMethods = collect($macroableTrait->getMethods(ReflectionMethod::IS_PUBLIC))->map->name;
+
+        $facadeDocBlock = (new ReflectionClass(Breadcrumbs::class))->getDocComment();
 
         collect($methods)
             ->filter(function (ReflectionMethod $method) {
+                // Ignore magic methods
                 return !Str::startsWith($method->name, '__');
+            })
+            ->filter(function (ReflectionMethod $method) use ($macroableMethods) {
+                // Ignore methods from the Macroable trait (use @mixin instead)
+                return !$macroableMethods->contains($method->name);
             })
             ->map(function (ReflectionMethod $method) {
 
-                $docMethod = sprintf('* @method static %s %s(%s)',
-                    $this->buildReturnTypeDocBlock($method->getReturnType()),
-                    $method->getName(),
-                    $this->buildParametersDocBlock($method->getParameters())
-                );
+                $doc = '* @method static ';
 
-                return preg_replace('/\s+/', ' ', $docMethod);
+                if ($returnTypeDoc = $this->returnTypeDoc($method->getReturnType())) {
+                    $doc .= $returnTypeDoc . ' ';
+                }
+
+                $doc .= $method->name . '(' . $this->parametersDoc($method->getParameters()) . ')';
+
+                return $doc;
             })
-            ->each(function (string $method) use ($facadeDocs) {
-                $this->assertStringContainsString($method, $facadeDocs, 'Invalid docblock on Breadcrumbs facade');
+            ->each(function (string $method) use ($facadeDocBlock) {
+                $this->assertStringContainsString($method, $facadeDocBlock, 'Invalid docblock on Breadcrumbs facade');
             });
     }
 
-    private function buildParametersDocBlock($parameters = []): string
+    private function parametersDoc($parameters = []): string
     {
         return collect($parameters)
             ->map(static function (ReflectionParameter $parameter) {
@@ -102,7 +115,7 @@ class FacadePhpDocTest extends TestCase
             ->implode(', ');
     }
 
-    private function buildReturnTypeDocBlock(ReflectionType $reflectionType = null): ?string
+    private function returnTypeDoc(ReflectionType $reflectionType = null): ?string
     {
         if (!$reflectionType) {
             return '';
