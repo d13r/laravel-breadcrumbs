@@ -1175,6 +1175,11 @@ If you get really stuck, I suggest you:
 *Laravel Breadcrumbs uses [Semantic Versioning](http://semver.org/).*
 
 
+### [v5.3.1](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.3.1) (Sun 20 Oct 2019)
+
+- Add a docblock to the `Breadcrumbs` facade (alternative to [IDE Helper](https://github.com/barryvdh/laravel-ide-helper) – thanks to [Alexandr Chernyaev](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/206))
+
+
 ### [v5.3.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.3.0) (Tue 3 Sep 2019)
 
 - Add Laravel 6.0 support
