@@ -1077,6 +1077,8 @@ git push -u YOUR_USERNAME YOUR_BRANCH
 
 Finally, browse to the repository on GitHub and create a pull request.
 
+(Alternatively, there is a [test app](https://github.com/davejamesmiller/laravel-breadcrumbs-test) that you can use.)
+
 
 ### Using your fork in a project
 
