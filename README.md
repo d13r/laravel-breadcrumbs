@@ -1153,11 +1153,9 @@ If everything does work, it can be released as a patch version. If changes are n
  No Technical Support
 --------------------------------------------------------------------------------
 
-Sorry, I don't offer any technical support, and GitHub Issues are disabled.
+Sorry, I don't offer any technical support, and GitHub Issues are disabled. That means I won't figure out why it's not working for you, I won't fix bugs for you, and I won't write new features on request - this is **free** software after all.
 
-(That means I won't figure out why it's not working for you, I won't fix bugs for you, and I won't write new features on request. This is **free** open source software - the license even says `The software is provided "as is", without warranty of any kind`. I wrote it for my own benefit, *not* yours.)
-
-**But** the beauty of open source is you can do whatever you want with it! You can fork it, fix it, improve it and extend it. If you don't want to maintain your own fork, and you think other people would benefit from your changes, you can submit a [pull request](https://github.com/davejamesmiller/laravel-breadcrumbs/pulls) to have your changes included in the next release. (Yes it requires some effort on your part, but why should I do all the work?)
+**But** the beauty of open source is you can do whatever you want with it! You can fork it, fix it, improve it and extend it. If you don't want to maintain your own fork, and you think other people would benefit from your changes, you can submit a [pull request](https://github.com/davejamesmiller/laravel-breadcrumbs/pulls) to have your changes included in the next release.
 
 If you get really stuck, I suggest you:
 
@@ -1168,7 +1166,7 @@ If you get really stuck, I suggest you:
 5. Pay someone more experienced to help you (or if you work for a company, ask your boss to pay them).
 6. Try posting on [Stack Overflow](https://stackoverflow.com/search?q=laravel+breadcrumbs), [Laravel.io Forum](https://laravel.io/forum) or [Laracasts Forum](https://laracasts.com/discuss) (but I can't promise anyone will answer - they don't get paid either).
 7. Use a different package instead.
-8. Write your own breadcrumbs generator.
+8. Write your own.
 
 
  Changelog
