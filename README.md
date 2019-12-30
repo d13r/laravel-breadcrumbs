@@ -1197,6 +1197,11 @@ If you get really stuck, I suggest you:
 *Laravel Breadcrumbs uses [Semantic Versioning](http://semver.org/).*
 
 
+### [v5.3.2](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.3.2) (Mon 30 Dec 2019)
+
+- Remove the maximum Laravel version constraint from composer.json, to support Laravel 7+ without requiring a new release every 6 months
+
+
 ### [v5.3.1](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.3.1) (Sun 20 Oct 2019)
 
 - Add a docblock to the `Breadcrumbs` facade (alternative to [IDE Helper](https://github.com/barryvdh/laravel-ide-helper) – thanks to [Alexandr Chernyaev](https://github.com/davejamesmiller/laravel-breadcrumbs/pull/206))
@@ -1204,7 +1209,7 @@ If you get really stuck, I suggest you:
 
 ### [v5.3.0](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/5.3.0) (Tue 3 Sep 2019)
 
-- Add Laravel 6.0 support
+- Add Laravel 6.x support
 - Add [Laravel Ignition](https://freek.dev/1441-ignition-a-new-error-page-for-laravel) suggested solutions
 - Change `vendor:publish` tag from `config` to `breadcrumbs-config` to match Horizon & Telescope and simplify the command
 
