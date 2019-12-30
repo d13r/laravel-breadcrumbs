@@ -21,7 +21,7 @@
     "require-dev": {
         "orchestra/testbench": ">=3.6",
         "phpunit/phpunit": "^7.0|^8.0",
-        "php-coveralls/php-coveralls": "^1.0",
+        "php-coveralls/php-coveralls": "^2.0",
         "spatie/phpunit-snapshot-assertions": "^2.0"
     },
     "minimum-stability": "dev",
