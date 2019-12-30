@@ -36,15 +36,16 @@ A simple [Laravel](https://laravel.com/)-style way to create breadcrumbs.
  Compatibility Chart
 --------------------------------------------------------------------------------
 
-| Laravel Breadcrumbs                                                    | Laravel   | PHP  |
-|------------------------------------------------------------------------|-----------|------|
-| **5.3.0 – 5.3.1**                                                      | 5.6 – 6.0 | 7.1+ |
-| 5.2.1                                                                  | 5.6 – 5.8 | 7.1+ |
-| 5.1.1 – 5.2.0                                                          | 5.6 – 5.7 | 7.1+ |
-| 5.0.0 – 5.1.0                                                          | 5.6       | 7.1+ |
-| [4.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.x) | 5.5       | 7.0+ |
-| [3.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.x) | 5.0 – 5.4 | 5.4+ |
-| [2.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/2.x) | 4.0 – 4.2 | 5.3+ |
+| Laravel Breadcrumbs                                                    | Laravel      | PHP  |
+|------------------------------------------------------------------------|--------------|------|
+| **5.3.2**                                                              | 5.6+         | 7.1+ |
+| 5.3.0 – 5.3.1                                                          | 5.6 – 6.x    | 7.1+ |
+| 5.2.1                                                                  | 5.6 – 5.8    | 7.1+ |
+| 5.1.1 – 5.2.0                                                          | 5.6 – 5.7    | 7.1+ |
+| 5.0.0 – 5.1.0                                                          | 5.6          | 7.1+ |
+| [4.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/4.x) | 5.5          | 7.0+ |
+| [3.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/3.x) | 5.0 – 5.4    | 5.4+ |
+| [2.x](https://github.com/davejamesmiller/laravel-breadcrumbs/tree/2.x) | 4.0 – 4.2    | 5.3+ |
 
 
  Getting Started
@@ -947,7 +948,9 @@ Breadcrumbs::after(function (BreadcrumbsGenerator $trail) {
 
 ### There's a new version of Laravel - can you add support for it?
 
-Yes - if/when (1) someone [submits a pull request](#contributing) to add it, or (2) I decide to upgrade my own applications - whichever comes first. (In practice it's usually the former because I don't generally upgrade on day 1.)
+Since version 5.3.2, there is no maximum version of Laravel specified in [composer.json](composer.json), so most of the time it will just work.
+
+If it breaks for any reason, it will be fixed when (1) someone [submits a pull request](#new-version-of-laravel) to fix it, or (2) I decide to upgrade my own applications - whichever comes first. In practice it's usually the former because I don't generally upgrade on day 1.
 
 
 ### Why is there no Breadcrumbs::resource() method?
@@ -1133,21 +1136,24 @@ scripts/phpdoc.sh
 
 ### New version of Laravel
 
-When a new version of Laravel is released, these files will need to be updated:
+There is no maximum version specified in [`composer.json`](composer.json), so there is no need for a new version of Laravel Breadcrumbs to be released every 6 months. However, this file will need to be updated to run tests against the new version:
 
-- [`composer.json`](composer.json)
-    - `illuminate/*`
-    - [`orchestra/testbench`](https://github.com/orchestral/testbench#version-compatibility)
 - [`.travis.yml`](.travis.yml)
-    - Laravel versions
-    - PHP versions
+    - `matrix` (Laravel versions)
+    - `php` (PHP versions)
+    - `exclude` (Unsupported combinations)
+
+If changes are required, also update:
+
 - [`README`](README.md)
     - [`Compatibility Chart`](README.md#compatibility-chart)
     - [`Changelog`](README.md#changelog)
 
-Run `composer update` to install the new version of Laravel, and `scripts/test.sh` to make sure everything still works.
+If backwards-incompatible changes cause the **minimum** supported versions of Laravel or PHP to change, update:
 
-If everything does work, it can be released as a patch version. If changes are needed, it may need to be a minor version ([consult semver.org](https://semver.org/#spec-item-6)). If there are major changes in Laravel, I will release a new major version that drops support for old versions of Laravel, rather than attempting to support both in one codebase. Please update the README accordingly.
+- [`composer.json`](composer.json)
+    - `php/*`
+    - `illuminate/*`
 
 
  No Technical Support
