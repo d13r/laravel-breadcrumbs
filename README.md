@@ -1145,15 +1145,31 @@ There is no maximum version specified in [`composer.json`](composer.json), so th
 
 If changes are required, also update:
 
-- [`README`](README.md)
-    - [`Compatibility Chart`](README.md#compatibility-chart)
-    - [`Changelog`](README.md#changelog)
+- [`README.md`](README.md)
+    - [Compatibility Chart](README.md#compatibility-chart)
+    - [Changelog](README.md#changelog)
 
 If backwards-incompatible changes cause the **minimum** supported versions of Laravel or PHP to change, update:
 
 - [`composer.json`](composer.json)
     - `php/*`
     - `illuminate/*`
+
+### Releasing a new version
+
+*This section is for maintainers only.*
+
+- Ensure the unit tests are updated and have 100% coverage
+- Update the [test app](https://github.com/davejamesmiller/laravel-packages-test), if appropriate, and test it manually
+- Ensure the [README](README.md) is up to date, including:
+    - Document any new features
+    - [Compatibility Chart](README.md#compatibility-chart)
+    - [Changelog](README.md#changelog)
+- Merge the changes into the `master` branch (if necessary)
+- Push the code changes to GitHub (`git push`)
+- Make sure [all tests are passing](https://travis-ci.org/davejamesmiller/laravel-breadcrumbs)
+- Tag the release (`git tag 1.2.3`)
+- Push the tag (`git push --tag`)
 
 
  No Technical Support
