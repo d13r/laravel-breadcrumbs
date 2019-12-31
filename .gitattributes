@@ -11,5 +11,5 @@
 /*.xml export-ignore
 /*.yml export-ignore
 
-/scripts export-ignore
-/tests export-ignore
+/scripts/ export-ignore
+/tests/ export-ignore

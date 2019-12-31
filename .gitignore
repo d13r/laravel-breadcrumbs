@@ -1,6 +1,6 @@
 # PHP packages
 /composer.lock
-/vendor
+/vendor/
 
 # phpDocumentor
 /api-docs/
