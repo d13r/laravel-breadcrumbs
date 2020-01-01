@@ -125,11 +125,11 @@ Then open `config/breadcrumbs.php` and edit this line:
 The possible values are:
 
 - `breadcrumbs::bootstrap4` – [Bootstrap 4](https://getbootstrap.com/docs/4.0/components/breadcrumb/)
-- `breadcrumbs::bootstrap3` – [Bootstrap 3](http://getbootstrap.com/components/#breadcrumbs)
+- `breadcrumbs::bootstrap3` – [Bootstrap 3](https://getbootstrap.com/docs/3.4/components/#breadcrumbs)
 - `breadcrumbs::bootstrap2` – [Bootstrap 2](http://getbootstrap.com/2.3.2/components.html#breadcrumbs)
-- `breadcrumbs::bulma` – [Bulma](http://bulma.io/documentation/components/breadcrumb/)
-- `breadcrumbs::foundation6` – [Foundation 6](http://foundation.zurb.com/sites/docs/breadcrumbs.html)
-- `breadcrumbs::materialize` – [Materialize](http://materializecss.com/breadcrumbs.html)
+- `breadcrumbs::bulma` – [Bulma](https://bulma.io/documentation/components/breadcrumb/)
+- `breadcrumbs::foundation6` – [Foundation 6](https://get.foundation/sites/docs/breadcrumbs.html)
+- `breadcrumbs::materialize` – [Materialize](https://materializecss.com/breadcrumbs.html)
 - `breadcrumbs::uikit` – [UIkit](https://getuikit.com/docs/breadcrumb)
 - `breadcrumbs::json-ld` – [JSON-LD Structured Data](https://developers.google.com/search/docs/data-types/breadcrumbs) (&lt;script&gt; tag, no visible output)
 - The path to a custom view: e.g. `partials.breadcrumbs`
