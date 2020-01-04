@@ -2,10 +2,6 @@
 /composer.lock
 /vendor/
 
-# phpDocumentor
-/api-docs/
-/phpdoc.xml
-
 # Test output
 /.phpunit.result.cache
 /build/

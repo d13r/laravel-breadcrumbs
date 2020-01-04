@@ -1121,17 +1121,6 @@ scripts/test-coverage.sh
 Then open `test-coverage/index.html` to view the results. Be aware of the [edge cases](https://phpunit.de/manual/current/en/code-coverage-analysis.html#code-coverage-analysis.edge-cases) in PHPUnit that can make it not-quite-accurate.
 
 
-### API Docs
-
-To generate API docs using phpDocumentor:
-
-```bash
-scripts/phpdoc.sh
-```
-
-**Note:** This currently fails for `BreadcrumbsManager` due to `function for(...)`, even though it's [valid PHP7 code](https://wiki.php.net/rfc/context_sensitive_lexer).
-
-
 ### New version of Laravel
 
 There is no maximum version specified in [`composer.json`](composer.json), so there is no need for a new version of Laravel Breadcrumbs to be released every 6 months. However, this file will need to be updated to run tests against the new version:
