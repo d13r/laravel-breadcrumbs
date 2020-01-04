@@ -36,20 +36,13 @@ class BreadcrumbsServiceProvider extends ServiceProvider //implements Deferrable
     public function register(): void
     {
         // Load the default config values
-        $configFile = __DIR__ . '/../config/breadcrumbs.php';
-        $this->mergeConfigFrom($configFile, 'breadcrumbs');
-
-        // Publish the config/breadcrumbs.php file
-        $this->publishes([$configFile => config_path('breadcrumbs.php')], 'breadcrumbs-config');
+        $this->mergeConfigFrom(__DIR__ . '/../config/breadcrumbs.php', 'breadcrumbs');
 
         // Register Manager class singleton with the app container
         $this->app->singleton(BreadcrumbsManager::class, config('breadcrumbs.manager-class'));
 
         // Register Generator class so it can be overridden
         $this->app->bind(BreadcrumbsGenerator::class, config('breadcrumbs.generator-class'));
-
-        // Register 'breadcrumbs::' view namespace
-        $this->loadViewsFrom(__DIR__ . '/../views/', 'breadcrumbs');
     }
 
     /**
@@ -59,6 +52,14 @@ class BreadcrumbsServiceProvider extends ServiceProvider //implements Deferrable
      */
     public function boot(): void
     {
+        // Register 'breadcrumbs::' view namespace
+        $this->loadViewsFrom(__DIR__ . '/../views/', 'breadcrumbs');
+
+        // Publish the config/breadcrumbs.php file
+        $this->publishes([
+            __DIR__ . '/../config/breadcrumbs.php' => config_path('breadcrumbs.php'),
+        ], 'breadcrumbs-config');
+
         // Load the routes/breadcrumbs.php file
         $this->registerBreadcrumbs();
     }
