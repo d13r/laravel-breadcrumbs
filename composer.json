@@ -28,7 +28,7 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "DaveJamesMiller\\Breadcrumbs\\": "src/"
+            "DaveJamesMiller\\Breadcrumbs\\": "classes/"
         }
     },
     "autoload-dev": {

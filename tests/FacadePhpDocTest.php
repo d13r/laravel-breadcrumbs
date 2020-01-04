@@ -15,7 +15,7 @@ class FacadePhpDocTest extends TestCase
 {
     public function tags()
     {
-        $code = file_get_contents(__DIR__ . '/../src/BreadcrumbsManager.php');
+        $code = file_get_contents(__DIR__ . '/../classes/BreadcrumbsManager.php');
 
         $pattern = '/
             \*

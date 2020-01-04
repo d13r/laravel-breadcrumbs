@@ -8,6 +8,6 @@
         <target>api-docs/</target>
     </transformer>
     <files>
-        <directory>src/</directory>
+        <directory>classes/</directory>
     </files>
 </phpdoc>

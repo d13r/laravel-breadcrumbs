@@ -875,7 +875,7 @@ For more advanced customisations you can subclass BreadcrumbsManager and/or Brea
 | `Breadcrumbs::setCurrentRoute(string $name, mixed $param1, ...)`    | void       | 2.2.0    |
 | `Breadcrumbs::clearCurrentRoute()`                                  | void       | 2.2.0    |
 
-[Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/src/BreadcrumbsManager.php)
+[Source](classes/BreadcrumbsManager.php)
 
 
 ### Defining breadcrumbs
@@ -906,7 +906,7 @@ Breadcrumbs::after(function (BreadcrumbsGenerator $trail) {
 | `$trail->parent(string $name)`                          | void    | 1.0.0    |
 | `$trail->parent(string $name, mixed $param1, ...)`      | void    | 1.0.0    |
 
-[Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/src/BreadcrumbsGenerator.php)
+[Source](classes/BreadcrumbsGenerator.php)
 
 
 ### In the view (template)
@@ -923,7 +923,7 @@ Breadcrumbs::after(function (BreadcrumbsGenerator $trail) {
 | `$breadcrumb->url`                   | string / null | 1.0.0    |
 | `$breadcrumb->custom_attribute_name` | mixed         | 2.3.0    |
 
-[Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/src/BreadcrumbsGenerator.php#L96)
+[Source](classes/BreadcrumbsGenerator.php#L96)
 
 
 ### Configuration file
@@ -940,7 +940,7 @@ Breadcrumbs::after(function (BreadcrumbsGenerator $trail) {
 | `manager-class`                            | string         | 4.2.0    |
 | `generator-class`                          | string         | 4.2.0    |
 
-[Source](https://github.com/davejamesmiller/laravel-breadcrumbs/blob/master/config/breadcrumbs.php)
+[Source](config/breadcrumbs.php)
 
 
  FAQ
