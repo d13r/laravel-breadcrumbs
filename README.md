@@ -1015,7 +1015,9 @@ Note that this *doesn't* deal with translations or nested resources, and it assu
     - If not, try running `php artisan config:clear` (or manually delete `bootstrap/cache/config.php`) or update the path in `config/breadcrumbs.php`.
 - Make sure the breadcrumb name is correct.
     - If using Route-Bound Breadcrumbs, make sure it matches the route name exactly.
-- To suppress these errors when using Route-Bound Breadcrumbs (if you don't want breadcrumbs on some pages), set [`missing-route-bound-breadcrumb-exception` to `false`](#route-binding-exceptions) in the config file.
+- To suppress these errors when using Route-Bound Breadcrumbs (if you don't want breadcrumbs on some pages), either:
+    - Register them with an empty closure (no push/parent calls), or
+    - Set [`missing-route-bound-breadcrumb-exception` to `false`](#route-binding-exceptions) in the config file to disable the check (but you won't be warned if you miss any pages).
 
 #### BreadcrumbsServiceProvider::registerBreadcrumbs(): Failed opening required ...
 
