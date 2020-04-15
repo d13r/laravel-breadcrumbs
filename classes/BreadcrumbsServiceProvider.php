@@ -5,6 +5,8 @@ namespace DaveJamesMiller\Breadcrumbs;
 // Not available until Laravel 5.8
 //use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Routing\Route;
+use function Opis\Closure\serialize;
 
 /**
  * The Laravel service provider, which registers, configures and bootstraps the package.
@@ -62,6 +64,16 @@ class BreadcrumbsServiceProvider extends ServiceProvider //implements Deferrable
 
         // Load the routes/breadcrumbs.php file
         $this->registerBreadcrumbs();
+
+        if (! Route::hasMacro('breadcrumbs')) {
+            Route::macro('breadcrumbs', function (callable $closure) {
+                /* @var Router $this */
+                $this->defaults(BreadcrumbsMiddleware::class, serialize($closure));
+
+                return $this;
+            });
+        }
+
     }
 
     /**
