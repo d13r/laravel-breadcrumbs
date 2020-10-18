@@ -1,3 +1,17 @@
+**Update: 18 October 2020**
+
+There is now an official fork of Laravel Breadcrumbs:  
+https://github.com/diglactic/laravel-breadcrumbs
+
+Blog post:  
+https://newsroom.diglactic.com/laravel-breadcrumbs/
+
+Thanks to Sheng Slogar of Diglactic for volunteering to take this project forward.
+
+— *Dave*
+
+---
+
 **As of 18 April 2020, Laravel Breadcrumbs is not being maintained.**
 
 It will probably keep working for a while - I [removed the version constraint](#v532-mon-30-dec-2019) from `composer.json`, so it will keep working until a future version of Laravel makes breaking changes.
