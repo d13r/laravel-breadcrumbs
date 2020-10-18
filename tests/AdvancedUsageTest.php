@@ -271,4 +271,24 @@ class AdvancedUsageTest extends TestCase
 
         Breadcrumbs::render();
     }
+
+    public function testBreadcrumbsSupportForArrowFunctions()
+    {
+        Route::name('home')->get('/', function () { });
+        Route::name('blog.index')->get('/blog', function () { });
+
+        Breadcrumbs::for('home', function ($trail) {
+            $trail->push('Some Data')
+                ->push('Another Set');
+        });
+
+        Breadcrumbs::for('blog.index', function ($trail) {
+            $trail->parent('home')
+                ->push('Yet Another');
+        });
+
+        $breadcrumbs = Breadcrumbs::generate('blog.index');
+
+        $this->assertCount(3, $breadcrumbs);
+    }
 }

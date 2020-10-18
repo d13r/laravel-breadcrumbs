@@ -76,10 +76,14 @@ class BreadcrumbsGenerator
      * @param string $name The name of the parent page.
      * @param array ...$params The parameters to pass to the closure.
      * @throws InvalidBreadcrumbException
+     *
+     * @return BreadcrumbsGenerator
      */
-    public function parent(string $name, ...$params): void
+    public function parent(string $name, ...$params): BreadcrumbsGenerator
     {
         $this->call($name, $params);
+
+        return $this;
     }
 
     /**
@@ -90,9 +94,13 @@ class BreadcrumbsGenerator
      * @param string $title The title of the page.
      * @param string|null $url The URL of the page.
      * @param array $data Optional associative array of additional data to pass to the view.
+     *
+     * @return BreadcrumbsGenerator
      */
-    public function push(string $title, string $url = null, array $data = []): void
+    public function push(string $title, string $url = null, array $data = []): BreadcrumbsGenerator
     {
         $this->breadcrumbs->push((object) array_merge($data, compact('title', 'url')));
+
+        return $this;
     }
 }
